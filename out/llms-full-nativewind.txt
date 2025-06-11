@@ -1,0 +1,9918 @@
+Installation
+
+# Installation
+
+Last updated on May 29th, 2025
+
+Nativewind works with both Expo and framework-less React Native projects but Expo provides a more streamlined experience.
+
+**Web**: If you'd like to use Metro to bundle for a website or App Clip and you are **not** using Expo, you will need either Expo's Metro config `@expo/metro-config` or to manually use Tailwind CLI to generate a CSS file.
+
+Expo | Framework-less | Next.js
+
+If you'd like to skip manual setup and use Nativewind with Expo, you can use the following command to initialize a new Expo project with Nativewind and Tailwind CSS.
+
+```
+npx rn-new@latest --nativewind
+```
+
+###
+
+####
+
+You will need to install `nativewind` and its peer dependencies `tailwindcss`, `react-native-reanimated` and `react-native-safe-area-context`.
+
+npmyarnpnpmbunexpo
+
+```
+npm install nativewind tailwindcss@^3.4.17 react-native-reanimated@3.16.2 react-native-safe-area-context
+```
+
+####
+
+Run `npx tailwindcss init` to create a `tailwind.config.js` file
+
+Add the paths to all of your component files in your tailwind.config.js file.
+
+tailwind.config.js
+
+```
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  // NOTE: Update this to include the paths to all of your component files.
+  content: ["./App.tsx", "./components/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Create a CSS file and add the Tailwind directives.
+
+global.css
+
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+From here onwards, replace `./global.css` with the relative path to the CSS file you just created.
+
+####
+
+babel.config.js
+
+```
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+      "nativewind/babel",
+    ],
+  };
+};
+```
+
+####
+
+metro.config.js
+
+```
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require('nativewind/metro');
+
+const config = getDefaultConfig(__dirname)
+
+module.exports = withNativeWind(config, { input: './global.css' })
+```
+
+####
+
+App.js
+
+```
+import "./global.css"
+
+export default App() {
+  /* Your App */
+}
+```
+
+####
+
+Switch the bundler to use the Metro bundler
+
+```
+{
+  "expo": {
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
+```
+
+####
+
+Please follow the TypeScript guide.
+
+###
+
+- Using with Monorepos - Learn how to set up Nativewind in monorepo environments like NX
+- Other Bundlers - Learn how to use Nativewind with other bundlers
+
+Goals & Non-Goals
+
+## Goals & Non-Goals
+
+Last updated on May 29th, 2025
+
+Nativewind was created by a small team with a defined set of goals and non-goals. These goals align closely with Tailwind CSS by also include the best principles for building universal applications.
+
+###
+
+####
+
+Tailwind is not a complete styling solution and is not applicable everywhere you need styling. It also does not cover every use-case and prefers to provide a stable API that works for the majority.
+
+####
+
+We want to support and promote universal applications, and as such all platform are equal. The library should always produce styles in the media that works best on that platform (eg StyleSheet.create on native, CSS StyleSheet on web).
+
+Components and styles should be portable between platforms and work with the same intentions.
+
+####
+
+Design choices and implementation details of Tailwind CSS are inherited by this library. Sometimes this goes against the React Native 'way' but it allows us to better align with external tools and provide a universal experience.
+
+Some examples:
+
+- Use of the className property
+- Use of className as a single string and being unable to pass an array
+
+###
+
+####
+
+A common question is: How does this work with animation libraries? (eg Reanimated 2, Moti, etc)
+
+Answer: This is a non-goal of the project and any compatibility is a coincidence.
+
+Tailwind CSS has minimal support for animations and zero support for libraries that do not accept CSS classes.
+
+If you were building a traditional web application with Tailwind CSS + Framer Motion, the two are separate systems that do not overlap.
+
+When using Nativewind it's a good idea of adopt that philosophy and be adaptable to the tools available to you (either this library, StyleSheet.create, inline styles, etc)
+
+####
+
+This library provides some low level shims for web functionality, but it does not plan on 100% compatibility.
+
+These shims are picked based upon: ease of implementation, maintenance burden, benefit to the community, small runtime.
+
+Features such as property `gap` or `grid` support are best implemented upstream within React Native.
+
+If there is a shim you would like implemented please open an issue and we will consider it.
+
+Troubleshooting
+
+## Troubleshooting
+
+Last updated on May 29th, 2025
+
+While troubleshooting, always start your application without the cache!
+
+- Expo `npx expo start --clear`
+- React Native CLI `npx react-native start --reset-cache`
+
+Before troubleshooting Nativewind, it's crucial to ensure that Tailwind CSS itself is functioning correctly. Nativewind uses the Tailwind CLI to compile your styles, so any issues with Tailwind CLI should be resolved first. Using the command `npx tailwindcss --input <input.css> --output output.css`, Tailwind CLI will generate an `output.css` file. If you are troubleshooting a class that is not working, ensure that the css rule is present in the `output.css` file.
+
+###
+
+Nativewind provides a utility function `verifyInstallation()` designed to help confirm that the package has been correctly installed.
+
+Import the `verifyInstallation` function from the Nativewind package and run within the scope of a React component. **Do not invoke this function on the global scope**, it should be run within a component.
+
+```
+import React from 'react';
+import { verifyInstallation } from 'nativewind';
+
+function App() {
+    // Ensure to call inside a component, not globally
+    verifyInstallation();
+
+    return (
+      // Your component JSX here...
+    );
+}
+
+export default App;
+```
+
+###
+
+Nativewind supports the `DEBUG` environment variable and will output various debug information while your server is running.
+
+osxwindows
+
+```
+DEBUG=nativewind <start-command>
+```
+
+@react-native-community/cli may create multiple terminal sessions. You will need to ensure all sessions have `DEBUG=nativewind` set.
+
+By itself, this information may or may not be useful to you, but it is extremely useful when reporting to the developers on GitHub. You can record the terminal output by redirecting the output to a file.
+
+osxwindows
+
+```
+DEBUG=nativewind script output.log <start-command>
+```
+
+###
+
+####
+
+Always reset your cache before troubleshooting an issue.
+
+####
+
+React Native styling is much more restrictive than the web. This code will work on the web, but not on React Native:
+
+```
+export function App() {
+  return (
+    <View className="text-red-500">
+      <Text>Hello, World!</Text>
+    </View>
+  );
+}
+```
+
+The reason is that `<View />` does not accept a `color` style and will not cascade the style! Instead, you must move the color classes to the `<Text />` element
+
+####
+
+Ensure the component you are applying the style to supports both the style and the required props (e.g `hover:text-white` - does the component support `color` styles and have an `onHover` prop?)
+
+####
+
+React Native has various issues when conditionally applying styles. To prevent these issues it's best to declare all styles.
+
+For example, instead of only applying a text color for dark mode, provide both a light and dark mode text color.
+
+####
+
+React Native's default unit is density-independent pixels (dp) while the web's default is pixels (px). These two units are different, however Nativewind treats them as if they are equivalent. Additionally, the Nativewind's compiler requires a unit for most numeric values forcing some styles to use a `px` unit.
+
+####
+
+React Native uses a different base flex definition to the web. This can be fixed by adding `flex-1` to your classes, which forces the platforms to align.
+
+####
+
+React Native uses a different default `flex-direction` to the web. This can be fixed by explicitly setting a `flex-direction`
+
+Quirks
+
+## Quirks
+
+Last updated on May 29th, 2025
+
+Nativewind aligns CSS and React Native into a common language. However the two style engines do have their differences. We refer to these differences as quirks.
+
+###
+
+React Native has various issues when conditionally applying styles. To prevent these issues it's best to declare all styles.
+
+For example, instead of only applying a text color for dark mode, provide both a light and dark mode text color. This is especially important for transitions and animations.
+
+###
+
+React Native's default unit is density-independent pixels (dp) while the web's default is pixels (px). These two units are different, however Nativewind treats them as if they are equivalent. Additionally, the Nativewind's compiler requires a unit for most numeric values forcing some styles to use a `px` unit. Generally this works fine, however you may need to use the platform modifiers (`web:`/`native:`/`ios:`/`android:`) to adjust per platform
+
+###
+
+Flexbox works the same way in React Native as it does in CSS on the web, with a few exceptions. The defaults are different, with `flexDirection` defaulting to `column` instead of `row`, `alignContent` defaulting to `flex-start` instead of `stretch`, `flexShrink` defaulting to `0` instead of `1`, the `flex` parameter only supporting a single number.
+
+We recommend explicitly setting the flex direction and using the className `flex-1` for consistent styles
+
+###
+
+React Native previously flipped left/right (and start/end) edges when dealing with margin, padding, or border, set on a row-reverse container. In Yoga 3 (introduced in React Native 0.74) the behavior of these properties lines up with web.
+
+withNativeWind
+
+## withNativeWind
+
+Last updated on May 29th, 2025
+
+`withNativeWind` is a higher order component that updates your Metro configuration to support NativeWind.
+
+The only required option is `input`, which is the relative path to your `.css` file.
+
+```
+import { withNativeWind } from "native-wind/metro";
+
+module.exports = withNativeWind(config, {
+  input: "<relative path to your .css file>",
+});
+```
+
+###
+
+- `output`: The relative path to the output file. Defaults to `<projectRoot>/node_modules/.cache/nativewind/`
+- `projectRoot`: Abolsute path to your project root. Only used to set `output`
+- `inlineRem`: The numeric value used to inline the value of `rem` units on native. `false` will disable the behaviour. Defaults to `14`. More information
+- `configPath`: Relative path to your `tailwind.config` file. Defaults to `tailwind.config`. Recommended you use `@config` instead of this option.
+- `hotServerOptions`: Options to pass to the hot server. Defaults to `{ port: 8089 }`
+
+####
+
+These options are available under the `experiments` key.
+
+- `inlineAnimations`: Use `react-native-reanimated`'s inline shared values instead of hooks. This greatly improves performance, but has issues with fast-refresh
+
+Align Content
+
+## Align Content
+
+Last updated on May 29th, 2025
+
+###
+
+Please refer to the documentation on the Tailwind CSS website
+
+###
+
+| Class          | Support |
+| -------------- | ------- |
+| \`\`\`         |         |
+| content-center |         |
+
+````| ✅ Full Support |
+| ```
+content-start
+```   | ✅ Full Support |
+| ```
+content-end
+```     | ✅ Full Support |
+| ```
+content-between
+``` | ✅ Full Support |
+| ```
+content-around
+```  | ✅ Full Support |
+| ```
+content-evenly
+```  | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Text Decoration Color
+
+# Text Decoration Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                      | Support        |
+| -------------------------- | -------------- |
+| ```
+decoration-{n}
+```     | ✅ Full Support |
+| ```
+decoration-[n]
+```     | ✅ Full Support |
+| ```
+decoration-inherit
+``` | 🌐 Web only    |
+| ```
+decoration-current
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Align Items
+
+# Align Items
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support        |
+| ---------------------- | -------------- |
+| ```
+items-start
+```    | ✅ Full Support |
+| ```
+items-end
+```      | ✅ Full Support |
+| ```
+items-center
+```   | ✅ Full Support |
+| ```
+items-baseline
+``` | ✅ Full Support |
+| ```
+items-stretch
+```  | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Text Decoration Style
+
+# Text Decoration Style
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                     | Support        |
+| ------------------------- | -------------- |
+| ```
+decoration-solid
+```  | ✅ Full Support |
+| ```
+decoration-double
+``` | ✅ Full Support |
+| ```
+decoration-dotted
+``` | ✅ Full Support |
+| ```
+decoration-dashed
+``` | ✅ Full Support |
+| ```
+decoration-wavy
+```   | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Text Decoration Thickness
+
+# Text Decoration Thickness
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| ```
+decoration-auto
+```      | 🌐 Web only |
+| ```
+decoration-from-font
+``` | 🌐 Web only |
+| ```
+decoration-0
+```         | 🌐 Web only |
+| ```
+decoration-1
+```         | 🌐 Web only |
+| ```
+decoration-2
+```         | 🌐 Web only |
+| ```
+decoration-4
+```         | 🌐 Web only |
+| ```
+decoration-8
+```         | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+vars()
+
+# vars()
+
+Last updated on May 29th, 2025
+
+These page is still under construction.
+
+##
+
+`vars` is a function that takes a dictionary of CSS variables and returns a style object that can be used in React Native components.
+
+````
+
+\<View style={vars({ '--brand-color': 'red'})}> { // style: { color: 'red' } } <Text className="text-[--brand-color]" /> </View>
+
+````
+
+
+Text Indent
+
+# Text Indent
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| ```
+indent-[n]
+``` | 🌐 Web only |
+| ```
+indent-{n}
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Align Self
+
+# Align Self
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support        |
+| --------------------- | -------------- |
+| ```
+self-auto
+```     | ✅ Full Support |
+| ```
+self-start
+```    | ✅ Full Support |
+| ```
+self-end
+```      | ✅ Full Support |
+| ```
+self-center
+```   | ✅ Full Support |
+| ```
+self-stretch
+```  | ✅ Full Support |
+| ```
+self-baseline
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Text Overflow
+
+# Text Overflow
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| ```
+truncate
+```      | 🌐 Web only |
+| ```
+text-ellipsis
+``` | 🌐 Web only |
+| ```
+text-clip
+```     | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Text Align
+
+# Text Align
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+text-left
+```    | ✅ Full Support |
+| ```
+text-center
+```  | ✅ Full Support |
+| ```
+text-right
+```   | ✅ Full Support |
+| ```
+text-justify
+``` | ✅ Full Support |
+| ```
+text-start
+```   | ✅ Full Support |
+| ```
+text-end
+```     | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# useColorScheme()
+
+Last updated on May 29th, 2025
+
+useColorScheme() provides access to the devices color scheme.
+
+| Value             | Description                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------ |
+| colorScheme       | The current device colorScheme                                                                         |
+| setColorScheme    | Override the current colorScheme with a different scheme (accepted values are `light`/`dark`/`system`) |
+| toggleColorScheme | Toggle the color scheme between `light` and `dark`                                                     |
+
+You can also manually change the color scheme via `NativeWindStyleSheet.setColorScheme(colorScheme)`
+
+````
+
+import { useColorScheme } from "nativewind"; import { Text } from "react-native";
+
+function MyComponent() { const { colorScheme, setColorScheme } = useColorScheme();
+
+return ( \<Text onPress={() => setColorScheme(colorScheme === "light" ? "dark" : "light")} \> {`The color scheme is ${colorScheme}`} </Text> ); }
+
+````
+
+
+Flex
+
+# Flex
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+flex-1
+```       | ✅ Full Support |
+| ```
+basis-[n]
+```    | ✅ Full Support |
+| ```
+flex-auto
+```    | 🌐 Web only    |
+| ```
+flex-initial
+``` | 🌐 Web only    |
+| ```
+flex-none
+```    | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Text Underline Offset
+
+# Text Underline Offset
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                         | Support     |
+| ----------------------------- | ----------- |
+| ```
+underline-offset-auto
+``` | 🌐 Web only |
+| ```
+underline-offset-0
+```    | 🌐 Web only |
+| ```
+underline-offset-1
+```    | 🌐 Web only |
+| ```
+underline-offset-2
+```    | 🌐 Web only |
+| ```
+underline-offset-4
+```    | 🌐 Web only |
+| ```
+underline-offset-8
+```    | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Vertical Align
+
+# Vertical Align
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                     | Support     |
+| ------------------------- | ----------- |
+| ```
+align-baseline
+```    | 🌐 Web only |
+| ```
+align-top
+```         | 🌐 Web only |
+| ```
+align-middle
+```      | 🌐 Web only |
+| ```
+align-bottom
+```      | 🌐 Web only |
+| ```
+align-text-top
+```    | 🌐 Web only |
+| ```
+align-text-bottom
+``` | 🌐 Web only |
+| ```
+align-sub
+```         | 🌐 Web only |
+| ```
+align-super
+```       | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Flex Basis
+
+# Flex Basis
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+basis-{n}
+```  | ✅ Full Support |
+| ```
+basis-[n]
+```  | ✅ Full Support |
+| ```
+basis-auto
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Whitespace
+
+# Whitespace
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                           | Support     |
+| ------------------------------- | ----------- |
+| ```
+whitespace-normal
+```       | 🌐 Web only |
+| ```
+whitespace-nowrap
+```       | 🌐 Web only |
+| ```
+whitespace-pre
+```          | 🌐 Web only |
+| ```
+whitespace-pre-line
+```     | 🌐 Web only |
+| ```
+whitespace-pre-wrap
+```     | 🌐 Web only |
+| ```
+whitespace-break-spaces
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Flex Direction
+
+# Flex Direction
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+:::tip React Native has a different default flex direction to web. We highly recommend explicting setting the Flex Direction on your components. :::
+
+##
+
+| Class                    | Support        |
+| ------------------------ | -------------- |
+| ```
+flex-row
+```         | ✅ Full Support |
+| ```
+flex-row-reverse
+``` | ✅ Full Support |
+| ```
+flex-col
+```         | ✅ Full Support |
+| ```
+flex-col-reverse
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Word Break
+
+# Word Break
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                      | Support     |
+| -------------------------- | ----------- |
+| ```
+break-normal
+```       | 🌐 Web only |
+| ```
+word-break: normal
+``` | 🌐 Web only |
+| ```
+break-words
+```        | 🌐 Web only |
+| ```
+break-all
+```          | 🌐 Web only |
+| ```
+break-keep
+```         | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Background Attachment
+
+Last updated on May 29th, 2025
+
+| Class             | Support     |
+| ----------------- | ----------- |
+| ```
+bg-fixed
+```  | 🌐 Web only |
+| ```
+bg-local
+```  | 🌐 Web only |
+| ```
+bg-scroll
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Background Clip
+
+Last updated on May 29th, 2025
+
+| Class                   | Support     |
+| ----------------------- | ----------- |
+| ```
+bg-clip-border
+```  | 🌐 Web only |
+| ```
+bg-clip-padding
+``` | 🌐 Web only |
+| ```
+bg-clip-content
+``` | 🌐 Web only |
+| ```
+bg-clip-text
+```    | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Responsive Design
+
+Last updated on May 29th, 2025
+
+CAUTION
+
+Nativewind's default theme is not yet designed for native devices and still uses breakpoints that were mostly designed for web.
+
+Nativewind's responsive design works identically to Tailwind CSS, please refer to the official Tailwind CSS docs for more information.
+
+
+# remapProps
+
+Last updated on May 29th, 2025
+
+Nativewind provides the `remapProps` utility to simplify working with third-party components with multiple "style" props.
+
+````
+
+import { remapProps } from "nativewind";
+
+/\*\* ThirdPartyButton is a component with two "style" props, buttonStyle & labelStyle. We can use remapProps to create new props that accept Tailwind CSS's classNames. \*/ const CustomizedButton = remapProps(ThirdPartyButton, { buttonClass: "buttonStyle", labelClass: "labelStyle", });
+
+<CustomizedButton buttonClass="bg-blue-500" labelClass="text-white" />;
+
+```
+
+`remapProps` can be used with the following options
+
+```
+
+// Create a new prop and map it to an existing prop remapProps(component, { "new-prop": "existing-prop" });
+
+// Override an existing prop. remapProps(component, { prop: true });
+
+````
+
+
+Flex Grow
+
+# Flex Grow
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class          | Support        |
+| -------------- | -------------- |
+| ```
+grow
+```   | ✅ Full Support |
+| ```
+grow-0
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Background Color
+
+Last updated on May 29th, 2025
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+bg-{n}
+```     | ✅ Full Support |
+| ```
+bg-[n]
+```     | ✅ Full Support |
+| ```
+bg-inherit
+``` | 🌐 Web only    |
+| ```
+bg-current
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+backgroundOpacity (native only)
+
+For performance reasons, Nativewind renders with the `corePlugin` `backgroundOpacity` disabled. This plugin allows text to dynamically change its opacity via the `--tw-background-opacity` variable. Instead, the opacity is set as a static value in the `color` property.
+
+If you need to use this feature, you can enable it by adding the following to your `tailwind.config.js` file:
+
+````
+
+module.exports = { /\* ... \*/ corePlugins: { backgroundOpacity: true, }, };
+
+````
+
+
+# Background Image
+
+Last updated on May 29th, 2025
+
+| Class                     | Support     |
+| ------------------------- | ----------- |
+| ```
+bg-none
+```           | 🌐 Web only |
+| ```
+bg-gradient-to-t
+```  | 🌐 Web only |
+| ```
+bg-gradient-to-tr
+``` | 🌐 Web only |
+| ```
+bg-gradient-to-r
+```  | 🌐 Web only |
+| ```
+bg-gradient-to-br
+``` | 🌐 Web only |
+| ```
+bg-gradient-to-b
+```  | 🌐 Web only |
+| ```
+bg-gradient-to-bl
+``` | 🌐 Web only |
+| ```
+bg-gradient-to-l
+```  | 🌐 Web only |
+| ```
+bg-gradient-to-tl
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Flex Shrink
+
+# Flex Shrink
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class            | Support        |
+| ---------------- | -------------- |
+| ```
+shrink
+```   | ✅ Full Support |
+| ```
+shrink-0
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Background Origin
+
+Last updated on May 29th, 2025
+
+| Class                     | Support     |
+| ------------------------- | ----------- |
+| ```
+bg-origin-border
+```  | 🌐 Web only |
+| ```
+bg-origin-padding
+``` | 🌐 Web only |
+| ```
+bg-origin-content
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+cssInterop
+
+# cssInterop
+
+Last updated on May 29th, 2025
+
+This function "tags" components so that when its rendered, the runtime will know to resolve the className strings into styles. You should only use this when:
+
+* You have a custom native component
+* You are using a third party component that needs the style prop to be resolved
+* You are using a third party component that does not pass all its props to its children
+
+##
+
+````
+
+import { cssInterop } from 'nativewind';
+
+// Create a new prop and map it to an existing prop cssInterop(component, { "new-prop": "existing-prop" });
+
+// Override an existing prop. cssInterop(component, { "new-prop": true });
+
+// Override an existing prop. cssInterop(component, { "new-prop": { target: "existing-prop", // string or boolean nativeStyleToProp: { "style-attribute": "existing-prop", } } } });
+
+```
+
+##
+
+Here is the mapping using the core component, `<TextInput />`
+
+```
+
+cssInterop(TextInput, { className: { target: "style", // map className->style nativeStyleToProp: { textAlign: true, // extract `textAlign` styles and pass them to the `textAlign` prop }, }, placeholderClassName: { target: false, // Don't pass this as a prop nativeStyleToProp: { color: "placeholderTextColor", // extract `color` and pass it to the `placeholderTextColor`prop }, }, selectionClassName: { target: false, // Don't pass this as a prop nativeStyleToProp: { color: "selectionColor", // extract `color` and pass it to the `selectionColor`prop }, }, });
+
+````
+
+
+Flex Wrap
+
+# Flex Wrap
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                     | Support        |
+| ------------------------- | -------------- |
+| ```
+flex-wrap
+```         | ✅ Full Support |
+| ```
+flex-wrap-reverse
+``` | ✅ Full Support |
+| ```
+flex-nowrap
+```       | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Background Position
+
+Last updated on May 29th, 2025
+
+| Class                   | Support     |
+| ----------------------- | ----------- |
+| ```
+bg-bottom
+```       | 🌐 Web only |
+| ```
+bg-center
+```       | 🌐 Web only |
+| ```
+bg-left
+```         | 🌐 Web only |
+| ```
+bg-left-bottom
+```  | 🌐 Web only |
+| ```
+bg-left-top
+```     | 🌐 Web only |
+| ```
+bg-right
+```        | 🌐 Web only |
+| ```
+bg-right-bottom
+``` | 🌐 Web only |
+| ```
+bg-right-top
+```    | 🌐 Web only |
+| ```
+bg-top
+```          | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Background Repeat
+
+Last updated on May 29th, 2025
+
+| Class                   | Support     |
+| ----------------------- | ----------- |
+| ```
+bg-repeat
+```       | 🌐 Web only |
+| ```
+bg-no-repeat
+```    | 🌐 Web only |
+| ```
+bg-repeat-x
+```     | 🌐 Web only |
+| ```
+bg-repeat-y
+```     | 🌐 Web only |
+| ```
+bg-repeat-round
+``` | 🌐 Web only |
+| ```
+bg-repeat-space
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Background Size
+
+Last updated on May 29th, 2025
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| ```
+bg-auto
+```    | 🌐 Web only |
+| ```
+bg-cover
+```   | 🌐 Web only |
+| ```
+bg-contain
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Dark Mode
+
+# Dark Mode
+
+Last updated on June 10th, 2025
+
+Nativewind supports two primary approaches for implementing dark mode in your app:
+
+1. **System Preference (Automatic)**
+2. **Manual Selection (User Toggle)**
+
+Both approaches use `colorScheme` from Nativewind, which provides a unified API for reading and setting the color scheme using React Native's appearance APIs. Under the hood, the `Appearance` API is used on native and `prefers-color-scheme` is used on web.
+
+* To **read** the current system preference, use the `colorScheme` value returned from `useColorScheme`.
+* To **manually set** the color scheme (e.g., via a user toggle), use the `colorScheme.set()` function.
+
+Both `colorScheme` and `colorScheme.set()` are imported from Nativewind.
+
+***
+
+##
+
+By default, Nativewind will follow the device's system appearance (light, dark, or automatic). This is the recommended approach for most apps, as it provides a seamless experience for users who have set their device to a preferred mode.
+
+To read the current system preference, use the `colorScheme` value from the `useColorScheme` hook:
+
+**Expo Note:** Expo apps only follow the system appearance if `userInterfaceStyle` is set to `automatic` in your `app.json`. See the Expo color scheme guide for more details.
+
+**Example (Expo Snack):** See a full example in the Expo Docs.
+
+This will automatically update when the system appearance changes.
+
+***
+
+##
+
+If you want to allow users to manually select between light, dark, or system mode, you should use the `colorScheme.set()` function. This is useful for apps that provide a theme toggle in their UI.
+
+**Example:** See a full implementation at nativewind/theme-toggle on GitHub.
+
+**Basic Toggle Example:**
+
+````
+
+import { useState } from "react"; import { SafeAreaView, Text, Pressable } from "react-native"; import { colorScheme } from "nativewind"; import { StatusBar } from 'expo-status-bar';
+
+import './global.css';
+
+export default function App() { const \[currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
+
+const toggleTheme = () => { const newTheme = currentTheme === "light" ? "dark" : "light"; setCurrentTheme(newTheme); colorScheme.set(newTheme); };
+
+return ( \<SafeAreaView className={`flex-1 ${currentTheme === 'dark' ? 'bg-gray-900' : 'bg-white'} justify-center items-center`} \> \<StatusBar style={currentTheme === 'dark' ? 'light' : 'dark'} /> <Pressable onPress={toggleTheme} className="mt-4"
+
+> \<Text className={currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'} style={{ fontSize: 16, fontWeight: 'bold' }}> {currentTheme === 'dark' ? 'Dark' : 'Light'} </Text> </Pressable> </SafeAreaView> ); }
+
+````
+
+You can persist the user's choice using a storage solution like React Native Async Storage.
+
+***
+
+##
+
+* **Use the `colorScheme` value from `useColorScheme`** to read the current color scheme (system preference).
+* **Use `colorScheme.set()`** to allow users to manually select a color scheme.
+* For most apps, system preference is recommended.
+* If you provide a manual toggle, always offer a "System" option as well.
+
+***
+
+##
+
+*
+*
+*
+
+
+Aspect Ratio
+
+# Aspect Ratio
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support        |
+| --------------------- | -------------- |
+| ```
+aspect-auto
+```   | ✅ Full Support |
+| ```
+aspect-video
+```  | ✅ Full Support |
+| ```
+aspect-square
+``` | ✅ Full Support |
+| ```
+aspect-[n]
+```    | ✅ Full Support |
+| ```
+aspect-{n}
+```    | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Gap
+
+# Gap
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+`gap` requires React Native 0.71
+
+##
+
+| Class             | Support        |
+| ----------------- | -------------- |
+| ```
+gap-{n}
+```   | ✅ Full Support |
+| ```
+gap-[n]
+```   | ✅ Full Support |
+| ```
+gap-x-{n}
+``` | ✅ Full Support |
+| ```
+gap-x-[n]
+``` | ✅ Full Support |
+| ```
+gap-y-{n}
+``` | ✅ Full Support |
+| ```
+gap-y-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Gradient Color Stops
+
+Last updated on May 29th, 2025
+
+| Class                    | Support     |
+| ------------------------ | ----------- |
+| ```
+from-inherit
+```     | 🌐 Web only |
+| ```
+from-current
+```     | 🌐 Web only |
+| ```
+from-transparent
+``` | 🌐 Web only |
+| ```
+from-black
+```       | 🌐 Web only |
+| ```
+from-white
+```       | 🌐 Web only |
+| ```
+from-{n}
+```         | 🌐 Web only |
+| ```
+from-[n]
+```         | 🌐 Web only |
+| ```
+via-inherit
+```      | 🌐 Web only |
+| ```
+via-current
+```      | 🌐 Web only |
+| ```
+via-transparent
+```  | 🌐 Web only |
+| ```
+via-black
+```        | 🌐 Web only |
+| ```
+via-white
+```        | 🌐 Web only |
+| ```
+via-{n}
+```          | 🌐 Web only |
+| ```
+via-[n]
+```          | 🌐 Web only |
+| ```
+to-inherit
+```       | 🌐 Web only |
+| ```
+to-current
+```       | 🌐 Web only |
+| ```
+to-transparent
+```   | 🌐 Web only |
+| ```
+to-black
+```         | 🌐 Web only |
+| ```
+to-white
+```         | 🌐 Web only |
+| ```
+to-{n}
+```           | 🌐 Web only |
+| ```
+to-[n]
+```           | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Border Color
+
+# Border Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support        |
+| ---------------------- | -------------- |
+| ```
+border-{n}
+```     | ✅ Full Support |
+| ```
+border-[n]
+```     | ✅ Full Support |
+| ```
+border-inherit
+``` | 🌐 Web only    |
+| ```
+border-current
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+borderOpacity (native only)
+
+For performance reasons, Nativewind renders with the `corePlugin` `borderOpacity` disabled. This plugin allows the border color to dynamically change its opacity via the `--tw-border-opacity` variable. Instead, the opacity is set as a static value in the `color` property.
+
+If you need to use this feature, you can enable it by adding the following to your `tailwind.config.js` file:
+
+````
+
+module.exports = { /\* ... \*/ corePlugin: { borderOpacity: true, }, };
+
+````
+
+
+Grid Auto Columns
+
+# Grid Auto Columns
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+auto-cols-auto
+``` | 🌐 Web only |
+| ```
+auto-cols-min
+```  | 🌐 Web only |
+| ```
+auto-cols-max
+```  | 🌐 Web only |
+| ```
+auto-cols-fr
+```   | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Border Radius
+
+# Border Radius
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| ```
+rounded-none
+```    | ✅ Full Support |
+| ```
+rounded
+```         | ✅ Full Support |
+| ```
+rounded-{n}
+```     | ✅ Full Support |
+| ```
+rounded-[n]
+```     | ✅ Full Support |
+| ```
+rounded-full
+```    | ✅ Full Support |
+| ```
+rounded-t-none
+```  | ✅ Full Support |
+| ```
+rounded-t-{n}
+```   | ✅ Full Support |
+| ```
+rounded-t-[n]
+```   | ✅ Full Support |
+| ```
+rounded-t-full
+```  | ✅ Full Support |
+| ```
+rounded-r-none
+```  | ✅ Full Support |
+| ```
+rounded-r-{n}
+```   | ✅ Full Support |
+| ```
+rounded-r-[n]
+```   | ✅ Full Support |
+| ```
+rounded-r-full
+```  | ✅ Full Support |
+| ```
+rounded-b-none
+```  | ✅ Full Support |
+| ```
+rounded-b-{n}
+```   | ✅ Full Support |
+| ```
+rounded-b-[n]
+```   | ✅ Full Support |
+| ```
+rounded-b-full
+```  | ✅ Full Support |
+| ```
+rounded-l-none
+```  | ✅ Full Support |
+| ```
+rounded-l-{n}
+```   | ✅ Full Support |
+| ```
+rounded-l-[n]
+```   | ✅ Full Support |
+| ```
+rounded-l-full
+```  | ✅ Full Support |
+| ```
+rounded-tl-none
+``` | ✅ Full Support |
+| ```
+rounded-tl-{n}
+```  | ✅ Full Support |
+| ```
+rounded-tl-[n]
+```  | ✅ Full Support |
+| ```
+rounded-tl-full
+``` | ✅ Full Support |
+| ```
+rounded-tr-none
+``` | ✅ Full Support |
+| ```
+rounded-tr-{n}
+```  | ✅ Full Support |
+| ```
+rounded-tr-[n]
+```  | ✅ Full Support |
+| ```
+rounded-tr-full
+``` | ✅ Full Support |
+| ```
+rounded-br-none
+``` | ✅ Full Support |
+| ```
+rounded-br-{n}
+```  | ✅ Full Support |
+| ```
+rounded-br-[n]
+```  | ✅ Full Support |
+| ```
+rounded-br-full
+``` | ✅ Full Support |
+| ```
+rounded-bl-none
+``` | ✅ Full Support |
+| ```
+rounded-bl-{n}
+```  | ✅ Full Support |
+| ```
+rounded-bl-[n]
+```  | ✅ Full Support |
+| ```
+rounded-bl-full
+``` | ✅ Full Support |
+| ```
+border-inherit
+```  | 🌐 Web only    |
+| ```
+border-current
+```  | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Box Decoration Break
+
+# Box Decoration Break
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| ```
+box-decoration-clone
+``` | 🌐 Web only |
+| ```
+box-decoration-slice
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Grid Auto Flow
+
+# Grid Auto Flow
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| ```
+grid-flow-row
+```       | 🌐 Web only |
+| ```
+grid-flow-col
+```       | 🌐 Web only |
+| ```
+grid-flow-dense
+```     | 🌐 Web only |
+| ```
+grid-flow-row-dense
+``` | 🌐 Web only |
+| ```
+grid-flow-col-dense
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Border Style
+
+# Border Style
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+Use `border-0` instead of `border-none` to remove borders on native.
+
+| Class                 | Support        |
+| --------------------- | -------------- |
+| ```
+border-solid
+```  | ✅ Full Support |
+| ```
+border-dashed
+``` | ✅ Full Support |
+| ```
+border-dotted
+``` | ✅ Full Support |
+| ```
+border-none
+```   | 🌐 Web only    |
+| ```
+border-double
+``` | 🌐 Web only    |
+| ```
+border-hidden
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Border Width
+
+# Border Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+border
+```       | ✅ Full Support |
+| ```
+border-{n}
+```   | ✅ Full Support |
+| ```
+border-[n]
+```   | ✅ Full Support |
+| ```
+border-x
+```     | ✅ Full Support |
+| ```
+border-x-{n}
+``` | ✅ Full Support |
+| ```
+border-x-[n]
+``` | ✅ Full Support |
+| ```
+border-y
+```     | ✅ Full Support |
+| ```
+border-y-{n}
+``` | ✅ Full Support |
+| ```
+border-y-[n]
+``` | ✅ Full Support |
+| ```
+border-t
+```     | ✅ Full Support |
+| ```
+border-t-{n}
+``` | ✅ Full Support |
+| ```
+border-t-[n]
+``` | ✅ Full Support |
+| ```
+border-r
+```     | ✅ Full Support |
+| ```
+border-r-{n}
+``` | ✅ Full Support |
+| ```
+border-r-[n]
+``` | ✅ Full Support |
+| ```
+border-b
+```     | ✅ Full Support |
+| ```
+border-b-{n}
+``` | ✅ Full Support |
+| ```
+border-b-[n]
+``` | ✅ Full Support |
+| ```
+border-l
+```     | ✅ Full Support |
+| ```
+border-l-{n}
+``` | ✅ Full Support |
+| ```
+border-l-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Grid Auto Rows
+
+# Grid Auto Rows
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+auto-rows-auto
+``` | 🌐 Web only |
+| ```
+auto-rows-min
+```  | 🌐 Web only |
+| ```
+auto-rows-max
+```  | 🌐 Web only |
+| ```
+auto-rows-fr
+```   | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Divide Color
+
+# Divide Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+`Divide Color` was temporary removed in `v4`. We are working to re-add it in the future.
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+divide-{n}
+```     | 🌐 Web only |
+| ```
+divide-[n]
+```     | 🌐 Web only |
+| ```
+divide-inherit
+``` | 🌐 Web only |
+| ```
+divide-current
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+divideOpacity (native only)
+
+For performance reasons, Nativewind renders with the `corePlugin` `divideOpacity` disabled. This plugin allows the divide color to dynamically change its opacity via the `--tw-divide-opacity` variable. Instead, the opacity is set as a static value in the `color` property.
+
+If you need to use this feature, you can enable it by adding the following to your `tailwind.config.js` file:
+
+````
+
+module.exports = { /\* ... \*/ corePlugin: { divideOpacity: true, }, };
+
+````
+
+
+Divide Style
+
+# Divide Style
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+`Divide Style` was temporary removed in `v4`. We are working to re-add it in the future.
+
+##
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| ```
+divide-solid
+```  | 🌐 Web only |
+| ```
+divide-dashed
+``` | 🌐 Web only |
+| ```
+divide-dotted
+``` | 🌐 Web only |
+| ```
+divide-none
+```   | 🌐 Web only |
+| ```
+divide-double
+``` | 🌐 Web only |
+| ```
+divide-hidden
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+# Typescript
+
+Last updated on May 29th, 2025
+
+Nativewind extends the React Native types via declaration merging. The simplest method to include the types is to create a new `nativewind-env.d.ts` file and add a triple-slash directive referencing the types.
+
+````
+
+/// <reference types="nativewind/types" />
+
+```
+
+CAUTION
+
+Do not call this file:
+
+* `nativewind.d.ts`
+* The same name as a file or folder in the same directory e.g `app.d.ts` when an `/app` folder exists
+* The same name as a folder in `node_modules`, e.g `react.d.ts`
+
+By doing so, your types will not be picked up by the TypeScript compiler.
+
+
+How to write custom components
+
+Last updated on May 29th, 2025
+
+This guide is about writing your own components. If you are looking for a guide on how to use Nativewind with third-party components, see the third-party components guide.
+
+Unless you are styling a custom native component, you should never have to use `cssInterop` or `remapProps` when writing your own components. These are only used when working with third-party components.
+
+#
+
+Nativewind works by passing class names to components. This is the same pattern as Tailwind CSS, which uses utility classes to style elements.
+
+To create a component with default styles, simply merge the className string.
+
+```
+
+function MyComponent({ className }) { const defaultStyles = "text-black dark:text-white"; return \<Text className={`${defaultStyles} ${className}`} />; }
+
+<MyComponent className="font-bold" />;
+
+```
+
+You can expand this pattern to create more complex components. For example, you can create a `Button` component with different variants.
+
+```
+
+const variantStyles = { default: "rounded", primary: "bg-blue-500 text-white", secondary: "bg-white-500 text-black", };
+
+function MyComponent({ variant, className, ...props }) { return ( \<Text className={`         ${variantStyles.default}         ${variantStyles[variant]}         ${className}       `} {...props } /> ); }
+
+```
+
+Creating your own variants can quickly become complex. We recommend using a class name management library to simplify the process.
+
+*
+*
+*
+*
+*
+
+##
+
+Nativewind will automatically merge with inline-styles. Read more about style specificity documentation.
+
+```
+
+\<Text className="text-white" style={{ color: "black" }} /> // Will be black
+
+```
+
+##
+
+Custom components can have multiple style props. For example, a `Button` component may have an `outerClassName` and an `innerClassName`.
+
+```
+
+function MyComponent({ className, textClassName }) { return ( <View className={className}> <Text className={textClassName}>Hello, Nativewind!</Text> </View> ); }
+
+```
+
+
+Functions & Directives
+
+# Functions & Directives
+
+Last updated on May 29th, 2025
+
+##
+
+Nativewind allows the same functions and directives as Tailwind CSS. Please refer to the Tailwind CSS documentation.
+
+These functions can be used within your theme, arbitrary class names, or within your custom CSS.
+
+In addition to the functions and directives provided by Tailwind CSS, Nativewind polyfills the following CSS functions:
+
+##
+
+`var()` is a CSS function that allows you to use the value of a custom property (sometimes called a "CSS variable") inside the value of another property.
+
+tailwind.config.js
+
+```
+
+module.exports = { theme: { extend: { color: { custom: "var(--my-custom-color)", }, }, }, };
+
+```
+
+```
+
+// style: { color: "red" } <Text className="text-custom [--my-custom-color:red]">
+
+// style: { color: "green" } \<View style={vars({ "--my-custom-color": "green" })}> <Text className="text-custom"> </View>
+
+```
+
+##
+
+CAUTION
+
+Support for `calc()` is limited and will be improved in the future.
+
+`calc()` is a CSS function that allows you to perform calculations when specifying CSS property values. It can be used to perform addition, subtraction, multiplication, and division and can be used with other CSS functions such as `var()`
+
+```
+
+// Can be used to calculate a value .element { width: calc(var(--my-variable) - (20px + 2rem)); }
+
+// Or part of a value .element { background-color: hsl( calc(var(--H) + 20), calc(var(--S) - 10%), calc(var(--L) + 30%) ) }
+
+```
+
+###
+
+####
+
+On the web, `calc()` is a powerful tool that allows you to perform calculations with multiple units. However, React Native's layout engine is more limited and does not support mixing units. As a result, Nativewind only supports `calc()` in two modes: `numerical` and `percentage`.
+
+```
+
+.element { // ❌ This mixes `numerical` and `percentage` units width: calc(100% - 20px); }
+
+.element { // ❌ This mixes `numerical` and `percentage` units \--width: 100%; width: calc(var(--width) - 20px); }
+
+.element { // ✅ This only uses `numerical` units \--width: 100rem; width: calc(var(--width) - 20px); }
+
+.element { // ✅ This only uses `percentage` units \--width: 100%; width: calc(var(--width) - 20%); }
+
+```
+
+####
+
+Nativewind does not support operations in custom properties. Instead, you can use `calc()` with custom properties by first defining the custom property and then using `calc()` to perform the operation.
+
+```
+
+.element { // ❌ Operators cannot be in a custom property \--width: 100% - 20%; width: calc(var(--width)); }
+
+.element { // ✅ Operator is part of the `calc()` expression \--width: 100%; width: calc(var(--width) - 20%); }
+
+```
+
+Looking to contribute? We're looking for contributors to help improve support for `calc()` in Nativewind, such as adding support for other modes (e.g `deg`)
+
+##
+
+`env()` is a CSS function that allows you to access device specific environment information.
+
+Nativewind supports:
+
+```
+
+env(safe-area-inset-top); env(safe-area-inset-bottom); env(safe-area-inset-left); env(safe-area-inset-right);
+
+````
+
+Please see Safe Area Insets for more information.
+
+
+Grid Column Start / End
+
+Last updated on May 29th, 2025
+
+#
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+col-auto
+```       | 🌐 Web only |
+| ```
+col-span-1
+```     | 🌐 Web only |
+| ```
+col-span-2
+```     | 🌐 Web only |
+| ```
+col-span-3
+```     | 🌐 Web only |
+| ```
+col-span-4
+```     | 🌐 Web only |
+| ```
+col-span-5
+```     | 🌐 Web only |
+| ```
+col-span-6
+```     | 🌐 Web only |
+| ```
+col-span-7
+```     | 🌐 Web only |
+| ```
+col-span-8
+```     | 🌐 Web only |
+| ```
+col-span-9
+```     | 🌐 Web only |
+| ```
+col-span-10
+```    | 🌐 Web only |
+| ```
+col-span-11
+```    | 🌐 Web only |
+| ```
+col-span-12
+```    | 🌐 Web only |
+| ```
+col-span-full
+```  | 🌐 Web only |
+| ```
+col-start-1
+```    | 🌐 Web only |
+| ```
+col-start-2
+```    | 🌐 Web only |
+| ```
+col-start-3
+```    | 🌐 Web only |
+| ```
+col-start-4
+```    | 🌐 Web only |
+| ```
+col-start-5
+```    | 🌐 Web only |
+| ```
+col-start-6
+```    | 🌐 Web only |
+| ```
+col-start-7
+```    | 🌐 Web only |
+| ```
+col-start-8
+```    | 🌐 Web only |
+| ```
+col-start-9
+```    | 🌐 Web only |
+| ```
+col-start-10
+```   | 🌐 Web only |
+| ```
+col-start-11
+```   | 🌐 Web only |
+| ```
+col-start-12
+```   | 🌐 Web only |
+| ```
+col-start-13
+```   | 🌐 Web only |
+| ```
+col-start-auto
+``` | 🌐 Web only |
+| ```
+col-end-1
+```      | 🌐 Web only |
+| ```
+col-end-2
+```      | 🌐 Web only |
+| ```
+col-end-3
+```      | 🌐 Web only |
+| ```
+col-end-4
+```      | 🌐 Web only |
+| ```
+col-end-5
+```      | 🌐 Web only |
+| ```
+col-end-6
+```      | 🌐 Web only |
+| ```
+col-end-7
+```      | 🌐 Web only |
+| ```
+col-end-8
+```      | 🌐 Web only |
+| ```
+col-end-9
+```      | 🌐 Web only |
+| ```
+col-end-10
+```     | 🌐 Web only |
+| ```
+col-end-11
+```     | 🌐 Web only |
+| ```
+col-end-12
+```     | 🌐 Web only |
+| ```
+col-end-13
+```     | 🌐 Web only |
+| ```
+col-end-auto
+```   | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Divide Width
+
+# Divide Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+`Divide Width` was temporary removed in `v4`. We are working to re-add it in the future.
+
+##
+
+| Class                | Support     |
+| -------------------- | ----------- |
+| ```
+divide-x-{n}
+``` | 🌐 Web only |
+| ```
+divide-x-[n]
+``` | 🌐 Web only |
+| ```
+divide-y-{n}
+``` | 🌐 Web only |
+| ```
+divide-y-[n]
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Outline Color
+
+# Outline Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| ```
+outline-inherit
+```     | 🌐 Web only |
+| ```
+outline-current
+```     | 🌐 Web only |
+| ```
+outline-transparent
+``` | 🌐 Web only |
+| ```
+outline-black
+```       | 🌐 Web only |
+| ```
+outline-white
+```       | 🌐 Web only |
+| ```
+outline-{n}
+```         | 🌐 Web only |
+| ```
+outline-[n]
+```         | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Outline Offset
+
+# Outline Offset
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                    | Support     |
+| ------------------------ | ----------- |
+| ```
+outline-offset-0
+``` | 🌐 Web only |
+| ```
+outline-offset-1
+``` | 🌐 Web only |
+| ```
+outline-offset-2
+``` | 🌐 Web only |
+| ```
+outline-offset-4
+``` | 🌐 Web only |
+| ```
+outline-offset-8
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Box Sizing
+
+# Box Sizing
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+box-border
+```  | 🌐 Web only |
+| ```
+box-content
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Grid Row Start / End
+
+Last updated on May 29th, 2025
+
+#
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+row-auto
+```       | 🌐 Web only |
+| ```
+row-span-1
+```     | 🌐 Web only |
+| ```
+row-span-2
+```     | 🌐 Web only |
+| ```
+row-span-3
+```     | 🌐 Web only |
+| ```
+row-span-4
+```     | 🌐 Web only |
+| ```
+row-span-5
+```     | 🌐 Web only |
+| ```
+row-span-6
+```     | 🌐 Web only |
+| ```
+row-span-7
+```     | 🌐 Web only |
+| ```
+row-span-8
+```     | 🌐 Web only |
+| ```
+row-span-9
+```     | 🌐 Web only |
+| ```
+row-span-10
+```    | 🌐 Web only |
+| ```
+row-span-11
+```    | 🌐 Web only |
+| ```
+row-span-12
+```    | 🌐 Web only |
+| ```
+row-span-full
+```  | 🌐 Web only |
+| ```
+row-start-1
+```    | 🌐 Web only |
+| ```
+row-start-2
+```    | 🌐 Web only |
+| ```
+row-start-3
+```    | 🌐 Web only |
+| ```
+row-start-4
+```    | 🌐 Web only |
+| ```
+row-start-5
+```    | 🌐 Web only |
+| ```
+row-start-6
+```    | 🌐 Web only |
+| ```
+row-start-7
+```    | 🌐 Web only |
+| ```
+row-start-8
+```    | 🌐 Web only |
+| ```
+row-start-9
+```    | 🌐 Web only |
+| ```
+row-start-10
+```   | 🌐 Web only |
+| ```
+row-start-11
+```   | 🌐 Web only |
+| ```
+row-start-12
+```   | 🌐 Web only |
+| ```
+row-start-13
+```   | 🌐 Web only |
+| ```
+row-start-auto
+``` | 🌐 Web only |
+| ```
+row-end-1
+```      | 🌐 Web only |
+| ```
+row-end-2
+```      | 🌐 Web only |
+| ```
+row-end-3
+```      | 🌐 Web only |
+| ```
+row-end-4
+```      | 🌐 Web only |
+| ```
+row-end-5
+```      | 🌐 Web only |
+| ```
+row-end-6
+```      | 🌐 Web only |
+| ```
+row-end-7
+```      | 🌐 Web only |
+| ```
+row-end-8
+```      | 🌐 Web only |
+| ```
+row-end-9
+```      | 🌐 Web only |
+| ```
+row-end-10
+```     | 🌐 Web only |
+| ```
+row-end-11
+```     | 🌐 Web only |
+| ```
+row-end-12
+```     | 🌐 Web only |
+| ```
+row-end-13
+```     | 🌐 Web only |
+| ```
+row-end-auto
+```   | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Outline Style
+
+# Outline Style
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+outline-none
+```   | 🌐 Web only |
+| ```
+outline
+```        | 🌐 Web only |
+| ```
+outline-dashed
+``` | 🌐 Web only |
+| ```
+outline-dotted
+``` | 🌐 Web only |
+| ```
+outline-double
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Grid Template Columns
+
+# Grid Template Columns
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+grid-cols-1
+```    | 🌐 Web only |
+| ```
+grid-cols-2
+```    | 🌐 Web only |
+| ```
+grid-cols-3
+```    | 🌐 Web only |
+| ```
+grid-cols-4
+```    | 🌐 Web only |
+| ```
+grid-cols-5
+```    | 🌐 Web only |
+| ```
+grid-cols-6
+```    | 🌐 Web only |
+| ```
+grid-cols-7
+```    | 🌐 Web only |
+| ```
+grid-cols-8
+```    | 🌐 Web only |
+| ```
+grid-cols-9
+```    | 🌐 Web only |
+| ```
+grid-cols-10
+```   | 🌐 Web only |
+| ```
+grid-cols-11
+```   | 🌐 Web only |
+| ```
+grid-cols-12
+```   | 🌐 Web only |
+| ```
+grid-cols-none
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Outline Width
+
+# Outline Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class             | Support     |
+| ----------------- | ----------- |
+| ```
+outline-0
+``` | 🌐 Web only |
+| ```
+outline-1
+``` | 🌐 Web only |
+| ```
+outline-2
+``` | 🌐 Web only |
+| ```
+outline-4
+``` | 🌐 Web only |
+| ```
+outline-8
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Ring Color
+
+# Ring Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                    | Support     |
+| ------------------------ | ----------- |
+| ```
+ring-inherit
+```     | 🌐 Web only |
+| ```
+ring-current
+```     | 🌐 Web only |
+| ```
+ring-transparent
+``` | 🌐 Web only |
+| ```
+ring-black
+```       | 🌐 Web only |
+| ```
+ring-white
+```       | 🌐 Web only |
+| ```
+ring-{n}
+```         | 🌐 Web only |
+| ```
+ring-[n]
+```         | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Units
+
+# Units
+
+Last updated on May 29th, 2025
+
+##
+
+You can use these units within classes or `tailwind.config.js`.
+
+| Unit | Name        | Description                               |
+| ---- | ----------- | ----------------------------------------- |
+| vw   | View Width  | Polyfilled using Dimensions.get('window') |
+| vh   | View height | Polyfilled using Dimensions.get('window') |
+
+
+Break After
+
+# Break After
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                          | Support     |
+| ------------------------------ | ----------- |
+| ```
+break-after-auto
+```       | 🌐 Web only |
+| ```
+break-after-avoid
+```      | 🌐 Web only |
+| ```
+break-after-all
+```        | 🌐 Web only |
+| ```
+break-after-avoid-page
+``` | 🌐 Web only |
+| ```
+break-after-page
+```       | 🌐 Web only |
+| ```
+break-after-left
+```       | 🌐 Web only |
+| ```
+break-after-right
+```      | 🌐 Web only |
+| ```
+break-after-column
+```     | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Ring Offset Color
+
+# Ring Offset Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| ```
+ring-offset-0
+``` | 🌐 Web only |
+| ```
+ring-offset-1
+``` | 🌐 Web only |
+| ```
+ring-offset-2
+``` | 🌐 Web only |
+| ```
+ring-offset-4
+``` | 🌐 Web only |
+| ```
+ring-offset-8
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Grid Template Rows
+
+# Grid Template Rows
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+grid-rows-1
+```    | 🌐 Web only |
+| ```
+grid-rows-2
+```    | 🌐 Web only |
+| ```
+grid-rows-3
+```    | 🌐 Web only |
+| ```
+grid-rows-4
+```    | 🌐 Web only |
+| ```
+grid-rows-5
+```    | 🌐 Web only |
+| ```
+grid-rows-6
+```    | 🌐 Web only |
+| ```
+grid-rows-7
+```    | 🌐 Web only |
+| ```
+grid-rows-8
+```    | 🌐 Web only |
+| ```
+grid-rows-9
+```    | 🌐 Web only |
+| ```
+grid-rows-10
+```   | 🌐 Web only |
+| ```
+grid-rows-11
+```   | 🌐 Web only |
+| ```
+grid-rows-12
+```   | 🌐 Web only |
+| ```
+grid-rows-none
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Ring Offset Width
+
+# Ring Offset Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| ```
+ring-offset-0
+``` | 🌐 Web only |
+| ```
+ring-offset-1
+``` | 🌐 Web only |
+| ```
+ring-offset-2
+``` | 🌐 Web only |
+| ```
+ring-offset-4
+``` | 🌐 Web only |
+| ```
+ring-offset-8
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Ring Width
+
+# Ring Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| ```
+ring-0
+```     | 🌐 Web only |
+| ```
+ring-1
+```     | 🌐 Web only |
+| ```
+ring-2
+```     | 🌐 Web only |
+| ```
+ring
+```       | 🌐 Web only |
+| ```
+ring-4
+```     | 🌐 Web only |
+| ```
+ring-8
+```     | 🌐 Web only |
+| ```
+ring-inset
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Break Before
+
+# Break Before
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                           | Support     |
+| ------------------------------- | ----------- |
+| ```
+break-before-auto
+```       | 🌐 Web only |
+| ```
+break-before-avoid
+```      | 🌐 Web only |
+| ```
+break-before-all
+```        | 🌐 Web only |
+| ```
+break-before-avoid-page
+``` | 🌐 Web only |
+| ```
+break-before-page
+```       | 🌐 Web only |
+| ```
+break-before-left
+```       | 🌐 Web only |
+| ```
+break-before-right
+```      | 🌐 Web only |
+| ```
+break-before-column
+```     | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Justify Content
+
+# Justify Content
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| ```
+justify-start
+```   | ✅ Full Support |
+| ```
+justify-end
+```     | ✅ Full Support |
+| ```
+justify-center
+```  | ✅ Full Support |
+| ```
+justify-between
+``` | ✅ Full Support |
+| ```
+justify-around
+```  | ✅ Full Support |
+| ```
+justify-evenly
+```  | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Background Blend Mode
+
+# Background Blend Mode
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                        | Support        |
+| ---------------------------- | -------------- |
+| ```
+bg-blend-normal
+```      | ✅ Full Support |
+| ```
+bg-blend-multiply
+```    | ✅ Full Support |
+| ```
+bg-blend-screen
+```      | ✅ Full Support |
+| ```
+bg-blend-overlay
+```     | ✅ Full Support |
+| ```
+bg-blend-darken
+```      | ✅ Full Support |
+| ```
+bg-blend-lighten
+```     | ✅ Full Support |
+| ```
+bg-blend-color-dodge
+``` | ✅ Full Support |
+| ```
+bg-blend-color-burn
+```  | ✅ Full Support |
+| ```
+bg-blend-hard-light
+```  | ✅ Full Support |
+| ```
+bg-blend-soft-light
+```  | ✅ Full Support |
+| ```
+bg-blend-difference
+```  | ✅ Full Support |
+| ```
+bg-blend-exclusion
+```   | ✅ Full Support |
+| ```
+bg-blend-hue
+```         | ✅ Full Support |
+| ```
+bg-blend-saturation
+```  | ✅ Full Support |
+| ```
+bg-blend-color
+```       | ✅ Full Support |
+| ```
+bg-blend-luminosity
+```  | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Justify Items
+
+# Justify Items
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                         | Support     |
+| ----------------------------- | ----------- |
+| ```
+justify-items-start
+```   | 🌐 Web only |
+| ```
+justify-items-end
+```     | 🌐 Web only |
+| ```
+justify-items-center
+```  | 🌐 Web only |
+| ```
+justify-items-stretch
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Box Shadow
+
+# Box Shadow
+
+Last updated on May 29th, 2025
+
+Nativewind uses the scaling system from react-native-shadow-generator to help generate cross platform shadows.
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+On native, shadows may not appear if a background color is not set
+
+##
+
+````
+
+import { Text, View } from 'react-native'; import { styled } from 'nativewind';
+
+const StyledView = styled(View) const StyledText = styled(Text)
+
+const App = () => { return ( <StyledView className="flex-1 items-center justify-center"> <StyledView className="h-[50vh] items-center justify-center shadow"> <StyledText className="text-slate-800 shadow">Try editing me! 🎉</StyledText> </StyledView> </StyledView> ); }
+
+````
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+shadow
+```       | ✅ Full Support |
+| ```
+shadow-{n}
+```   | ✅ Full Support |
+| ```
+shadow-none
+```  | ✅ Full Support |
+| ```
+shadow-[n]
+```   | 🌐 Web only    |
+| ```
+shadow-inner
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Box Shadow Color
+
+# Box Shadow Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+shadow-{n}
+``` | ✅ Full Support |
+| ```
+shadow-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+A third-party component is a component that is a dependency of your application and not a core React Native component. Nativewind works by passing the `className` prop to the core React Native components. Unfortunately, its not always obvious what third-party components implement this behavior without checking their source code.
+
+This is an example of a 3rd party component that does not pass the `className` prop down:
+
+````
+
+// ❌ This component will not work with Nativewind // This component is 'picking' the props. // Any props that are not explicitly defined will not be passed down function ThirdPartyComponent({ style }) { return <View style={style} />; }
+
+// ✅ This component will work with Nativewind function ThirdPartyComponent({ style, ...props }) { return \<View style={style} {...props} />; }
+
+```
+
+#
+
+If you encounter a 3rd party component 'picks' its props, you should consider submitting a pull request to modify the component so it passes all props down. Components that 'pick' their props can be very limiting, and not just for Nativewind! React Native often adds new APIs and 'picking' props prevents you from using these new features.
+
+```
+
+function ThirdPartyComponent({ style }) { return <View style={style} />; }
+
+// aria-label was added in 0.71, but this component will not work with it! <ThirdPartyComponent aria-label="My Label" />;
+
+```
+
+##
+
+Some components will pass the `className` prop down, but they may also have multiple style props. For example, React Native's `<FlatList />` component has a `style` and `contentContainerStyle` prop. The `remapProps` function can be used to create new `className` props for these components.
+
+```
+
+// This component has two 'style' props function ThirdPartyComponent({ style, contentContainerStyle, ...props }) { return ( \<FlatList style={style} contentContainerStyle={contentContainerStyle} {...props} /> ); }
+
+// Call this once at the entry point of your app remapProps(ThirdPartyComponent, { className: "style", contentContainerClassName: "contentContainerStyle", });
+
+// Now you can use the component with Nativewind <ThirdPartyComponent className="p-5" contentContainerClassName="p-2" />;
+
+```
+
+Nativewind's style objects are more complex than the objected created `StyleSheet.create`. To not break third-party components, `remapProps` will pass a special object to the target prop. To the third-party component this will appear as an empty object.
+
+##
+
+Some components may require style attributes to be passed as props (for example, React Native's `<StatusBar />` component accepts a `backgroundColor` prop), or they may access the `style` prop directly.
+
+```
+
+/\*
+
+- This component will not work as expected with Nativewind
+- - borderColor will not work as it is a prop
+- - backgroundColor will not work as it is based on the style.color value \*/ function ThirdPartyComponent({ borderColor, style, ...props }) { // The background color is based on the style prop const backgroundColor = style.color === "white" ? "black" : "white"; return ( \<View style={{
+    ...style,
+    borderColor,
+    backgroundColor,
+    }} /> ); }
+
+```
+
+To support these components, you can use the `cssInterop` function. You can think of `cssInterop` as a "className termination". It a marker that Nativewind needs to convert the `className` props into style objects.
+
+CAUTION
+
+Enabling the `cssInterop` for a component comes at a performance cost. Nativewind will need to resolve the styles, add event handlers, inject context, etc.
+
+##
+
+Sometimes a component will have multiple props that are similar.
+
+```
+
+function ThirdPartyComponent({ labelColor, inputColor, ...props }) { return ( <> \<Text style={color: labelColor}>Label</Text> \<TextInput style={color: labelColor} /> \</> ); }
+
+```
+
+You could creating a new mapping for each props, but it can be cumbersome to manage multiple props with className management libraries
+
+```
+
+// This is possible cssInterop(ThirdPartyComponent, { labelColorClassName: { target: false nativeStyleToProps: { color: 'labelColor' } } inputColorClassName: { target: false nativeStyleToProps: { color: 'inputColor' } } })
+
+function Wrapper() { // Need to create a new className for each prop const labelStyle = cva('color-black') const inputStyle = cva('color-black')
+
+return ( <ThirdPartyComponent
+   labelColorClassName={labelStyle}
+   inputColorClassName={inputStyle}
+ /> ) }
+
+```
+
+Instead, you can use the dynamic mapping modifier to move props.
+
+```
+
+cssInterop(ThirdPartyComponent, { className: "style", });
+
+function Wrapper() { // Need to create a new className for each prop const style = cva("{}-\[inputColor]:color-black {}-\[labelColor]:color-black");
+
+return <ThirdPartyComponent className={style} />; }
+
+```
+
+##
+
+The dynamic mapping modifier allows you to move props from one prop to another. This is useful when you have multiple props that are similar, or you want to manage the styles in a single prop.
+
+There are two ways to use the dynamic mapping modifier:
+
+* `{}-[<propName>]`: This will move the values the style to the `propName` prop. If a className sets multiple properties, the last property will be used.
+* `{}-[<propName>]:style-property`: This will move the `propName` prop to the `style-property` of the `className` prop, but only for the specified `style-property`
+
+Both `propName` and `style-property` can be written using dot notation to access nested properties.
+
+```
+
+//This class {}-\[screenOptions.tabBarTintColor]/color:color-red-500 // Will output { screenOptions: { tabBarTintColor: 'color-red-500' } }
+
+```
+
+##
+
+Both `remapProps` and `cssInterop` will return a typed version of your component. However, you can globally defined the types in a new declaration file.
+
+```
+
+declare module "<3rd party package>" { interface 3rdPartyComponentProps { customClassName?: string; } }
+
+```
+
+**Example**
+
+Setting global types requires in-depth knowledge of TypeScript. Your interface declaration needs to **exactly match** the 3rd party declaration (including `extends` and generics).
+
+For example, Nativewind uses the follow types for React Native's `<FlatList />`, which uses multiple interfaces for its props, across multiple packages.
+
+```
+
+import { ScrollViewProps, ScrollViewPropsAndroid, ScrollViewPropsIOS, Touchable, VirtualizedListProps, } from "react-native";
+
+declare module "@react-native/virtualized-lists" { export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps { ListFooterComponentClassName?: string; ListHeaderComponentClassName?: string; } }
+
+declare module "react-native" { interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollViewPropsAndroid, Touchable { contentContainerClassName?: string; indicatorClassName?: string; } interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> { columnWrapperClassName?: string; } interface ViewProps { className?: string; } }
+
+````
+
+
+Break Inside
+
+# Break Inside
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                             | Support     |
+| --------------------------------- | ----------- |
+| ```
+break-inside-auto
+```         | 🌐 Web only |
+| ```
+break-inside-avoid
+```        | 🌐 Web only |
+| ```
+break-inside-avoid-page
+```   | 🌐 Web only |
+| ```
+break-inside-avoid-column
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Justify Self
+
+# Justify Self
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| ```
+justify-self-auto
+```    | 🌐 Web only |
+| ```
+justify-self-start
+```   | 🌐 Web only |
+| ```
+justify-self-end
+```     | 🌐 Web only |
+| ```
+justify-self-center
+```  | 🌐 Web only |
+| ```
+justify-self-stretch
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Mix Blend Mode
+
+# Mix Blend Mode
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                          | Support     |
+| ------------------------------ | ----------- |
+| ```
+mix-blend-normal
+```       | 🌐 Web only |
+| ```
+mix-blend-multiply
+```     | 🌐 Web only |
+| ```
+mix-blend-screen
+```       | 🌐 Web only |
+| ```
+mix-blend-overlay
+```      | 🌐 Web only |
+| ```
+mix-blend-darken
+```       | 🌐 Web only |
+| ```
+mix-blend-lighten
+```      | 🌐 Web only |
+| ```
+mix-blend-color-dodge
+```  | 🌐 Web only |
+| ```
+mix-blend-color-burn
+```   | 🌐 Web only |
+| ```
+mix-blend-hard-light
+```   | 🌐 Web only |
+| ```
+mix-blend-soft-light
+```   | 🌐 Web only |
+| ```
+mix-blend-difference
+```   | 🌐 Web only |
+| ```
+mix-blend-exclusion
+```    | 🌐 Web only |
+| ```
+mix-blend-hue
+```          | 🌐 Web only |
+| ```
+mix-blend-saturation
+```   | 🌐 Web only |
+| ```
+mix-blend-color
+```        | 🌐 Web only |
+| ```
+mix-blend-luminosity
+```   | 🌐 Web only |
+| ```
+mix-blend-plus-lighter
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Opacity
+
+# Opacity
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support        |
+| ------------------- | -------------- |
+| ```
+opacity-{n}
+``` | ✅ Full Support |
+| ```
+opacity-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Animation
+
+# Animation
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+Animation support is experimental! We are waiting for your feedback to improve implementation.
+
+##
+
+| Class                  | Support                 |
+| ---------------------- | ----------------------- |
+| ```
+animate-none
+```   | 🧪 Experimental Support |
+| ```
+animate-spin
+```   | 🧪 Experimental Support |
+| ```
+animate-ping
+```   | 🧪 Experimental Support |
+| ```
+animate-bounce
+``` | 🧪 Experimental Support |
+| ```
+animate-[n]
+```    | 🧪 Experimental Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+##
+
+Nativewind's animation is still experimental and very basic. We are looking for contributors to help with
+
+* Animated all mapped props (currently only works with `style`)
+* Improve performance
+* Update code to support new Reanimated v3 features (currently written in v2 style)
+
+
+Order
+
+# Order
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+order-1
+```     | 🌐 Web only |
+| ```
+order-2
+```     | 🌐 Web only |
+| ```
+order-3
+```     | 🌐 Web only |
+| ```
+order-4
+```     | 🌐 Web only |
+| ```
+order-5
+```     | 🌐 Web only |
+| ```
+order-6
+```     | 🌐 Web only |
+| ```
+order-7
+```     | 🌐 Web only |
+| ```
+order-8
+```     | 🌐 Web only |
+| ```
+order-9
+```     | 🌐 Web only |
+| ```
+order-10
+```    | 🌐 Web only |
+| ```
+order-11
+```    | 🌐 Web only |
+| ```
+order-12
+```    | 🌐 Web only |
+| ```
+order-first
+``` | 🌐 Web only |
+| ```
+order-last
+```  | 🌐 Web only |
+| ```
+order-none
+```  | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Transition Delay
+
+# Transition Delay
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+Animation support is experimental! We are waiting for your feedback to improve implementation.
+
+##
+
+| Class             | Support                 |
+| ----------------- | ----------------------- |
+| ```
+delay-{n}
+``` | 🧪 Experimental Support |
+| ```
+delay-[n]
+``` | 🧪 Experimental Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Transition Duration
+
+# Transition Duration
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+Animation support is experimental! We are waiting for your feedback to improve implementation.
+
+##
+
+| Class                | Support                 |
+| -------------------- | ----------------------- |
+| ```
+duration-{n}
+``` | 🧪 Experimental Support |
+| ```
+duration-[n]
+``` | 🧪 Experimental Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Place Items
+
+# Place Items
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| ```
+place-items-start
+```    | 🌐 Web only |
+| ```
+place-items-end
+```      | 🌐 Web only |
+| ```
+place-items-center
+```   | 🌐 Web only |
+| ```
+place-items-baseline
+``` | 🌐 Web only |
+| ```
+place-items-stretch
+```  | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Transition Property
+
+# Transition Property
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+Animation support is experimental! We are waiting for your feedback to improve implementation.
+
+##
+
+| Class                        | Support                 |
+| ---------------------------- | ----------------------- |
+| ```
+transition
+```           | 🧪 Experimental Support |
+| ```
+transition-all
+```       | 🧪 Experimental Support |
+| ```
+transition-colors
+```    | 🧪 Experimental Support |
+| ```
+transition-opacity
+```   | 🧪 Experimental Support |
+| ```
+transition-transform
+``` | 🧪 Experimental Support |
+| ```
+transition-{n}
+```       | 🧪 Experimental Support |
+| ```
+transition-[n]
+```       | 🧪 Experimental Support |
+| ```
+transition-shadow
+```    | 🌐 Web only             |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Platform Differences
+
+# Platform Differences
+
+Last updated on May 29th, 2025
+
+Nativewind aligns CSS and React Native into a common language. However the two style engines do have their differences. These are some common differences you may encounter.
+
+##
+
+Styles can be applied selectively per platform using a platform variant. Additionally the `native` variant can be used to target all platforms except for web.
+
+Supported platform modifiers are: `ios:`, `android:`, `web:`, `windows:`, `osx:`, `native:`.
+
+##
+
+React Native has various issues when conditionally applying styles. To prevent these issues it's best to declare all styles.
+
+For example, instead of only applying a text color for dark mode, provide both a light and dark mode text color.
+
+````
+
+❌ <Text className="dark:text-white-500" /> ✅ <Text className="text-black dark:text-red-500" />
+
+````
+
+##
+
+React Native's default unit is density-independent pixels (dp) while the web's default is pixels (px). These two units are different, however Nativewind treats them as if they are equivalent. This can cause confusion in your theme, do you use `10` or `10px`? The general rule of theme is use `10px`, and Nativewind will fix it for you.
+
+##
+
+React Native uses a different base flex definition to the web. Generally this can be fixed by adding `flex-1` to your classes, however you may need custom styles for more complex layouts.
+
+##
+
+React Native uses a different default `flex-direction` to the web. This can be fixed by explicitly setting a `flex-direction`.
+
+##
+
+React Native's `<Text />` renders with a `fontSize: 14`, while the web's default is `16px`. For consistency, Nativewind uses an `rem` value of `16` on web and `14` on native.
+
+##
+
+For performance reasons, Nativewind renders with the `corePlugins`: `textOpacity`,`borderOpacity`, `divideOpacity` and `backgroundOpacity` disabled. Theses plugin allows colors to dynamically changed via CSS variables. Instead, the opacity is set as a static value in the `color` property.
+
+If you require this functionality, you can enable the disabled plugins in your `tailwind.config.js` file.
+
+
+Clear
+
+# Clear
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+clear-left
+```  | 🌐 Web only |
+| ```
+clear-right
+``` | 🌐 Web only |
+| ```
+clear-both
+```  | 🌐 Web only |
+| ```
+clear-none
+```  | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Place Content
+
+# Place Content
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                          | Support     |
+| ------------------------------ | ----------- |
+| ```
+place-content-center
+```   | 🌐 Web only |
+| ```
+place-content-start
+```    | 🌐 Web only |
+| ```
+place-content-end
+```      | 🌐 Web only |
+| ```
+place-content-between
+```  | 🌐 Web only |
+| ```
+place-content-around
+```   | 🌐 Web only |
+| ```
+place-content-evenly
+```   | 🌐 Web only |
+| ```
+place-content-baseline
+``` | 🌐 Web only |
+| ```
+place-content-stretch
+```  | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Transition Timing Function
+
+# Transition Timing Function
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+Animation support is experimental! We are waiting for your feedback to improve implementation.
+
+##
+
+| Class            | Support                 |
+| ---------------- | ----------------------- |
+| ```
+ease-{n}
+``` | 🧪 Experimental Support |
+| ```
+ease-[n]
+``` | 🧪 Experimental Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Rotate
+
+# Rotate
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+rotate-{n}
+``` | ✅ Full Support |
+| ```
+rotate-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+Always include the `deg` unit when using arbitrary styles or setting `rotate` values in your theme. e.g. `rotate-[90deg]`.
+
+React Native only supports `deg` as a unit for rotation.
+
+
+Scale
+
+# Scale
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support        |
+| ------------------- | -------------- |
+| ```
+scale-{n}
+```   | ✅ Full Support |
+| ```
+scale-[n]
+```   | ✅ Full Support |
+| ```
+scale-x-{n}
+``` | ✅ Full Support |
+| ```
+scale-x-[n]
+``` | ✅ Full Support |
+| ```
+scale-y-{n}
+``` | ✅ Full Support |
+| ```
+scale-y-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Columns
+
+# Columns
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+columns-[n]
+``` | 🌐 Web only |
+| ```
+columns-{n}
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Place Self
+
+# Place Self
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                      | Support     |
+| -------------------------- | ----------- |
+| ```
+place-self-auto
+```    | 🌐 Web only |
+| ```
+place-self-start
+```   | 🌐 Web only |
+| ```
+place-self-end
+```     | 🌐 Web only |
+| ```
+place-self-center
+```  | 🌐 Web only |
+| ```
+place-self-stretch
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Skew
+
+# Skew
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+skew-x-{n}
+``` | ✅ Full Support |
+| ```
+skew-x-[n]
+``` | ✅ Full Support |
+| ```
+skew-y-{n}
+``` | ✅ Full Support |
+| ```
+skew-y-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Transform Origin
+
+# Transform Origin
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| ```
+origin-center
+```       | 🌐 Web only |
+| ```
+origin-top
+```          | 🌐 Web only |
+| ```
+origin-top-right
+```    | 🌐 Web only |
+| ```
+origin-right
+```        | 🌐 Web only |
+| ```
+origin-bottom-right
+``` | 🌐 Web only |
+| ```
+origin-bottom
+```       | 🌐 Web only |
+| ```
+origin-bottom-left
+```  | 🌐 Web only |
+| ```
+origin-left
+```         | 🌐 Web only |
+| ```
+origin-top-left
+```     | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+##
+
+We are looking for contributors for the following:
+
+###
+
+Please support this React Native Pull Request
+
+###
+
+`react-native-reanimated` supports `originX`/`originY`. We could support these properties until React Native gets proper support.
+
+
+Margin
+
+# Margin
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class           | Support        |
+| --------------- | -------------- |
+| ```
+m-{n}
+```   | ✅ Full Support |
+| ```
+m-[n]
+```   | ✅ Full Support |
+| ```
+mx-{n}
+```  | ✅ Full Support |
+| ```
+mx-[n]
+```  | ✅ Full Support |
+| ```
+my-{n}
+```  | ✅ Full Support |
+| ```
+my-[n]
+```  | ✅ Full Support |
+| ```
+mt-{n}
+```  | ✅ Full Support |
+| ```
+mt-[n]
+```  | ✅ Full Support |
+| ```
+mr-{n}
+```  | ✅ Full Support |
+| ```
+mr-[n]
+```  | ✅ Full Support |
+| ```
+mb-{n}
+```  | ✅ Full Support |
+| ```
+mb-[n]
+```  | ✅ Full Support |
+| ```
+ml-{n}
+```  | ✅ Full Support |
+| ```
+ml-[n]
+```  | ✅ Full Support |
+| ```
+m-auto
+```  | ✅ Full Support |
+| ```
+mx-auto
+``` | ✅ Full Support |
+| ```
+my-auto
+``` | ✅ Full Support |
+| ```
+mt-auto
+``` | ✅ Full Support |
+| ```
+mr-auto
+``` | ✅ Full Support |
+| ```
+mb-auto
+``` | ✅ Full Support |
+| ```
+ml-auto
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Translate
+
+# Translate
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| ```
+translate-x-{n}
+``` | ✅ Full Support |
+| ```
+translate-x-[n]
+``` | ✅ Full Support |
+| ```
+translate-y-{n}
+``` | ✅ Full Support |
+| ```
+translate-y-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Overview
+
+# Overview
+
+Last updated on May 29th, 2025
+
+##
+
+Nativewind allows you to use Tailwind CSS to style your components in React Native. Styled components can be shared between all React Native platforms, using the best style engine for that platform; CSS StyleSheet on web and StyleSheet.create for native. Its goals are to provide a consistent styling experience across all platforms, improving Developer UX, component performance and code maintainability.
+
+On native platforms, Nativewind performs two functions. First, at build time, it compiles your Tailwind CSS styles into `StyleSheet.create` objects and determines the conditional logic of styles (e.g. hover, focus, active, etc). Second, it has an efficient runtime system that applies the styles to your components. This means you can use the full power of Tailwind CSS, including media queries, container queries, and custom values, while still having the performance of a native style system.
+
+On web, Nativewind is a small polyfill for adding `className` support to React Native Web.
+
+##
+
+🌐 **Universal** Uses the best style system for each platform.
+
+🖥️ **DevUX** Plugins for simple setup and improving intellisense support
+
+✨ **Media & Container queries** Use modern mobile styling features like media and container queries (docs)
+
+👪 **Custom values (CSS Variables)** Create themes, sub-themes and dynamic styles using custom values
+
+✨ **Pseudo classes** hover / focus / active on compatible components (docs)
+
+👪 **Parent state styles** automatically style children based upon parent pseudo classes (docs)
+
+🔥 **Lots of other features**
+
+* dark mode
+* arbitrary classes
+* platform selectors
+* plugins
+
+##
+
+A full featured style system should have
+
+* Static styles
+* UI state styles (active, hover, focus, etc)
+* Responsive styles (media queries, dynamic units)
+* Container queries (styling based upon parent appearance)
+* Device state styles (orientation, color scheme)
+* Use the best rendering engine available
+
+React Native's StyleSheet system only provides static styles, with other features left for the user to implement. By using Nativewind you can focus on writing your system instead of building your own custom style system.
+
+On the web, it avoids injecting a StyleSheet at runtime by reusing the existing Tailwind CSS stylesheet, allowing you to use Server Side Rendering and much better initial page load performance.
+
+##
+
+Nativewind handles both the Tailwind CSS compilation and the runtime styles. It works via a JSX transform, meaning there is no need for custom wrappers/boilerplate.
+
+As all React components are transformed with JSX, it works with 3rd party modules.
+
+````
+
+import { CustomText } from "third-party-text-component";
+
+export function BoldText(props) { // You just need to write `className="<your styles>"` return \<CustomText className="text-bold" {...props} />; }
+
+```
+
+Styling can by dynamic and you can perform conditional logic and built up complex style objects.
+
+```
+
+import { Text } from "react-native";
+
+export function MyText({ bold, italic, lineThrough, ...props }) { const classNames = \[];
+
+if (bold) classNames.push("font-bold"); if (italic) classNames.push("italic"); if (lineThrough) classNames.push("line-through");
+
+return \<Text className={classNames.join(" ")} {...props} />; }
+
+```
+
+By default Nativewind maps `className`->`style`, but it can handle the mapping of complex components.
+
+```
+
+remapProps(FlatList, { className: "style", ListFooterComponentClassName: "ListFooterComponentStyle", ListHeaderComponentClassName: "ListHeaderComponentStyle", columnWrapperClassName: "columnWrapperStyle", contentContainerClassName: "contentContainerStyle", });
+
+\<FlatList {...} className="bg-black" ListHeaderComponentClassName="bg-black text-white" ListFooterComponentClassName="bg-black text-white" columnWrapperClassName="bg-black" contentContainerClassName="bg-black" indicatorClassName="bg-black" />
+
+```
+
+And can even work with components that expect style attributes as props
+
+```
+
+import { Text } from "react-native"; import { cssInterop } from "nativewind"; import { Svg, Circle } from "react-native-svg";
+
+/\*\*
+
+- Svg uses `height`/`width` props on native and className on web _/ const StyledSVG = cssInterop(Svg, { className: { target: "style", nativeStyleToProp: { height: true, width: true, }, }, }); /_\*
+- Circle uses `fill`/`stroke`/`strokeWidth` props on native and className on web \*/ const StyledCircle = cssInterop(Circle, { className: { target: "style", nativeStyleToProp: { fill: true, stroke: true, strokeWidth: true, }, }, });
+
+export function BoldText(props) { return ( <Svg className="w-1/2 h-1/2" viewBox="0 0 100 100"> <StyledCircle
+     className="fill-green-500 stroke-blue-500 stroke-2"
+     cx="50"
+     cy="50"
+     r="45"
+   /> </Svg> ); }
+
+```
+
+
+Other bundlers
+
+# Other bundlers
+
+Last updated on May 29th, 2025
+
+Nativewind provides installation instructions for the two most common React Native bundlers, Metro and Next.js. but you can use Nativewind with any bundler. To use Nativewind, three conditions need to be met:
+
+1. Tailwind CSS is setup with the Nativewind preset
+2. React Native is setup and you are using React Native Web >=0.17
+3. The JSX runtime is changed to `'automatic'` and `jsxImportSource` set to `'nativewind'`
+
+##
+
+**Is TailwindCSS setup?**
+
+You can test Tailwind CSS by rendering `<div class="w-10 h-10 bg-red-500" />`. You should see see a red square if setup correctly. Please follow the Tailwind CSS installation instructions for setup and troubleshooting.
+
+**Is React Native Web setup?**
+
+Replace your `div` with:
+
+```
+
+\<View style={{ $$css: true, test: "w-10 h-10 bg-blue-500" }} />
+
+```
+
+You should see a blue square if setup correctly.
+
+**Is JSX runtime set to `automatic` dn `jsxImportSource` set to `'nativewind'`**
+
+Replace your `View` with
+
+```
+
+<View className="w-10 h-10 bg-blue-500" />
+```
+
+Themes
+
+## Themes
+
+Last updated on May 29th, 2025
+
+As Nativewind uses Tailwind CLI, it supports all the theming options Tailwind CSS does. Read the Tailwind CSS docs on each className to learn more about the possible theming values.
+
+###
+
+To transition from a static theme to a dynamic one in Nativewind, utilize CSS Variables as colors. This approach ensures flexibility and adaptability in theme application, catering to user preferences.
+
+tailwind.config.js
+
+```
+module.exports = {
+  theme: {
+    colors: {
+      // Create a custom color that uses a CSS custom value
+      primary: "rgb(var(--color-values) / <alpha-value>)",
+    },
+  },
+  plugins: [
+    // Set a default value on the `:root` element
+    ({ addBase }) =>
+      addBase({
+        ":root": {
+          "--color-values": "255 0 0",
+          "--color-rgb": "rgb(255 0 0)",
+        },
+      }),
+  ],
+};
+```
+
+App.tsx
+
+```
+import { vars } from 'nativewind'
+
+const userTheme = vars({
+  '--color-values': '0 255 0',
+  '--color-rgb': 'rbg(0 0 255)'
+});
+
+export default App() {
+  return (
+    <View>
+      <Text className="text-primary">Access as a theme value</Text>
+      <Text className="text-[--color-rgb]">Or the variable directly</Text>
+
+      {/* Variables can be changed inline */}
+      <View style={userTheme}>
+        <Text className="text-primary">I am now green!</Text>
+        <Text className="text-[--color-rgb]">I am now blue!</Text>
+      </View>
+    </View>
+  )
+}
+```
+
+###
+
+Nativewind is unopinionated on how you implement your theming. This is an example implementation that supports two themes with both a light/dark mode.
+
+App.jsx
+
+```
+import { vars, useColorScheme } from 'nativewind'
+
+const themes = {
+  brand: {
+    'light': vars({
+      '--color-primary': 'black'
+      '--color-secondary': 'white'
+    }),
+    'dark': vars({
+      '--color-primary': 'white'
+      '--color-secondary': 'dark'
+    })
+  },
+  christmas: {
+    'light': vars({
+      '--color-primary': 'red'
+      '--color-secondary': 'green'
+    }),
+    'dark': vars({
+      '--color-primary': 'green'
+      '--color-secondary': 'red'
+    })
+  }
+}
+
+function Theme(props) {
+  const { colorScheme } = useColorScheme()
+  return (
+    <View style={themes[props.name][colorScheme]}>
+      {props.children}
+    </View>
+  )
+}
+
+export default App() {
+  return (
+    <Theme name="brand">
+      <View className="text-primary">{/* rgba(0, 0, 0, 1) */}>
+      <Theme name="christmas">
+        <View className="text-primary">{/* rgba(255, 0, 0, 1) */}>
+      </Theme>
+    </Theme>
+  )
+}
+```
+
+###
+
+####
+
+If you need the default color values at runtime, you can import them directly from `tailwindcss`
+
+retrieve them directly from `tailwindcss/colors`
+
+```
+import colors from "tailwindcss/colors";
+
+export function MyActivityIndicator(props) {
+  return <ActivityIndicator size="small" color={colors.blue.500} {...props} />;
+}
+```
+
+####
+
+If you use custom theme values, extract them to a file that is shared with your code and your `tailwind.config.js`. Please read the Tailwind CSS documentation for more information.
+
+colors.ts
+
+```
+module.exports = {
+  tahiti: {
+    100: "#cffafe",
+    200: "#a5f3fc",
+    300: "#67e8f9",
+    400: "#22d3ee",
+    500: "#06b6d4",
+    600: "#0891b2",
+    700: "#0e7490",
+    800: "#155e75",
+    900: "#164e63",
+  },
+};
+```
+
+tailwind.config.js
+
+```
+const colors = require("./colors");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors,
+    },
+  },
+};
+```
+
+MyActivityIndicator.js
+
+```
+import colors from "./colors";
+
+export function MyActivityIndicator(props) {
+  return <ActivityIndicator color={colors.tahiti.500} {...props} />;
+}
+```
+
+###
+
+####
+
+platformSelect is the equivalent to `Platform.select()`
+
+tailwind.config.js
+
+```
+const { platformSelect } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        error: platformSelect({
+          ios: "red",
+          android: "blue",
+          default: "green",
+        }),
+      },
+    },
+  },
+};
+```
+
+####
+
+Equivalent of `PlatformColor`. Typically used with `platformSelect`.
+
+tailwind.config.js
+
+```
+const { platformColor } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        platformRed: platformSelect({
+          android: platformColor("systemRed"),
+          web: "red",
+        }),
+      },
+    },
+  },
+};
+```
+
+###
+
+####
+
+Equivalent of `StyleSheet.hairlineWidth`
+
+tailwind.config.js
+
+```
+const { hairlineWidth } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      borderWidth: {
+        hairline: hairlineWidth(),
+      },
+    },
+  },
+};
+```
+
+####
+
+Equivalent of `PixelRatio.get()`. If a number is provided it returns `PixelRatio.get() * <value>`, otherwise it returns the PixelRatio value.
+
+tailwind.config.js
+
+```
+const { pixelRatio } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      borderWidth: {
+        number: pixelRatio(2),
+      },
+    },
+  },
+};
+```
+
+####
+
+A helper function to use `PixelRatio.get()` in a conditional statement, similar to `Platform.select`.
+
+tailwind.config.js
+
+```
+const { pixelRatio, hairlineWidth } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      borderWidth: pixelRatioSelect({
+        2: 1,
+        default: hairlineWidth(),
+      }),
+    },
+  },
+};
+```
+
+####
+
+Equivalent of `PixelRatio.getFontScale()`. If a number is provided it returns `PixelRatio.getFontScale() * <value>`, otherwise it returns the `PixelRatio.getFontScale()` value.
+
+tailwind.config.js
+
+```
+const { fontScale } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      fontSize: {
+        custom: fontScale(2),
+      },
+    },
+  },
+};
+```
+
+####
+
+A helper function to use `PixelRatio.getFontScale()` in a conditional statement, similar to `Platform.select`.
+
+tailwind.config.js
+
+```
+const { fontScaleSelect, hairlineWidth } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      fontSize: {
+        custom: fontScaleSelect({
+          2: 14,
+          default: 16,
+        }),
+      },
+    },
+  },
+};
+```
+
+####
+
+Equivalent of `PixelRatio.getPixelSizeForLayoutSize()`
+
+```
+const { getPixelSizeForLayoutSize } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      size: {
+        custom: getPixelSizeForLayoutSize(2),
+      },
+    },
+  },
+};
+```
+
+####
+
+Equivalent of `PixelRatio.roundToNearestPixel()`
+
+```
+const { roundToNearestPixel } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      size: {
+        custom: roundToNearestPixel(8.4)
+      },
+    },
+  },
+});
+```
+
+Style Specificity
+
+## Style Specificity
+
+Last updated on May 29th, 2025
+
+Nativewind employs a specificity model that aligns with CSS rules, augmented to accommodate the inline-style characteristic of React Native and its existing ecosystem.
+
+###
+
+```
+function MyText({ style }) {
+  return <Text {...props} style={[{ color: 'black' }, style]} />;
+}
+
+remapProps(MyText, { className: 'style' })
+
+<MyText style={{ color: 'red' }}>The text will be red on all platforms</MyText>
+<MyText className="text-red-500">What color should I render as?</MyText>
+```
+
+Different platforms interpret this differently due to variations in style specificity rules, causing inconsistencies.
+
+```
+// Native has red text
+<Text style={{ color: 'black' }, { color: 'red' }} />
+
+// Web has black text
+<Text className="text-red-500" style={{ color: 'black'}} />
+```
+
+###
+
+Nativewind has defined the following order of specificity (highest to lowest):
+
+- Styles marked as important (following CSS specificity order)
+- Inline & remapped styles (applied in right-to-left order)
+- className styles (following CSS specificity order)
+
+###
+
+Remapped styles are a novel concept introduced by Nativewind, not present in traditional CSS. They refer to styles translated from a className to a prop, and applied inline. This approach maintains the order of styles, ensuring consistency with existing React Native components.
+
+###
+
+To address styling discrepancies across platforms, Nativewind allows the use of the !important modifier. This returns the styles to a specificity-based order, facilitating consistency.
+
+###
+
+####
+
+```
+// Basic components
+<Text className="text-red-500" style={{ color: 'green' }} /> // green text
+<Text className="!text-red-500" style={{ color: 'green' }} /> // red text
+
+// Remapped components (reusing the initial problem example)
+<MyText className="text-red-500" /> // Native: red, Web: black
+<MyText className="!text-red-500" /> // Both platforms: red
+```
+
+Padding
+
+## Padding
+
+Last updated on May 29th, 2025
+
+###
+
+Please refer to the documentation on the Tailwind CSS website
+
+###
+
+| Class  | Support |
+| ------ | ------- |
+| \`\`\` |         |
+| p-{n}  |         |
+
+````| ✅ Full Support |
+| ```
+p-[n]
+```   | ✅ Full Support |
+| ```
+px-{n}
+```  | ✅ Full Support |
+| ```
+px-[n]
+```  | ✅ Full Support |
+| ```
+py-{n}
+```  | ✅ Full Support |
+| ```
+py-[n]
+```  | ✅ Full Support |
+| ```
+pt-{n}
+```  | ✅ Full Support |
+| ```
+pt-[n]
+```  | ✅ Full Support |
+| ```
+pr-{n}
+```  | ✅ Full Support |
+| ```
+pr-[n]
+```  | ✅ Full Support |
+| ```
+pb-{n}
+```  | ✅ Full Support |
+| ```
+pb-[n]
+```  | ✅ Full Support |
+| ```
+pl-{n}
+```  | ✅ Full Support |
+| ```
+pl-[n]
+```  | ✅ Full Support |
+| ```
+p-auto
+```  | 🌐 Web only    |
+| ```
+px-auto
+``` | 🌐 Web only    |
+| ```
+py-auto
+``` | 🌐 Web only    |
+| ```
+pt-auto
+``` | 🌐 Web only    |
+| ```
+pr-auto
+``` | 🌐 Web only    |
+| ```
+pb-auto
+``` | 🌐 Web only    |
+| ```
+pl-auto
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Accent Color
+
+# Accent Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                      | Support     |
+| -------------------------- | ----------- |
+| ```
+accent-{n}
+```         | 🌐 Web only |
+| ```
+accent-[n]
+```         | 🌐 Web only |
+| ```
+accent-black
+```       | 🌐 Web only |
+| ```
+accent-white
+```       | 🌐 Web only |
+| ```
+accent-transparent
+``` | 🌐 Web only |
+| ```
+accent-inherit
+```     | 🌐 Web only |
+| ```
+accent-current
+```     | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+##
+
+We are looking for contributors for the following:
+
+###
+
+React Native doesn't have a value for `accent`, however many 3rd party libraries do.
+
+A solution maybe allowing `accent` to compile, but is stripped if not used as part of a `nativeStyleProps` mapping.
+
+
+Appearance
+
+# Appearance
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support     |
+| ----------------------- | ----------- |
+| ```
+appearance-none
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Caret Color
+
+# Caret Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                     | Support        |
+| ------------------------- | -------------- |
+| ```
+caret-{n}
+```         | ✅ Full Support |
+| ```
+caret-[n]
+```         | ✅ Full Support |
+| ```
+caret-black
+```       | ✅ Full Support |
+| ```
+caret-white
+```       | ✅ Full Support |
+| ```
+caret-transparent
+``` | ✅ Full Support |
+| ```
+caret-inherit
+```     | 🌐 Web only    |
+| ```
+caret-current
+```     | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+##
+
+We are looking for contributors for the following:
+
+###
+
+`caretColor` should map to `cursorColor`
+
+
+Cursor
+
+# Cursor
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| ```
+cursor-{n}
+``` | 🌐 Web only |
+| ```
+cursor-[n]
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Container
+
+# Container
+
+Last updated on May 29th, 2025
+
+Nativewind's default breakpoints are not yet designed for native devices and still uses the web defaults.
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class             | Support        |
+| ----------------- | -------------- |
+| ```
+container
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Space Between
+
+# Space Between
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+CAUTION
+
+`space-{n}` was temporary removed in `v4`. You can now use `gap-*` utilities to add space between elements. We will re-add it once React Native adds support for `display: 'block'`.
+
+##
+
+| Class                   | Support     |
+| ----------------------- | ----------- |
+| ```
+space-{n}
+```       | 🌐 Web only |
+| ```
+space-[n]
+```       | 🌐 Web only |
+| ```
+space-x-{n}
+```     | 🌐 Web only |
+| ```
+space-x-[n]
+```     | 🌐 Web only |
+| ```
+space-y-{n}
+```     | 🌐 Web only |
+| ```
+space-y-[n]
+```     | 🌐 Web only |
+| ```
+space-x-reverse
+``` | 🌐 Web only |
+| ```
+space-y-reverse
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Pointer Events
+
+# Pointer Events
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                           | Support        |
+| ------------------------------- | -------------- |
+| ```
+pointer-events-none
+```     | ✅ Full Support |
+| ```
+pointer-events-auto
+```     | ✅ Full Support |
+| ```
+pointer-events-box-none
+``` | 📱 Native only |
+| ```
+pointer-events-box-only
+``` | 📱 Native only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Height
+
+# Height
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class            | Support        |
+| ---------------- | -------------- |
+| ```
+h-{n}
+```    | ✅ Full Support |
+| ```
+h-[n]
+```    | ✅ Full Support |
+| ```
+h-full
+```   | ✅ Full Support |
+| ```
+h-screen
+``` | ✅ Full Support |
+| ```
+h-auto
+```   | 🌐 Web only    |
+| ```
+h-min
+```    | 🌐 Web only    |
+| ```
+h-max
+```    | 🌐 Web only    |
+| ```
+h-fit
+```    | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Resize
+
+# Resize
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+resize-none
+``` | 🌐 Web only |
+| ```
+resize-y
+```    | 🌐 Web only |
+| ```
+resize-x
+```    | 🌐 Web only |
+| ```
+resize
+```      | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Scroll Behavior
+
+# Scroll Behavior
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| ```
+scroll-auto
+```   | 🌐 Web only |
+| ```
+scroll-smooth
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Safe Area Insets
+
+# Safe Area Insets
+
+Last updated on May 29th, 2025
+
+##
+
+Safe Area Insets are the area of the screen that is not covered by the notch, home indicator, or rounded corners. This is the area where you should place your content to ensure it is not obscured by the system UI.
+
+##
+
+On native, the safe area measurements are provided by `react-native-safe-area-context`. You will need to wrap your app with the `SafeAreaProvider` and use the `useSafeAreaEnv` hook to get the safe area insets.
+
+````
+
+import { View } from "react-native"; import { SafeAreaProvider } from "react-native-safe-area-context";
+
+export function MyApp(props) { // Make sure you have the SafeAreaProvider at the root of your app return ( <SafeAreaProvider> \<View className="p-safe" {...props} /> </SafeAreaProvider> ); }
+
+```
+
+Expo Router adds the \<SafeAreaProvider /> to every route. This setup is not needed
+
+##
+
+On web, your CSS StyleSheet will use the CSS `env()` function and no extra setup is needed.
+
+The `h-screen-safe` and `min-h-screen-safe` utilities may not work as expected on Google Chrome. Add height: `-webkit-fill-available` on parent nodes:
+
+```
+
+@tailwind base; @tailwind components; @tailwind utilities;
+
+@layer base { html { height: -webkit-fill-available; }
+
+body { height: -webkit-fill-available; }
+
+\#root { height: -webkit-fill-available; } }
+
+````
+
+##
+
+| Class                     | Support        | Comments                                                                                                                                                                                                                                                                      |
+| ------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ```
+m-safe
+```            | ✅ Full Support | `margin-top: env(safe-area-inset-top); margin-bottom: env(safe-area-inset-bottom); margin-left: env(safe-area-inset-left); margin-right: env(safe-area-inset-right);`                                                                                                         |
+| ```
+p-safe
+```            | ✅ Full Support | `padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);`                                                                                                     |
+| ```
+mx-safe
+```           | ✅ Full Support | `margin-left: env(safe-area-inset-left); margin-right: env(safe-area-inset-right);`                                                                                                                                                                                           |
+| ```
+px-safe
+```           | ✅ Full Support | `padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);`                                                                                                                                                                                         |
+| ```
+my-safe
+```           | ✅ Full Support | `margin-top: env(safe-area-inset-top); margin-bottom: env(safe-area-inset-bottom);`                                                                                                                                                                                           |
+| ```
+py-safe
+```           | ✅ Full Support | `padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);`                                                                                                                                                                                         |
+| ```
+mt-safe
+```           | ✅ Full Support | `margin-top: env(safe-area-inset-top);`                                                                                                                                                                                                                                       |
+| ```
+pt-safe
+```           | ✅ Full Support | `padding-top: env(safe-area-inset-top);`                                                                                                                                                                                                                                      |
+| ```
+mr-safe
+```           | ✅ Full Support | `margin-right: env(safe-area-inset-top);`                                                                                                                                                                                                                                     |
+| ```
+pr-safe
+```           | ✅ Full Support | `padding-right: env(safe-area-inset-top);`                                                                                                                                                                                                                                    |
+| ```
+mb-safe
+```           | ✅ Full Support | `margin-bottom: env(safe-area-inset-top);`                                                                                                                                                                                                                                    |
+| ```
+pb-safe
+```           | ✅ Full Support | `padding-bottom: env(safe-area-inset-top);`                                                                                                                                                                                                                                   |
+| ```
+ml-safe
+```           | ✅ Full Support | `margin-left: env(safe-area-inset-top);`                                                                                                                                                                                                                                      |
+| ```
+pl-safe
+```           | ✅ Full Support | `padding-left: env(safe-area-inset-top);`                                                                                                                                                                                                                                     |
+| ```
+*-safe-or-[n]
+```     | ✅ Full Support | `*` can be substituted for any spacing utility. `[n]` can be substituted for any spacing value.`// example using mt-safe-or-4 margin-top: max(env(safe-area-inset-top), 1rem); // example using mt-safe-or-[2px] margin-top: max(env(safe-area-inset-top), 2px);`             |
+| ```
+h-screen-safe
+```     | 🌐 Web only    | `height: calc(100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))`                                                                                                                                                                                              |
+| ```
+*-safe-offset-[n]
+``` | 🌐 Web only    | `*` can be substituted for any spacing utility. `[n]` can be substituted for any spacing value.`// example using mt-safe-offset-4 margin-top: calc(env(safe-area-inset-top) + 1rem); // example using mt-safe-offset-[2px] margin-top: calc(env(safe-area-inset-top) + 2px);` |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Display
+
+# Display
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                      | Support        |
+| -------------------------- | -------------- |
+| ```
+flex
+```               | ✅ Full Support |
+| ```
+hidden
+```             | ✅ Full Support |
+| ```
+block
+```              | 🌐 Web only    |
+| ```
+inline-block
+```       | 🌐 Web only    |
+| ```
+inline
+```             | 🌐 Web only    |
+| ```
+inline-flex
+```        | 🌐 Web only    |
+| ```
+table
+```              | 🌐 Web only    |
+| ```
+inline-table
+```       | 🌐 Web only    |
+| ```
+table-caption
+```      | 🌐 Web only    |
+| ```
+table-cell
+```         | 🌐 Web only    |
+| ```
+table-column
+```       | 🌐 Web only    |
+| ```
+table-column-group
+``` | 🌐 Web only    |
+| ```
+table-footer-group
+``` | 🌐 Web only    |
+| ```
+table-header-group
+``` | 🌐 Web only    |
+| ```
+table-row-group
+```    | 🌐 Web only    |
+| ```
+table-row
+```          | 🌐 Web only    |
+| ```
+flow-root
+```          | 🌐 Web only    |
+| ```
+grid
+```               | 🌐 Web only    |
+| ```
+inline-grid
+```        | 🌐 Web only    |
+| ```
+contents
+```           | 🌐 Web only    |
+| ```
+list-item
+```          | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Max-Height
+
+# Max-Height
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+max-h-0
+```      | ✅ Full Support |
+| ```
+max-h-[n]
+```    | ✅ Full Support |
+| ```
+max-h-{n}
+```    | ✅ Full Support |
+| ```
+max-h-full
+```   | ✅ Full Support |
+| ```
+max-h-screen
+``` | ✅ Full Support |
+| ```
+max-h-min
+```    | 🌐 Web only    |
+| ```
+max-h-max
+```    | 🌐 Web only    |
+| ```
+max-h-fit
+```    | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Scroll Margin
+
+# Scroll Margin
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| ```
+scroll-m-{n}
+```  | 🌐 Web only |
+| ```
+scroll-m-[n]
+```  | 🌐 Web only |
+| ```
+scroll-mx-{n}
+``` | 🌐 Web only |
+| ```
+scroll-mx-[n]
+``` | 🌐 Web only |
+| ```
+scroll-my-{n}
+``` | 🌐 Web only |
+| ```
+scroll-my-[n]
+``` | 🌐 Web only |
+| ```
+scroll-mt-{n}
+``` | 🌐 Web only |
+| ```
+scroll-mt-[n]
+``` | 🌐 Web only |
+| ```
+scroll-mr-{n}
+``` | 🌐 Web only |
+| ```
+scroll-mr-[n]
+``` | 🌐 Web only |
+| ```
+scroll-mb-{n}
+``` | 🌐 Web only |
+| ```
+scroll-mb-[n]
+``` | 🌐 Web only |
+| ```
+scroll-ml-{n}
+``` | 🌐 Web only |
+| ```
+scroll-ml-[n]
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Max-Width
+
+# Max-Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                    | Support        |
+| ------------------------ | -------------- |
+| ```
+max-w-0
+```          | ✅ Full Support |
+| ```
+max-w-[n]
+```        | ✅ Full Support |
+| ```
+max-w-{n}
+```        | ✅ Full Support |
+| ```
+max-w-full
+```       | ✅ Full Support |
+| ```
+max-w-screen-sm
+```  | ✅ Full Support |
+| ```
+max-w-screen-md
+```  | ✅ Full Support |
+| ```
+max-w-screen-lg
+```  | ✅ Full Support |
+| ```
+max-w-screen-xl
+```  | ✅ Full Support |
+| ```
+max-w-screen-2xl
+``` | ✅ Full Support |
+| ```
+max-w-min
+```        | 🌐 Web only    |
+| ```
+max-w-max
+```        | 🌐 Web only    |
+| ```
+max-w-fit
+```        | 🌐 Web only    |
+| ```
+max-w-prose
+```      | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Scroll Padding
+
+# Scroll Padding
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| ```
+scroll-p-{n}
+```  | 🌐 Web only |
+| ```
+scroll-p-[n]
+```  | 🌐 Web only |
+| ```
+scroll-px-{n}
+``` | 🌐 Web only |
+| ```
+scroll-px-[n]
+``` | 🌐 Web only |
+| ```
+scroll-py-{n}
+``` | 🌐 Web only |
+| ```
+scroll-py-[n]
+``` | 🌐 Web only |
+| ```
+scroll-pt-{n}
+``` | 🌐 Web only |
+| ```
+scroll-pt-[n]
+``` | 🌐 Web only |
+| ```
+scroll-pr-{n}
+``` | 🌐 Web only |
+| ```
+scroll-pr-[n]
+``` | 🌐 Web only |
+| ```
+scroll-pb-{n}
+``` | 🌐 Web only |
+| ```
+scroll-pb-[n]
+``` | 🌐 Web only |
+| ```
+scroll-pl-{n}
+``` | 🌐 Web only |
+| ```
+scroll-pl-[n]
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Scroll Snap Align
+
+# Scroll Snap Align
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support     |
+| ----------------------- | ----------- |
+| ```
+snap-start
+```      | 🌐 Web only |
+| ```
+snap-end
+```        | 🌐 Web only |
+| ```
+snap-center
+```     | 🌐 Web only |
+| ```
+snap-align-none
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Floats
+
+# Floats
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+float-right
+``` | 🌐 Web only |
+| ```
+float-left
+```  | 🌐 Web only |
+| ```
+float-none
+```  | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Scroll Snap Stop
+
+# Scroll Snap Stop
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+snap-normal
+``` | 🌐 Web only |
+| ```
+snap-always
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Min-Height
+
+# Min-Height
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+min-h-0
+```    | ✅ Full Support |
+| ```
+min-h-[n]
+```  | ✅ Full Support |
+| ```
+min-h-full
+``` | ✅ Full Support |
+| ```
+min-h-min
+```  | 🌐 Web only    |
+| ```
+min-h-max
+```  | 🌐 Web only    |
+| ```
+min-h-fit
+```  | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Scroll Snap Type
+
+# Scroll Snap Type
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+snap-none
+```      | 🌐 Web only |
+| ```
+snap-x
+```         | 🌐 Web only |
+| ```
+snap-y
+```         | 🌐 Web only |
+| ```
+snap-both
+```      | 🌐 Web only |
+| ```
+snap-mandatory
+``` | 🌐 Web only |
+| ```
+snap-proximity
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Touch Action
+
+# Touch Action
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| ```
+touch-auto
+```          | 🌐 Web only |
+| ```
+touch-none
+```          | 🌐 Web only |
+| ```
+touch-pan-x
+```         | 🌐 Web only |
+| ```
+touch-pan-left
+```      | 🌐 Web only |
+| ```
+touch-pan-right
+```     | 🌐 Web only |
+| ```
+touch-pan-y
+```         | 🌐 Web only |
+| ```
+touch-pan-up
+```        | 🌐 Web only |
+| ```
+touch-pan-down
+```      | 🌐 Web only |
+| ```
+touch-pinch-zoom
+```   | 🌐 Web only |
+| ```
+touch-manipulation
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Configuration
+
+# Configuration
+
+Last updated on May 29th, 2025
+
+Nativewind uses the same `tailwind.config.js` as Tailwind CSS. You can read more about how to configure your project through the Tailwind CSS documentation.
+
+##
+
+###
+
+**required**
+
+Type: `string`
+
+The path to the entry file for your Tailwind styles
+
+###
+
+Default: `process.cwd()`
+
+The path to the root of your project
+
+###
+
+Default: `node_modules/.cache/nativewind`
+
+The path to the directory where the generated styles should be written. Should be relative to the `projectRoot`
+
+###
+
+Default: `tailwind.config.js`
+
+The path to your Tailwind config file
+
+###
+
+Default: `node node_modules/tailwind/lib/cli.js`
+
+The command to run the Tailwind CLI
+
+###
+
+Default: `last 1 versions`
+
+The browserslist used by browserslist & autoprefixer
+
+###
+
+Default: `native`
+
+The environment used by browserslist & autoprefixer
+
+###
+
+Default: `{ port: <next-available> }`
+
+The options passed to `ws` for the development hot reloading server.
+
+
+Isolation
+
+# Isolation
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+isolate
+```        | 🌐 Web only |
+| ```
+isolation-auto
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Min-Width
+
+# Min-Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+min-w-0
+```    | ✅ Full Support |
+| ```
+min-w-[n]
+```  | ✅ Full Support |
+| ```
+min-w-full
+``` | ✅ Full Support |
+| ```
+min-w-min
+```  | 🌐 Web only    |
+| ```
+min-w-max
+```  | 🌐 Web only    |
+| ```
+min-w-fit
+```  | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+User Select
+
+# User Select
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| ```
+select-none
+``` | 🌐 Web only |
+| ```
+select-text
+``` | 🌐 Web only |
+| ```
+select-all
+```  | 🌐 Web only |
+| ```
+select-auto
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+##
+
+We are looking for contributors for the following:
+
+###
+
+`userSelect` was added in React Native 0.71
+
+
+Width
+
+# Width
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class            | Support        |
+| ---------------- | -------------- |
+| ```
+w-{n}
+```    | ✅ Full Support |
+| ```
+w-[n]
+```    | ✅ Full Support |
+| ```
+w-full
+```   | ✅ Full Support |
+| ```
+w-screen
+``` | ✅ Full Support |
+| ```
+w-auto
+```   | 🌐 Web only    |
+| ```
+w-min
+```    | 🌐 Web only    |
+| ```
+w-max
+```    | 🌐 Web only    |
+| ```
+w-fit
+```    | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Will Change
+
+# Will Change
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                         | Support     |
+| ----------------------------- | ----------- |
+| ```
+will-change-auto
+```      | 🌐 Web only |
+| ```
+will-change-scroll
+```    | 🌐 Web only |
+| ```
+will-change-contents
+```  | 🌐 Web only |
+| ```
+will-change-transform
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+##
+
+We are looking for contributors for the following:
+
+###
+
+When a component has a transition or animation class name it will use `react-native-reanimated`'s `Animated.createAnimatedComponent()` to make the component animated. If these class names are conditional, this will cause the component to unmount as Nativewind will conditionally render two different components.
+
+A proposed solution is to use `will-change-transform` to force the component to be animated, even if not required.
+
+
+Fill
+
+# Fill
+
+Last updated on May 29th, 2025
+
+##
+
+React Native does not have SVG components but universal SVG support can be achieved with 3rd party libraries such as react-native-svg. While these docs use `react-native-svg`, the concept applies to all libraries.
+
+You will need to `cssInterop()` on these components to properly style them for native.
+
+Example usage
+
+````
+
+import React from 'react'; import { View, StyleSheet } from 'react-native'; import Svg, { Circle, Rect } from 'react-native-svg'; import { cssInterop } from 'nativewind'
+
+cssInterop(Svg, { className: { target: "style", nativeStyleToProp: { width: true, height: true } }, }); cssInterop(Circle, { className: { target: "style", nativeStyleToProp: { width: true, height: true, stroke: true, strokeWidth: true, fill: true } }, }); cssInterop(Rect, { className: { target: "style", nativeStyleToProp: { width: true, height: true, stroke: true, strokeWidth: true, fill: true } }, });
+
+export function SvgExample () { return ( <View className="inset-0 items-center content-center"> <Svg className="h-1/2 w-1/2" viewBox="0 0 100 100" > <Circle cx="50" cy="50" r="45" className="stroke-blue-500 stroke-2 fill-green-500" /> <Rect x="15" y="15" className="w-16 h-16 stroke-red-500 stroke-2 fill-yellow-500" /> </Svg> </View> ); }
+
+````
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+fill-{n}
+```     | ✅ Full Support |
+| ```
+fill-[n]
+```     | ✅ Full Support |
+| ```
+fill-inherit
+``` | 🌐 Web only    |
+| ```
+fill-current
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Content
+
+# Content
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support     |
+| -------------------- | ----------- |
+| ```
+content-none
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Stroke
+
+# Stroke
+
+Last updated on May 29th, 2025
+
+##
+
+React Native does not have SVG components but universal SVG support can be achieved with 3rd party libraries such as react-native-svg. While these docs use `react-native-svg`, the concept applies to all libraries.
+
+You will need to `cssInterop()` on these components to properly style them for native.
+
+Example usage
+
+````
+
+import React from 'react'; import { View, StyleSheet } from 'react-native'; import Svg, { Circle, Rect } from 'react-native-svg'; import { cssInterop } from 'nativewind'
+
+cssInterop(Svg, { className: { target: "style", nativeStyleToProp: { width: true, height: true } }, }); cssInterop(Circle, { className: { target: "style", nativeStyleToProp: { width: true, height: true, stroke: true, strokeWidth: true, fill: true } }, }); cssInterop(Rect, { className: { target: "style", nativeStyleToProp: { width: true, height: true, stroke: true, strokeWidth: true, fill: true } }, });
+
+export function SvgExample () { return ( <View className="inset-0 items-center content-center"> <Svg className="h-1/2 w-1/2" viewBox="0 0 100 100" > <Circle cx="50" cy="50" r="45" className="stroke-blue-500 stroke-2 fill-green-500" /> <Rect x="15" y="15" className="w-16 h-16 stroke-red-500 stroke-2 fill-yellow-500" /> </Svg> </View> ); }
+
+````
+
+##
+
+| Class                  | Support        |
+| ---------------------- | -------------- |
+| ```
+stroke-{n}
+```     | ✅ Full Support |
+| ```
+stroke-[n]
+```     | ✅ Full Support |
+| ```
+stroke-inherit
+``` | 🌐 Web only    |
+| ```
+stroke-current
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Stroke Width
+
+# Stroke Width
+
+Last updated on May 29th, 2025
+
+##
+
+React Native does not have SVG components but universal SVG support can be achieved with 3rd party libraries such as react-native-svg. While these docs use `react-native-svg`, the concept applies to all libraries.
+
+You will need to `cssInterop()` on these components to properly style them for native.
+
+Example usage
+
+````
+
+import React from 'react'; import { View, StyleSheet } from 'react-native'; import Svg, { Circle, Rect } from 'react-native-svg'; import { cssInterop } from 'nativewind'
+
+cssInterop(Svg, { className: { target: "style", nativeStyleToProp: { width: true, height: true } }, }); cssInterop(Circle, { className: { target: "style", nativeStyleToProp: { width: true, height: true, stroke: true, strokeWidth: true, fill: true } }, }); cssInterop(Rect, { className: { target: "style", nativeStyleToProp: { width: true, height: true, stroke: true, strokeWidth: true, fill: true } }, });
+
+export function SvgExample () { return ( <View className="inset-0 items-center content-center"> <Svg className="h-1/2 w-1/2" viewBox="0 0 100 100" > <Circle cx="50" cy="50" r="45" className="stroke-blue-500 stroke-2 fill-green-500" /> <Rect x="15" y="15" className="w-16 h-16 stroke-red-500 stroke-2 fill-yellow-500" /> </Svg> </View> ); }
+
+````
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+stroke-{n}
+``` | ✅ Full Support |
+| ```
+stroke-[n]
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Object Fit
+
+# Object Fit
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                     | Support     |
+| ------------------------- | ----------- |
+| ```
+object-contain
+```    | 🌐 Web only |
+| ```
+object-cover
+```      | 🌐 Web only |
+| ```
+object-fill
+```       | 🌐 Web only |
+| ```
+object-none
+```       | 🌐 Web only |
+| ```
+object-scale-down
+``` | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+##
+
+We are looking for contributors for the following:
+
+###
+
+`object-fit` was added in React Native 0.71
+
+
+Font Family
+
+# Font Family
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+React Native loads fonts differently between iOS and Android. We recommend following https\://github.com/jsamr/react-native-font-demo to use fonts that work consistently on all platforms and allow you to use Tailwind CSS as expected.
+
+###
+
+React Native does not support fallback fonts. If an array of fonts are provided, Nativewind will only use the first font.
+
+###
+
+Nativewind will not load/link fonts into your app. If you have any issues with the font family or weights not rendering, please first verify it works with inline styles.
+
+tailwind.config.js
+
+````
+
+import { platformSelect } from "nativewind/theme";
+
+module.exports = { theme: { extend: { fontFamily: { example: \["ExampleFontFamily"], system: platformSelect({ ios: "Georgia", android: "sans-serif", default: "ui-sans-serif", }), }, }, }, };
+
+````
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+font-sans
+```  | ✅ Full Support |
+| ```
+font-serif
+``` | ✅ Full Support |
+| ```
+font-mono
+```  | ✅ Full Support |
+| ```
+font-[n]
+```   | ✅ Full Support |
+| ```
+font-{n}
+```   | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Font Size
+
+# Font Size
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+Tailwind CSS using `rem` units for font sizes by default. To improve performance Nativewind will inline `rem` values on all platforms, except for Web. Nativewind uses the following `rem` for each platform
+
+* **Web**: `16px`
+* **All other platforms**: `14px` (matches React Native's default Text size)
+
+If you need dynamically scaling text for a section of your app, we recommend using a CSS variable.
+
+tailwind.config.js
+
+````
+
+module.exports = { theme: { extend: { fontSize: { dynamic: "var(--font-size-dynamic)", }, }, }, };
+
+```
+
+###
+
+A common use case for dynamically scaling text is to scale text based upon the screen width. You can do this by using CSS variables and media queries.
+
+Nativewind currently does not support media queries on `:root`, so you'll need to use a class.
+
+global.css
+
+```
+
+@media (min-width: 640px) { .text-root { \--font-size-dynamic: 16px; } }
+
+@media (min-width: 768px) { .text-root { \--font-size-dynamic: 18px; } }
+
+```
+
+App.tsx
+
+```
+
+export default App() { return ( <Text className="text-root"> <Text className="text-[--font-size-dynamic]">I scale with screen width</Text> </Text> ) }
+
+```
+
+###
+
+You can the change the default `rem` value by setting `rem` in your `metro.config.js`
+
+metro.config.js
+
+```
+
+module.exports = withNativeWind({ input: "./global.css" inlineRem: 16, });
+
+```
+
+###
+
+You can disable the inlining behaviour by passing `false`
+
+metro.config.js
+
+```
+
+module.exports = withNativeWind({ inline: "./global.css" inlineRem: false, });
+
+```
+
+You will then need to specify your own `rem` value in your CSS.
+
+global.css
+
+```
+
+:root { font-size: 16px; }
+
+````
+
+##
+
+| Class             | Support        |
+| ----------------- | -------------- |
+| ```
+text-{n}
+```  | ✅ Full Support |
+| ```
+text-[n]
+```  | ✅ Full Support |
+| ```
+text-base
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Object Position
+
+# Object Position
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| ```
+object-bottom
+```       | 🌐 Web only |
+| ```
+object-center
+```       | 🌐 Web only |
+| ```
+object-left
+```         | 🌐 Web only |
+| ```
+object-left-bottom
+```  | 🌐 Web only |
+| ```
+object-left-top
+```     | 🌐 Web only |
+| ```
+object-right
+```        | 🌐 Web only |
+| ```
+object-right-bottom
+``` | 🌐 Web only |
+| ```
+object-right-top
+```    | 🌐 Web only |
+| ```
+object-top
+```          | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Font Smoothing
+
+# Font Smoothing
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                        | Support        |
+| ---------------------------- | -------------- |
+| ```
+antialiased
+```          | ✅ Full Support |
+| ```
+subpixel-antialiased
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Editor Setup
+
+# Editor Setup
+
+Last updated on May 29th, 2025
+
+Please refer to the documentation on the Tailwind CSS website for more information.
+
+##
+
+`cssInterop`/`remapProps` allow you to create custom className props. You can follow the documentation of your chosen plugin to add this to the checked `classAttributes`.
+
+Here's an example where we are using VS Code and custom component `cssInterop(Component, { headerClassName: 'headerStyle' })`:
+
+````
+
+{ (...) "tailwindCSS.classAttributes": \[ "class", "className", "headerClassName" ] }
+
+````
+
+
+# Content
+
+Last updated on May 29th, 2025
+
+Nativewind follows the same `content` rules as Tailwind CSS. Please refer to the Tailwind CSS documentation for more information and troubleshooting steps.
+
+
+Overflow
+
+# Overflow
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                      | Support        |
+| -------------------------- | -------------- |
+| ```
+visible
+```            | ✅ Full Support |
+| ```
+hidden
+```             | ✅ Full Support |
+| ```
+scroll
+```             | ✅ Full Support |
+| ```
+overflow-auto
+```      | 🌐 Web only    |
+| ```
+overflow-clip
+```      | 🌐 Web only    |
+| ```
+overflow-x-auto
+```    | 🌐 Web only    |
+| ```
+overflow-y-auto
+```    | 🌐 Web only    |
+| ```
+overflow-x-hidden
+```  | 🌐 Web only    |
+| ```
+overflow-y-hidden
+```  | 🌐 Web only    |
+| ```
+overflow-x-clip
+```    | 🌐 Web only    |
+| ```
+overflow-y-clip
+```    | 🌐 Web only    |
+| ```
+overflow-x-visible
+``` | 🌐 Web only    |
+| ```
+overflow-y-visible
+``` | 🌐 Web only    |
+| ```
+overflow-x-scroll
+```  | 🌐 Web only    |
+| ```
+overflow-y-scroll
+```  | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Font Style
+
+# Font Style
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| ```
+italic
+```     | ✅ Full Support |
+| ```
+not-italic
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Font Variant Numeric
+
+# Font Variant Numeric
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                      | Support        |
+| -------------------------- | -------------- |
+| ```
+normal-nums
+```        | ✅ Full Support |
+| ```
+ordinal
+```            | ✅ Full Support |
+| ```
+slashed-zero
+```       | ✅ Full Support |
+| ```
+lining-nums
+```        | ✅ Full Support |
+| ```
+oldstyle-nums
+```      | ✅ Full Support |
+| ```
+proportional-nums
+```  | ✅ Full Support |
+| ```
+tabular-nums
+```       | ✅ Full Support |
+| ```
+diagonal-fractions
+``` | ✅ Full Support |
+| ```
+stacked-fractions
+```  | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Font Weight
+
+# Font Weight
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| ```
+font-thin
+```       | ✅ Full Support |
+| ```
+font-extralight
+``` | ✅ Full Support |
+| ```
+font-light
+```      | ✅ Full Support |
+| ```
+font-normal
+```     | ✅ Full Support |
+| ```
+font-medium
+```     | ✅ Full Support |
+| ```
+font-semibold
+```   | ✅ Full Support |
+| ```
+font-bold
+```       | ✅ Full Support |
+| ```
+font-extrabold
+```  | ✅ Full Support |
+| ```
+font-black
+```      | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Theme
+
+# Theme
+
+Last updated on May 29th, 2025
+
+Nativewind uses the same theme values as as Tailwind CSS. You can read more about how to configure your project through the Tailwind CSS documentation.
+
+Fully dynamic React Native applications often make use of helper functions such as `Platform.select` and `PixelRatio`. Nativewind exports helpers allowing you to embed these functions into your theme.
+
+##
+
+`platformSelect` is the equivalent to `Platform.select()`.
+
+````
+
+// tailwind.config.js
+
+const { platformSelect } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { colors: { error: platformSelect({ ios: "red", android: "blue", default: "green", }), }, }, }, };
+
+```
+
+###
+
+Equivalent of `PlatformColor`. Typically used with `platformSelect`.
+
+```
+
+const { platformColor } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { colors: { platformRed: platformSelect({ android: platformColor("systemRed"), web: "red", }), }, }, }, };
+
+```
+
+###
+
+Equivalent of `StyleSheet.hairlineWidth`
+
+```
+
+const { hairlineWidth } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { borderWidth: { hairline: hairlineWidth(), }, }, }, };
+
+```
+
+###
+
+Equivalent of `PixelRatio.get()`. If a number is provided it returns `PixelRatio.get() * <value>`, otherwise it returns the PixelRatio value.
+
+```
+
+const { pixelRatio } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { borderWidth: { number: pixelRatio(2), }, }, }, };
+
+```
+
+###
+
+A helper function to use `PixelRatio.get()` in a conditional statement, similar to `Platform.select`.
+
+```
+
+const { pixelRatio, hairlineWidth } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { borderWidth: pixelRatioSelect({ 2: 1, default: hairlineWidth(), }), }, }, };
+
+```
+
+###
+
+Equivalent of `PixelRatio.getFontScale()`. If a number is provided it returns `PixelRatio.getFontScale() * <value>`, otherwise it returns the `PixelRatio.getFontScale()` value.
+
+```
+
+const { fontScale } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { fontSize: { custom: fontScale(2), }, }, }, };
+
+```
+
+###
+
+A helper function to use `PixelRatio.getFontScale()` in a conditional statement, similar to `Platform.select`.
+
+```
+
+const { fontScaleSelect, hairlineWidth } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { fontSize: { custom: fontScaleSelect({ 2: 14, default: 16, }), }, }, }, };
+
+```
+
+###
+
+Equivalent of `PixelRatio.getPixelSizeForLayoutSize()`
+
+```
+
+const { getPixelSizeForLayoutSize } = require("nativewind");
+
+module.exports = { theme: { extend: { size: { custom: getPixelSizeForLayoutSize(2), }, }, }, };
+
+```
+
+###
+
+Equivalent of `PixelRatio.roundToNearestPixel()`
+
+```
+
+const { roundToNearestPixel } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { size: { custom: roundToNearestPixel(8.4) }, }, }, });
+
+````
+
+
+Overscroll Behavior
+
+# Overscroll Behavior
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| ```
+overscroll-auto
+```      | 🌐 Web only |
+| ```
+overscroll-contain
+```   | 🌐 Web only |
+| ```
+overscroll-none
+```      | 🌐 Web only |
+| ```
+overscroll-y-auto
+```    | 🌐 Web only |
+| ```
+overscroll-y-contain
+``` | 🌐 Web only |
+| ```
+overscroll-y-none
+```    | 🌐 Web only |
+| ```
+overscroll-x-auto
+```    | 🌐 Web only |
+| ```
+overscroll-x-contain
+``` | 🌐 Web only |
+| ```
+overscroll-x-none
+```    | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Hyphens
+
+# Hyphens
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| ```
+hyphens-none
+```   | 🌐 Web only |
+| ```
+hyphens-manual
+``` | 🌐 Web only |
+| ```
+hyphens-auto
+```   | 🌐 Web only |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Letter Spacing
+
+# Letter Spacing
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                    | Support        |
+| ------------------------ | -------------- |
+| ```
+tracking-tighter
+``` | ✅ Full Support |
+| ```
+tracking-tight
+```   | ✅ Full Support |
+| ```
+tracking-normal
+```  | ✅ Full Support |
+| ```
+tracking-wide
+```    | ✅ Full Support |
+| ```
+tracking-wider
+```   | ✅ Full Support |
+| ```
+tracking-widest
+```  | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Position
+
+# Position
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class            | Support        |
+| ---------------- | -------------- |
+| ```
+absolute
+``` | ✅ Full Support |
+| ```
+relative
+``` | ✅ Full Support |
+| ```
+fixed
+```    | 🌐 Web only    |
+| ```
+sticky
+```   | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Line Clamp
+
+# Line Clamp
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| ```
+line-clamp-1
+```    | ✅ Full Support |
+| ```
+line-clamp-2
+```    | ✅ Full Support |
+| ```
+line-clamp-3
+```    | ✅ Full Support |
+| ```
+line-clamp-4
+```    | ✅ Full Support |
+| ```
+line-clamp-5
+```    | ✅ Full Support |
+| ```
+line-clamp-6
+```    | ✅ Full Support |
+| ```
+line-clamp-none
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Line Height
+
+# Line Height
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+React Native does not support the relative line height utilities due to lack of support for `em` units.
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| ```
+leading-{n}
+```     | ✅ Full Support |
+| ```
+leading-[n]
+```     | ✅ Full Support |
+| ```
+leading-none
+```    | 🌐 Web only    |
+| ```
+leading-tight
+```   | 🌐 Web only    |
+| ```
+leading-snug
+```    | 🌐 Web only    |
+| ```
+leading-normal
+```  | 🌐 Web only    |
+| ```
+leading-relaxed
+``` | 🌐 Web only    |
+| ```
+leading-loose
+```   | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Using with Monorepos
+
+# Using with Monorepos
+
+Learn how to set up Nativewind in monorepo environments like NX
+
+Last updated on May 29th, 2025
+
+Nativewind can be used in an Nx Monorepo that is already configured to use Expo and the corresponding plugin @nx/expo
+
+##
+
+When working with Nativewind in an NX monorepo, there are some specific configurations needed to ensure proper integration. The main challenge is correctly configuring the Metro bundler to work with both NX and Nativewind.
+
+###
+
+Simply configure your Expo project in Nx as per the Expo setup guide
+
+Skip the `metro.config.js` setup as we will address this part here.
+
+###
+
+Add the Nativewind plugin to your `metro.config.js` using a promise chain as shown below:
+
+metro.config.js
+
+````
+
+const { withNativeWind } = require("nativewind/metro");
+
+// ... existing Nx configuration
+
+module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), { // ... existing Nx config }).then((config) => withNativeWind(config, { input: "./global.css" }));
+
+```
+
+##
+
+For more complex monorepo setups or specific issues, refer to:
+
+*
+*
+*
+
+
+Colors
+
+# Colors
+
+Last updated on May 29th, 2025
+
+You can customize your colors in the same manner as Tailwind CSS. Please refer to the Tailwind CSS documentation for more information.
+
+##
+
+Unlike the web, which uses a common color palette, native platforms have their own unique system colors which are accessible through PlatformColor.
+
+Nativewind allows you to use access PlatformColor via the `platformColor()` utility.
+
+```
+
+// tailwind.config.js
+
+const { platformSelect, platformColor } = require("nativewind/theme");
+
+module.exports = { theme: { extend: { colors: { error: platformSelect({ // Now you can provide platform specific values ios: platformColor("systemRed"), android: platformColor("?android:colorError"), default: "red", }), }, }, }, };
+
+````
+
+
+Top / Right / Bottom / Left
+
+Last updated on May 29th, 2025
+
+#
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+inset-{n}
+```    | ✅ Full Support |
+| ```
+inset-[n]
+```    | ✅ Full Support |
+| ```
+inset-x-{n}
+```  | ✅ Full Support |
+| ```
+inset-y-[n]
+```  | ✅ Full Support |
+| ```
+top-{n}
+```      | ✅ Full Support |
+| ```
+top-[n]
+```      | ✅ Full Support |
+| ```
+bottom-{n}
+```   | ✅ Full Support |
+| ```
+bottom-[n]
+```   | ✅ Full Support |
+| ```
+left-{n}
+```     | ✅ Full Support |
+| ```
+left-[n]
+```     | ✅ Full Support |
+| ```
+right-{n}
+```    | ✅ Full Support |
+| ```
+right-[n]
+```    | ✅ Full Support |
+| ```
+inset-auto
+```   | 🌐 Web only    |
+| ```
+inset-x-auto
+``` | 🌐 Web only    |
+| ```
+inset-y-auto
+``` | 🌐 Web only    |
+| ```
+top-auto
+```     | 🌐 Web only    |
+| ```
+bottom-auto
+```  | 🌐 Web only    |
+| ```
+left-auto
+```    | 🌐 Web only    |
+| ```
+right-auto
+```   | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+List Style Image
+
+# List Style Image
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| ```
+list-image-none
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Visibility
+
+# Visibility
+
+Last updated on May 29th, 2025
+
+On native, the Visibility class names map to `opacity` instead of `visibility`.
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class             | Support        |
+| ----------------- | -------------- |
+| ```
+visible
+```   | ✅ Full Support |
+| ```
+invisible
+``` | ✅ Full Support |
+| ```
+collapse
+```  | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+List Style Position
+
+# List Style Position
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+list-inside
+```  | ✅ Full Support |
+| ```
+list-outside
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+List Style Type
+
+# List Style Type
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+list-none
+```    | ✅ Full Support |
+| ```
+list-disc
+```    | ✅ Full Support |
+| ```
+list-decimal
+``` | ✅ Full Support |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Built on Tailwind CSS
+
+# Built on Tailwind CSS
+
+Last updated on May 29th, 2025
+
+Nativewind is built upon the Tailwind CSS style language. As such the core-concepts of Tailwind CSS apply to Nativewind. Recommend you read their guides on:
+
+*
+*
+*
+
+It is also important to understand that since CSS styles are generated via the Tailwind CLI, the entire Tailwind CSS language & compiler options are available for web.
+
+This documentation only documents whats is universally compatible, but you can always use a platform prefix to apply styles that are only support on web.
+
+##
+
+Nativewind works in a similar manner to CSS, it can accept all classes but will only apply the styles that it support. For example, if you use `grid`, this will work on web but not on native.
+
+Please read the differences guide for more information on some minor differences between Nativewind and Tailwind CSS.
+
+
+Text Transform
+
+# Text Transform
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class               | Support        |
+| ------------------- | -------------- |
+| ```
+uppercase
+```   | ✅ Full Support |
+| ```
+lowercase
+```   | ✅ Full Support |
+| ```
+capitalize
+```  | ✅ Full Support |
+| ```
+normal-case
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Z-Index
+
+# Z-Index
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class          | Support        |
+| -------------- | -------------- |
+| ```
+z-{n}
+```  | ✅ Full Support |
+| ```
+z-[n]
+```  | ✅ Full Support |
+| ```
+z-auto
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+
+Text Color
+
+# Text Color
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+text-{n}
+```     | ✅ Full Support |
+| ```
+text-[n]
+```     | ✅ Full Support |
+| ```
+text-inherit
+``` | 🌐 Web only    |
+| ```
+text-current
+``` | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+
+textOpacity (native only)
+
+For performance reasons, Nativewind renders with the `corePlugin` `textOpacity` disabled. This plugin allows text to dynamically change its opacity via the `--tw-text-opacity` variable. Instead, the opacity is set as a static value in the `color` property.
+
+If you need to use this feature, you can enable it by adding the following to your `tailwind.config.js` file:
+
+````
+
+module.exports = { /\* ... \*/ corePlugin: { textOpacity: true, }, };
+
+````
+
+
+Text Decoration
+
+# Text Decoration
+
+Last updated on May 29th, 2025
+
+##
+
+Please refer to the documentation on the Tailwind CSS website
+
+##
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+underline
+```    | ✅ Full Support |
+| ```
+line-through
+``` | ✅ Full Support |
+| ```
+no-underline
+``` | ✅ Full Support |
+| ```
+overline
+```     | 🌐 Web only    |
+
+Legend
+
+### Class
+
+`-{n}` Supports values from theme
+
+`-[n]` Supports arbitrary values
+
+### Icon
+
+✅ Full support
+
+✔️ Partial support on native
+
+🧪 Experimental support on native
+
+📱 Native only
+
+🌐 Web only
+````
