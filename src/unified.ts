@@ -1,4 +1,4 @@
-import type { Root } from 'mdast';
+import type { List, ListItem, Root } from 'mdast';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 import { defaultSchema as defaultSanitizeSchema } from 'hast-util-sanitize';
@@ -43,6 +43,29 @@ export async function htmlToMarkdown(content: {
       visit(tree, function (node, index, parent) {
         if (!parent || typeof index !== 'number') {
           return;
+        } else if (node.type === 'thematicBreak' && parent) {
+          parent.children.splice(index, 1);
+        } else if (node.type === 'table' && parent) {
+          if (node.children.length === 2) {
+            const heading = node.children[0]!;
+            const items = node.children[1]!;
+            const zip = heading.children.map((headRow, idx) => {
+              const itemRow = items.children[idx]!;
+              return {
+                type: 'listItem',
+                spread: false,
+                children: [
+                  ...headRow.children,
+                  ...itemRow.children,
+                ],
+              } as ListItem;
+            });
+            parent.children.splice(index, 1, {
+              type: 'list',
+              spread: false,
+              children: zip,
+            } as List);
+          }
         } else if (node.type === 'image' || node.type === 'imageReference') {
           parent.children.splice(index, 1);
         } else if (node.type === 'link' || node.type === 'linkReference') {
