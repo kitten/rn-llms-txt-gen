@@ -449,13 +449,13 @@ module.exports = withNativeWind(config, {
 
 ### Options
 
-| Option | Description | Default Value |
-| --- | --- | --- |
-| `output` | The relative path for the output file. Defaults to `<projectRoot>/node_modules/.cache/nativewind/`. | `<projectRoot>/node_modules/.cache/nativewind/` |
-| `projectRoot` | Absolute path to your project root, used only to set `output`. | N/A |
-| `inlineRem` | Numeric value for inlining the value of `rem` units on native. Set to `false` to disable this behavior. Defaults to `14`. | `14` |
-| `configPath` | Relative path to your `tailwind.config` file. Recommended to use `@config` instead. | `tailwind.config` |
-| `hotServerOptions` | Options for the hot server, with a default configuration of `{ port: 8089 }`. | `{ port: 8089 }` |
+|Option|Description|Default Value|
+|-|-|-|
+|`output`|The relative path for the output file. Defaults to `<projectRoot>/node_modules/.cache/nativewind/`.|`<projectRoot>/node_modules/.cache/nativewind/`|
+|`projectRoot`|Absolute path to your project root, used only to set `output`.|N/A|
+|`inlineRem`|Numeric value for inlining the value of `rem` units on native. Set to `false` to disable this behavior. Defaults to `14`.|`14`|
+|`configPath`|Relative path to your `tailwind.config` file. Recommended to use `@config` instead.|`tailwind.config`|
+|`hotServerOptions`|Options for the hot server, with a default configuration of `{ port: 8089 }`.|`{ port: 8089 }`|
 
 #### Experimental Options
 
@@ -471,14 +471,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `content-center`  | ✅ Full Support |
-| `content-start`   | ✅ Full Support |
-| `content-end`     | ✅ Full Support |
-| `content-between` | ✅ Full Support |
-| `content-around`  | ✅ Full Support |
-| `content-evenly`  | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`content-center`|✅ Full Support|
+|`content-start`|✅ Full Support|
+|`content-end`|✅ Full Support|
+|`content-between`|✅ Full Support|
+|`content-around`|✅ Full Support|
+|`content-evenly`|✅ Full Support|
 
 ## Text Decoration Color
 
@@ -488,12 +488,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                | Support         |
-| -------------------- | --------------- |
-| `decoration-{n}`     | ✅ Full Support |
-| `decoration-[n]`     | ✅ Full Support |
-| `decoration-inherit` | 🌐 Web only     |
-| `decoration-current` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`decoration-{n}`|✅ Full Support|
+|`decoration-[n]`|✅ Full Support|
+|`decoration-inherit`|🌐 Web only|
+|`decoration-current`|🌐 Web only|
 
 ## Align Items
 
@@ -503,13 +503,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support         |
-| ---------------- | --------------- |
-| `items-start`    | ✅ Full Support |
-| `items-end`      | ✅ Full Support |
-| `items-center`   | ✅ Full Support |
-| `items-baseline` | ✅ Full Support |
-| `items-stretch`  | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`items-start`|✅ Full Support|
+|`items-end`|✅ Full Support|
+|`items-center`|✅ Full Support|
+|`items-baseline`|✅ Full Support|
+|`items-stretch`|✅ Full Support|
 
 ## Text Decoration Style
 
@@ -519,13 +519,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class               | Support         |
-| ------------------- | --------------- |
-| `decoration-solid`  | ✅ Full Support |
-| `decoration-double` | ✅ Full Support |
-| `decoration-dotted` | ✅ Full Support |
-| `decoration-dashed` | ✅ Full Support |
-| `decoration-wavy`   | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`decoration-solid`|✅ Full Support|
+|`decoration-double`|✅ Full Support|
+|`decoration-dotted`|✅ Full Support|
+|`decoration-dashed`|✅ Full Support|
+|`decoration-wavy`|🌐 Web only|
 
 ## Text Decoration Thickness
 
@@ -535,15 +535,15 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                  | Support     |
-| ---------------------- | ----------- |
-| `decoration-auto`      | 🌐 Web only |
-| `decoration-from-font` | 🌐 Web only |
-| `decoration-0`         | 🌐 Web only |
-| `decoration-1`         | 🌐 Web only |
-| `decoration-2`         | 🌐 Web only |
-| `decoration-4`         | 🌐 Web only |
-| `decoration-8`         | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`decoration-auto`|🌐 Web only|
+|`decoration-from-font`|🌐 Web only|
+|`decoration-0`|🌐 Web only|
+|`decoration-1`|🌐 Web only|
+|`decoration-2`|🌐 Web only|
+|`decoration-4`|🌐 Web only|
+|`decoration-8`|🌐 Web only|
 
 ## `vars()` Function Overview
 
@@ -572,10 +572,10 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support     |
-| ------------ | ----------- |
-| `indent-[n]` | 🌐 Web only |
-| `indent-{n}` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`indent-[n]`|🌐 Web only|
+|`indent-{n}`|🌐 Web only|
 
 ## Align Self
 
@@ -585,14 +585,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class           | Support         |
-| --------------- | --------------- |
-| `self-auto`     | ✅ Full Support |
-| `self-start`    | ✅ Full Support |
-| `self-end`      | ✅ Full Support |
-| `self-center`   | ✅ Full Support |
-| `self-stretch`  | ✅ Full Support |
-| `self-baseline` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`self-auto`|✅ Full Support|
+|`self-start`|✅ Full Support|
+|`self-end`|✅ Full Support|
+|`self-center`|✅ Full Support|
+|`self-stretch`|✅ Full Support|
+|`self-baseline`|✅ Full Support|
 
 ## Text Overflow
 
@@ -602,11 +602,11 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class           | Support     |
-| --------------- | ----------- |
-| `truncate`      | 🌐 Web only |
-| `text-ellipsis` | 🌐 Web only |
-| `text-clip`     | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`truncate`|🌐 Web only|
+|`text-ellipsis`|🌐 Web only|
+|`text-clip`|🌐 Web only|
 
 ## Text Alignment
 
@@ -616,26 +616,26 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility Table
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `text-left`    | ✅ Full Support |
-| `text-center`  | ✅ Full Support |
-| `text-right`   | ✅ Full Support |
-| `text-justify` | ✅ Full Support |
-| `text-start`   | ✅ Full Support |
-| `text-end`     | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`text-left`|✅ Full Support|
+|`text-center`|✅ Full Support|
+|`text-right`|✅ Full Support|
+|`text-justify`|✅ Full Support|
+|`text-start`|✅ Full Support|
+|`text-end`|✅ Full Support|
 
----
+***
 
 ## Accessing and Managing Device Color Scheme
 
 The `useColorScheme()` function provides a way to access and manage the device's current color scheme.
 
-| Property | Description |
-| --- | --- |
-| `colorScheme` | Represents the current color scheme of the device. |
-| `setColorScheme` | Allows overriding the current color scheme with either `light`, `dark`, or `system`. |
-| `toggleColorScheme` | Switches the color scheme between `light` and `dark`. |
+|Property|Description|
+|-|-|
+|`colorScheme`|Represents the current color scheme of the device.|
+|`setColorScheme`|Allows overriding the current color scheme with either `light`, `dark`, or `system`.|
+|`toggleColorScheme`|Switches the color scheme between `light` and `dark`.|
 
 Additionally, you can manually adjust the color scheme using `NativeWindStyleSheet.setColorScheme(colorScheme)`.
 
@@ -664,13 +664,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `flex-1`       | ✅ Full Support |
-| `basis-[n]`    | ✅ Full Support |
-| `flex-auto`    | 🌐 Web only     |
-| `flex-initial` | 🌐 Web only     |
-| `flex-none`    | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`flex-1`|✅ Full Support|
+|`basis-[n]`|✅ Full Support|
+|`flex-auto`|🌐 Web only|
+|`flex-initial`|🌐 Web only|
+|`flex-none`|🌐 Web only|
 
 ## Text Underline Offset
 
@@ -680,14 +680,14 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                   | Support     |
-| ----------------------- | ----------- |
-| `underline-offset-auto` | 🌐 Web only |
-| `underline-offset-0`    | 🌐 Web only |
-| `underline-offset-1`    | 🌐 Web only |
-| `underline-offset-2`    | 🌐 Web only |
-| `underline-offset-4`    | 🌐 Web only |
-| `underline-offset-8`    | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`underline-offset-auto`|🌐 Web only|
+|`underline-offset-0`|🌐 Web only|
+|`underline-offset-1`|🌐 Web only|
+|`underline-offset-2`|🌐 Web only|
+|`underline-offset-4`|🌐 Web only|
+|`underline-offset-8`|🌐 Web only|
 
 ## Vertical Align
 
@@ -697,16 +697,16 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class               | Support     |
-| ------------------- | ----------- |
-| `align-baseline`    | 🌐 Web only |
-| `align-top`         | 🌐 Web only |
-| `align-middle`      | 🌐 Web only |
-| `align-bottom`      | 🌐 Web only |
-| `align-text-top`    | 🌐 Web only |
-| `align-text-bottom` | 🌐 Web only |
-| `align-sub`         | 🌐 Web only |
-| `align-super`       | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`align-baseline`|🌐 Web only|
+|`align-top`|🌐 Web only|
+|`align-middle`|🌐 Web only|
+|`align-bottom`|🌐 Web only|
+|`align-text-top`|🌐 Web only|
+|`align-text-bottom`|🌐 Web only|
+|`align-sub`|🌐 Web only|
+|`align-super`|🌐 Web only|
 
 ## Flex Basis
 
@@ -716,11 +716,11 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `basis-{n}`  | ✅ Full Support |
-| `basis-[n]`  | ✅ Full Support |
-| `basis-auto` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`basis-{n}`|✅ Full Support|
+|`basis-[n]`|✅ Full Support|
+|`basis-auto`|🌐 Web only|
 
 ## Whitespace
 
@@ -730,14 +730,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                     | Support     |
-| ------------------------- | ----------- |
-| `whitespace-normal`       | 🌐 Web only |
-| `whitespace-nowrap`       | 🌐 Web only |
-| `whitespace-pre`          | 🌐 Web only |
-| `whitespace-pre-line`     | 🌐 Web only |
-| `whitespace-pre-wrap`     | 🌐 Web only |
-| `whitespace-break-spaces` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`whitespace-normal`|🌐 Web only|
+|`whitespace-nowrap`|🌐 Web only|
+|`whitespace-pre`|🌐 Web only|
+|`whitespace-pre-line`|🌐 Web only|
+|`whitespace-pre-wrap`|🌐 Web only|
+|`whitespace-break-spaces`|🌐 Web only|
 
 ## Flex Direction
 
@@ -749,12 +749,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class              | Support         |
-| ------------------ | --------------- |
-| `flex-row`         | ✅ Full Support |
-| `flex-row-reverse` | ✅ Full Support |
-| `flex-col`         | ✅ Full Support |
-| `flex-col-reverse` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`flex-row`|✅ Full Support|
+|`flex-row-reverse`|✅ Full Support|
+|`flex-col`|✅ Full Support|
+|`flex-col-reverse`|✅ Full Support|
 
 ```typescript
 // Example TypeScript typings for flex direction classes
@@ -776,23 +776,23 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                | Support     |
-| -------------------- | ----------- |
-| `break-normal`       | 🌐 Web only |
-| `word-break: normal` | 🌐 Web only |
-| `break-words`        | 🌐 Web only |
-| `break-all`          | 🌐 Web only |
-| `break-keep`         | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`break-normal`|🌐 Web only|
+|`word-break: normal`|🌐 Web only|
+|`break-words`|🌐 Web only|
+|`break-all`|🌐 Web only|
+|`break-keep`|🌐 Web only|
 
 ## Background Attachment
 
 The following table outlines the support for various background attachment classes in web development:
 
-| Class       | Support  |
-| ----------- | -------- |
-| `bg-fixed`  | Web only |
-| `bg-local`  | Web only |
-| `bg-scroll` | Web only |
+|Class|Support|
+|-|-|
+|`bg-fixed`|Web only|
+|`bg-local`|Web only|
+|`bg-scroll`|Web only|
 
 These classes are used to control how a background image is positioned relative to the viewport or its containing element.
 
@@ -800,12 +800,12 @@ These classes are used to control how a background image is positioned relative 
 
 The following table outlines various CSS classes related to background clipping, along with their support status:
 
-| Class             | Support     |
-| ----------------- | ----------- |
-| `bg-clip-border`  | 🌐 Web only |
-| `bg-clip-padding` | 🌐 Web only |
-| `bg-clip-content` | 🌐 Web only |
-| `bg-clip-text`    | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`bg-clip-border`|🌐 Web only|
+|`bg-clip-padding`|🌐 Web only|
+|`bg-clip-content`|🌐 Web only|
+|`bg-clip-text`|🌐 Web only|
 
 These classes are used to define how the background of an element is clipped, with support limited to web browsers.
 
@@ -861,19 +861,19 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class    | Support         |
-| -------- | --------------- |
-| `grow`   | ✅ Full Support |
-| `grow-0` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`grow`|✅ Full Support|
+|`grow-0`|✅ Full Support|
 
 ## Background Color
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `bg-{n}`     | ✅ Full Support |
-| `bg-[n]`     | ✅ Full Support |
-| `bg-inherit` | 🌐 Web only     |
-| `bg-current` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`bg-{n}`|✅ Full Support|
+|`bg-[n]`|✅ Full Support|
+|`bg-inherit`|🌐 Web only|
+|`bg-current`|🌐 Web only|
 
 ### Background Opacity
 
@@ -894,17 +894,17 @@ module.exports = {
 
 The following table outlines various classes used for background images, along with their support status:
 
-| Class               | Support     |
-| ------------------- | ----------- |
-| `bg-none`           | 🌐 Web only |
-| `bg-gradient-to-t`  | 🌐 Web only |
-| `bg-gradient-to-tr` | 🌐 Web only |
-| `bg-gradient-to-r`  | 🌐 Web only |
-| `bg-gradient-to-br` | 🌐 Web only |
-| `bg-gradient-to-b`  | 🌐 Web only |
-| `bg-gradient-to-bl` | 🌐 Web only |
-| `bg-gradient-to-l`  | 🌐 Web only |
-| `bg-gradient-to-tl` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`bg-none`|🌐 Web only|
+|`bg-gradient-to-t`|🌐 Web only|
+|`bg-gradient-to-tr`|🌐 Web only|
+|`bg-gradient-to-r`|🌐 Web only|
+|`bg-gradient-to-br`|🌐 Web only|
+|`bg-gradient-to-b`|🌐 Web only|
+|`bg-gradient-to-bl`|🌐 Web only|
+|`bg-gradient-to-l`|🌐 Web only|
+|`bg-gradient-to-tl`|🌐 Web only|
 
 These classes are specifically designed for use in web development to apply background styles.
 
@@ -916,20 +916,20 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class      | Support         |
-| ---------- | --------------- |
-| `shrink`   | ✅ Full Support |
-| `shrink-0` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`shrink`|✅ Full Support|
+|`shrink-0`|✅ Full Support|
 
 ## Background Origin
 
 The following table outlines the support for different background origin classes in web development:
 
-| Class               | Support  |
-| ------------------- | -------- |
-| `bg-origin-border`  | Web only |
-| `bg-origin-padding` | Web only |
-| `bg-origin-content` | Web only |
+|Class|Support|
+|-|-|
+|`bg-origin-border`|Web only|
+|`bg-origin-padding`|Web only|
+|`bg-origin-content`|Web only|
 
 These classes are used to specify the positioning area of a background image within an element. Each class targets a different part of the element's box model:
 
@@ -1004,27 +1004,27 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class               | Support         |
-| ------------------- | --------------- |
-| `flex-wrap`         | ✅ Full Support |
-| `flex-wrap-reverse` | ✅ Full Support |
-| `flex-nowrap`       | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`flex-wrap`|✅ Full Support|
+|`flex-wrap-reverse`|✅ Full Support|
+|`flex-nowrap`|✅ Full Support|
 
 ## Background Position
 
 The following table outlines various CSS classes used for setting background positions, along with their support status:
 
-| Class             | Support     |
-| ----------------- | ----------- |
-| `bg-bottom`       | 🌐 Web only |
-| `bg-center`       | 🌐 Web only |
-| `bg-left`         | 🌐 Web only |
-| `bg-left-bottom`  | 🌐 Web only |
-| `bg-left-top`     | 🌐 Web only |
-| `bg-right`        | 🌐 Web only |
-| `bg-right-bottom` | 🌐 Web only |
-| `bg-right-top`    | 🌐 Web only |
-| `bg-top`          | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`bg-bottom`|🌐 Web only|
+|`bg-center`|🌐 Web only|
+|`bg-left`|🌐 Web only|
+|`bg-left-bottom`|🌐 Web only|
+|`bg-left-top`|🌐 Web only|
+|`bg-right`|🌐 Web only|
+|`bg-right-bottom`|🌐 Web only|
+|`bg-right-top`|🌐 Web only|
+|`bg-top`|🌐 Web only|
 
 These classes are used to position background images in various locations within an element.
 
@@ -1032,14 +1032,14 @@ These classes are used to position background images in various locations within
 
 The following table outlines various CSS classes related to background repeat properties, along with their support status:
 
-| Class             | Support     |
-| ----------------- | ----------- |
-| `bg-repeat`       | 🌐 Web only |
-| `bg-no-repeat`    | 🌐 Web only |
-| `bg-repeat-x`     | 🌐 Web only |
-| `bg-repeat-y`     | 🌐 Web only |
-| `bg-repeat-round` | 🌐 Web only |
-| `bg-repeat-space` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`bg-repeat`|🌐 Web only|
+|`bg-no-repeat`|🌐 Web only|
+|`bg-repeat-x`|🌐 Web only|
+|`bg-repeat-y`|🌐 Web only|
+|`bg-repeat-round`|🌐 Web only|
+|`bg-repeat-space`|🌐 Web only|
 
 These classes are used to control how background images repeat within an element. Each class is supported exclusively on web platforms.
 
@@ -1047,11 +1047,11 @@ These classes are used to control how background images repeat within an element
 
 The following table outlines the support for various background size classes:
 
-| Class        | Support     |
-| ------------ | ----------- |
-| `bg-auto`    | 🌐 Web only |
-| `bg-cover`   | 🌐 Web only |
-| `bg-contain` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`bg-auto`|🌐 Web only|
+|`bg-cover`|🌐 Web only|
+|`bg-contain`|🌐 Web only|
 
 These classes are used to control the sizing of background images in web development.
 
@@ -1060,7 +1060,7 @@ These classes are used to control the sizing of background images in web develop
 Nativewind offers two main strategies for integrating dark mode into your application:
 
 1. **System Preference (Automatic)**
-2. **Manual Selection (User Toggle)**
+1. **Manual Selection (User Toggle)**
 
 Both methods utilize the `colorScheme` from Nativewind, which provides a consistent API to interact with React Native's appearance settings. The underlying mechanism involves using the `Appearance` API on native platforms and `prefers-color-scheme` for web environments.
 
@@ -1145,13 +1145,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class           | Support         |
-| --------------- | --------------- |
-| `aspect-auto`   | ✅ Full Support |
-| `aspect-video`  | ✅ Full Support |
-| `aspect-square` | ✅ Full Support |
-| `aspect-[n]`    | ✅ Full Support |
-| `aspect-{n}`    | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`aspect-auto`|✅ Full Support|
+|`aspect-video`|✅ Full Support|
+|`aspect-square`|✅ Full Support|
+|`aspect-[n]`|✅ Full Support|
+|`aspect-{n}`|✅ Full Support|
 
 ## Gap
 
@@ -1164,40 +1164,40 @@ The `gap` feature requires React Native version 0.71 or higher.
 
 ### Compatibility
 
-| Class       | Support         |
-| ----------- | --------------- |
-| `gap-{n}`   | ✅ Full Support |
-| `gap-[n]`   | ✅ Full Support |
-| `gap-x-{n}` | ✅ Full Support |
-| `gap-x-[n]` | ✅ Full Support |
-| `gap-y-{n}` | ✅ Full Support |
-| `gap-y-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`gap-{n}`|✅ Full Support|
+|`gap-[n]`|✅ Full Support|
+|`gap-x-{n}`|✅ Full Support|
+|`gap-x-[n]`|✅ Full Support|
+|`gap-y-{n}`|✅ Full Support|
+|`gap-y-[n]`|✅ Full Support|
 
 ## Gradient Color Stops
 
-| Class              | Support     |
-| ------------------ | ----------- |
-| `from-inherit`     | 🌐 Web only |
-| `from-current`     | 🌐 Web only |
-| `from-transparent` | 🌐 Web only |
-| `from-black`       | 🌐 Web only |
-| `from-white`       | 🌐 Web only |
-| `from-{n}`         | 🌐 Web only |
-| `from-[n]`         | 🌐 Web only |
-| `via-inherit`      | 🌐 Web only |
-| `via-current`      | 🌐 Web only |
-| `via-transparent`  | 🌐 Web only |
-| `via-black`        | 🌐 Web only |
-| `via-white`        | 🌐 Web only |
-| `via-{n}`          | 🌐 Web only |
-| `via-[n]`          | 🌐 Web only |
-| `to-inherit`       | 🌐 Web only |
-| `to-current`       | 🌐 Web only |
-| `to-transparent`   | 🌐 Web only |
-| `to-black`         | 🌐 Web only |
-| `to-white`         | 🌐 Web only |
-| `to-{n}`           | 🌐 Web only |
-| `to-[n]`           | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`from-inherit`|🌐 Web only|
+|`from-current`|🌐 Web only|
+|`from-transparent`|🌐 Web only|
+|`from-black`|🌐 Web only|
+|`from-white`|🌐 Web only|
+|`from-{n}`|🌐 Web only|
+|`from-[n]`|🌐 Web only|
+|`via-inherit`|🌐 Web only|
+|`via-current`|🌐 Web only|
+|`via-transparent`|🌐 Web only|
+|`via-black`|🌐 Web only|
+|`via-white`|🌐 Web only|
+|`via-{n}`|🌐 Web only|
+|`via-[n]`|🌐 Web only|
+|`to-inherit`|🌐 Web only|
+|`to-current`|🌐 Web only|
+|`to-transparent`|🌐 Web only|
+|`to-black`|🌐 Web only|
+|`to-white`|🌐 Web only|
+|`to-{n}`|🌐 Web only|
+|`to-[n]`|🌐 Web only|
 
 ## Border Color
 
@@ -1207,12 +1207,12 @@ For detailed instructions and examples, please consult the Tailwind CSS document
 
 ### Compatibility
 
-| Class            | Support         |
-| ---------------- | --------------- |
-| `border-{n}`     | ✅ Full Support |
-| `border-[n]`     | ✅ Full Support |
-| `border-inherit` | 🌐 Web only     |
-| `border-current` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`border-{n}`|✅ Full Support|
+|`border-[n]`|✅ Full Support|
+|`border-inherit`|🌐 Web only|
+|`border-current`|🌐 Web only|
 
 #### Border Opacity (Native Only)
 
@@ -1239,12 +1239,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `auto-cols-auto` | 🌐 Web only |
-| `auto-cols-min`  | 🌐 Web only |
-| `auto-cols-max`  | 🌐 Web only |
-| `auto-cols-fr`   | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`auto-cols-auto`|🌐 Web only|
+|`auto-cols-min`|🌐 Web only|
+|`auto-cols-max`|🌐 Web only|
+|`auto-cols-fr`|🌐 Web only|
 
 ## Border Radius
 
@@ -1254,47 +1254,47 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `rounded-none`    | ✅ Full Support |
-| `rounded`         | ✅ Full Support |
-| `rounded-{n}`     | ✅ Full Support |
-| `rounded-[n]`     | ✅ Full Support |
-| `rounded-full`    | ✅ Full Support |
-| `rounded-t-none`  | ✅ Full Support |
-| `rounded-t-{n}`   | ✅ Full Support |
-| `rounded-t-[n]`   | ✅ Full Support |
-| `rounded-t-full`  | ✅ Full Support |
-| `rounded-r-none`  | ✅ Full Support |
-| `rounded-r-{n}`   | ✅ Full Support |
-| `rounded-r-[n]`   | ✅ Full Support |
-| `rounded-r-full`  | ✅ Full Support |
-| `rounded-b-none`  | ✅ Full Support |
-| `rounded-b-{n}`   | ✅ Full Support |
-| `rounded-b-[n]`   | ✅ Full Support |
-| `rounded-b-full`  | ✅ Full Support |
-| `rounded-l-none`  | ✅ Full Support |
-| `rounded-l-{n}`   | ✅ Full Support |
-| `rounded-l-[n]`   | ✅ Full Support |
-| `rounded-l-full`  | ✅ Full Support |
-| `rounded-tl-none` | ✅ Full Support |
-| `rounded-tl-{n}`  | ✅ Full Support |
-| `rounded-tl-[n]`  | ✅ Full Support |
-| `rounded-tl-full` | ✅ Full Support |
-| `rounded-tr-none` | ✅ Full Support |
-| `rounded-tr-{n}`  | ✅ Full Support |
-| `rounded-tr-[n]`  | ✅ Full Support |
-| `rounded-tr-full` | ✅ Full Support |
-| `rounded-br-none` | ✅ Full Support |
-| `rounded-br-{n}`  | ✅ Full Support |
-| `rounded-br-[n]`  | ✅ Full Support |
-| `rounded-br-full` | ✅ Full Support |
-| `rounded-bl-none` | ✅ Full Support |
-| `rounded-bl-{n}`  | ✅ Full Support |
-| `rounded-bl-[n]`  | ✅ Full Support |
-| `rounded-bl-full` | ✅ Full Support |
-| `border-inherit`  | 🌐 Web only     |
-| `border-current`  | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`rounded-none`|✅ Full Support|
+|`rounded`|✅ Full Support|
+|`rounded-{n}`|✅ Full Support|
+|`rounded-[n]`|✅ Full Support|
+|`rounded-full`|✅ Full Support|
+|`rounded-t-none`|✅ Full Support|
+|`rounded-t-{n}`|✅ Full Support|
+|`rounded-t-[n]`|✅ Full Support|
+|`rounded-t-full`|✅ Full Support|
+|`rounded-r-none`|✅ Full Support|
+|`rounded-r-{n}`|✅ Full Support|
+|`rounded-r-[n]`|✅ Full Support|
+|`rounded-r-full`|✅ Full Support|
+|`rounded-b-none`|✅ Full Support|
+|`rounded-b-{n}`|✅ Full Support|
+|`rounded-b-[n]`|✅ Full Support|
+|`rounded-b-full`|✅ Full Support|
+|`rounded-l-none`|✅ Full Support|
+|`rounded-l-{n}`|✅ Full Support|
+|`rounded-l-[n]`|✅ Full Support|
+|`rounded-l-full`|✅ Full Support|
+|`rounded-tl-none`|✅ Full Support|
+|`rounded-tl-{n}`|✅ Full Support|
+|`rounded-tl-[n]`|✅ Full Support|
+|`rounded-tl-full`|✅ Full Support|
+|`rounded-tr-none`|✅ Full Support|
+|`rounded-tr-{n}`|✅ Full Support|
+|`rounded-tr-[n]`|✅ Full Support|
+|`rounded-tr-full`|✅ Full Support|
+|`rounded-br-none`|✅ Full Support|
+|`rounded-br-{n}`|✅ Full Support|
+|`rounded-br-[n]`|✅ Full Support|
+|`rounded-br-full`|✅ Full Support|
+|`rounded-bl-none`|✅ Full Support|
+|`rounded-bl-{n}`|✅ Full Support|
+|`rounded-bl-[n]`|✅ Full Support|
+|`rounded-bl-full`|✅ Full Support|
+|`border-inherit`|🌐 Web only|
+|`border-current`|🌐 Web only|
 
 ## Box Decoration Break
 
@@ -1304,10 +1304,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                  | Support     |
-| ---------------------- | ----------- |
-| `box-decoration-clone` | 🌐 Web only |
-| `box-decoration-slice` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`box-decoration-clone`|🌐 Web only|
+|`box-decoration-slice`|🌐 Web only|
 
 ## Grid Auto Flow
 
@@ -1317,13 +1317,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                 | Support     |
-| --------------------- | ----------- |
-| `grid-flow-row`       | 🌐 Web only |
-| `grid-flow-col`       | 🌐 Web only |
-| `grid-flow-dense`     | 🌐 Web only |
-| `grid-flow-row-dense` | 🌐 Web only |
-| `grid-flow-col-dense` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`grid-flow-row`|🌐 Web only|
+|`grid-flow-col`|🌐 Web only|
+|`grid-flow-dense`|🌐 Web only|
+|`grid-flow-row-dense`|🌐 Web only|
+|`grid-flow-col-dense`|🌐 Web only|
 
 ## Border Style
 
@@ -1335,14 +1335,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 When working with native environments, use `border-0` instead of `border-none` to eliminate borders. Below is a table indicating support levels for various border classes:
 
-| Class           | Support         |
-| --------------- | --------------- |
-| `border-solid`  | ✅ Full Support |
-| `border-dashed` | ✅ Full Support |
-| `border-dotted` | ✅ Full Support |
-| `border-none`   | 🌐 Web only     |
-| `border-double` | 🌐 Web only     |
-| `border-hidden` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`border-solid`|✅ Full Support|
+|`border-dashed`|✅ Full Support|
+|`border-dotted`|✅ Full Support|
+|`border-none`|🌐 Web only|
+|`border-double`|🌐 Web only|
+|`border-hidden`|🌐 Web only|
 
 ## Border Width
 
@@ -1354,29 +1354,29 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following table outlines the support status for various border width classes:
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `border`       | ✅ Full Support |
-| `border-{n}`   | ✅ Full Support |
-| `border-[n]`   | ✅ Full Support |
-| `border-x`     | ✅ Full Support |
-| `border-x-{n}` | ✅ Full Support |
-| `border-x-[n]` | ✅ Full Support |
-| `border-y`     | ✅ Full Support |
-| `border-y-{n}` | ✅ Full Support |
-| `border-y-[n]` | ✅ Full Support |
-| `border-t`     | ✅ Full Support |
-| `border-t-{n}` | ✅ Full Support |
-| `border-t-[n]` | ✅ Full Support |
-| `border-r`     | ✅ Full Support |
-| `border-r-{n}` | ✅ Full Support |
-| `border-r-[n]` | ✅ Full Support |
-| `border-b`     | ✅ Full Support |
-| `border-b-{n}` | ✅ Full Support |
-| `border-b-[n]` | ✅ Full Support |
-| `border-l`     | ✅ Full Support |
-| `border-l-{n}` | ✅ Full Support |
-| `border-l-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`border`|✅ Full Support|
+|`border-{n}`|✅ Full Support|
+|`border-[n]`|✅ Full Support|
+|`border-x`|✅ Full Support|
+|`border-x-{n}`|✅ Full Support|
+|`border-x-[n]`|✅ Full Support|
+|`border-y`|✅ Full Support|
+|`border-y-{n}`|✅ Full Support|
+|`border-y-[n]`|✅ Full Support|
+|`border-t`|✅ Full Support|
+|`border-t-{n}`|✅ Full Support|
+|`border-t-[n]`|✅ Full Support|
+|`border-r`|✅ Full Support|
+|`border-r-{n}`|✅ Full Support|
+|`border-r-[n]`|✅ Full Support|
+|`border-b`|✅ Full Support|
+|`border-b-{n}`|✅ Full Support|
+|`border-b-[n]`|✅ Full Support|
+|`border-l`|✅ Full Support|
+|`border-l-{n}`|✅ Full Support|
+|`border-l-[n]`|✅ Full Support|
 
 ## Grid Auto Rows
 
@@ -1386,12 +1386,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `auto-rows-auto` | 🌐 Web only |
-| `auto-rows-min`  | 🌐 Web only |
-| `auto-rows-max`  | 🌐 Web only |
-| `auto-rows-fr`   | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`auto-rows-auto`|🌐 Web only|
+|`auto-rows-min`|🌐 Web only|
+|`auto-rows-max`|🌐 Web only|
+|`auto-rows-fr`|🌐 Web only|
 
 ## Divide Color
 
@@ -1404,12 +1404,12 @@ The `Divide Color` feature was temporarily removed in version 4. Efforts are und
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `divide-{n}`     | 🌐 Web only |
-| `divide-[n]`     | 🌐 Web only |
-| `divide-inherit` | 🌐 Web only |
-| `divide-current` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`divide-{n}`|🌐 Web only|
+|`divide-[n]`|🌐 Web only|
+|`divide-inherit`|🌐 Web only|
+|`divide-current`|🌐 Web only|
 
 #### divideOpacity (native only)
 
@@ -1437,14 +1437,14 @@ The `Divide Style` feature was temporarily removed in version 4. Efforts are und
 
 ### Compatibility
 
-| Class           | Support     |
-| --------------- | ----------- |
-| `divide-solid`  | 🌐 Web only |
-| `divide-dashed` | 🌐 Web only |
-| `divide-dotted` | 🌐 Web only |
-| `divide-none`   | 🌐 Web only |
-| `divide-double` | 🌐 Web only |
-| `divide-hidden` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`divide-solid`|🌐 Web only|
+|`divide-dashed`|🌐 Web only|
+|`divide-dotted`|🌐 Web only|
+|`divide-none`|🌐 Web only|
+|`divide-double`|🌐 Web only|
+|`divide-hidden`|🌐 Web only|
 
 ## Typescript
 
@@ -1676,50 +1676,50 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 The following table outlines the compatibility of various grid column classes with web platforms:
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `col-auto`       | 🌐 Web only |
-| `col-span-1`     | 🌐 Web only |
-| `col-span-2`     | 🌐 Web only |
-| `col-span-3`     | 🌐 Web only |
-| `col-span-4`     | 🌐 Web only |
-| `col-span-5`     | 🌐 Web only |
-| `col-span-6`     | 🌐 Web only |
-| `col-span-7`     | 🌐 Web only |
-| `col-span-8`     | 🌐 Web only |
-| `col-span-9`     | 🌐 Web only |
-| `col-span-10`    | 🌐 Web only |
-| `col-span-11`    | 🌐 Web only |
-| `col-span-12`    | 🌐 Web only |
-| `col-span-full`  | 🌐 Web only |
-| `col-start-1`    | 🌐 Web only |
-| `col-start-2`    | 🌐 Web only |
-| `col-start-3`    | 🌐 Web only |
-| `col-start-4`    | 🌐 Web only |
-| `col-start-5`    | 🌐 Web only |
-| `col-start-6`    | 🌐 Web only |
-| `col-start-7`    | 🌐 Web only |
-| `col-start-8`    | 🌐 Web only |
-| `col-start-9`    | 🌐 Web only |
-| `col-start-10`   | 🌐 Web only |
-| `col-start-11`   | 🌐 Web only |
-| `col-start-12`   | 🌐 Web only |
-| `col-start-13`   | 🌐 Web only |
-| `col-start-auto` | 🌐 Web only |
-| `col-end-1`      | 🌐 Web only |
-| `col-end-2`      | 🌐 Web only |
-| `col-end-3`      | 🌐 Web only |
-| `col-end-4`      | 🌐 Web only |
-| `col-end-5`      | 🌐 Web only |
-| `col-end-6`      | 🌐 Web only |
-| `col-end-7`      | 🌐 Web only |
-| `col-end-8`      | 🌐 Web only |
-| `col-end-9`      | 🌐 Web only |
-| `col-end-10`     | 🌐 Web only |
-| `col-end-11`     | 🌐 Web only |
-| `col-end-12`     | 🌐 Web only |
-| `col-end-13`     | 🌐 Web only |
-| `col-end-auto`   | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`col-auto`|🌐 Web only|
+|`col-span-1`|🌐 Web only|
+|`col-span-2`|🌐 Web only|
+|`col-span-3`|🌐 Web only|
+|`col-span-4`|🌐 Web only|
+|`col-span-5`|🌐 Web only|
+|`col-span-6`|🌐 Web only|
+|`col-span-7`|🌐 Web only|
+|`col-span-8`|🌐 Web only|
+|`col-span-9`|🌐 Web only|
+|`col-span-10`|🌐 Web only|
+|`col-span-11`|🌐 Web only|
+|`col-span-12`|🌐 Web only|
+|`col-span-full`|🌐 Web only|
+|`col-start-1`|🌐 Web only|
+|`col-start-2`|🌐 Web only|
+|`col-start-3`|🌐 Web only|
+|`col-start-4`|🌐 Web only|
+|`col-start-5`|🌐 Web only|
+|`col-start-6`|🌐 Web only|
+|`col-start-7`|🌐 Web only|
+|`col-start-8`|🌐 Web only|
+|`col-start-9`|🌐 Web only|
+|`col-start-10`|🌐 Web only|
+|`col-start-11`|🌐 Web only|
+|`col-start-12`|🌐 Web only|
+|`col-start-13`|🌐 Web only|
+|`col-start-auto`|🌐 Web only|
+|`col-end-1`|🌐 Web only|
+|`col-end-2`|🌐 Web only|
+|`col-end-3`|🌐 Web only|
+|`col-end-4`|🌐 Web only|
+|`col-end-5`|🌐 Web only|
+|`col-end-6`|🌐 Web only|
+|`col-end-7`|🌐 Web only|
+|`col-end-8`|🌐 Web only|
+|`col-end-9`|🌐 Web only|
+|`col-end-10`|🌐 Web only|
+|`col-end-11`|🌐 Web only|
+|`col-end-12`|🌐 Web only|
+|`col-end-13`|🌐 Web only|
+|`col-end-auto`|🌐 Web only|
 
 ## Divide Width
 
@@ -1733,12 +1733,12 @@ The `Divide Width` feature was temporarily removed in version 4. Efforts are und
 
 ### Compatibility
 
-| Class          | Support     |
-| -------------- | ----------- |
-| `divide-x-{n}` | 🌐 Web only |
-| `divide-x-[n]` | 🌐 Web only |
-| `divide-y-{n}` | 🌐 Web only |
-| `divide-y-[n]` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`divide-x-{n}`|🌐 Web only|
+|`divide-x-[n]`|🌐 Web only|
+|`divide-y-{n}`|🌐 Web only|
+|`divide-y-[n]`|🌐 Web only|
 
 ## Outline Color
 
@@ -1748,15 +1748,15 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                 | Support     |
-| --------------------- | ----------- |
-| `outline-inherit`     | 🌐 Web only |
-| `outline-current`     | 🌐 Web only |
-| `outline-transparent` | 🌐 Web only |
-| `outline-black`       | 🌐 Web only |
-| `outline-white`       | 🌐 Web only |
-| `outline-{n}`         | 🌐 Web only |
-| `outline-[n]`         | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`outline-inherit`|🌐 Web only|
+|`outline-current`|🌐 Web only|
+|`outline-transparent`|🌐 Web only|
+|`outline-black`|🌐 Web only|
+|`outline-white`|🌐 Web only|
+|`outline-{n}`|🌐 Web only|
+|`outline-[n]`|🌐 Web only|
 
 ## Outline Offset
 
@@ -1766,13 +1766,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class              | Support     |
-| ------------------ | ----------- |
-| `outline-offset-0` | 🌐 Web only |
-| `outline-offset-1` | 🌐 Web only |
-| `outline-offset-2` | 🌐 Web only |
-| `outline-offset-4` | 🌐 Web only |
-| `outline-offset-8` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`outline-offset-0`|🌐 Web only|
+|`outline-offset-1`|🌐 Web only|
+|`outline-offset-2`|🌐 Web only|
+|`outline-offset-4`|🌐 Web only|
+|`outline-offset-8`|🌐 Web only|
 
 ## Box Sizing
 
@@ -1782,10 +1782,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `box-border`  | 🌐 Web only |
-| `box-content` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`box-border`|🌐 Web only|
+|`box-content`|🌐 Web only|
 
 ## Grid Row Start / End
 
@@ -1797,50 +1797,50 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following classes are supported exclusively on web platforms:
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `row-auto`       | 🌐 Web only |
-| `row-span-1`     | 🌐 Web only |
-| `row-span-2`     | 🌐 Web only |
-| `row-span-3`     | 🌐 Web only |
-| `row-span-4`     | 🌐 Web only |
-| `row-span-5`     | 🌐 Web only |
-| `row-span-6`     | 🌐 Web only |
-| `row-span-7`     | 🌐 Web only |
-| `row-span-8`     | 🌐 Web only |
-| `row-span-9`     | 🌐 Web only |
-| `row-span-10`    | 🌐 Web only |
-| `row-span-11`    | 🌐 Web only |
-| `row-span-12`    | 🌐 Web only |
-| `row-span-full`  | 🌐 Web only |
-| `row-start-1`    | 🌐 Web only |
-| `row-start-2`    | 🌐 Web only |
-| `row-start-3`    | 🌐 Web only |
-| `row-start-4`    | 🌐 Web only |
-| `row-start-5`    | 🌐 Web only |
-| `row-start-6`    | 🌐 Web only |
-| `row-start-7`    | 🌐 Web only |
-| `row-start-8`    | 🌐 Web only |
-| `row-start-9`    | 🌐 Web only |
-| `row-start-10`   | 🌐 Web only |
-| `row-start-11`   | 🌐 Web only |
-| `row-start-12`   | 🌐 Web only |
-| `row-start-13`   | 🌐 Web only |
-| `row-start-auto` | 🌐 Web only |
-| `row-end-1`      | 🌐 Web only |
-| `row-end-2`      | 🌐 Web only |
-| `row-end-3`      | 🌐 Web only |
-| `row-end-4`      | 🌐 Web only |
-| `row-end-5`      | 🌐 Web only |
-| `row-end-6`      | 🌐 Web only |
-| `row-end-7`      | 🌐 Web only |
-| `row-end-8`      | 🌐 Web only |
-| `row-end-9`      | 🌐 Web only |
-| `row-end-10`     | 🌐 Web only |
-| `row-end-11`     | 🌐 Web only |
-| `row-end-12`     | 🌐 Web only |
-| `row-end-13`     | 🌐 Web only |
-| `row-end-auto`   | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`row-auto`|🌐 Web only|
+|`row-span-1`|🌐 Web only|
+|`row-span-2`|🌐 Web only|
+|`row-span-3`|🌐 Web only|
+|`row-span-4`|🌐 Web only|
+|`row-span-5`|🌐 Web only|
+|`row-span-6`|🌐 Web only|
+|`row-span-7`|🌐 Web only|
+|`row-span-8`|🌐 Web only|
+|`row-span-9`|🌐 Web only|
+|`row-span-10`|🌐 Web only|
+|`row-span-11`|🌐 Web only|
+|`row-span-12`|🌐 Web only|
+|`row-span-full`|🌐 Web only|
+|`row-start-1`|🌐 Web only|
+|`row-start-2`|🌐 Web only|
+|`row-start-3`|🌐 Web only|
+|`row-start-4`|🌐 Web only|
+|`row-start-5`|🌐 Web only|
+|`row-start-6`|🌐 Web only|
+|`row-start-7`|🌐 Web only|
+|`row-start-8`|🌐 Web only|
+|`row-start-9`|🌐 Web only|
+|`row-start-10`|🌐 Web only|
+|`row-start-11`|🌐 Web only|
+|`row-start-12`|🌐 Web only|
+|`row-start-13`|🌐 Web only|
+|`row-start-auto`|🌐 Web only|
+|`row-end-1`|🌐 Web only|
+|`row-end-2`|🌐 Web only|
+|`row-end-3`|🌐 Web only|
+|`row-end-4`|🌐 Web only|
+|`row-end-5`|🌐 Web only|
+|`row-end-6`|🌐 Web only|
+|`row-end-7`|🌐 Web only|
+|`row-end-8`|🌐 Web only|
+|`row-end-9`|🌐 Web only|
+|`row-end-10`|🌐 Web only|
+|`row-end-11`|🌐 Web only|
+|`row-end-12`|🌐 Web only|
+|`row-end-13`|🌐 Web only|
+|`row-end-auto`|🌐 Web only|
 
 ## Outline Style
 
@@ -1850,13 +1850,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `outline-none`   | 🌐 Web only |
-| `outline`        | 🌐 Web only |
-| `outline-dashed` | 🌐 Web only |
-| `outline-dotted` | 🌐 Web only |
-| `outline-double` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`outline-none`|🌐 Web only|
+|`outline`|🌐 Web only|
+|`outline-dashed`|🌐 Web only|
+|`outline-dotted`|🌐 Web only|
+|`outline-double`|🌐 Web only|
 
 ## Grid Template Columns
 
@@ -1866,21 +1866,21 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `grid-cols-1`    | 🌐 Web only |
-| `grid-cols-2`    | 🌐 Web only |
-| `grid-cols-3`    | 🌐 Web only |
-| `grid-cols-4`    | 🌐 Web only |
-| `grid-cols-5`    | 🌐 Web only |
-| `grid-cols-6`    | 🌐 Web only |
-| `grid-cols-7`    | 🌐 Web only |
-| `grid-cols-8`    | 🌐 Web only |
-| `grid-cols-9`    | 🌐 Web only |
-| `grid-cols-10`   | 🌐 Web only |
-| `grid-cols-11`   | 🌐 Web only |
-| `grid-cols-12`   | 🌐 Web only |
-| `grid-cols-none` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`grid-cols-1`|🌐 Web only|
+|`grid-cols-2`|🌐 Web only|
+|`grid-cols-3`|🌐 Web only|
+|`grid-cols-4`|🌐 Web only|
+|`grid-cols-5`|🌐 Web only|
+|`grid-cols-6`|🌐 Web only|
+|`grid-cols-7`|🌐 Web only|
+|`grid-cols-8`|🌐 Web only|
+|`grid-cols-9`|🌐 Web only|
+|`grid-cols-10`|🌐 Web only|
+|`grid-cols-11`|🌐 Web only|
+|`grid-cols-12`|🌐 Web only|
+|`grid-cols-none`|🌐 Web only|
 
 ## Outline Width
 
@@ -1890,13 +1890,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class       | Support     |
-| ----------- | ----------- |
-| `outline-0` | 🌐 Web only |
-| `outline-1` | 🌐 Web only |
-| `outline-2` | 🌐 Web only |
-| `outline-4` | 🌐 Web only |
-| `outline-8` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`outline-0`|🌐 Web only|
+|`outline-1`|🌐 Web only|
+|`outline-2`|🌐 Web only|
+|`outline-4`|🌐 Web only|
+|`outline-8`|🌐 Web only|
 
 ## Ring Color
 
@@ -1906,15 +1906,15 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class              | Support     |
-| ------------------ | ----------- |
-| `ring-inherit`     | 🌐 Web only |
-| `ring-current`     | 🌐 Web only |
-| `ring-transparent` | 🌐 Web only |
-| `ring-black`       | 🌐 Web only |
-| `ring-white`       | 🌐 Web only |
-| `ring-{n}`         | 🌐 Web only |
-| `ring-[n]`         | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`ring-inherit`|🌐 Web only|
+|`ring-current`|🌐 Web only|
+|`ring-transparent`|🌐 Web only|
+|`ring-black`|🌐 Web only|
+|`ring-white`|🌐 Web only|
+|`ring-{n}`|🌐 Web only|
+|`ring-[n]`|🌐 Web only|
 
 ## Units
 
@@ -1922,10 +1922,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 These units can be utilized within classes or in the `tailwind.config.js` file.
 
-| Unit | Name        | Description                                  |
-| ---- | ----------- | -------------------------------------------- |
-| vw   | View Width  | Implemented using `Dimensions.get('window')` |
-| vh   | View Height | Implemented using `Dimensions.get('window')` |
+|Unit|Name|Description|
+|-|-|-|
+|vw|View Width|Implemented using `Dimensions.get('window')`|
+|vh|View Height|Implemented using `Dimensions.get('window')`|
 
 ## Break After
 
@@ -1935,16 +1935,16 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                    | Support     |
-| ------------------------ | ----------- |
-| `break-after-auto`       | 🌐 Web only |
-| `break-after-avoid`      | 🌐 Web only |
-| `break-after-all`        | 🌐 Web only |
-| `break-after-avoid-page` | 🌐 Web only |
-| `break-after-page`       | 🌐 Web only |
-| `break-after-left`       | 🌐 Web only |
-| `break-after-right`      | 🌐 Web only |
-| `break-after-column`     | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`break-after-auto`|🌐 Web only|
+|`break-after-avoid`|🌐 Web only|
+|`break-after-all`|🌐 Web only|
+|`break-after-avoid-page`|🌐 Web only|
+|`break-after-page`|🌐 Web only|
+|`break-after-left`|🌐 Web only|
+|`break-after-right`|🌐 Web only|
+|`break-after-column`|🌐 Web only|
 
 ## Ring Offset Color
 
@@ -1954,13 +1954,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class           | Support     |
-| --------------- | ----------- |
-| `ring-offset-0` | 🌐 Web only |
-| `ring-offset-1` | 🌐 Web only |
-| `ring-offset-2` | 🌐 Web only |
-| `ring-offset-4` | 🌐 Web only |
-| `ring-offset-8` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`ring-offset-0`|🌐 Web only|
+|`ring-offset-1`|🌐 Web only|
+|`ring-offset-2`|🌐 Web only|
+|`ring-offset-4`|🌐 Web only|
+|`ring-offset-8`|🌐 Web only|
 
 ## Grid Template Rows
 
@@ -1970,21 +1970,21 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `grid-rows-1`    | 🌐 Web only |
-| `grid-rows-2`    | 🌐 Web only |
-| `grid-rows-3`    | 🌐 Web only |
-| `grid-rows-4`    | 🌐 Web only |
-| `grid-rows-5`    | 🌐 Web only |
-| `grid-rows-6`    | 🌐 Web only |
-| `grid-rows-7`    | 🌐 Web only |
-| `grid-rows-8`    | 🌐 Web only |
-| `grid-rows-9`    | 🌐 Web only |
-| `grid-rows-10`   | 🌐 Web only |
-| `grid-rows-11`   | 🌐 Web only |
-| `grid-rows-12`   | 🌐 Web only |
-| `grid-rows-none` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`grid-rows-1`|🌐 Web only|
+|`grid-rows-2`|🌐 Web only|
+|`grid-rows-3`|🌐 Web only|
+|`grid-rows-4`|🌐 Web only|
+|`grid-rows-5`|🌐 Web only|
+|`grid-rows-6`|🌐 Web only|
+|`grid-rows-7`|🌐 Web only|
+|`grid-rows-8`|🌐 Web only|
+|`grid-rows-9`|🌐 Web only|
+|`grid-rows-10`|🌐 Web only|
+|`grid-rows-11`|🌐 Web only|
+|`grid-rows-12`|🌐 Web only|
+|`grid-rows-none`|🌐 Web only|
 
 ## Ring Offset Width
 
@@ -1994,13 +1994,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class           | Support     |
-| --------------- | ----------- |
-| `ring-offset-0` | 🌐 Web only |
-| `ring-offset-1` | 🌐 Web only |
-| `ring-offset-2` | 🌐 Web only |
-| `ring-offset-4` | 🌐 Web only |
-| `ring-offset-8` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`ring-offset-0`|🌐 Web only|
+|`ring-offset-1`|🌐 Web only|
+|`ring-offset-2`|🌐 Web only|
+|`ring-offset-4`|🌐 Web only|
+|`ring-offset-8`|🌐 Web only|
 
 ## Ring Width
 
@@ -2010,15 +2010,15 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support     |
-| ------------ | ----------- |
-| `ring-0`     | 🌐 Web only |
-| `ring-1`     | 🌐 Web only |
-| `ring-2`     | 🌐 Web only |
-| `ring`       | 🌐 Web only |
-| `ring-4`     | 🌐 Web only |
-| `ring-8`     | 🌐 Web only |
-| `ring-inset` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`ring-0`|🌐 Web only|
+|`ring-1`|🌐 Web only|
+|`ring-2`|🌐 Web only|
+|`ring`|🌐 Web only|
+|`ring-4`|🌐 Web only|
+|`ring-8`|🌐 Web only|
+|`ring-inset`|🌐 Web only|
 
 ## Break Before
 
@@ -2028,16 +2028,16 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                     | Support     |
-| ------------------------- | ----------- |
-| `break-before-auto`       | 🌐 Web only |
-| `break-before-avoid`      | 🌐 Web only |
-| `break-before-all`        | 🌐 Web only |
-| `break-before-avoid-page` | 🌐 Web only |
-| `break-before-page`       | 🌐 Web only |
-| `break-before-left`       | 🌐 Web only |
-| `break-before-right`      | 🌐 Web only |
-| `break-before-column`     | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`break-before-auto`|🌐 Web only|
+|`break-before-avoid`|🌐 Web only|
+|`break-before-all`|🌐 Web only|
+|`break-before-avoid-page`|🌐 Web only|
+|`break-before-page`|🌐 Web only|
+|`break-before-left`|🌐 Web only|
+|`break-before-right`|🌐 Web only|
+|`break-before-column`|🌐 Web only|
 
 ## Justify Content
 
@@ -2047,14 +2047,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `justify-start`   | ✅ Full Support |
-| `justify-end`     | ✅ Full Support |
-| `justify-center`  | ✅ Full Support |
-| `justify-between` | ✅ Full Support |
-| `justify-around`  | ✅ Full Support |
-| `justify-evenly`  | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`justify-start`|✅ Full Support|
+|`justify-end`|✅ Full Support|
+|`justify-center`|✅ Full Support|
+|`justify-between`|✅ Full Support|
+|`justify-around`|✅ Full Support|
+|`justify-evenly`|✅ Full Support|
 
 ## Background Blend Mode
 
@@ -2066,24 +2066,24 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 The following table outlines the support status for various background blend mode classes:
 
-| Class                  | Support         |
-| ---------------------- | --------------- |
-| `bg-blend-normal`      | ✅ Full Support |
-| `bg-blend-multiply`    | ✅ Full Support |
-| `bg-blend-screen`      | ✅ Full Support |
-| `bg-blend-overlay`     | ✅ Full Support |
-| `bg-blend-darken`      | ✅ Full Support |
-| `bg-blend-lighten`     | ✅ Full Support |
-| `bg-blend-color-dodge` | ✅ Full Support |
-| `bg-blend-color-burn`  | ✅ Full Support |
-| `bg-blend-hard-light`  | ✅ Full Support |
-| `bg-blend-soft-light`  | ✅ Full Support |
-| `bg-blend-difference`  | ✅ Full Support |
-| `bg-blend-exclusion`   | ✅ Full Support |
-| `bg-blend-hue`         | ✅ Full Support |
-| `bg-blend-saturation`  | ✅ Full Support |
-| `bg-blend-color`       | ✅ Full Support |
-| `bg-blend-luminosity`  | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`bg-blend-normal`|✅ Full Support|
+|`bg-blend-multiply`|✅ Full Support|
+|`bg-blend-screen`|✅ Full Support|
+|`bg-blend-overlay`|✅ Full Support|
+|`bg-blend-darken`|✅ Full Support|
+|`bg-blend-lighten`|✅ Full Support|
+|`bg-blend-color-dodge`|✅ Full Support|
+|`bg-blend-color-burn`|✅ Full Support|
+|`bg-blend-hard-light`|✅ Full Support|
+|`bg-blend-soft-light`|✅ Full Support|
+|`bg-blend-difference`|✅ Full Support|
+|`bg-blend-exclusion`|✅ Full Support|
+|`bg-blend-hue`|✅ Full Support|
+|`bg-blend-saturation`|✅ Full Support|
+|`bg-blend-color`|✅ Full Support|
+|`bg-blend-luminosity`|✅ Full Support|
 
 ## Justify Items
 
@@ -2093,12 +2093,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                   | Support     |
-| ----------------------- | ----------- |
-| `justify-items-start`   | 🌐 Web only |
-| `justify-items-end`     | 🌐 Web only |
-| `justify-items-center`  | 🌐 Web only |
-| `justify-items-stretch` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`justify-items-start`|🌐 Web only|
+|`justify-items-end`|🌐 Web only|
+|`justify-items-center`|🌐 Web only|
+|`justify-items-stretch`|🌐 Web only|
 
 ## Box Shadow
 
@@ -2133,13 +2133,13 @@ const App = () => {
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `shadow`       | ✅ Full Support |
-| `shadow-{n}`   | ✅ Full Support |
-| `shadow-none`  | ✅ Full Support |
-| `shadow-[n]`   | 🌐 Web only     |
-| `shadow-inner` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`shadow`|✅ Full Support|
+|`shadow-{n}`|✅ Full Support|
+|`shadow-none`|✅ Full Support|
+|`shadow-[n]`|🌐 Web only|
+|`shadow-inner`|🌐 Web only|
 
 ## Box Shadow Color
 
@@ -2149,10 +2149,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `shadow-{n}` | ✅ Full Support |
-| `shadow-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`shadow-{n}`|✅ Full Support|
+|`shadow-[n]`|✅ Full Support|
 
 ## Working with Third-Party Components in Nativewind
 
@@ -2368,12 +2368,12 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                       | Support     |
-| --------------------------- | ----------- |
-| `break-inside-auto`         | 🌐 Web only |
-| `break-inside-avoid`        | 🌐 Web only |
-| `break-inside-avoid-page`   | 🌐 Web only |
-| `break-inside-avoid-column` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`break-inside-auto`|🌐 Web only|
+|`break-inside-avoid`|🌐 Web only|
+|`break-inside-avoid-page`|🌐 Web only|
+|`break-inside-avoid-column`|🌐 Web only|
 
 ## Justify Self
 
@@ -2383,13 +2383,13 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                  | Support     |
-| ---------------------- | ----------- |
-| `justify-self-auto`    | 🌐 Web only |
-| `justify-self-start`   | 🌐 Web only |
-| `justify-self-end`     | 🌐 Web only |
-| `justify-self-center`  | 🌐 Web only |
-| `justify-self-stretch` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`justify-self-auto`|🌐 Web only|
+|`justify-self-start`|🌐 Web only|
+|`justify-self-end`|🌐 Web only|
+|`justify-self-center`|🌐 Web only|
+|`justify-self-stretch`|🌐 Web only|
 
 ## Mix Blend Mode
 
@@ -2399,25 +2399,25 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                    | Support     |
-| ------------------------ | ----------- |
-| `mix-blend-normal`       | 🌐 Web only |
-| `mix-blend-multiply`     | 🌐 Web only |
-| `mix-blend-screen`       | 🌐 Web only |
-| `mix-blend-overlay`      | 🌐 Web only |
-| `mix-blend-darken`       | 🌐 Web only |
-| `mix-blend-lighten`      | 🌐 Web only |
-| `mix-blend-color-dodge`  | 🌐 Web only |
-| `mix-blend-color-burn`   | 🌐 Web only |
-| `mix-blend-hard-light`   | 🌐 Web only |
-| `mix-blend-soft-light`   | 🌐 Web only |
-| `mix-blend-difference`   | 🌐 Web only |
-| `mix-blend-exclusion`    | 🌐 Web only |
-| `mix-blend-hue`          | 🌐 Web only |
-| `mix-blend-saturation`   | 🌐 Web only |
-| `mix-blend-color`        | 🌐 Web only |
-| `mix-blend-luminosity`   | 🌐 Web only |
-| `mix-blend-plus-lighter` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`mix-blend-normal`|🌐 Web only|
+|`mix-blend-multiply`|🌐 Web only|
+|`mix-blend-screen`|🌐 Web only|
+|`mix-blend-overlay`|🌐 Web only|
+|`mix-blend-darken`|🌐 Web only|
+|`mix-blend-lighten`|🌐 Web only|
+|`mix-blend-color-dodge`|🌐 Web only|
+|`mix-blend-color-burn`|🌐 Web only|
+|`mix-blend-hard-light`|🌐 Web only|
+|`mix-blend-soft-light`|🌐 Web only|
+|`mix-blend-difference`|🌐 Web only|
+|`mix-blend-exclusion`|🌐 Web only|
+|`mix-blend-hue`|🌐 Web only|
+|`mix-blend-saturation`|🌐 Web only|
+|`mix-blend-color`|🌐 Web only|
+|`mix-blend-luminosity`|🌐 Web only|
+|`mix-blend-plus-lighter`|🌐 Web only|
 
 ## Opacity
 
@@ -2427,10 +2427,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support         |
-| ------------- | --------------- |
-| `opacity-{n}` | ✅ Full Support |
-| `opacity-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`opacity-{n}`|✅ Full Support|
+|`opacity-[n]`|✅ Full Support|
 
 ## Animation
 
@@ -2444,13 +2444,13 @@ Animation functionality is currently experimental. Your feedback is crucial for 
 
 ### Compatibility
 
-| Class            | Support                 |
-| ---------------- | ----------------------- |
-| `animate-none`   | 🧪 Experimental Support |
-| `animate-spin`   | 🧪 Experimental Support |
-| `animate-ping`   | 🧪 Experimental Support |
-| `animate-bounce` | 🧪 Experimental Support |
-| `animate-[n]`    | 🧪 Experimental Support |
+|Class|Support|
+|-|-|
+|`animate-none`|🧪 Experimental Support|
+|`animate-spin`|🧪 Experimental Support|
+|`animate-ping`|🧪 Experimental Support|
+|`animate-bounce`|🧪 Experimental Support|
+|`animate-[n]`|🧪 Experimental Support|
 
 ### Contributors
 
@@ -2468,23 +2468,23 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `order-1`     | 🌐 Web only |
-| `order-2`     | 🌐 Web only |
-| `order-3`     | 🌐 Web only |
-| `order-4`     | 🌐 Web only |
-| `order-5`     | 🌐 Web only |
-| `order-6`     | 🌐 Web only |
-| `order-7`     | 🌐 Web only |
-| `order-8`     | 🌐 Web only |
-| `order-9`     | 🌐 Web only |
-| `order-10`    | 🌐 Web only |
-| `order-11`    | 🌐 Web only |
-| `order-12`    | 🌐 Web only |
-| `order-first` | 🌐 Web only |
-| `order-last`  | 🌐 Web only |
-| `order-none`  | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`order-1`|🌐 Web only|
+|`order-2`|🌐 Web only|
+|`order-3`|🌐 Web only|
+|`order-4`|🌐 Web only|
+|`order-5`|🌐 Web only|
+|`order-6`|🌐 Web only|
+|`order-7`|🌐 Web only|
+|`order-8`|🌐 Web only|
+|`order-9`|🌐 Web only|
+|`order-10`|🌐 Web only|
+|`order-11`|🌐 Web only|
+|`order-12`|🌐 Web only|
+|`order-first`|🌐 Web only|
+|`order-last`|🌐 Web only|
+|`order-none`|🌐 Web only|
 
 ## Transition Delay
 
@@ -2498,10 +2498,10 @@ Animation support is currently experimental. Your feedback will help us enhance 
 
 ### Compatibility
 
-| Class       | Support                 |
-| ----------- | ----------------------- |
-| `delay-{n}` | 🧪 Experimental Support |
-| `delay-[n]` | 🧪 Experimental Support |
+|Class|Support|
+|-|-|
+|`delay-{n}`|🧪 Experimental Support|
+|`delay-[n]`|🧪 Experimental Support|
 
 ## Transition Duration
 
@@ -2515,10 +2515,10 @@ Animation support is currently experimental. Your feedback is crucial for enhanc
 
 ### Compatibility
 
-| Class          | Support                 |
-| -------------- | ----------------------- |
-| `duration-{n}` | 🧪 Experimental Support |
-| `duration-[n]` | 🧪 Experimental Support |
+|Class|Support|
+|-|-|
+|`duration-{n}`|🧪 Experimental Support|
+|`duration-[n]`|🧪 Experimental Support|
 
 ## Place Items
 
@@ -2528,13 +2528,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                  | Support     |
-| ---------------------- | ----------- |
-| `place-items-start`    | 🌐 Web only |
-| `place-items-end`      | 🌐 Web only |
-| `place-items-center`   | 🌐 Web only |
-| `place-items-baseline` | 🌐 Web only |
-| `place-items-stretch`  | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`place-items-start`|🌐 Web only|
+|`place-items-end`|🌐 Web only|
+|`place-items-center`|🌐 Web only|
+|`place-items-baseline`|🌐 Web only|
+|`place-items-stretch`|🌐 Web only|
 
 ## Transition Property
 
@@ -2548,16 +2548,16 @@ The animation support is currently experimental. We welcome your feedback to enh
 
 ### Compatibility
 
-| Class                  | Support                 |
-| ---------------------- | ----------------------- |
-| `transition`           | 🧪 Experimental Support |
-| `transition-all`       | 🧪 Experimental Support |
-| `transition-colors`    | 🧪 Experimental Support |
-| `transition-opacity`   | 🧪 Experimental Support |
-| `transition-transform` | 🧪 Experimental Support |
-| `transition-{n}`       | 🧪 Experimental Support |
-| `transition-[n]`       | 🧪 Experimental Support |
-| `transition-shadow`    | 🌐 Web only             |
+|Class|Support|
+|-|-|
+|`transition`|🧪 Experimental Support|
+|`transition-all`|🧪 Experimental Support|
+|`transition-colors`|🧪 Experimental Support|
+|`transition-opacity`|🧪 Experimental Support|
+|`transition-transform`|🧪 Experimental Support|
+|`transition-{n}`|🧪 Experimental Support|
+|`transition-[n]`|🧪 Experimental Support|
+|`transition-shadow`|🌐 Web only|
 
 ## Platform Differences
 
@@ -2613,12 +2613,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `clear-left`  | 🌐 Web only |
-| `clear-right` | 🌐 Web only |
-| `clear-both`  | 🌐 Web only |
-| `clear-none`  | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`clear-left`|🌐 Web only|
+|`clear-right`|🌐 Web only|
+|`clear-both`|🌐 Web only|
+|`clear-none`|🌐 Web only|
 
 ## Place Content
 
@@ -2630,16 +2630,16 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following table outlines the compatibility of various place content classes:
 
-| Class                    | Support     |
-| ------------------------ | ----------- |
-| `place-content-center`   | 🌐 Web only |
-| `place-content-start`    | 🌐 Web only |
-| `place-content-end`      | 🌐 Web only |
-| `place-content-between`  | 🌐 Web only |
-| `place-content-around`   | 🌐 Web only |
-| `place-content-evenly`   | 🌐 Web only |
-| `place-content-baseline` | 🌐 Web only |
-| `place-content-stretch`  | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`place-content-center`|🌐 Web only|
+|`place-content-start`|🌐 Web only|
+|`place-content-end`|🌐 Web only|
+|`place-content-between`|🌐 Web only|
+|`place-content-around`|🌐 Web only|
+|`place-content-evenly`|🌐 Web only|
+|`place-content-baseline`|🌐 Web only|
+|`place-content-stretch`|🌐 Web only|
 
 ## Transition Timing Function
 
@@ -2652,10 +2652,10 @@ Animation support is currently experimental. Your feedback will help us enhance 
 
 ### Compatibility
 
-| Class      | Support                 |
-| ---------- | ----------------------- |
-| `ease-{n}` | 🧪 Experimental Support |
-| `ease-[n]` | 🧪 Experimental Support |
+|Class|Support|
+|-|-|
+|`ease-{n}`|🧪 Experimental Support|
+|`ease-[n]`|🧪 Experimental Support|
 
 ## Rotate
 
@@ -2665,10 +2665,10 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `rotate-{n}` | ✅ Full Support |
-| `rotate-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`rotate-{n}`|✅ Full Support|
+|`rotate-[n]`|✅ Full Support|
 
 When using arbitrary styles or defining rotation values in your theme, always specify the `deg` unit. For example: `rotate-[90deg]`.
 
@@ -2682,14 +2682,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support         |
-| ------------- | --------------- |
-| `scale-{n}`   | ✅ Full Support |
-| `scale-[n]`   | ✅ Full Support |
-| `scale-x-{n}` | ✅ Full Support |
-| `scale-x-[n]` | ✅ Full Support |
-| `scale-y-{n}` | ✅ Full Support |
-| `scale-y-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`scale-{n}`|✅ Full Support|
+|`scale-[n]`|✅ Full Support|
+|`scale-x-{n}`|✅ Full Support|
+|`scale-x-[n]`|✅ Full Support|
+|`scale-y-{n}`|✅ Full Support|
+|`scale-y-[n]`|✅ Full Support|
 
 ## Columns
 
@@ -2699,10 +2699,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `columns-[n]` | 🌐 Web only |
-| `columns-{n}` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`columns-[n]`|🌐 Web only|
+|`columns-{n}`|🌐 Web only|
 
 ## Place Self
 
@@ -2712,13 +2712,13 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                | Support     |
-| -------------------- | ----------- |
-| `place-self-auto`    | 🌐 Web only |
-| `place-self-start`   | 🌐 Web only |
-| `place-self-end`     | 🌐 Web only |
-| `place-self-center`  | 🌐 Web only |
-| `place-self-stretch` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`place-self-auto`|🌐 Web only|
+|`place-self-start`|🌐 Web only|
+|`place-self-end`|🌐 Web only|
+|`place-self-center`|🌐 Web only|
+|`place-self-stretch`|🌐 Web only|
 
 ## Skew
 
@@ -2728,12 +2728,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `skew-x-{n}` | ✅ Full Support |
-| `skew-x-[n]` | ✅ Full Support |
-| `skew-y-{n}` | ✅ Full Support |
-| `skew-y-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`skew-x-{n}`|✅ Full Support|
+|`skew-x-[n]`|✅ Full Support|
+|`skew-y-{n}`|✅ Full Support|
+|`skew-y-[n]`|✅ Full Support|
 
 ## Transform Origin
 
@@ -2743,17 +2743,17 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                 | Support     |
-| --------------------- | ----------- |
-| `origin-center`       | 🌐 Web only |
-| `origin-top`          | 🌐 Web only |
-| `origin-top-right`    | 🌐 Web only |
-| `origin-right`        | 🌐 Web only |
-| `origin-bottom-right` | 🌐 Web only |
-| `origin-bottom`       | 🌐 Web only |
-| `origin-bottom-left`  | 🌐 Web only |
-| `origin-left`         | 🌐 Web only |
-| `origin-top-left`     | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`origin-center`|🌐 Web only|
+|`origin-top`|🌐 Web only|
+|`origin-top-right`|🌐 Web only|
+|`origin-right`|🌐 Web only|
+|`origin-bottom-right`|🌐 Web only|
+|`origin-bottom`|🌐 Web only|
+|`origin-bottom-left`|🌐 Web only|
+|`origin-left`|🌐 Web only|
+|`origin-top-left`|🌐 Web only|
 
 ### Contributors
 
@@ -2777,29 +2777,29 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following table outlines the support status for various margin classes:
 
-| Class     | Support         |
-| --------- | --------------- |
-| `m-{n}`   | ✅ Full Support |
-| `m-[n]`   | ✅ Full Support |
-| `mx-{n}`  | ✅ Full Support |
-| `mx-[n]`  | ✅ Full Support |
-| `my-{n}`  | ✅ Full Support |
-| `my-[n]`  | ✅ Full Support |
-| `mt-{n}`  | ✅ Full Support |
-| `mt-[n]`  | ✅ Full Support |
-| `mr-{n}`  | ✅ Full Support |
-| `mr-[n]`  | ✅ Full Support |
-| `mb-{n}`  | ✅ Full Support |
-| `mb-[n]`  | ✅ Full Support |
-| `ml-{n}`  | ✅ Full Support |
-| `ml-[n]`  | ✅ Full Support |
-| `m-auto`  | ✅ Full Support |
-| `mx-auto` | ✅ Full Support |
-| `my-auto` | ✅ Full Support |
-| `mt-auto` | ✅ Full Support |
-| `mr-auto` | ✅ Full Support |
-| `mb-auto` | ✅ Full Support |
-| `ml-auto` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`m-{n}`|✅ Full Support|
+|`m-[n]`|✅ Full Support|
+|`mx-{n}`|✅ Full Support|
+|`mx-[n]`|✅ Full Support|
+|`my-{n}`|✅ Full Support|
+|`my-[n]`|✅ Full Support|
+|`mt-{n}`|✅ Full Support|
+|`mt-[n]`|✅ Full Support|
+|`mr-{n}`|✅ Full Support|
+|`mr-[n]`|✅ Full Support|
+|`mb-{n}`|✅ Full Support|
+|`mb-[n]`|✅ Full Support|
+|`ml-{n}`|✅ Full Support|
+|`ml-[n]`|✅ Full Support|
+|`m-auto`|✅ Full Support|
+|`mx-auto`|✅ Full Support|
+|`my-auto`|✅ Full Support|
+|`mt-auto`|✅ Full Support|
+|`mr-auto`|✅ Full Support|
+|`mb-auto`|✅ Full Support|
+|`ml-auto`|✅ Full Support|
 
 ## Translate
 
@@ -2809,20 +2809,20 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `translate-x-{n}` | ✅ Full Support |
-| `translate-x-[n]` | ✅ Full Support |
-| `translate-y-{n}` | ✅ Full Support |
-| `translate-y-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`translate-x-{n}`|✅ Full Support|
+|`translate-x-[n]`|✅ Full Support|
+|`translate-y-{n}`|✅ Full Support|
+|`translate-y-[n]`|✅ Full Support|
 
 ## Other Bundlers
 
 Nativewind offers installation guidance for the two most prevalent React Native bundlers, Metro and Next.js. However, it is compatible with any bundler. To integrate Nativewind successfully, ensure these three conditions are satisfied:
 
 1. Tailwind CSS must be configured using the Nativewind preset.
-2. React Native should be set up, specifically utilizing React Native Web version 0.17 or higher.
-3. The JSX runtime needs to be adjusted to `'automatic'`, and `jsxImportSource` should be assigned to `'nativewind'`.
+1. React Native should be set up, specifically utilizing React Native Web version 0.17 or higher.
+1. The JSX runtime needs to be adjusted to `'automatic'`, and `jsxImportSource` should be assigned to `'nativewind'`.
 
 ### Troubleshooting for Web Bundlers
 
@@ -3255,8 +3255,8 @@ This code snippet highlights inconsistencies across different platforms due to v
 Nativewind defines the following specificity order from highest to lowest:
 
 1. Styles marked as important (following CSS specificity rules)
-2. Inline & remapped styles (applied in right-to-left order)
-3. `className` styles (following CSS specificity rules)
+1. Inline & remapped styles (applied in right-to-left order)
+1. `className` styles (following CSS specificity rules)
 
 ### Concept of Remapped Styles
 
@@ -3292,29 +3292,29 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following table outlines the support for various padding classes:
 
-| Class     | Support         |
-| --------- | --------------- |
-| `p-{n}`   | ✅ Full Support |
-| `p-[n]`   | ✅ Full Support |
-| `px-{n}`  | ✅ Full Support |
-| `px-[n]`  | ✅ Full Support |
-| `py-{n}`  | ✅ Full Support |
-| `py-[n]`  | ✅ Full Support |
-| `pt-{n}`  | ✅ Full Support |
-| `pt-[n]`  | ✅ Full Support |
-| `pr-{n}`  | ✅ Full Support |
-| `pr-[n]`  | ✅ Full Support |
-| `pb-{n}`  | ✅ Full Support |
-| `pb-[n]`  | ✅ Full Support |
-| `pl-{n}`  | ✅ Full Support |
-| `pl-[n]`  | ✅ Full Support |
-| `p-auto`  | 🌐 Web only     |
-| `px-auto` | 🌐 Web only     |
-| `py-auto` | 🌐 Web only     |
-| `pt-auto` | 🌐 Web only     |
-| `pr-auto` | 🌐 Web only     |
-| `pb-auto` | 🌐 Web only     |
-| `pl-auto` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`p-{n}`|✅ Full Support|
+|`p-[n]`|✅ Full Support|
+|`px-{n}`|✅ Full Support|
+|`px-[n]`|✅ Full Support|
+|`py-{n}`|✅ Full Support|
+|`py-[n]`|✅ Full Support|
+|`pt-{n}`|✅ Full Support|
+|`pt-[n]`|✅ Full Support|
+|`pr-{n}`|✅ Full Support|
+|`pr-[n]`|✅ Full Support|
+|`pb-{n}`|✅ Full Support|
+|`pb-[n]`|✅ Full Support|
+|`pl-{n}`|✅ Full Support|
+|`pl-[n]`|✅ Full Support|
+|`p-auto`|🌐 Web only|
+|`px-auto`|🌐 Web only|
+|`py-auto`|🌐 Web only|
+|`pt-auto`|🌐 Web only|
+|`pr-auto`|🌐 Web only|
+|`pb-auto`|🌐 Web only|
+|`pl-auto`|🌐 Web only|
 
 ## Accent Color
 
@@ -3326,15 +3326,15 @@ For detailed instructions and guidelines, please consult the Tailwind CSS docume
 
 The following table outlines the compatibility of various accent classes with different platforms:
 
-| Class                | Support  |
-| -------------------- | -------- |
-| `accent-{n}`         | Web only |
-| `accent-[n]`         | Web only |
-| `accent-black`       | Web only |
-| `accent-white`       | Web only |
-| `accent-transparent` | Web only |
-| `accent-inherit`     | Web only |
-| `accent-current`     | Web only |
+|Class|Support|
+|-|-|
+|`accent-{n}`|Web only|
+|`accent-[n]`|Web only|
+|`accent-black`|Web only|
+|`accent-white`|Web only|
+|`accent-transparent`|Web only|
+|`accent-inherit`|Web only|
+|`accent-current`|Web only|
 
 ### Contributors
 
@@ -3352,11 +3352,11 @@ For detailed information, please consult the official Tailwind CSS documentation
 
 ### Compatibility
 
-| Class             | Support     |
-| ----------------- | ----------- |
-| `appearance-none` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`appearance-none`|🌐 Web only|
 
----
+***
 
 This reformatted content maintains the original structure and intent while ensuring clarity and adherence to markdown formatting standards.
 
@@ -3368,15 +3368,15 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class               | Support         |
-| ------------------- | --------------- |
-| `caret-{n}`         | ✅ Full Support |
-| `caret-[n]`         | ✅ Full Support |
-| `caret-black`       | ✅ Full Support |
-| `caret-white`       | ✅ Full Support |
-| `caret-transparent` | ✅ Full Support |
-| `caret-inherit`     | 🌐 Web only     |
-| `caret-current`     | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`caret-{n}`|✅ Full Support|
+|`caret-[n]`|✅ Full Support|
+|`caret-black`|✅ Full Support|
+|`caret-white`|✅ Full Support|
+|`caret-transparent`|✅ Full Support|
+|`caret-inherit`|🌐 Web only|
+|`caret-current`|🌐 Web only|
 
 ### Contributors
 
@@ -3394,10 +3394,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support     |
-| ------------ | ----------- |
-| `cursor-{n}` | 🌐 Web only |
-| `cursor-[n]` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`cursor-{n}`|🌐 Web only|
+|`cursor-[n]`|🌐 Web only|
 
 ## Container
 
@@ -3409,9 +3409,9 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class       | Support         |
-| ----------- | --------------- |
-| `container` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`container`|✅ Full Support|
 
 ## Space Between
 
@@ -3424,16 +3424,16 @@ The `space-{n}` utility was temporarily removed in version 4. Instead, use `gap-
 
 ### Compatibility
 
-| Class             | Support     |
-| ----------------- | ----------- |
-| `space-{n}`       | 🌐 Web only |
-| `space-[n]`       | 🌐 Web only |
-| `space-x-{n}`     | 🌐 Web only |
-| `space-x-[n]`     | 🌐 Web only |
-| `space-y-{n}`     | 🌐 Web only |
-| `space-y-[n]`     | 🌐 Web only |
-| `space-x-reverse` | 🌐 Web only |
-| `space-y-reverse` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`space-{n}`|🌐 Web only|
+|`space-[n]`|🌐 Web only|
+|`space-x-{n}`|🌐 Web only|
+|`space-x-[n]`|🌐 Web only|
+|`space-y-{n}`|🌐 Web only|
+|`space-y-[n]`|🌐 Web only|
+|`space-x-reverse`|🌐 Web only|
+|`space-y-reverse`|🌐 Web only|
 
 ## Pointer Events
 
@@ -3443,12 +3443,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                     | Support         |
-| ------------------------- | --------------- |
-| `pointer-events-none`     | ✅ Full Support |
-| `pointer-events-auto`     | ✅ Full Support |
-| `pointer-events-box-none` | 📱 Native only  |
-| `pointer-events-box-only` | 📱 Native only  |
+|Class|Support|
+|-|-|
+|`pointer-events-none`|✅ Full Support|
+|`pointer-events-auto`|✅ Full Support|
+|`pointer-events-box-none`|📱 Native only|
+|`pointer-events-box-only`|📱 Native only|
 
 ## Height
 
@@ -3458,16 +3458,16 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class      | Support         |
-| ---------- | --------------- |
-| `h-{n}`    | ✅ Full Support |
-| `h-[n]`    | ✅ Full Support |
-| `h-full`   | ✅ Full Support |
-| `h-screen` | ✅ Full Support |
-| `h-auto`   | 🌐 Web only     |
-| `h-min`    | 🌐 Web only     |
-| `h-max`    | 🌐 Web only     |
-| `h-fit`    | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`h-{n}`|✅ Full Support|
+|`h-[n]`|✅ Full Support|
+|`h-full`|✅ Full Support|
+|`h-screen`|✅ Full Support|
+|`h-auto`|🌐 Web only|
+|`h-min`|🌐 Web only|
+|`h-max`|🌐 Web only|
+|`h-fit`|🌐 Web only|
 
 ## Resize
 
@@ -3477,12 +3477,12 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `resize-none` | 🌐 Web only |
-| `resize-y`    | 🌐 Web only |
-| `resize-x`    | 🌐 Web only |
-| `resize`      | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`resize-none`|🌐 Web only|
+|`resize-y`|🌐 Web only|
+|`resize-x`|🌐 Web only|
+|`resize`|🌐 Web only|
 
 ## Scroll Behavior
 
@@ -3492,10 +3492,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class           | Support     |
-| --------------- | ----------- |
-| `scroll-auto`   | 🌐 Web only |
-| `scroll-smooth` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`scroll-auto`|🌐 Web only|
+|`scroll-smooth`|🌐 Web only|
 
 ## Safe Area Insets
 
@@ -3549,25 +3549,25 @@ For web applications, CSS stylesheets can leverage the `env()` function without 
 
 ### Compatibility
 
-| Class | Support | Comments |
-| --- | --- | --- |
-| `m-safe` | ✅ Full Support | Applies margins using safe area insets: `margin-top`, `margin-bottom`, `margin-left`, and `margin-right`. |
-| `p-safe` | ✅ Full Support | Applies padding using safe area insets: `padding-top`, `padding-bottom`, `padding-left`, and `padding-right`. |
-| `mx-safe` | ✅ Full Support | Sets horizontal margins with safe area insets. |
-| `px-safe` | ✅ Full Support | Sets horizontal padding with safe area insets. |
-| `my-safe` | ✅ Full Support | Sets vertical margins using safe area insets. |
-| `py-safe` | ✅ Full Support | Sets vertical padding using safe area insets. |
-| `mt-safe` | ✅ Full Support | Applies top margin with a safe area inset. |
-| `pt-safe` | ✅ Full Support | Applies top padding with a safe area inset. |
-| `mr-safe` | ✅ Full Support | Sets right margin using a safe area inset. |
-| `pr-safe` | ✅ Full Support | Sets right padding using a safe area inset. |
-| `mb-safe` | ✅ Full Support | Applies bottom margin with a safe area inset. |
-| `pb-safe` | ✅ Full Support | Applies bottom padding with a safe area inset. |
-| `ml-safe` | ✅ Full Support | Sets left margin using a safe area inset. |
-| `pl-safe` | ✅ Full Support | Sets left padding using a safe area inset. |
-| `*-safe-or-[n]` | ✅ Full Support | Allows substitution of any spacing utility (`*`) and value (`[n]`). Example: `mt-safe-or-4` translates to `margin-top: max(env(safe-area-inset-top), 1rem);`. Another example is `mt-safe-or-[2px]`, resulting in `margin-top: max(env(safe-area-inset-top), 2px);`. |
-| `h-screen-safe` | 🌐 Web only | Adjusts height using safe area insets: `height: calc(100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))`. |
-| `*-safe-offset-[n]` | 🌐 Web only | Allows substitution of any spacing utility (`*`) and value (`[n]`). Example: `mt-safe-offset-4` results in `margin-top: calc(env(safe-area-inset-top) + 1rem);`. Another example is `mt-safe-offset-[2px]`, resulting in `margin-top: calc(env(safe-area-inset-top) + 2px);`. |
+|Class|Support|Comments|
+|-|-|-|
+|`m-safe`|✅ Full Support|Applies margins using safe area insets: `margin-top`, `margin-bottom`, `margin-left`, and `margin-right`.|
+|`p-safe`|✅ Full Support|Applies padding using safe area insets: `padding-top`, `padding-bottom`, `padding-left`, and `padding-right`.|
+|`mx-safe`|✅ Full Support|Sets horizontal margins with safe area insets.|
+|`px-safe`|✅ Full Support|Sets horizontal padding with safe area insets.|
+|`my-safe`|✅ Full Support|Sets vertical margins using safe area insets.|
+|`py-safe`|✅ Full Support|Sets vertical padding using safe area insets.|
+|`mt-safe`|✅ Full Support|Applies top margin with a safe area inset.|
+|`pt-safe`|✅ Full Support|Applies top padding with a safe area inset.|
+|`mr-safe`|✅ Full Support|Sets right margin using a safe area inset.|
+|`pr-safe`|✅ Full Support|Sets right padding using a safe area inset.|
+|`mb-safe`|✅ Full Support|Applies bottom margin with a safe area inset.|
+|`pb-safe`|✅ Full Support|Applies bottom padding with a safe area inset.|
+|`ml-safe`|✅ Full Support|Sets left margin using a safe area inset.|
+|`pl-safe`|✅ Full Support|Sets left padding using a safe area inset.|
+|`*-safe-or-[n]`|✅ Full Support|Allows substitution of any spacing utility (`*`) and value (`[n]`). Example: `mt-safe-or-4` translates to `margin-top: max(env(safe-area-inset-top), 1rem);`. Another example is `mt-safe-or-[2px]`, resulting in `margin-top: max(env(safe-area-inset-top), 2px);`.|
+|`h-screen-safe`|🌐 Web only|Adjusts height using safe area insets: `height: calc(100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))`.|
+|`*-safe-offset-[n]`|🌐 Web only|Allows substitution of any spacing utility (`*`) and value (`[n]`). Example: `mt-safe-offset-4` results in `margin-top: calc(env(safe-area-inset-top) + 1rem);`. Another example is `mt-safe-offset-[2px]`, resulting in `margin-top: calc(env(safe-area-inset-top) + 2px);`.|
 
 ## Display
 
@@ -3577,29 +3577,29 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                | Support         |
-| -------------------- | --------------- |
-| `flex`               | ✅ Full Support |
-| `hidden`             | ✅ Full Support |
-| `block`              | 🌐 Web only     |
-| `inline-block`       | 🌐 Web only     |
-| `inline`             | 🌐 Web only     |
-| `inline-flex`        | 🌐 Web only     |
-| `table`              | 🌐 Web only     |
-| `inline-table`       | 🌐 Web only     |
-| `table-caption`      | 🌐 Web only     |
-| `table-cell`         | 🌐 Web only     |
-| `table-column`       | 🌐 Web only     |
-| `table-column-group` | 🌐 Web only     |
-| `table-footer-group` | 🌐 Web only     |
-| `table-header-group` | 🌐 Web only     |
-| `table-row-group`    | 🌐 Web only     |
-| `table-row`          | 🌐 Web only     |
-| `flow-root`          | 🌐 Web only     |
-| `grid`               | 🌐 Web only     |
-| `inline-grid`        | 🌐 Web only     |
-| `contents`           | 🌐 Web only     |
-| `list-item`          | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`flex`|✅ Full Support|
+|`hidden`|✅ Full Support|
+|`block`|🌐 Web only|
+|`inline-block`|🌐 Web only|
+|`inline`|🌐 Web only|
+|`inline-flex`|🌐 Web only|
+|`table`|🌐 Web only|
+|`inline-table`|🌐 Web only|
+|`table-caption`|🌐 Web only|
+|`table-cell`|🌐 Web only|
+|`table-column`|🌐 Web only|
+|`table-column-group`|🌐 Web only|
+|`table-footer-group`|🌐 Web only|
+|`table-header-group`|🌐 Web only|
+|`table-row-group`|🌐 Web only|
+|`table-row`|🌐 Web only|
+|`flow-root`|🌐 Web only|
+|`grid`|🌐 Web only|
+|`inline-grid`|🌐 Web only|
+|`contents`|🌐 Web only|
+|`list-item`|🌐 Web only|
 
 ## Max-Height
 
@@ -3609,16 +3609,16 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `max-h-0`      | ✅ Full Support |
-| `max-h-[n]`    | ✅ Full Support |
-| `max-h-{n}`    | ✅ Full Support |
-| `max-h-full`   | ✅ Full Support |
-| `max-h-screen` | ✅ Full Support |
-| `max-h-min`    | 🌐 Web only     |
-| `max-h-max`    | 🌐 Web only     |
-| `max-h-fit`    | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`max-h-0`|✅ Full Support|
+|`max-h-[n]`|✅ Full Support|
+|`max-h-{n}`|✅ Full Support|
+|`max-h-full`|✅ Full Support|
+|`max-h-screen`|✅ Full Support|
+|`max-h-min`|🌐 Web only|
+|`max-h-max`|🌐 Web only|
+|`max-h-fit`|🌐 Web only|
 
 ## Scroll Margin
 
@@ -3630,22 +3630,22 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following classes are supported exclusively on web platforms:
 
-| Class           | Support     |
-| --------------- | ----------- |
-| `scroll-m-{n}`  | 🌐 Web only |
-| `scroll-m-[n]`  | 🌐 Web only |
-| `scroll-mx-{n}` | 🌐 Web only |
-| `scroll-mx-[n]` | 🌐 Web only |
-| `scroll-my-{n}` | 🌐 Web only |
-| `scroll-my-[n]` | 🌐 Web only |
-| `scroll-mt-{n}` | 🌐 Web only |
-| `scroll-mt-[n]` | 🌐 Web only |
-| `scroll-mr-{n}` | 🌐 Web only |
-| `scroll-mr-[n]` | 🌐 Web only |
-| `scroll-mb-{n}` | 🌐 Web only |
-| `scroll-mb-[n]` | 🌐 Web only |
-| `scroll-ml-{n}` | 🌐 Web only |
-| `scroll-ml-[n]` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`scroll-m-{n}`|🌐 Web only|
+|`scroll-m-[n]`|🌐 Web only|
+|`scroll-mx-{n}`|🌐 Web only|
+|`scroll-mx-[n]`|🌐 Web only|
+|`scroll-my-{n}`|🌐 Web only|
+|`scroll-my-[n]`|🌐 Web only|
+|`scroll-mt-{n}`|🌐 Web only|
+|`scroll-mt-[n]`|🌐 Web only|
+|`scroll-mr-{n}`|🌐 Web only|
+|`scroll-mr-[n]`|🌐 Web only|
+|`scroll-mb-{n}`|🌐 Web only|
+|`scroll-mb-[n]`|🌐 Web only|
+|`scroll-ml-{n}`|🌐 Web only|
+|`scroll-ml-[n]`|🌐 Web only|
 
 ## Max-Width
 
@@ -3655,21 +3655,21 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class              | Support         |
-| ------------------ | --------------- |
-| `max-w-0`          | ✅ Full Support |
-| `max-w-[n]`        | ✅ Full Support |
-| `max-w-{n}`        | ✅ Full Support |
-| `max-w-full`       | ✅ Full Support |
-| `max-w-screen-sm`  | ✅ Full Support |
-| `max-w-screen-md`  | ✅ Full Support |
-| `max-w-screen-lg`  | ✅ Full Support |
-| `max-w-screen-xl`  | ✅ Full Support |
-| `max-w-screen-2xl` | ✅ Full Support |
-| `max-w-min`        | 🌐 Web only     |
-| `max-w-max`        | 🌐 Web only     |
-| `max-w-fit`        | 🌐 Web only     |
-| `max-w-prose`      | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`max-w-0`|✅ Full Support|
+|`max-w-[n]`|✅ Full Support|
+|`max-w-{n}`|✅ Full Support|
+|`max-w-full`|✅ Full Support|
+|`max-w-screen-sm`|✅ Full Support|
+|`max-w-screen-md`|✅ Full Support|
+|`max-w-screen-lg`|✅ Full Support|
+|`max-w-screen-xl`|✅ Full Support|
+|`max-w-screen-2xl`|✅ Full Support|
+|`max-w-min`|🌐 Web only|
+|`max-w-max`|🌐 Web only|
+|`max-w-fit`|🌐 Web only|
+|`max-w-prose`|🌐 Web only|
 
 ## Scroll Padding
 
@@ -3681,22 +3681,22 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following classes are supported exclusively on web platforms:
 
-| Class           | Support     |
-| --------------- | ----------- |
-| `scroll-p-{n}`  | 🌐 Web only |
-| `scroll-p-[n]`  | 🌐 Web only |
-| `scroll-px-{n}` | 🌐 Web only |
-| `scroll-px-[n]` | 🌐 Web only |
-| `scroll-py-{n}` | 🌐 Web only |
-| `scroll-py-[n]` | 🌐 Web only |
-| `scroll-pt-{n}` | 🌐 Web only |
-| `scroll-pt-[n]` | 🌐 Web only |
-| `scroll-pr-{n}` | 🌐 Web only |
-| `scroll-pr-[n]` | 🌐 Web only |
-| `scroll-pb-{n}` | 🌐 Web only |
-| `scroll-pb-[n]` | 🌐 Web only |
-| `scroll-pl-{n}` | 🌐 Web only |
-| `scroll-pl-[n]` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`scroll-p-{n}`|🌐 Web only|
+|`scroll-p-[n]`|🌐 Web only|
+|`scroll-px-{n}`|🌐 Web only|
+|`scroll-px-[n]`|🌐 Web only|
+|`scroll-py-{n}`|🌐 Web only|
+|`scroll-py-[n]`|🌐 Web only|
+|`scroll-pt-{n}`|🌐 Web only|
+|`scroll-pt-[n]`|🌐 Web only|
+|`scroll-pr-{n}`|🌐 Web only|
+|`scroll-pr-[n]`|🌐 Web only|
+|`scroll-pb-{n}`|🌐 Web only|
+|`scroll-pb-[n]`|🌐 Web only|
+|`scroll-pl-{n}`|🌐 Web only|
+|`scroll-pl-[n]`|🌐 Web only|
 
 ## Scroll Snap Align
 
@@ -3706,12 +3706,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class             | Support     |
-| ----------------- | ----------- |
-| `snap-start`      | 🌐 Web only |
-| `snap-end`        | 🌐 Web only |
-| `snap-center`     | 🌐 Web only |
-| `snap-align-none` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`snap-start`|🌐 Web only|
+|`snap-end`|🌐 Web only|
+|`snap-center`|🌐 Web only|
+|`snap-align-none`|🌐 Web only|
 
 ## Floats
 
@@ -3721,11 +3721,11 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `float-right` | 🌐 Web only |
-| `float-left`  | 🌐 Web only |
-| `float-none`  | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`float-right`|🌐 Web only|
+|`float-left`|🌐 Web only|
+|`float-none`|🌐 Web only|
 
 ## Scroll Snap Stop
 
@@ -3735,10 +3735,10 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `snap-normal` | 🌐 Web only |
-| `snap-always` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`snap-normal`|🌐 Web only|
+|`snap-always`|🌐 Web only|
 
 ## Min-Height
 
@@ -3748,14 +3748,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `min-h-0`    | ✅ Full Support |
-| `min-h-[n]`  | ✅ Full Support |
-| `min-h-full` | ✅ Full Support |
-| `min-h-min`  | 🌐 Web only     |
-| `min-h-max`  | 🌐 Web only     |
-| `min-h-fit`  | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`min-h-0`|✅ Full Support|
+|`min-h-[n]`|✅ Full Support|
+|`min-h-full`|✅ Full Support|
+|`min-h-min`|🌐 Web only|
+|`min-h-max`|🌐 Web only|
+|`min-h-fit`|🌐 Web only|
 
 ```typescript
 type MinHeightClasses = {
@@ -3776,14 +3776,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `snap-none`      | 🌐 Web only |
-| `snap-x`         | 🌐 Web only |
-| `snap-y`         | 🌐 Web only |
-| `snap-both`      | 🌐 Web only |
-| `snap-mandatory` | 🌐 Web only |
-| `snap-proximity` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`snap-none`|🌐 Web only|
+|`snap-x`|🌐 Web only|
+|`snap-y`|🌐 Web only|
+|`snap-both`|🌐 Web only|
+|`snap-mandatory`|🌐 Web only|
+|`snap-proximity`|🌐 Web only|
 
 ## Touch Action
 
@@ -3795,18 +3795,18 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following table outlines the support for various touch action classes:
 
-| Class                | Support     |
-| -------------------- | ----------- |
-| `touch-auto`         | 🌐 Web only |
-| `touch-none`         | 🌐 Web only |
-| `touch-pan-x`        | 🌐 Web only |
-| `touch-pan-left`     | 🌐 Web only |
-| `touch-pan-right`    | 🌐 Web only |
-| `touch-pan-y`        | 🌐 Web only |
-| `touch-pan-up`       | 🌐 Web only |
-| `touch-pan-down`     | 🌐 Web only |
-| `touch-pinch-zoom`   | 🌐 Web only |
-| `touch-manipulation` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`touch-auto`|🌐 Web only|
+|`touch-none`|🌐 Web only|
+|`touch-pan-x`|🌐 Web only|
+|`touch-pan-left`|🌐 Web only|
+|`touch-pan-right`|🌐 Web only|
+|`touch-pan-y`|🌐 Web only|
+|`touch-pan-up`|🌐 Web only|
+|`touch-pan-down`|🌐 Web only|
+|`touch-pinch-zoom`|🌐 Web only|
+|`touch-manipulation`|🌐 Web only|
 
 ## Configuration
 
@@ -3864,10 +3864,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `isolate`        | 🌐 Web only |
-| `isolation-auto` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`isolate`|🌐 Web only|
+|`isolation-auto`|🌐 Web only|
 
 ## Min-Width
 
@@ -3877,14 +3877,14 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `min-w-0`    | ✅ Full Support |
-| `min-w-[n]`  | ✅ Full Support |
-| `min-w-full` | ✅ Full Support |
-| `min-w-min`  | 🌐 Web only     |
-| `min-w-max`  | 🌐 Web only     |
-| `min-w-fit`  | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`min-w-0`|✅ Full Support|
+|`min-w-[n]`|✅ Full Support|
+|`min-w-full`|✅ Full Support|
+|`min-w-min`|🌐 Web only|
+|`min-w-max`|🌐 Web only|
+|`min-w-fit`|🌐 Web only|
 
 ```typescript
 // TypeScript typings for min-width classes
@@ -3906,12 +3906,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support     |
-| ------------- | ----------- |
-| `select-none` | 🌐 Web only |
-| `select-text` | 🌐 Web only |
-| `select-all`  | 🌐 Web only |
-| `select-auto` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`select-none`|🌐 Web only|
+|`select-text`|🌐 Web only|
+|`select-all`|🌐 Web only|
+|`select-auto`|🌐 Web only|
 
 ### Contributors
 
@@ -3929,16 +3929,16 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class      | Support         |
-| ---------- | --------------- |
-| `w-{n}`    | ✅ Full Support |
-| `w-[n]`    | ✅ Full Support |
-| `w-full`   | ✅ Full Support |
-| `w-screen` | ✅ Full Support |
-| `w-auto`   | 🌐 Web only     |
-| `w-min`    | 🌐 Web only     |
-| `w-max`    | 🌐 Web only     |
-| `w-fit`    | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`w-{n}`|✅ Full Support|
+|`w-[n]`|✅ Full Support|
+|`w-full`|✅ Full Support|
+|`w-screen`|✅ Full Support|
+|`w-auto`|🌐 Web only|
+|`w-min`|🌐 Web only|
+|`w-max`|🌐 Web only|
+|`w-fit`|🌐 Web only|
 
 ## Will Change
 
@@ -3948,12 +3948,12 @@ For usage instructions, please consult the Tailwind CSS documentation on their o
 
 ### Compatibility
 
-| Class                   | Support     |
-| ----------------------- | ----------- |
-| `will-change-auto`      | 🌐 Web only |
-| `will-change-scroll`    | 🌐 Web only |
-| `will-change-contents`  | 🌐 Web only |
-| `will-change-transform` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`will-change-auto`|🌐 Web only|
+|`will-change-scroll`|🌐 Web only|
+|`will-change-contents`|🌐 Web only|
+|`will-change-transform`|🌐 Web only|
 
 ### Contributors
 
@@ -3975,12 +3975,12 @@ To style these components correctly for native platforms, it's necessary to use 
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `fill-{n}`     | ✅ Full Support |
-| `fill-[n]`     | ✅ Full Support |
-| `fill-inherit` | 🌐 Web only     |
-| `fill-current` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`fill-{n}`|✅ Full Support|
+|`fill-[n]`|✅ Full Support|
+|`fill-inherit`|🌐 Web only|
+|`fill-current`|🌐 Web only|
 
 ## Content
 
@@ -3990,9 +3990,9 @@ For usage instructions, please consult the official Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class          | Support     |
-| -------------- | ----------- |
-| `content-none` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`content-none`|🌐 Web only|
 
 ## Stroke
 
@@ -4004,12 +4004,12 @@ To style these components correctly for native platforms, it's necessary to use 
 
 ### Compatibility
 
-| Class            | Support         |
-| ---------------- | --------------- |
-| `stroke-{n}`     | ✅ Full Support |
-| `stroke-[n]`     | ✅ Full Support |
-| `stroke-inherit` | 🌐 Web only     |
-| `stroke-current` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`stroke-{n}`|✅ Full Support|
+|`stroke-[n]`|✅ Full Support|
+|`stroke-inherit`|🌐 Web only|
+|`stroke-current`|🌐 Web only|
 
 ```typescript
 // Example TypeScript typings for stroke classes
@@ -4031,10 +4031,10 @@ React Native lacks built-in SVG components, but you can achieve universal SVG su
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `stroke-{n}` | ✅ Full Support |
-| `stroke-[n]` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`stroke-{n}`|✅ Full Support|
+|`stroke-[n]`|✅ Full Support|
 
 ## Object Fit
 
@@ -4044,13 +4044,13 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class               | Support     |
-| ------------------- | ----------- |
-| `object-contain`    | 🌐 Web only |
-| `object-cover`      | 🌐 Web only |
-| `object-fill`       | 🌐 Web only |
-| `object-none`       | 🌐 Web only |
-| `object-scale-down` | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`object-contain`|🌐 Web only|
+|`object-cover`|🌐 Web only|
+|`object-fill`|🌐 Web only|
+|`object-none`|🌐 Web only|
+|`object-scale-down`|🌐 Web only|
 
 ### Contributors
 
@@ -4095,13 +4095,13 @@ module.exports = {
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `font-sans`  | ✅ Full Support |
-| `font-serif` | ✅ Full Support |
-| `font-mono`  | ✅ Full Support |
-| `font-[n]`   | ✅ Full Support |
-| `font-{n}`   | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`font-sans`|✅ Full Support|
+|`font-serif`|✅ Full Support|
+|`font-mono`|✅ Full Support|
+|`font-[n]`|✅ Full Support|
+|`font-{n}`|✅ Full Support|
 
 ## Font Size
 
@@ -4202,11 +4202,11 @@ After disabling, specify your own `rem` value within your CSS.
 
 ### Compatibility
 
-| Class       | Support         |
-| ----------- | --------------- |
-| `text-{n}`  | ✅ Full Support |
-| `text-[n]`  | ✅ Full Support |
-| `text-base` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`text-{n}`|✅ Full Support|
+|`text-[n]`|✅ Full Support|
+|`text-base`|✅ Full Support|
 
 ## Object Position
 
@@ -4218,17 +4218,17 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following table outlines the compatibility of various classes:
 
-| Class                 | Support     |
-| --------------------- | ----------- |
-| `object-bottom`       | 🌐 Web only |
-| `object-center`       | 🌐 Web only |
-| `object-left`         | 🌐 Web only |
-| `object-left-bottom`  | 🌐 Web only |
-| `object-left-top`     | 🌐 Web only |
-| `object-right`        | 🌐 Web only |
-| `object-right-bottom` | 🌐 Web only |
-| `object-right-top`    | 🌐 Web only |
-| `object-top`          | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`object-bottom`|🌐 Web only|
+|`object-center`|🌐 Web only|
+|`object-left`|🌐 Web only|
+|`object-left-bottom`|🌐 Web only|
+|`object-left-top`|🌐 Web only|
+|`object-right`|🌐 Web only|
+|`object-right-bottom`|🌐 Web only|
+|`object-right-top`|🌐 Web only|
+|`object-top`|🌐 Web only|
 
 ## Font Smoothing
 
@@ -4238,10 +4238,10 @@ For detailed instructions, consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                  | Support         |
-| ---------------------- | --------------- |
-| `antialiased`          | ✅ Full Support |
-| `subpixel-antialiased` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`antialiased`|✅ Full Support|
+|`subpixel-antialiased`|✅ Full Support|
 
 ## Editor Setup
 
@@ -4279,23 +4279,23 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                | Support         |
-| -------------------- | --------------- |
-| `visible`            | ✅ Full Support |
-| `hidden`             | ✅ Full Support |
-| `scroll`             | ✅ Full Support |
-| `overflow-auto`      | 🌐 Web only     |
-| `overflow-clip`      | 🌐 Web only     |
-| `overflow-x-auto`    | 🌐 Web only     |
-| `overflow-y-auto`    | 🌐 Web only     |
-| `overflow-x-hidden`  | 🌐 Web only     |
-| `overflow-y-hidden`  | 🌐 Web only     |
-| `overflow-x-clip`    | 🌐 Web only     |
-| `overflow-y-clip`    | 🌐 Web only     |
-| `overflow-x-visible` | 🌐 Web only     |
-| `overflow-y-visible` | 🌐 Web only     |
-| `overflow-x-scroll`  | 🌐 Web only     |
-| `overflow-y-scroll`  | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`visible`|✅ Full Support|
+|`hidden`|✅ Full Support|
+|`scroll`|✅ Full Support|
+|`overflow-auto`|🌐 Web only|
+|`overflow-clip`|🌐 Web only|
+|`overflow-x-auto`|🌐 Web only|
+|`overflow-y-auto`|🌐 Web only|
+|`overflow-x-hidden`|🌐 Web only|
+|`overflow-y-hidden`|🌐 Web only|
+|`overflow-x-clip`|🌐 Web only|
+|`overflow-y-clip`|🌐 Web only|
+|`overflow-x-visible`|🌐 Web only|
+|`overflow-y-visible`|🌐 Web only|
+|`overflow-x-scroll`|🌐 Web only|
+|`overflow-y-scroll`|🌐 Web only|
 
 ## Font Style
 
@@ -4305,10 +4305,10 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class        | Support         |
-| ------------ | --------------- |
-| `italic`     | ✅ Full Support |
-| `not-italic` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`italic`|✅ Full Support|
+|`not-italic`|✅ Full Support|
 
 ## Font Variant Numeric
 
@@ -4318,17 +4318,17 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class                | Support         |
-| -------------------- | --------------- |
-| `normal-nums`        | ✅ Full Support |
-| `ordinal`            | ✅ Full Support |
-| `slashed-zero`       | ✅ Full Support |
-| `lining-nums`        | ✅ Full Support |
-| `oldstyle-nums`      | ✅ Full Support |
-| `proportional-nums`  | ✅ Full Support |
-| `tabular-nums`       | ✅ Full Support |
-| `diagonal-fractions` | ✅ Full Support |
-| `stacked-fractions`  | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`normal-nums`|✅ Full Support|
+|`ordinal`|✅ Full Support|
+|`slashed-zero`|✅ Full Support|
+|`lining-nums`|✅ Full Support|
+|`oldstyle-nums`|✅ Full Support|
+|`proportional-nums`|✅ Full Support|
+|`tabular-nums`|✅ Full Support|
+|`diagonal-fractions`|✅ Full Support|
+|`stacked-fractions`|✅ Full Support|
 
 ## Font Weight
 
@@ -4338,17 +4338,17 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `font-thin`       | ✅ Full Support |
-| `font-extralight` | ✅ Full Support |
-| `font-light`      | ✅ Full Support |
-| `font-normal`     | ✅ Full Support |
-| `font-medium`     | ✅ Full Support |
-| `font-semibold`   | ✅ Full Support |
-| `font-bold`       | ✅ Full Support |
-| `font-extrabold`  | ✅ Full Support |
-| `font-black`      | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`font-thin`|✅ Full Support|
+|`font-extralight`|✅ Full Support|
+|`font-light`|✅ Full Support|
+|`font-normal`|✅ Full Support|
+|`font-medium`|✅ Full Support|
+|`font-semibold`|✅ Full Support|
+|`font-bold`|✅ Full Support|
+|`font-extrabold`|✅ Full Support|
+|`font-black`|✅ Full Support|
 
 ## Theme
 
@@ -4541,17 +4541,17 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 The following table outlines the support for various overscroll behavior classes:
 
-| Class                  | Support     |
-| ---------------------- | ----------- |
-| `overscroll-auto`      | 🌐 Web only |
-| `overscroll-contain`   | 🌐 Web only |
-| `overscroll-none`      | 🌐 Web only |
-| `overscroll-y-auto`    | 🌐 Web only |
-| `overscroll-y-contain` | 🌐 Web only |
-| `overscroll-y-none`    | 🌐 Web only |
-| `overscroll-x-auto`    | 🌐 Web only |
-| `overscroll-x-contain` | 🌐 Web only |
-| `overscroll-x-none`    | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`overscroll-auto`|🌐 Web only|
+|`overscroll-contain`|🌐 Web only|
+|`overscroll-none`|🌐 Web only|
+|`overscroll-y-auto`|🌐 Web only|
+|`overscroll-y-contain`|🌐 Web only|
+|`overscroll-y-none`|🌐 Web only|
+|`overscroll-x-auto`|🌐 Web only|
+|`overscroll-x-contain`|🌐 Web only|
+|`overscroll-x-none`|🌐 Web only|
 
 ## Hyphens
 
@@ -4561,11 +4561,11 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class            | Support     |
-| ---------------- | ----------- |
-| `hyphens-none`   | 🌐 Web only |
-| `hyphens-manual` | 🌐 Web only |
-| `hyphens-auto`   | 🌐 Web only |
+|Class|Support|
+|-|-|
+|`hyphens-none`|🌐 Web only|
+|`hyphens-manual`|🌐 Web only|
+|`hyphens-auto`|🌐 Web only|
 
 ## Letter Spacing
 
@@ -4575,14 +4575,14 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class              | Support         |
-| ------------------ | --------------- |
-| `tracking-tighter` | ✅ Full Support |
-| `tracking-tight`   | ✅ Full Support |
-| `tracking-normal`  | ✅ Full Support |
-| `tracking-wide`    | ✅ Full Support |
-| `tracking-wider`   | ✅ Full Support |
-| `tracking-widest`  | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`tracking-tighter`|✅ Full Support|
+|`tracking-tight`|✅ Full Support|
+|`tracking-normal`|✅ Full Support|
+|`tracking-wide`|✅ Full Support|
+|`tracking-wider`|✅ Full Support|
+|`tracking-widest`|✅ Full Support|
 
 ## Position
 
@@ -4592,12 +4592,12 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class      | Support         |
-| ---------- | --------------- |
-| `absolute` | ✅ Full Support |
-| `relative` | ✅ Full Support |
-| `fixed`    | 🌐 Web only     |
-| `sticky`   | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`absolute`|✅ Full Support|
+|`relative`|✅ Full Support|
+|`fixed`|🌐 Web only|
+|`sticky`|🌐 Web only|
 
 ## Line Clamp
 
@@ -4607,15 +4607,15 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `line-clamp-1`    | ✅ Full Support |
-| `line-clamp-2`    | ✅ Full Support |
-| `line-clamp-3`    | ✅ Full Support |
-| `line-clamp-4`    | ✅ Full Support |
-| `line-clamp-5`    | ✅ Full Support |
-| `line-clamp-6`    | ✅ Full Support |
-| `line-clamp-none` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`line-clamp-1`|✅ Full Support|
+|`line-clamp-2`|✅ Full Support|
+|`line-clamp-3`|✅ Full Support|
+|`line-clamp-4`|✅ Full Support|
+|`line-clamp-5`|✅ Full Support|
+|`line-clamp-6`|✅ Full Support|
+|`line-clamp-none`|✅ Full Support|
 
 ## Line Height
 
@@ -4627,16 +4627,16 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 React Native does not support relative line height utilities due to its lack of `em` unit support.
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `leading-{n}`     | ✅ Full Support |
-| `leading-[n]`     | ✅ Full Support |
-| `leading-none`    | 🌐 Web only     |
-| `leading-tight`   | 🌐 Web only     |
-| `leading-snug`    | 🌐 Web only     |
-| `leading-normal`  | 🌐 Web only     |
-| `leading-relaxed` | 🌐 Web only     |
-| `leading-loose`   | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`leading-{n}`|✅ Full Support|
+|`leading-[n]`|✅ Full Support|
+|`leading-none`|🌐 Web only|
+|`leading-tight`|🌐 Web only|
+|`leading-snug`|🌐 Web only|
+|`leading-normal`|🌐 Web only|
+|`leading-relaxed`|🌐 Web only|
+|`leading-loose`|🌐 Web only|
 
 ## Using Nativewind with Monorepos
 
@@ -4711,27 +4711,27 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `inset-{n}`    | ✅ Full Support |
-| `inset-[n]`    | ✅ Full Support |
-| `inset-x-{n}`  | ✅ Full Support |
-| `inset-y-[n]`  | ✅ Full Support |
-| `top-{n}`      | ✅ Full Support |
-| `top-[n]`      | ✅ Full Support |
-| `bottom-{n}`   | ✅ Full Support |
-| `bottom-[n]`   | ✅ Full Support |
-| `left-{n}`     | ✅ Full Support |
-| `left-[n]`     | ✅ Full Support |
-| `right-{n}`    | ✅ Full Support |
-| `right-[n]`    | ✅ Full Support |
-| `inset-auto`   | 🌐 Web only     |
-| `inset-x-auto` | 🌐 Web only     |
-| `inset-y-auto` | 🌐 Web only     |
-| `top-auto`     | 🌐 Web only     |
-| `bottom-auto`  | 🌐 Web only     |
-| `left-auto`    | 🌐 Web only     |
-| `right-auto`   | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`inset-{n}`|✅ Full Support|
+|`inset-[n]`|✅ Full Support|
+|`inset-x-{n}`|✅ Full Support|
+|`inset-y-[n]`|✅ Full Support|
+|`top-{n}`|✅ Full Support|
+|`top-[n]`|✅ Full Support|
+|`bottom-{n}`|✅ Full Support|
+|`bottom-[n]`|✅ Full Support|
+|`left-{n}`|✅ Full Support|
+|`left-[n]`|✅ Full Support|
+|`right-{n}`|✅ Full Support|
+|`right-[n]`|✅ Full Support|
+|`inset-auto`|🌐 Web only|
+|`inset-x-auto`|🌐 Web only|
+|`inset-y-auto`|🌐 Web only|
+|`top-auto`|🌐 Web only|
+|`bottom-auto`|🌐 Web only|
+|`left-auto`|🌐 Web only|
+|`right-auto`|🌐 Web only|
 
 ## List Style Image
 
@@ -4741,11 +4741,11 @@ For detailed instructions, please consult the official Tailwind CSS documentatio
 
 ### Compatibility
 
-| Class             | Support         |
-| ----------------- | --------------- |
-| `list-image-none` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`list-image-none`|✅ Full Support|
 
----
+***
 
 This reformatted content maintains the original structure and information while ensuring clarity and consistency in presentation.
 
@@ -4759,11 +4759,11 @@ For detailed information, consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class       | Support         |
-| ----------- | --------------- |
-| `visible`   | ✅ Full Support |
-| `invisible` | ✅ Full Support |
-| `collapse`  | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`visible`|✅ Full Support|
+|`invisible`|✅ Full Support|
+|`collapse`|🌐 Web only|
 
 ```typescript
 // Example TypeScript typings for visibility classes
@@ -4780,10 +4780,10 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `list-inside`  | ✅ Full Support |
-| `list-outside` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`list-inside`|✅ Full Support|
+|`list-outside`|✅ Full Support|
 
 ## List Style Type
 
@@ -4793,11 +4793,11 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `list-none`    | ✅ Full Support |
-| `list-disc`    | ✅ Full Support |
-| `list-decimal` | ✅ Full Support |
+|Class|Support|
+|-|-|
+|`list-none`|✅ Full Support|
+|`list-disc`|✅ Full Support|
+|`list-decimal`|✅ Full Support|
 
 ## Built on Tailwind CSS
 
@@ -4825,12 +4825,12 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class         | Support         |
-| ------------- | --------------- |
-| `uppercase`   | ✅ Full Support |
-| `lowercase`   | ✅ Full Support |
-| `capitalize`  | ✅ Full Support |
-| `normal-case` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`uppercase`|✅ Full Support|
+|`lowercase`|✅ Full Support|
+|`capitalize`|✅ Full Support|
+|`normal-case`|🌐 Web only|
 
 ## Z-Index
 
@@ -4840,11 +4840,11 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class    | Support         |
-| -------- | --------------- |
-| `z-{n}`  | ✅ Full Support |
-| `z-[n]`  | ✅ Full Support |
-| `z-auto` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`z-{n}`|✅ Full Support|
+|`z-[n]`|✅ Full Support|
+|`z-auto`|🌐 Web only|
 
 ## Text Color
 
@@ -4854,12 +4854,12 @@ For detailed information on usage, please consult the Tailwind CSS documentation
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `text-{n}`     | ✅ Full Support |
-| `text-[n]`     | ✅ Full Support |
-| `text-inherit` | 🌐 Web only     |
-| `text-current` | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`text-{n}`|✅ Full Support|
+|`text-[n]`|✅ Full Support|
+|`text-inherit`|🌐 Web only|
+|`text-current`|🌐 Web only|
 
 ### textOpacity (Native Only)
 
@@ -4884,9 +4884,9 @@ For detailed information, please consult the Tailwind CSS documentation.
 
 ### Compatibility
 
-| Class          | Support         |
-| -------------- | --------------- |
-| `underline`    | ✅ Full Support |
-| `line-through` | ✅ Full Support |
-| `no-underline` | ✅ Full Support |
-| `overline`     | 🌐 Web only     |
+|Class|Support|
+|-|-|
+|`underline`|✅ Full Support|
+|`line-through`|✅ Full Support|
+|`no-underline`|✅ Full Support|
+|`overline`|🌐 Web only|

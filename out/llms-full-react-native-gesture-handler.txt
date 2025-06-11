@@ -28,15 +28,15 @@ Software Mansion is a team of React Native Core Contributors and experts special
 
 The `react-native-gesture-handler` library supports the three most recent minor versions of `react-native`. Below is a compatibility table:
 
-| Gesture Handler Version | React Native Version |
-| ----------------------- | -------------------- |
-| 2.24.0+                 | 0.75.0+              |
-| 2.21.0+                 | 0.74.0+              |
-| 2.18.0+                 | 0.73.0+              |
-| 2.16.0+                 | 0.68.0+              |
-| 2.14.0+                 | 0.67.0+              |
-| 2.10.0+                 | 0.64.0+              |
-| 2.0.0+                  | 0.63.0+              |
+|Gesture Handler Version|React Native Version|
+|-|-|
+|2.24.0+|0.75.0+|
+|2.21.0+|0.74.0+|
+|2.18.0+|0.73.0+|
+|2.16.0+|0.68.0+|
+|2.14.0+|0.67.0+|
+|2.10.0+|0.64.0+|
+|2.0.0+|0.63.0+|
 
 To fully leverage touch events, ensure you are using `react-native-reanimated` version 2.3.0 or newer.
 
@@ -356,19 +356,19 @@ const styles = StyleSheet.create({
 
 #### Properties Common to All Gestures:
 
-| Property | Description |
-| --- | --- |
-| `enabled(value: boolean)` | Indicates whether the handler should analyze touch events. Default is `true`. If set to `false`, the handler's state will never become `ACTIVE`. |
-| `shouldCancelWhenOutside(value: boolean)` | When `true`, cancels or fails recognition if a finger leaves the view area. Defaults vary by gesture type; most are `false` except for `LongPressGesture` and `TapGesture`, which default to `true`. |
-| `hitSlop(settings)` | Controls the activation area of the gesture within the connected view. Negative numbers reduce bounds evenly, while objects can specify reductions per side or edge. Positive values on Android expand beyond view bounds but not past parent view bounds. Use React Native's View hitSlop for cross-platform support. |
-| `withRef(ref)` | Sets a ref to the gesture object for interoperability with older APIs. |
-| `withTestId(testID)` | Assigns a `testID` property for querying in tests. |
-| `cancelsTouchesInView(value)` (**iOS only**) | When `true`, cancels touches for native UI components when active. Default is `true`. |
-| `runOnJS(value: boolean)` | Determines if callbacks run on the JS thread (`true`) or UI thread (`false`). Defaults to `false` with `react-native-reanimated`. |
-| `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)` | Marks gestures for simultaneous recognition without composing them. Requires additional detectors for recognition. |
-| `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)` | Adds a relation requiring another gesture to fail before activation. Does not compose gestures; requires additional detectors. |
-| `blocksExternalGesture(otherGesture1, otherGesture2, ...)` | Makes other gestures wait until this one fails or doesn't start. Marks relations without composing gestures; requires additional detectors. |
-| `activeCursor(value)` (**Web only**) | Specifies the cursor when the gesture activates. Supports CSS cursor values (e.g., `"grab"`, `"zoom-in"`). Default is `"auto"`. |
+|Property|Description|
+|-|-|
+|`enabled(value: boolean)`|Indicates whether the handler should analyze touch events. Default is `true`. If set to `false`, the handler's state will never become `ACTIVE`.|
+|`shouldCancelWhenOutside(value: boolean)`|When `true`, cancels or fails recognition if a finger leaves the view area. Defaults vary by gesture type; most are `false` except for `LongPressGesture` and `TapGesture`, which default to `true`.|
+|`hitSlop(settings)`|Controls the activation area of the gesture within the connected view. Negative numbers reduce bounds evenly, while objects can specify reductions per side or edge. Positive values on Android expand beyond view bounds but not past parent view bounds. Use React Native's View hitSlop for cross-platform support.|
+|`withRef(ref)`|Sets a ref to the gesture object for interoperability with older APIs.|
+|`withTestId(testID)`|Assigns a `testID` property for querying in tests.|
+|`cancelsTouchesInView(value)` (**iOS only**)|When `true`, cancels touches for native UI components when active. Default is `true`.|
+|`runOnJS(value: boolean)`|Determines if callbacks run on the JS thread (`true`) or UI thread (`false`). Defaults to `false` with `react-native-reanimated`.|
+|`simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)`|Marks gestures for simultaneous recognition without composing them. Requires additional detectors for recognition.|
+|`requireExternalGestureToFail(otherGesture1, otherGesture2, ...)`|Adds a relation requiring another gesture to fail before activation. Does not compose gestures; requires additional detectors.|
+|`blocksExternalGesture(otherGesture1, otherGesture2, ...)`|Makes other gestures wait until this one fails or doesn't start. Marks relations without composing gestures; requires additional detectors.|
+|`activeCursor(value)` (**Web only**)|Specifies the cursor when the gesture activates. Supports CSS cursor values (e.g., `"grab"`, `"zoom-in"`). Default is `"auto"`.|
 
 #### Properties Common to All Continuous Gestures:
 
@@ -378,16 +378,16 @@ const styles = StyleSheet.create({
 
 #### Callbacks Common to All Gestures:
 
-| Callback | Description |
-| --- | --- |
-| `onBegin(callback)` | Called when the gesture handler starts receiving touches but is not yet active. |
-| `onStart(callback)` | Called when the gesture is recognized and transitions to an active state. |
-| `onEnd(callback)` | Called when a recognized gesture finishes, provided it was previously active. |
-| `onFinalize(callback)` | Called when handling finalizes—either recognition completes or fails. |
-| `onTouchesDown(callback)` | Triggered every time a finger is placed on the screen. |
-| `onTouchesMove(callback)` | Triggered every time a finger moves on the screen. |
-| `onTouchesUp(callback)` | Triggered every time a finger is lifted from the screen. |
-| `onTouchesCancelled(callback)` | Triggered when a finger stops being tracked, such as when a gesture finishes. |
+|Callback|Description|
+|-|-|
+|`onBegin(callback)`|Called when the gesture handler starts receiving touches but is not yet active.|
+|`onStart(callback)`|Called when the gesture is recognized and transitions to an active state.|
+|`onEnd(callback)`|Called when a recognized gesture finishes, provided it was previously active.|
+|`onFinalize(callback)`|Called when handling finalizes—either recognition completes or fails.|
+|`onTouchesDown(callback)`|Triggered every time a finger is placed on the screen.|
+|`onTouchesMove(callback)`|Triggered every time a finger moves on the screen.|
+|`onTouchesUp(callback)`|Triggered every time a finger is lifted from the screen.|
+|`onTouchesCancelled(callback)`|Triggered when a finger stops being tracked, such as when a gesture finishes.|
 
 #### Callbacks Common to All Continuous Gestures:
 
@@ -398,20 +398,20 @@ const styles = StyleSheet.create({
 
 #### Attributes Specific to `PinchGesture`:
 
-| Attribute | Description |
-| --- | --- |
-| `scale` | Scale factor relative to touch points in screen coordinates. |
-| `velocity` | Velocity of the gesture at the current moment, expressed as scale factor per second. |
-| `focalX` | X-axis position of the center anchor point of the gesture in points. |
-| `focalY` | Y-axis position of the center anchor point of the gesture in points. |
+|Attribute|Description|
+|-|-|
+|`scale`|Scale factor relative to touch points in screen coordinates.|
+|`velocity`|Velocity of the gesture at the current moment, expressed as scale factor per second.|
+|`focalX`|X-axis position of the center anchor point of the gesture in points.|
+|`focalY`|Y-axis position of the center anchor point of the gesture in points.|
 
 #### Attributes Common to All Gestures:
 
-| Attribute | Description |
-| --- | --- |
-| `state` | Current state of the handler, expressed as a constant from the `State` object. |
-| `numberOfPointers` | Number of pointers (fingers) currently on the screen. |
-| `pointerType` | Type of pointer device in use, represented by the `PointerType` enum: `TOUCH`, `STYLUS`, `MOUSE`, `KEY`, or `OTHER`. |
+|Attribute|Description|
+|-|-|
+|`state`|Current state of the handler, expressed as a constant from the `State` object.|
+|`numberOfPointers`|Number of pointers (fingers) currently on the screen.|
+|`pointerType`|Type of pointer device in use, represented by the `PointerType` enum: `TOUCH`, `STYLUS`, `MOUSE`, `KEY`, or `OTHER`.|
 
 ## Force Touch Gesture
 
@@ -441,71 +441,71 @@ function App() {
 
 #### Properties Specific to `ForceTouchGesture`:
 
-| Property | Description |
-| --- | --- |
-| `minForce(value: number)` | Minimal pressure required for activation. Range `[0.0, 1.0]`. Default is `0.2`. |
-| `maxForce(value: number)` | Maximal pressure before gesture fails. Range `[0.0, 1.0]`. |
-| `feedbackOnActivation(value: boolean)` | Defines if haptic feedback occurs on activation. |
+|Property|Description|
+|-|-|
+|`minForce(value: number)`|Minimal pressure required for activation. Range `[0.0, 1.0]`. Default is `0.2`.|
+|`maxForce(value: number)`|Maximal pressure before gesture fails. Range `[0.0, 1.0]`.|
+|`feedbackOnActivation(value: boolean)`|Defines if haptic feedback occurs on activation.|
 
 #### Properties Common to All Gestures:
 
-| Property | Description |
-| --- | --- |
-| `enabled(value: boolean)` | Indicates whether the handler analyzes touch events. Default is `true`. |
-| `shouldCancelWhenOutside(value: boolean)` | Cancels recognition if finger leaves view area. Defaults vary by handler type. |
-| `hitSlop(settings)` | Controls gesture activation area within the view. Supports negative values for reduction. |
-| `withRef(ref)` | Sets a ref to the gesture object for interoperability with old API. |
-| `withTestId(testID)` | Sets a `testID` property for querying in tests. |
-| `cancelsTouchesInView(value)` (**iOS only**) | Cancels touches for native UI components when active. Default is `true`. |
-| `runOnJS(value: boolean)` | Runs callbacks on JS thread if true, otherwise on the UI thread. Defaults to `false`. |
-| `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)` | Marks relation for simultaneous recognition with other gestures. |
-| `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)` | Requires another gesture to fail before activation. |
-| `blocksExternalGesture(otherGesture1, otherGesture2, ...)` | Makes other gestures wait until this one fails or doesn't start. |
-| `activeCursor(value)` (**Web only**) | Specifies cursor when gesture activates. Supports CSS cursor values. Default is `"auto"`. |
+|Property|Description|
+|-|-|
+|`enabled(value: boolean)`|Indicates whether the handler analyzes touch events. Default is `true`.|
+|`shouldCancelWhenOutside(value: boolean)`|Cancels recognition if finger leaves view area. Defaults vary by handler type.|
+|`hitSlop(settings)`|Controls gesture activation area within the view. Supports negative values for reduction.|
+|`withRef(ref)`|Sets a ref to the gesture object for interoperability with old API.|
+|`withTestId(testID)`|Sets a `testID` property for querying in tests.|
+|`cancelsTouchesInView(value)` (**iOS only**)|Cancels touches for native UI components when active. Default is `true`.|
+|`runOnJS(value: boolean)`|Runs callbacks on JS thread if true, otherwise on the UI thread. Defaults to `false`.|
+|`simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)`|Marks relation for simultaneous recognition with other gestures.|
+|`requireExternalGestureToFail(otherGesture1, otherGesture2, ...)`|Requires another gesture to fail before activation.|
+|`blocksExternalGesture(otherGesture1, otherGesture2, ...)`|Makes other gestures wait until this one fails or doesn't start.|
+|`activeCursor(value)` (**Web only**)|Specifies cursor when gesture activates. Supports CSS cursor values. Default is `"auto"`.|
 
 #### Properties Common to All Continuous Gestures:
 
-| Property | Description |
-| --- | --- |
-| `manualActivation(value: boolean)` | When true, the handler does not activate automatically; state must be manipulated manually. |
+|Property|Description|
+|-|-|
+|`manualActivation(value: boolean)`|When true, the handler does not activate automatically; state must be manipulated manually.|
 
 ### Callbacks
 
 #### Callbacks Common to All Gestures:
 
-| Callback | Description |
-| --- | --- |
-| `onBegin(callback)` | Called when gesture handling starts receiving touches. |
-| `onStart(callback)` | Called when the gesture is recognized and transitions to active state. |
-| `onEnd(callback)` | Called when a recognized gesture finishes, if previously in active state. |
-| `onFinalize(callback)` | Called when gesture handling finalizes (recognized or failed). |
-| `onTouchesDown(callback)` | Called every time a finger is placed on the screen. |
-| `onTouchesMove(callback)` | Called every time a finger moves on the screen. |
-| `onTouchesUp(callback)` | Called every time a finger is lifted from the screen. |
-| `onTouchesCancelled(callback)` | Called when a finger stops being tracked, e.g., gesture finishes. |
+|Callback|Description|
+|-|-|
+|`onBegin(callback)`|Called when gesture handling starts receiving touches.|
+|`onStart(callback)`|Called when the gesture is recognized and transitions to active state.|
+|`onEnd(callback)`|Called when a recognized gesture finishes, if previously in active state.|
+|`onFinalize(callback)`|Called when gesture handling finalizes (recognized or failed).|
+|`onTouchesDown(callback)`|Called every time a finger is placed on the screen.|
+|`onTouchesMove(callback)`|Called every time a finger moves on the screen.|
+|`onTouchesUp(callback)`|Called every time a finger is lifted from the screen.|
+|`onTouchesCancelled(callback)`|Called when a finger stops being tracked, e.g., gesture finishes.|
 
 #### Callbacks Common to All Continuous Gestures:
 
-| Callback | Description |
-| --- | --- |
-| `onUpdate(callback)` | Called every time the gesture receives an update while active. |
-| `onChange(callback)` | Called with information about changes in value relative to the last event. |
+|Callback|Description|
+|-|-|
+|`onUpdate(callback)`|Called every time the gesture receives an update while active.|
+|`onChange(callback)`|Called with information about changes in value relative to the last event.|
 
 ### Event Data
 
 #### Attributes Specific to `ForceTouchGesture`:
 
-| Attribute | Description              |
-| --------- | ------------------------ |
-| `force`   | The pressure of a touch. |
+|Attribute|Description|
+|-|-|
+|`force`|The pressure of a touch.|
 
 #### Attributes Common to All Gestures:
 
-| Attribute | Description |
-| --- | --- |
-| `state` | Current state of the handler, expressed as one of the constants in the `State` object. |
-| `numberOfPointers` | Number of pointers (fingers) currently on the screen. |
-| `pointerType` | Type of pointer device in use, represented by the `PointerType` enum (`TOUCH`, `STYLUS`, etc.). |
+|Attribute|Description|
+|-|-|
+|`state`|Current state of the handler, expressed as one of the constants in the `State` object.|
+|`numberOfPointers`|Number of pointers (fingers) currently on the screen.|
+|`pointerType`|Type of pointer device in use, represented by the `PointerType` enum (`TOUCH`, `STYLUS`, etc.).|
 
 ## Buttons
 
@@ -1482,60 +1482,60 @@ const styles = StyleSheet.create({
 
 #### Properties Specific to `FlingGesture`:
 
-| Property | Description |  |  |
-| --- | --- | --- | --- |
-| `direction(value: Directions)` | Specifies allowed movement directions. Use constants from the `Directions` object, combining multiple directions with \` | `. Example: `fling.direction(Directions.RIGHT | Directions.LEFT);`or`fling.direction(Directions.DOWN);\` |
-| `numberOfPointers(value: number)` | Sets the exact number of pointers required for gesture recognition. |  |  |
-| `mouseButton(value: MouseButton)` (Web & Android only) | Chooses which mouse button to respond to, using predefined fields in `MouseButton`: `LEFT`, `RIGHT`, `MIDDLE`, `BUTTON_4`, `BUTTON_5`, `ALL`. Combine with \` | `operator; default is`LEFT\`. |  |
+|Property|Description|||
+|-|-|-|-|
+|`direction(value: Directions)`|Specifies allowed movement directions. Use constants from the `Directions` object, combining multiple directions with \`|`. Example: `fling.direction(Directions.RIGHT|Directions.LEFT);`or`fling.direction(Directions.DOWN);\`|
+|`numberOfPointers(value: number)`|Sets the exact number of pointers required for gesture recognition.|||
+|`mouseButton(value: MouseButton)` (Web & Android only)|Chooses which mouse button to respond to, using predefined fields in `MouseButton`: `LEFT`, `RIGHT`, `MIDDLE`, `BUTTON_4`, `BUTTON_5`, `ALL`. Combine with \`|`operator; default is`LEFT\`.||
 
 #### Properties Common to All Gestures:
 
-| Property | Description |
-| --- | --- |
-| `enabled(value: boolean)` | Determines if the handler analyzes touch events. Default is `true`. Disabling during recognition changes state to `FAILED` or `CANCELLED`. |
-| `shouldCancelWhenOutside(value: boolean)` | Cancels/fails recognition when a finger leaves the view area. Defaults vary by gesture type; most are `false`, except for `LongPressGesture` and `TapGesture` which default to `true`. |
-| `hitSlop(settings)` | Controls the active area for gesture recognition, reducing or expanding bounds as specified. Supports negative numbers, objects with specific side reductions, and `width`/`height` attributes. |
-| `withRef(ref)` | Sets a ref for interoperability with older APIs. |
-| `withTestId(testID)` | Assigns a `testID` for querying in tests. |
-| `cancelsTouchesInView(value)` (**iOS only**) | When `true`, cancels touches for native UI components when active. Default is `true`. |
-| `runOnJS(value: boolean)` | Determines if callbacks run on the JS thread (`true`) or UI thread (`false`). Defaults to `false` with `react-native-reanimated`. |
-| `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)` | Marks gestures for simultaneous recognition without composing them. Requires separate detectors. |
-| `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)` | Requires another gesture to fail before activation. Does not compose gestures; requires separate detectors. |
-| `blocksExternalGesture(otherGesture1, otherGesture2, ...)` | Delays other gestures until this one fails or doesn't start. Marks relations without composing; requires separate detectors. |
+|Property|Description|
+|-|-|
+|`enabled(value: boolean)`|Determines if the handler analyzes touch events. Default is `true`. Disabling during recognition changes state to `FAILED` or `CANCELLED`.|
+|`shouldCancelWhenOutside(value: boolean)`|Cancels/fails recognition when a finger leaves the view area. Defaults vary by gesture type; most are `false`, except for `LongPressGesture` and `TapGesture` which default to `true`.|
+|`hitSlop(settings)`|Controls the active area for gesture recognition, reducing or expanding bounds as specified. Supports negative numbers, objects with specific side reductions, and `width`/`height` attributes.|
+|`withRef(ref)`|Sets a ref for interoperability with older APIs.|
+|`withTestId(testID)`|Assigns a `testID` for querying in tests.|
+|`cancelsTouchesInView(value)` (**iOS only**)|When `true`, cancels touches for native UI components when active. Default is `true`.|
+|`runOnJS(value: boolean)`|Determines if callbacks run on the JS thread (`true`) or UI thread (`false`). Defaults to `false` with `react-native-reanimated`.|
+|`simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)`|Marks gestures for simultaneous recognition without composing them. Requires separate detectors.|
+|`requireExternalGestureToFail(otherGesture1, otherGesture2, ...)`|Requires another gesture to fail before activation. Does not compose gestures; requires separate detectors.|
+|`blocksExternalGesture(otherGesture1, otherGesture2, ...)`|Delays other gestures until this one fails or doesn't start. Marks relations without composing; requires separate detectors.|
 
 ### Callbacks
 
 #### Common to All Gestures:
 
-| Callback | Description |
-| --- | --- |
-| `onBegin(callback)` | Called when the gesture handler starts receiving touches but hasn't yet recognized the gesture. |
-| `onStart(callback)` | Triggered when the gesture is recognized and transitions to active state. |
-| `onEnd(callback)` | Invoked when a recognized gesture finishes, only if previously active. |
-| `onFinalize(callback)` | Called upon finalizing gesture handling—either recognition or failure. |
-| `onTouchesDown(callback)` | Executed every time a finger touches the screen. |
-| `onTouchesMove(callback)` | Triggered with each finger movement on the screen. |
-| `onTouchesUp(callback)` | Invoked when a finger is lifted from the screen. |
-| `onTouchesCancelled(callback)` | Called when a finger stops being tracked, such as gesture completion. |
+|Callback|Description|
+|-|-|
+|`onBegin(callback)`|Called when the gesture handler starts receiving touches but hasn't yet recognized the gesture.|
+|`onStart(callback)`|Triggered when the gesture is recognized and transitions to active state.|
+|`onEnd(callback)`|Invoked when a recognized gesture finishes, only if previously active.|
+|`onFinalize(callback)`|Called upon finalizing gesture handling—either recognition or failure.|
+|`onTouchesDown(callback)`|Executed every time a finger touches the screen.|
+|`onTouchesMove(callback)`|Triggered with each finger movement on the screen.|
+|`onTouchesUp(callback)`|Invoked when a finger is lifted from the screen.|
+|`onTouchesCancelled(callback)`|Called when a finger stops being tracked, such as gesture completion.|
 
 ### Event Data
 
 #### Specific to `FlingGesture`:
 
-| Attribute | Description |
-| --- | --- |
-| `x` | X coordinate of the pointer relative to the attached view (in points). |
-| `y` | Y coordinate of the pointer relative to the attached view (in points). |
-| `absoluteX` | X coordinate of the pointer relative to the window, recommended for transformed views. |
-| `absoluteY` | Y coordinate of the pointer relative to the window, recommended for transformed views. |
+|Attribute|Description|
+|-|-|
+|`x`|X coordinate of the pointer relative to the attached view (in points).|
+|`y`|Y coordinate of the pointer relative to the attached view (in points).|
+|`absoluteX`|X coordinate of the pointer relative to the window, recommended for transformed views.|
+|`absoluteY`|Y coordinate of the pointer relative to the window, recommended for transformed views.|
 
 #### Common to All Gestures:
 
-| Attribute | Description |
-| --- | --- |
-| `state` | Current handler state, expressed as constants from the `State` object. |
-| `numberOfPointers` | Number of pointers currently on the screen. |
-| `pointerType` | Type of pointer device, using `PointerType`: `TOUCH`, `STYLUS`, `MOUSE`, `KEY`, `OTHER`. |
+|Attribute|Description|
+|-|-|
+|`state`|Current handler state, expressed as constants from the `State` object.|
+|`numberOfPointers`|Number of pointers currently on the screen.|
+|`pointerType`|Type of pointer device, using `PointerType`: `TOUCH`, `STYLUS`, `MOUSE`, `KEY`, `OTHER`.|
 
 ## Common Handler Properties
 
@@ -3092,23 +3092,21 @@ This section describes attributes of the event object provided to `onGestureEven
 
 - **Description:** Represents the number of pointers (fingers) currently on the screen.
 
-````markdown
-# Gestures (Version: 2.x)
+## Gestures (Version: 2.x)
 
-## GestureDetector
+### GestureDetector
 
 The `GestureDetector` serves as the core component within RNGH2, tasked with creating and updating native gesture handlers based on the configuration of provided gestures. A key enhancement over previous versions is its ability to recognize multiple gestures simultaneously through gesture composition. It's important to note that `GestureDetector` does not support integration with the Animated API or Reanimated 1.
 
-## Gesture
+### Gesture
 
 A `Gesture` object facilitates the creation and combination of various gestures, enabling more complex interactions.
 
-## Pan Gesture
+### Pan Gesture
 
 ```typescript
 <InteractiveExample />
 ```
-````
 
 ### Tap Gesture
 
@@ -3170,11 +3168,9 @@ Attributes of touch events include various properties that define their behavior
 
 The `GestureStateManager` allows manual control over gesture states. Note that react-native-reanimated is required for its use, as it enables synchronous execution of methods within worklets.
 
-````
+## Touch Events
 
-# Touch Events
-
-## Touch Event Attributes
+### Touch Event Attributes
 
 - **eventType**: Indicates the type of event, such as finger placement on the screen, movement, lifting, or cancellation.
 
@@ -3186,7 +3182,7 @@ The `GestureStateManager` allows manual control over gesture states. Note that r
 
 > **Caution**: Do not rely on the order of items in `touches` as it may change during a gesture. Use the `id` attribute to track individual touches across events.
 
-## PointerData Attributes
+### PointerData Attributes
 
 - **id**: A unique number representing the touch's ID, used for tracking the touch between events since the ID remains constant while being tracked.
 
@@ -3198,35 +3194,35 @@ The `GestureStateManager` allows manual control over gesture states. Note that r
 
 - **absoluteY**: The Y coordinate of the current position of the touch relative to the window, expressed in point units. Recommended for use when the original view can be transformed due to a gesture.
 
-# Gesture State Manager
+## Gesture State Manager
 
 The `GestureStateManager` provides manual control over gesture states, requiring `react-native-reanimated` for synchronous execution of methods within worklets.
 
-## Methods Overview
+### Methods Overview
 
-### `begin()`
+#### `begin()`
 
 - **Purpose**: Transition the gesture to the `BEGAN` state.
 - **Effectiveness**: Ineffective if the gesture is already active or has finished.
 
-### `activate()`
+#### `activate()`
 
 - **Purpose**: Transition the gesture to the `ACTIVE` state.
 - **Effectiveness**: Ineffective if the handler is currently active or has finished. Activation may be delayed for gestures marked as `exclusive` until a higher-priority gesture fails.
 
-### `end()`
+#### `end()`
 
 - **Purpose**: Transition the gesture to the `END` state.
 - **Effectiveness**: Ineffective if the handler has already completed its process.
 
-### `fail()`
+#### `fail()`
 
 - **Purpose**: Transition the gesture to the `FAILED` state.
 - **Effectiveness**: Ineffective if the handler has already finished.
 
-# Touch Events
+## Touch Events
 
-## Touch Event Attributes
+### Touch Event Attributes
 
 - **eventType**: Indicates the type of event, such as finger placement on the screen, movement, lifting, or cancellation.
 
@@ -3238,7 +3234,7 @@ The `GestureStateManager` provides manual control over gesture states, requiring
 
 > **Caution**: Do not rely on the order of items in `touches` as it may change during a gesture. Use the `id` attribute to track individual touches across events.
 
-## PointerData Attributes
+### PointerData Attributes
 
 - **id**: A unique number representing the touch's ID, used for tracking the touch between events since the ID remains constant while being tracked.
 
@@ -3250,37 +3246,37 @@ The `GestureStateManager` provides manual control over gesture states, requiring
 
 - **absoluteY**: The Y coordinate of the current position of the touch relative to the window, expressed in point units. Recommended for use when the original view can be transformed due to a gesture.
 
-# Gesture State Manager
+## Gesture State Manager
 
 The `GestureStateManager` provides manual control over gesture states, requiring `react-native-reanimated` for synchronous execution of methods within worklets.
 
-## Methods Overview
+### Methods Overview
 
-### `begin()`
+#### `begin()`
 
 - **Purpose**: Transition the gesture to the `BEGAN` state.
 - **Effectiveness**: Ineffective if the gesture is already active or has finished.
 
-### `activate()`
+#### `activate()`
 
 - **Purpose**: Transition the gesture to the `ACTIVE` state.
 - **Effectiveness**: Ineffective if the handler is currently active or has finished. Activation may be delayed for gestures marked as `exclusive` until a higher-priority gesture fails.
 
-### `end()`
+#### `end()`
 
 - **Purpose**: Transition the gesture to the `END` state.
 - **Effectiveness**: Ineffective if the handler has already completed its process.
 
-### `fail()`
+#### `fail()`
 
 - **Purpose**: Transition the gesture to the `FAILED` state.
 - **Effectiveness**: Ineffective if the handler has already finished.
 
-# GestureDetector
+## GestureDetector
 
 The `GestureDetector` is a key component within RNGH2, tasked with creating and updating native gesture handlers based on the configuration of provided gestures. A notable advancement over previous gesture handlers is its ability to recognize multiple gestures simultaneously through gesture composition. It's important to note that `GestureDetector` does not support the Animated API or Reanimated 1.
 
-## Reference
+### Reference
 
 ```typescript
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -3293,7 +3289,7 @@ function App() {
     </GestureDetector>
   );
 }
-````
+```
 
 ### Properties
 
@@ -3807,27 +3803,27 @@ import { Pressable } from "react-native-gesture-handler"
 
 ### Properties
 
-| Property | Description |
-| --- | --- |
-| `children` | Accepts either children or a render function that receives a boolean indicating if the component is currently pressed. |
-| `style` | Can be view styles or a function receiving a boolean reflecting the press state and returning view styles. |
-| `onPress` | Triggered after `onPressOut` when a single tap gesture is detected. |
-| `onPressIn` | Called before `onPress` when a touch is engaged. |
-| `onPressOut` | Called before `onPress` when a touch is released. |
-| `onLongPress` | Triggered immediately after the pointer has been down for at least `delayLongPress` milliseconds (default: 500 ms). After this, `onPressOut` will be called upon pointer lift and `onPress` won't trigger. |
-| `cancelable` | Determines if a press gesture can be interrupted by a parent gesture like scrolling. Defaults to `true`. |
-| `onHoverIn` (Web only) | Called when the pointer hovers over the element. |
-| `onHoverOut` (Web only) | Triggered when the pointer stops hovering over the element. |
-| `delayHoverIn` (Web only) | Duration to wait after hover in before calling `onHoverIn`. |
-| `delayHoverOut` (Web only) | Duration to wait after hover out before calling `onHoverOut`. |
-| `delayLongPress` | Time in milliseconds from `onPressIn` before `onLongPress` is called. |
-| `disabled` | Disables the `Pressable` behavior if set to true. |
-| `hitSlop` (Android & iOS only) | Additional distance outside of the view where a press is detected and `onPressIn` is triggered. Accepts `number` or `Rect`. |
-| `pressRetentionOffset` (Android & iOS only) | Extra distance outside of the view (or `hitSlop` if present) to consider a touch as a press before `onPressOut` is triggered. Accepts `number` or `Rect`. |
-| `android_disableSound` (Android only) | If true, prevents system sound on touch. |
-| `android_ripple` (Android only) | Enables the Android ripple effect and configures its color, radius, etc. Accepts `RippleConfig`. |
-| `testOnly_pressed` | Used for documentation or testing purposes (e.g., snapshot testing). |
-| `unstable_pressDelay` | Duration in milliseconds to wait after press down before calling `onPressIn`. |
+|Property|Description|
+|-|-|
+|`children`|Accepts either children or a render function that receives a boolean indicating if the component is currently pressed.|
+|`style`|Can be view styles or a function receiving a boolean reflecting the press state and returning view styles.|
+|`onPress`|Triggered after `onPressOut` when a single tap gesture is detected.|
+|`onPressIn`|Called before `onPress` when a touch is engaged.|
+|`onPressOut`|Called before `onPress` when a touch is released.|
+|`onLongPress`|Triggered immediately after the pointer has been down for at least `delayLongPress` milliseconds (default: 500 ms). After this, `onPressOut` will be called upon pointer lift and `onPress` won't trigger.|
+|`cancelable`|Determines if a press gesture can be interrupted by a parent gesture like scrolling. Defaults to `true`.|
+|`onHoverIn` (Web only)|Called when the pointer hovers over the element.|
+|`onHoverOut` (Web only)|Triggered when the pointer stops hovering over the element.|
+|`delayHoverIn` (Web only)|Duration to wait after hover in before calling `onHoverIn`.|
+|`delayHoverOut` (Web only)|Duration to wait after hover out before calling `onHoverOut`.|
+|`delayLongPress`|Time in milliseconds from `onPressIn` before `onLongPress` is called.|
+|`disabled`|Disables the `Pressable` behavior if set to true.|
+|`hitSlop` (Android & iOS only)|Additional distance outside of the view where a press is detected and `onPressIn` is triggered. Accepts `number` or `Rect`.|
+|`pressRetentionOffset` (Android & iOS only)|Extra distance outside of the view (or `hitSlop` if present) to consider a touch as a press before `onPressOut` is triggered. Accepts `number` or `Rect`.|
+|`android_disableSound` (Android only)|If true, prevents system sound on touch.|
+|`android_ripple` (Android only)|Enables the Android ripple effect and configures its color, radius, etc. Accepts `RippleConfig`.|
+|`testOnly_pressed`|Used for documentation or testing purposes (e.g., snapshot testing).|
+|`unstable_pressDelay`|Duration in milliseconds to wait after press down before calling `onPressIn`.|
 
 ### Example
 
@@ -4223,8 +4219,8 @@ Defines how the drawer is displayed. Accepts values from the `DrawerPosition` en
 - **`BACK`**: Drawer appears below the content view, revealed by sliding away the content view.
 - **`SLIDE`**: Drawer slides with the content view.
 
-| `FRONT` | `BACK` | `SLIDE` |
-| ------- | ------ | ------- |
+|`FRONT`|`BACK`|`SLIDE`|
+|-|-|-|
 
 #### `edgeWidth`
 
@@ -4683,16 +4679,16 @@ import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable"
 
 ### Properties
 
-| Property | Description |
-| --- | --- |
-| `friction` | A number specifying the delay in visual interaction relative to gesture distance. E.g., `1` means no delay, `2` doubles it. |
-| `leftThreshold` | Distance from the left edge for panel animation to open or close state. Defaults to half of the panel's width. |
-| `rightThreshold` | Distance from the right edge for panel animation to open or close state. Defaults to half of the panel's width. |
-| `dragOffsetFromLeftEdge` | Minimum drag distance from the left edge to consider a swipe (default: 10). |
-| `dragOffsetFromRightEdge` | Minimum drag distance from the right edge to consider a swipe (default: 10). |
-| `overshootLeft` | Boolean indicating if swiping beyond the left action panel's width is allowed. Defaults to `true` if `renderLeftActions` is provided. |
-| `overshootRight` | Boolean indicating if swiping beyond the right action panel's width is allowed. Defaults to `true` if `renderRightActions` is provided. |
-| `overshootFriction` | Number specifying delay in visual interaction at overshoot (default: 1). For a native feel, try `8` or above. |
+|Property|Description|
+|-|-|
+|`friction`|A number specifying the delay in visual interaction relative to gesture distance. E.g., `1` means no delay, `2` doubles it.|
+|`leftThreshold`|Distance from the left edge for panel animation to open or close state. Defaults to half of the panel's width.|
+|`rightThreshold`|Distance from the right edge for panel animation to open or close state. Defaults to half of the panel's width.|
+|`dragOffsetFromLeftEdge`|Minimum drag distance from the left edge to consider a swipe (default: 10).|
+|`dragOffsetFromRightEdge`|Minimum drag distance from the right edge to consider a swipe (default: 10).|
+|`overshootLeft`|Boolean indicating if swiping beyond the left action panel's width is allowed. Defaults to `true` if `renderLeftActions` is provided.|
+|`overshootRight`|Boolean indicating if swiping beyond the right action panel's width is allowed. Defaults to `true` if `renderRightActions` is provided.|
+|`overshootFriction`|Number specifying delay in visual interaction at overshoot (default: 1). For a native feel, try `8` or above.|
 
 ### Callbacks
 
@@ -4829,28 +4825,28 @@ import Swipeable from "react-native-gesture-handler/Swipeable"
 
 ### Properties
 
-| Property | Description |
-| --- | --- |
-| `friction` | A number specifying how much the visual interaction will be delayed compared to the gesture distance. For example, a value of `1` means the swipeable panel follows the gesture exactly; `2` makes it two times "slower". |
-| `leftThreshold` | Distance from the left edge at which the released panel animates to the open state (or vice versa). Default is half of the panel's width. |
-| `rightThreshold` | Distance from the right edge for similar behavior as `leftThreshold`. Default is also half of the panel's width. |
-| `dragOffsetFromLeftEdge` | Minimum distance that must be dragged from the left edge to consider it a swipe. Default value: `10`. |
-| `dragOffsetFromRightEdge` | Similar to `dragOffsetFromLeftEdge`, but for the right edge. Default value: `10`. |
-| `overshootLeft` | Boolean indicating if the panel can be pulled further than the left actions panel's width. Defaults to `true` if a left panel render method is present. |
-| `overshootRight` | Similar to `overshootLeft`, but for the right side. Defaults to `true` if a right panel render method is present. |
-| `overshootFriction` | Number specifying visual interaction delay at overshoot. Default value: `1`. For a native feel, try `8` or above. |
+|Property|Description|
+|-|-|
+|`friction`|A number specifying how much the visual interaction will be delayed compared to the gesture distance. For example, a value of `1` means the swipeable panel follows the gesture exactly; `2` makes it two times "slower".|
+|`leftThreshold`|Distance from the left edge at which the released panel animates to the open state (or vice versa). Default is half of the panel's width.|
+|`rightThreshold`|Distance from the right edge for similar behavior as `leftThreshold`. Default is also half of the panel's width.|
+|`dragOffsetFromLeftEdge`|Minimum distance that must be dragged from the left edge to consider it a swipe. Default value: `10`.|
+|`dragOffsetFromRightEdge`|Similar to `dragOffsetFromLeftEdge`, but for the right edge. Default value: `10`.|
+|`overshootLeft`|Boolean indicating if the panel can be pulled further than the left actions panel's width. Defaults to `true` if a left panel render method is present.|
+|`overshootRight`|Similar to `overshootLeft`, but for the right side. Defaults to `true` if a right panel render method is present.|
+|`overshootFriction`|Number specifying visual interaction delay at overshoot. Default value: `1`. For a native feel, try `8` or above.|
 
 **Deprecated Callbacks:**
 
 - `onSwipeableLeftOpen`: Deprecated; use `onSwipeableOpen(direction)`.
 - `onSwipeableRightOpen`: Deprecated; use `onSwipeableOpen(direction)`.
 
-| Property | Description |
-| --- | --- |
-| `onSwipeableOpen` | Called when an action panel gets open (either right or left). Takes swipe direction as an argument. |
-| `onSwipeableClose` | Called when the action panel is closed, with swipe direction as an argument. |
-| `onSwipeableWillOpen` | Called when an action panel starts animating on open (either right or left), taking swipe direction as an argument. |
-| `onSwipeableWillClose` | Called when an action panel starts animating on close, with swipe direction as an argument. |
+|Property|Description|
+|-|-|
+|`onSwipeableOpen`|Called when an action panel gets open (either right or left). Takes swipe direction as an argument.|
+|`onSwipeableClose`|Called when the action panel is closed, with swipe direction as an argument.|
+|`onSwipeableWillOpen`|Called when an action panel starts animating on open (either right or left), taking swipe direction as an argument.|
+|`onSwipeableWillClose`|Called when an action panel starts animating on close, with swipe direction as an argument.|
 
 **Rendering Methods:**
 
@@ -4888,12 +4884,12 @@ import Swipeable from "react-native-gesture-handler/Swipeable"
 
 Using a reference to `Swipeable`, you can trigger actions:
 
-| Method      | Description                                             |
-| ----------- | ------------------------------------------------------- |
-| `close`     | Closes the component with animation.                    |
-| `openLeft`  | Opens the component on the left side.                   |
-| `openRight` | Opens the component on the right side.                  |
-| `reset`     | Resets swiping states without triggering any animation. |
+|Method|Description|
+|-|-|
+|`close`|Closes the component with animation.|
+|`openLeft`|Opens the component on the left side.|
+|`openRight`|Opens the component on the right side.|
+|`reset`|Resets swiping states without triggering any animation.|
 
 ### Example
 

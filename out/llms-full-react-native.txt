@@ -40,7 +40,7 @@ React Native attracts learners from various development backgrounds, including w
 
 Menu paths are presented in bold and utilize carets for navigating submenus. Example: **Android Studio > Preferences**
 
----
+***
 
 With an understanding of how to navigate these guides, it's time to explore the foundation of React Native: Native Components.
 
@@ -169,12 +169,12 @@ Linking provides a unified interface for managing both incoming and outgoing app
 
 Certain URL schemes are universally recognized across platforms:
 
-| Scheme | Description | iOS | Android |
-| --- | --- | --- | --- |
-| `mailto` | Opens mail app, e.g., `mailto:support@expo.io` | ✅ | ✅ |
-| `tel` | Opens phone app, e.g., `tel:+123456789` | ✅ | ✅ |
-| `sms` | Opens SMS app, e.g., `sms:+123456789` | ✅ | ✅ |
-| `https` / `http` | Opens web browser app, e.g., `https://expo.io` | ✅ | ✅ |
+|Scheme|Description|iOS|Android|
+|-|-|-|-|
+|`mailto`|Opens mail app, e.g., `mailto:support@expo.io`|✅|✅|
+|`tel`|Opens phone app, e.g., `tel:+123456789`|✅|✅|
+|`sms`|Opens SMS app, e.g., `sms:+123456789`|✅|✅|
+|`https` / `http`|Opens web browser app, e.g., `https://expo.io`|✅|✅|
 
 ### Enabling Deep Links
 
@@ -941,33 +941,33 @@ The Button component is designed to render consistently across different platfor
 
 ### Props
 
-| Prop Name | Description | Type | Required |
-| --- | --- | --- | --- |
-| **`onPress`** | Handler called when the user taps the button. | `({nativeEvent: PressEvent})` | Yes |
-| **`title`** | Text displayed inside the button. On Android, this title is converted to uppercase. | string | Yes |
-| `accessibilityLabel` | Text for blindness accessibility features. | string | No |
-| `accessibilityLanguage` | Language used by screen readers on iOS, following BCP 47 specification. | string | No |
-| `accessibilityActions` | List of actions for assistive technologies to invoke programmatically. | array | No |
-| `onAccessibilityAction` | Invoked when an accessibility action is performed by the user. | function | No |
-| `color` | Text color on iOS, background color on Android. | color | No |
-|  | Default: |  |  |
-|  | - Android: `'#2196F3'` |  |  |
-|  | - iOS: `'#007AFF'` |  |  |
-| `disabled` | Disables all interactions if set to true. | bool | No |
-|  | Default: |  |  |
-|  | - false |  |  |
-| `hasTVPreferredFocus` | Indicates TV preferred focus. | bool | No |
-|  | Default: |  |  |
-|  | - false |  |  |
-| `nextFocusDown` | Next view to receive focus when navigating down on Android TV. | number | No |
-| `nextFocusForward` | Next view to receive focus when navigating forward on Android TV. | number | No |
-| `nextFocusLeft` | Next view to receive focus when navigating left on Android TV. | number | No |
-| `nextFocusRight` | Next view to receive focus when navigating right on Android TV. | number | No |
-| `nextFocusUp` | Next view to receive focus when navigating up on Android TV. | number | No |
-| `testID` | Identifier for locating this view in end-to-end tests. | string | No |
-| `touchSoundDisabled` | Disables system sound on touch if set to true (Android only). | boolean | No |
-|  | Default: |  |  |
-|  | - false |  |  |
+|Prop Name|Description|Type|Required|
+|-|-|-|-|
+|**`onPress`**|Handler called when the user taps the button.|`({nativeEvent: PressEvent})`|Yes|
+|**`title`**|Text displayed inside the button. On Android, this title is converted to uppercase.|string|Yes|
+|`accessibilityLabel`|Text for blindness accessibility features.|string|No|
+|`accessibilityLanguage`|Language used by screen readers on iOS, following BCP 47 specification.|string|No|
+|`accessibilityActions`|List of actions for assistive technologies to invoke programmatically.|array|No|
+|`onAccessibilityAction`|Invoked when an accessibility action is performed by the user.|function|No|
+|`color`|Text color on iOS, background color on Android.|color|No|
+||Default:|||
+||- Android: `'#2196F3'`|||
+||- iOS: `'#007AFF'`|||
+|`disabled`|Disables all interactions if set to true.|bool|No|
+||Default:|||
+||- false|||
+|`hasTVPreferredFocus`|Indicates TV preferred focus.|bool|No|
+||Default:|||
+||- false|||
+|`nextFocusDown`|Next view to receive focus when navigating down on Android TV.|number|No|
+|`nextFocusForward`|Next view to receive focus when navigating forward on Android TV.|number|No|
+|`nextFocusLeft`|Next view to receive focus when navigating left on Android TV.|number|No|
+|`nextFocusRight`|Next view to receive focus when navigating right on Android TV.|number|No|
+|`nextFocusUp`|Next view to receive focus when navigating up on Android TV.|number|No|
+|`testID`|Identifier for locating this view in end-to-end tests.|string|No|
+|`touchSoundDisabled`|Disables system sound on touch if set to true (Android only).|boolean|No|
+||Default:|||
+||- false|||
 
 This table summarizes the properties available for the Button component, detailing their purpose and default values where applicable.
 
@@ -1153,9 +1153,9 @@ static create(config: PanResponderCallbacks): PanResponderInstance;
 
 **Parameters:**
 
-| Name           | Type   | Description |
-| -------------- | ------ | ----------- |
-| configRequired | object | Refer below |
+|Name|Type|Description|
+|-|-|-|
+|configRequired|object|Refer below|
 
 The `config` object provides enhanced versions of all responder callbacks, including the `PanResponder` gesture state. Replace `onResponder*` with `onPanResponder*`. For example:
 
@@ -1234,7 +1234,7 @@ By default, Android Studio installs the latest Android SDK. For React Native app
 
 - Click "Apply" to install.
 
-#### 3. Configure the ANDROID_HOME Environment Variable
+#### 3. Configure the ANDROID\_HOME Environment Variable
 
 Set up necessary environment variables for React Native tools:
 
@@ -1336,11 +1336,11 @@ While `<ImageBackground>` provides basic functionality, it may not be suitable f
 
 ### Example Usage
 
-_Example section would typically include a demonstration of how to implement the `<ImageBackground>` component._
+*Example section would typically include a demonstration of how to implement the `<ImageBackground>` component.*
 
 ### Reference
 
-_Reference section would provide additional resources or links for further information about the `<ImageBackground>` component._
+*Reference section would provide additional resources or links for further information about the `<ImageBackground>` component.*
 
 ### Props
 
@@ -1369,7 +1369,7 @@ The `KeyboardAvoidingView` component automatically adjusts its height, position,
 
 ### Example
 
----
+***
 
 ### Reference
 
@@ -1379,45 +1379,45 @@ The `KeyboardAvoidingView` component automatically adjusts its height, position,
 
 Inherits properties from the View component.
 
----
+***
 
 #### `behavior`
 
 Defines how the view should respond to the presence of the keyboard. Note that Android and iOS handle this prop differently, but setting `behavior` is recommended for both platforms.
 
-| Type                                        |
-| ------------------------------------------- |
-| enum(`'height'`, `'position'`, `'padding'`) |
+|Type|
+|-|
+|enum(`'height'`, `'position'`, `'padding'`)|
 
----
+***
 
 #### `contentContainerStyle`
 
 Specifies the style applied to the content container (View) when the behavior is set to `'position'`.
 
-| Type       |
-| ---------- |
-| View Style |
+|Type|
+|-|
+|View Style|
 
----
+***
 
 #### `enabled`
 
 Determines whether the `KeyboardAvoidingView` is active or inactive.
 
-| Type    | Default |
-| ------- | ------- |
-| boolean | `true`  |
+|Type|Default|
+|-|-|
+|boolean|`true`|
 
----
+***
 
 #### `keyboardVerticalOffset`
 
 Represents the distance between the top of the user's screen and the React Native view. This value may be non-zero in certain scenarios.
 
-| Type   | Default |
-| ------ | ------- |
-| number | `0`     |
+|Type|Default|
+|-|-|
+|number|`0`|
 
 ## Modal Component
 
@@ -1425,7 +1425,7 @@ The Modal component provides a straightforward method to display content above a
 
 ### Example
 
----
+***
 
 ### Reference
 
@@ -1435,7 +1435,7 @@ The Modal component provides a straightforward method to display content above a
 
 Inherits properties from the View component.
 
----
+***
 
 #### `animationType`
 
@@ -1447,81 +1447,81 @@ Possible values:
 - `fade`: Fades into view.
 - `none`: Appears without any animation.
 
-| Type                                | Default |
-| ----------------------------------- | ------- |
-| enum(`'none'`, `'slide'`, `'fade'`) | `none`  |
+|Type|Default|
+|-|-|
+|enum(`'none'`, `'slide'`, `'fade'`)|`none`|
 
----
+***
 
 #### `backdropColor`
 
 Sets the background color of the modal's container. Defaults to `white` unless `transparent` is set to `true`.
 
-| Type  | Default |
-| ----- | ------- |
-| color | white   |
+|Type|Default|
+|-|-|
+|color|white|
 
----
+***
 
 #### `hardwareAccelerated` (Android)
 
 Determines if hardware acceleration should be forced for the underlying window.
 
-| Type | Default |
-| ---- | ------- |
-| bool | `false` |
+|Type|Default|
+|-|-|
+|bool|`false`|
 
----
+***
 
 #### `navigationBarTranslucent` (Android)
 
 Decides whether the modal appears under the system navigation bar. Requires `statusBarTranslucent` to also be `true`.
 
-| Type | Default |
-| ---- | ------- |
-| bool | `false` |
+|Type|Default|
+|-|-|
+|bool|`false`|
 
----
+***
 
 #### `onDismiss` (iOS)
 
 Allows a function to be called when the modal is dismissed.
 
-| Type     |
-| -------- |
-| function |
+|Type|
+|-|
+|function|
 
----
+***
 
 #### `onOrientationChange` (iOS)
 
 Triggered when the orientation changes while the modal is displayed. The callback provides 'portrait' or 'landscape'. It also fires on initial render, regardless of current orientation.
 
-| Type     |
-| -------- |
-| function |
+|Type|
+|-|
+|function|
 
----
+***
 
 #### `onRequestClose`
 
 Invoked when the user presses the hardware back button on Android or the menu button on Apple TV. Note that `BackHandler` events are suppressed while the modal is open. On iOS, it's called during a drag gesture dismissal with `presentationStyle` set to `pageSheet` or `formSheet`.
 
-| Type                                       |
-| ------------------------------------------ |
-| functionRequiredAndroidTV\*\*\*functioniOS |
+|Type|
+|-|
+|functionRequiredAndroidTV\*\*\*functioniOS|
 
----
+***
 
 #### `onShow`
 
 Allows a function to be executed once the modal is displayed.
 
-| Type     |
-| -------- |
-| function |
+|Type|
+|-|
+|function|
 
----
+***
 
 #### `presentationStyle` (iOS)
 
@@ -1534,21 +1534,21 @@ Possible values:
 - `formSheet`: Centers a narrow-width view (on larger devices).
 - `overFullScreen`: Covers the screen completely but allows transparency.
 
-| Type | Default |
-| --- | --- |
-| enum(`'fullScreen'`, `'pageSheet'`, `'formSheet'`, `'overFullScreen'`) | `fullScreen` if `transparent={false}`\*\*\*`overFullScreen` if `transparent={true}` |
+|Type|Default|
+|-|-|
+|enum(`'fullScreen'`, `'pageSheet'`, `'formSheet'`, `'overFullScreen'`)|`fullScreen` if `transparent={false}`\*\*\*`overFullScreen` if `transparent={true}`|
 
----
+***
 
 #### `statusBarTranslucent` (Android)
 
 Determines whether the modal appears under the system status bar.
 
-| Type | Default |
-| ---- | ------- |
-| bool | `false` |
+|Type|Default|
+|-|-|
+|bool|`false`|
 
----
+***
 
 #### `supportedOrientations` (iOS)
 
@@ -1556,29 +1556,29 @@ Allows rotation of the modal to specified orientations. On iOS, it's limited by 
 
 > Ignored when using `presentationStyle` of `pageSheet` or `formSheet`.
 
-| Type | Default |
-| --- | --- |
-| array of enums(`'portrait'`, `'portrait-upside-down'`, `'landscape'`, `'landscape-left'`, `'landscape-right'`) | `['portrait']` |
+|Type|Default|
+|-|-|
+|array of enums(`'portrait'`, `'portrait-upside-down'`, `'landscape'`, `'landscape-left'`, `'landscape-right'`)|`['portrait']`|
 
----
+***
 
 #### `transparent`
 
 Determines if the modal will cover the entire view with a transparent background.
 
-| Type | Default |
-| ---- | ------- |
-| bool | `false` |
+|Type|Default|
+|-|-|
+|bool|`false`|
 
----
+***
 
 #### `visible`
 
 Controls whether the modal is visible or not.
 
-| Type | Default |
-| ---- | ------- |
-| bool | `true`  |
+|Type|Default|
+|-|-|
+|bool|`true`|
 
 To integrate React Native into an existing iOS application, follow these steps carefully. This guide assumes you have a basic understanding of both iOS development using Xcode and JavaScript/React Native.
 
@@ -1853,12 +1853,12 @@ For more details on the state machine flow of Pressability, refer to React Nativ
 
 Configuration object for the `android_ripple` property.
 
-| Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| color | color | No | Defines the color of the ripple effect. |
-| borderless | boolean | No | Determines if the ripple effect should exclude borders. |
-| radius | number | No | Sets the radius of the ripple effect. |
-| foreground | boolean | No | If true, adds the ripple effect to the view's foreground instead of the background. Useful when child views have their own backgrounds or images are displayed, preventing the ripple from being obscured. |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|color|color|No|Defines the color of the ripple effect.|
+|borderless|boolean|No|Determines if the ripple effect should exclude borders.|
+|radius|number|No|Sets the radius of the ripple effect.|
+|foreground|boolean|No|If true, adds the ripple effect to the view's foreground instead of the background. Useful when child views have their own backgrounds or images are displayed, preventing the ripple from being obscured.|
 
 ## RefreshControl Component
 
@@ -2105,7 +2105,7 @@ Run `yarn start` to launch the bundler and then run your Android app in Android 
 
 Support for TV devices, specifically Apple TV and Android TV, was integrated into React Native applications with the goal of enabling these apps to function on such platforms with minimal modifications required in their JavaScript code.
 
-> **Deprecated Notice:** The support for TV devices has been transitioned to a separate repository named "React Native for TV." For detailed guidance on projects targeting Apple TV or Android TV, please refer to the _README_ file within that repository.
+> **Deprecated Notice:** The support for TV devices has been transitioned to a separate repository named "React Native for TV." For detailed guidance on projects targeting Apple TV or Android TV, please refer to the *README* file within that repository.
 
 The provided documentation outlines various properties and methods associated with a ScrollView component, likely from a mobile development framework such as React Native. Below is a summary of the key features:
 
@@ -2237,15 +2237,15 @@ For scenarios where using a component is not ideal, an imperative API is availab
 
 ### Props
 
-| Prop Name | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
-| `animated` | boolean | No | `false` | Determines if transitions between status bar property changes should be animated. Supported for `backgroundColor`, `barStyle`, and `hidden`. |
-| `backgroundColor` (Android) | color | No | Default system StatusBar background color or `'black'` if not defined | The background color of the status bar. **Warning:** Deprecated in API level 35 due to edge-to-edge enforcement introduced in Android 15. |
-| `barStyle` | StatusBarStyle | No | `'default'` | Sets the color of the status bar text. On Android, this affects only API versions 23 and above. |
-| `hidden` | boolean | No | `false` | Determines if the status bar is hidden. |
-| `networkActivityIndicatorVisible` (iOS) | boolean | No | `false` | Controls visibility of the network activity indicator. |
-| `showHideTransition` (iOS) | StatusBarAnimation | No | `'fade'` | The transition effect when showing or hiding the status bar using the `hidden` prop. |
-| `translucent` (Android) | boolean | No | `false` | Determines if the status bar is translucent, allowing the app to draw under it. Useful with a semi-transparent status bar color. |
+|Prop Name|Type|Required|Default|Description|
+|-|-|-|-|-|
+|`animated`|boolean|No|`false`|Determines if transitions between status bar property changes should be animated. Supported for `backgroundColor`, `barStyle`, and `hidden`.|
+|`backgroundColor` (Android)|color|No|Default system StatusBar background color or `'black'` if not defined|The background color of the status bar. **Warning:** Deprecated in API level 35 due to edge-to-edge enforcement introduced in Android 15.|
+|`barStyle`|StatusBarStyle|No|`'default'`|Sets the color of the status bar text. On Android, this affects only API versions 23 and above.|
+|`hidden`|boolean|No|`false`|Determines if the status bar is hidden.|
+|`networkActivityIndicatorVisible` (iOS)|boolean|No|`false`|Controls visibility of the network activity indicator.|
+|`showHideTransition` (iOS)|StatusBarAnimation|No|`'fade'`|The transition effect when showing or hiding the status bar using the `hidden` prop.|
+|`translucent` (Android)|boolean|No|`false`|Determines if the status bar is translucent, allowing the app to draw under it. Useful with a semi-transparent status bar color.|
 
 ### Methods
 
@@ -2286,10 +2286,10 @@ Replace an existing `StatusBar` stack entry with new properties.
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| **entry (Required)** | any | Entry returned from `pushStackEntry` to replace. |
-| **props (Required)** | any | Object containing the `StatusBar` props for the replacement stack entry. |
+|Name|Type|Description|
+|-|-|-|
+|**entry (Required)**|any|Entry returned from `pushStackEntry` to replace.|
+|**props (Required)**|any|Object containing the `StatusBar` props for the replacement stack entry.|
 
 #### `setBackgroundColor()` (Android)
 
@@ -2303,10 +2303,10 @@ Set the background color of the status bar.
 
 **Parameters:**
 
-| Name                 | Type    | Description               |
-| -------------------- | ------- | ------------------------- |
-| **color (Required)** | string  | Background color.         |
-| animated             | boolean | Animate the style change. |
+|Name|Type|Description|
+|-|-|-|
+|**color (Required)**|string|Background color.|
+|animated|boolean|Animate the style change.|
 
 #### `setBarStyle()`
 
@@ -2318,10 +2318,10 @@ Set the status bar style.
 
 **Parameters:**
 
-| Name                 | Type           | Description               |
-| -------------------- | -------------- | ------------------------- |
-| **style (Required)** | StatusBarStyle | Status bar style to set.  |
-| animated             | boolean        | Animate the style change. |
+|Name|Type|Description|
+|-|-|-|
+|**style (Required)**|StatusBarStyle|Status bar style to set.|
+|animated|boolean|Animate the style change.|
 
 #### `setHidden()`
 
@@ -2333,10 +2333,10 @@ Show or hide the status bar.
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| **hidden (Required)** | boolean | Hide the status bar. |
-| animation (iOS) | StatusBarAnimation | Animation when changing the hidden property of the status bar. |
+|Name|Type|Description|
+|-|-|-|
+|**hidden (Required)**|boolean|Hide the status bar.|
+|animation (iOS)|StatusBarAnimation|Animation when changing the hidden property of the status bar.|
 
 #### `setNetworkActivityIndicatorVisible()` (iOS)
 
@@ -2368,21 +2368,21 @@ Control the translucency of the status bar.
 
 Enum representing the status bar animation type for transitions on iOS.
 
-| Value     | Type   | Description      |
-| --------- | ------ | ---------------- |
-| `'fade'`  | string | Fade animation.  |
-| `'slide'` | string | Slide animation. |
-| `'none'`  | string | No animation.    |
+|Value|Type|Description|
+|-|-|-|
+|`'fade'`|string|Fade animation.|
+|`'slide'`|string|Slide animation.|
+|`'none'`|string|No animation.|
 
 #### StatusBarStyle
 
 Enum representing the status bar style type.
 
-| Value | Type | Description |
-| --- | --- | --- |
-| `'default'` | string | Default status bar style (dark for iOS, light for Android). |
-| `'light-content'` | string | White texts and icons. |
-| `'dark-content'` | string | Dark texts and icons (requires API>=23 on Android). |
+|Value|Type|Description|
+|-|-|-|
+|`'default'`|string|Default status bar style (dark for iOS, light for Android).|
+|`'light-content'`|string|White texts and icons.|
+|`'dark-content'`|string|Dark texts and icons (requires API>=23 on Android).|
 
 ## Enabling USB Debugging on Android Devices
 
@@ -2521,11 +2521,11 @@ The `Switch` component renders a boolean input and functions as a controlled com
 
 ### Example
 
-_Example usage of the Switch component is not provided here._
+*Example usage of the Switch component is not provided here.*
 
 ### Reference
 
-_Reference details for the Switch component are not included here._
+*Reference details for the Switch component are not included here.*
 
 ### Props
 
@@ -2562,7 +2562,7 @@ The `Switch` inherits all View Props.
 #### `trackColor`
 
 - **Description**: Defines custom colors for the switch track.
-  - _iOS_: When the switch is off (`false`), the track contracts into its border. To modify the color of the background revealed by this contracted track, use `ios_backgroundColor`.
+  - *iOS*: When the switch is off (`false`), the track contracts into its border. To modify the color of the background revealed by this contracted track, use `ios_backgroundColor`.
 - **Type**: `object: { false: color, true: color }`
 
 #### `value`
@@ -3010,17 +3010,17 @@ function MyComponent(props: MyComponentProps) {
 
 ##### Specific to TouchableHighlight
 
-| Prop Name | Description | Type |
-| --- | --- | --- |
-| `activeOpacity` | Sets the opacity of the wrapped view during touch interaction. Must be between 0 and 1. Defaults to 0.85. Requires `underlayColor`. | number |
-| `onHideUnderlay` | Called immediately after the underlay is hidden. | function |
-| `onShowUnderlay` | Called immediately after the underlay is shown. | function |
-| `style` | Style properties for the view. | View\.style |
-| `underlayColor` | The color of the underlay that appears when touch is active. | color |
+|Prop Name|Description|Type|
+|-|-|-|
+|`activeOpacity`|Sets the opacity of the wrapped view during touch interaction. Must be between 0 and 1. Defaults to 0.85. Requires `underlayColor`.|number|
+|`onHideUnderlay`|Called immediately after the underlay is hidden.|function|
+|`onShowUnderlay`|Called immediately after the underlay is shown.|function|
+|`style`|Style properties for the view.|View\.style|
+|`underlayColor`|The color of the underlay that appears when touch is active.|color|
 
 ##### iOS Specific Props
 
-- **hasTVPreferredFocus**: _(Apple TV only)_ Indicates TV preferred focus (refer to the View component documentation).
+- **hasTVPreferredFocus**: *(Apple TV only)* Indicates TV preferred focus (refer to the View component documentation).
   - Type: bool
 
 ##### Android Specific Props
@@ -3038,7 +3038,7 @@ function MyComponent(props: MyComponentProps) {
 
 ##### Testing Prop
 
-- **testOnly_pressed**: Useful for snapshot tests.
+- **testOnly\_pressed**: Useful for snapshot tests.
   - Type: bool
 
 ## TouchableOpacity Component
@@ -3180,50 +3180,50 @@ function MyComponent(props: MyComponentProps) {
 
 ### Props
 
-| Prop Name | Description | Type |
-| --- | --- | --- |
-| `accessibilityIgnoresInvertColors` (iOS) | Indicates whether the view should be inverted when color inversion is enabled. A value of `true` prevents inversion even if color inversion is turned on. See the Accessibility guide for more information. | Boolean |
-| `accessible` | When set to `true`, marks the view as an accessibility element. By default, all touchable elements are accessible. | bool |
-| `accessibilityLabel` | Overrides the text read by screen readers when interacting with the element. By default, it is constructed from all child `Text` nodes separated by spaces. | string |
-| `accessibilityLanguage` (iOS) | Specifies the language used by the screen reader for this element, following the BCP 47 specification. See the iOS `accessibilityLanguage` documentation for more information. | string |
-| `accessibilityHint` | Provides a hint to help users understand what will happen when they perform an action on the accessibility element if it's not clear from the label. | string |
-| `accessibilityRole` | Communicates the purpose of a component to assistive technology users. Possible values include `'none'`, `'button'`, `'link'`, `'search'`, `'image'`, `'keyboardkey'`, `'text'`, `'adjustable'`, and more. | string |
-| `accessibilityState` | Describes the current state of a component to assistive technology users. See the Accessibility guide for more information. | object: `{disabled, selected, checked, busy, expanded}` |
-| `accessibilityActions` | Allows assistive technologies to programmatically invoke actions on a component. Each action should include a name and label. See the Accessibility guide for more details. | array |
-| `aria-busy` | Indicates that an element is being modified and assistive technologies may want to wait until changes are complete before notifying the user. | boolean |
-| `aria-checked` | Represents the state of a checkable element, which can be either a boolean or `'mixed'`. | boolean, 'mixed' |
-| `aria-disabled` | Indicates that an element is perceivable but disabled and not editable or operable. | boolean |
-| `aria-expanded` | Shows whether an expandable element is currently expanded or collapsed. | boolean |
-| `aria-hidden` | Specifies if the accessibility elements within this element are hidden, affecting how assistive technologies like VoiceOver interact with sibling views. | boolean |
-| `aria-label` | Provides a string value that labels an interactive element. | string |
-| `aria-live` (Android) | Indicates updates to an element and describes the types of updates expected by user agents, assistive technologies, and users. Options include `'assertive'`, `'off'`, and `'polite'`. | enum: `'assertive'`, `'off'`, `'polite'` |
-| `aria-modal` (iOS) | Boolean indicating whether VoiceOver should ignore sibling elements within views. Takes precedence over the `accessibilityViewIsModal` prop. | boolean |
-| `aria-selected` | Indicates if a selectable element is currently selected. | boolean |
-| `onAccessibilityAction` | Invoked when an accessibility action is performed by the user. The function receives an event containing the name of the action to perform. See the Accessibility guide for more information. | function |
-| `accessibilityValue` | Represents a component's current value, either as a textual description or range information (min, max, now) for components like sliders and progress bars. | object: `{min, max, now, text}` |
-| `aria-valuemax` | Specifies the maximum value for range-based components, taking precedence over the `max` value in the `accessibilityValue` prop. | number |
-| `aria-valuemin` | Specifies the minimum value for range-based components, taking precedence over the `min` value in the `accessibilityValue` prop. | number |
-| `aria-valuenow` | Represents the current value for range-based components, taking precedence over the `now` value in the `accessibilityValue` prop. | number |
-| `aria-valuetext` | Provides a textual description of the component's value, taking precedence over the `text` value in the `accessibilityValue` prop. | string |
-| `delayLongPress` | Duration (in milliseconds) from `onPressIn` before `onLongPress` is called. | number |
-| `delayPressIn` | Duration (in milliseconds) from the start of a touch until `onPressIn` is invoked. | number |
-| `delayPressOut` | Duration (in milliseconds) after releasing a touch before `onPressOut` is called. | number |
-| `disabled` | If set to true, disables all interactions for this component. | bool |
-| `hitSlop` | Defines how far from the button a touch can start. This value is added to `pressRetentionOffset` when moving off of the button. The touch area does not extend past parent view bounds and sibling views with higher Z-index take precedence if overlapping. | Rect or number |
-| `id` | Used to locate this view from native code, taking precedence over the `nativeID` prop. | string |
-| `onBlur` | Invoked when the item loses focus. | function |
-| `onFocus` | Invoked when the item receives focus. | function |
-| `onLayout` | Called on mount and during layout changes. | `({nativeEvent: LayoutEvent}) => void` |
-| `onLongPress` | Triggered if the time after `onPressIn` exceeds 370 milliseconds, customizable with `delayLongPress`. | function |
-| `onPress` | Called when a touch is released unless cancelled (e.g., by a scroll that steals the responder lock). The first argument is an event in form of PressEvent. | function |
-| `onPressIn` | Invoked as soon as the touchable element is pressed, even before `onPress`. Useful for tasks like network requests. The first argument is an event in form of PressEvent. | function |
-| `onPressOut` | Called immediately after a touch is released, prior to `onPress`. The first argument is an event in form of PressEvent. | function |
-| `pressRetentionOffset` | Defines how far a touch may move off the button before deactivating it when the scroll view is disabled. Re-activation occurs upon moving back over the button. Pass a constant to reduce memory allocations. | Rect or number |
-| `nativeID` |  | string |
-| `testID` | Used to locate this view in end-to-end tests. | string |
-| `touchSoundDisabled` (Android) | If set to true, prevents the system sound from playing on touch. | Boolean |
+|Prop Name|Description|Type|
+|-|-|-|
+|`accessibilityIgnoresInvertColors` (iOS)|Indicates whether the view should be inverted when color inversion is enabled. A value of `true` prevents inversion even if color inversion is turned on. See the Accessibility guide for more information.|Boolean|
+|`accessible`|When set to `true`, marks the view as an accessibility element. By default, all touchable elements are accessible.|bool|
+|`accessibilityLabel`|Overrides the text read by screen readers when interacting with the element. By default, it is constructed from all child `Text` nodes separated by spaces.|string|
+|`accessibilityLanguage` (iOS)|Specifies the language used by the screen reader for this element, following the BCP 47 specification. See the iOS `accessibilityLanguage` documentation for more information.|string|
+|`accessibilityHint`|Provides a hint to help users understand what will happen when they perform an action on the accessibility element if it's not clear from the label.|string|
+|`accessibilityRole`|Communicates the purpose of a component to assistive technology users. Possible values include `'none'`, `'button'`, `'link'`, `'search'`, `'image'`, `'keyboardkey'`, `'text'`, `'adjustable'`, and more.|string|
+|`accessibilityState`|Describes the current state of a component to assistive technology users. See the Accessibility guide for more information.|object: `{disabled, selected, checked, busy, expanded}`|
+|`accessibilityActions`|Allows assistive technologies to programmatically invoke actions on a component. Each action should include a name and label. See the Accessibility guide for more details.|array|
+|`aria-busy`|Indicates that an element is being modified and assistive technologies may want to wait until changes are complete before notifying the user.|boolean|
+|`aria-checked`|Represents the state of a checkable element, which can be either a boolean or `'mixed'`.|boolean, 'mixed'|
+|`aria-disabled`|Indicates that an element is perceivable but disabled and not editable or operable.|boolean|
+|`aria-expanded`|Shows whether an expandable element is currently expanded or collapsed.|boolean|
+|`aria-hidden`|Specifies if the accessibility elements within this element are hidden, affecting how assistive technologies like VoiceOver interact with sibling views.|boolean|
+|`aria-label`|Provides a string value that labels an interactive element.|string|
+|`aria-live` (Android)|Indicates updates to an element and describes the types of updates expected by user agents, assistive technologies, and users. Options include `'assertive'`, `'off'`, and `'polite'`.|enum: `'assertive'`, `'off'`, `'polite'`|
+|`aria-modal` (iOS)|Boolean indicating whether VoiceOver should ignore sibling elements within views. Takes precedence over the `accessibilityViewIsModal` prop.|boolean|
+|`aria-selected`|Indicates if a selectable element is currently selected.|boolean|
+|`onAccessibilityAction`|Invoked when an accessibility action is performed by the user. The function receives an event containing the name of the action to perform. See the Accessibility guide for more information.|function|
+|`accessibilityValue`|Represents a component's current value, either as a textual description or range information (min, max, now) for components like sliders and progress bars.|object: `{min, max, now, text}`|
+|`aria-valuemax`|Specifies the maximum value for range-based components, taking precedence over the `max` value in the `accessibilityValue` prop.|number|
+|`aria-valuemin`|Specifies the minimum value for range-based components, taking precedence over the `min` value in the `accessibilityValue` prop.|number|
+|`aria-valuenow`|Represents the current value for range-based components, taking precedence over the `now` value in the `accessibilityValue` prop.|number|
+|`aria-valuetext`|Provides a textual description of the component's value, taking precedence over the `text` value in the `accessibilityValue` prop.|string|
+|`delayLongPress`|Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.|number|
+|`delayPressIn`|Duration (in milliseconds) from the start of a touch until `onPressIn` is invoked.|number|
+|`delayPressOut`|Duration (in milliseconds) after releasing a touch before `onPressOut` is called.|number|
+|`disabled`|If set to true, disables all interactions for this component.|bool|
+|`hitSlop`|Defines how far from the button a touch can start. This value is added to `pressRetentionOffset` when moving off of the button. The touch area does not extend past parent view bounds and sibling views with higher Z-index take precedence if overlapping.|Rect or number|
+|`id`|Used to locate this view from native code, taking precedence over the `nativeID` prop.|string|
+|`onBlur`|Invoked when the item loses focus.|function|
+|`onFocus`|Invoked when the item receives focus.|function|
+|`onLayout`|Called on mount and during layout changes.|`({nativeEvent: LayoutEvent}) => void`|
+|`onLongPress`|Triggered if the time after `onPressIn` exceeds 370 milliseconds, customizable with `delayLongPress`.|function|
+|`onPress`|Called when a touch is released unless cancelled (e.g., by a scroll that steals the responder lock). The first argument is an event in form of PressEvent.|function|
+|`onPressIn`|Invoked as soon as the touchable element is pressed, even before `onPress`. Useful for tasks like network requests. The first argument is an event in form of PressEvent.|function|
+|`onPressOut`|Called immediately after a touch is released, prior to `onPress`. The first argument is an event in form of PressEvent.|function|
+|`pressRetentionOffset`|Defines how far a touch may move off the button before deactivating it when the scroll view is disabled. Re-activation occurs upon moving back over the button. Pass a constant to reduce memory allocations.|Rect or number|
+|`nativeID`||string|
+|`testID`|Used to locate this view in end-to-end tests.|string|
+|`touchSoundDisabled` (Android)|If set to true, prevents the system sound from playing on touch.|Boolean|
 
-The provided text appears to be a detailed documentation of various properties and methods associated with a `View` component, likely from a mobile development framework such as React Native. Below is an organized summary of these properties and their descriptions:
+## Text
 
 #### Accessibility Properties
 
@@ -3743,10 +3743,10 @@ RCTSetImageCacheLimits(4*1024*1024, 200*1024*1024);
 
 **Parameters:**
 
-| Name           | Type   | Required | Description             |
-| -------------- | ------ | -------- | ----------------------- |
-| imageSizeLimit | number | Yes      | Image cache size limit. |
-| totalCostLimit | number | Yes      | Total cache cost limit. |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|imageSizeLimit|number|Yes|Image cache size limit.|
+|totalCostLimit|number|Yes|Total cache cost limit.|
 
 In the example above, the image size limit is set to 4 MB and the total cost limit to 200 MB.
 
@@ -3782,9 +3782,9 @@ iOS saves multiple sizes for the same image in your Camera Roll. It's crucial to
 
 ### Why Not Automatically Size Everything?
 
-_In the browser_, if no size is given to an image, the browser renders a 0x0 element, downloads the image, and then displays it with the correct size. The issue here is that your UI will jump around as images load, leading to a poor user experience known as Cumulative Layout Shift.
+*In the browser*, if no size is given to an image, the browser renders a 0x0 element, downloads the image, and then displays it with the correct size. The issue here is that your UI will jump around as images load, leading to a poor user experience known as Cumulative Layout Shift.
 
-_In React Native_, this behavior isn't implemented intentionally. It requires more work for developers to know the dimensions (or aspect ratio) of remote images in advance, but it leads to a better user experience. Static images loaded from the app bundle via `require('./my-icon.png')` can be automatically sized because their dimensions are available immediately at mounting time.
+*In React Native*, this behavior isn't implemented intentionally. It requires more work for developers to know the dimensions (or aspect ratio) of remote images in advance, but it leads to a better user experience. Static images loaded from the app bundle via `require('./my-icon.png')` can be automatically sized because their dimensions are available immediately at mounting time.
 
 For example, the result of `require('./my-icon.png')` might be:
 
@@ -3907,11 +3907,11 @@ Creates an object representing a ripple drawable with a specified color (as a st
 
 **Parameters:**
 
-| Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| color | string | Yes | The ripple color |
-| borderless | boolean | Yes | Determines if the ripple can render outside bounds |
-| rippleRadius | ?number | No | Controls the radius of the ripple effect |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|color|string|Yes|The ripple color|
+|borderless|boolean|Yes|Determines if the ripple can render outside bounds|
+|rippleRadius|?number|No|Controls the radius of the ripple effect|
 
 #### `canUseNativeForeground()`
 
@@ -3933,23 +3933,23 @@ This component can also facilitate sticky text inputs—text inputs anchored to 
 
 ##### `backgroundColor`
 
-| Type  |
-| ----- |
-| color |
+|Type|
+|-|
+|color|
 
 ##### `nativeID`
 
 A unique identifier used to associate this `InputAccessoryView` with specific TextInput(s).
 
-| Type   |
-| ------ |
-| string |
+|Type|
+|-|
+|string|
 
 ##### `style`
 
-| Type       |
-| ---------- |
-| View Style |
+|Type|
+|-|
+|View Style|
 
 ### Known Issues
 
@@ -3994,93 +3994,93 @@ To implement `SafeAreaView`, wrap your top-level view with it and apply a style 
 
 This property specifies whether the back face of a rotated image should be visible.
 
-| Type                          | Default     |
-| ----------------------------- | ----------- |
-| enum(`'visible'`, `'hidden'`) | `'visible'` |
+|Type|Default|
+|-|-|
+|enum(`'visible'`, `'hidden'`)|`'visible'`|
 
----
+***
 
 #### `backgroundColor`
 
-| Type  |
-| ----- |
-| color |
+|Type|
+|-|
+|color|
 
----
+***
 
 #### `borderBottomLeftRadius`
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
----
+***
 
 #### `borderBottomRightRadius`
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
----
+***
 
 #### `borderColor`
 
-| Type  |
-| ----- |
-| color |
+|Type|
+|-|
+|color|
 
----
+***
 
 #### `borderRadius`
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
----
+***
 
 #### `borderTopLeftRadius`
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
----
+***
 
 #### `borderTopRightRadius`
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
----
+***
 
 #### `borderWidth`
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
----
+***
 
 #### `opacity`
 
 Sets the opacity level for the image, with values ranging from `0.0` to `1.0`.
 
-| Type   | Default |
-| ------ | ------- |
-| number | `1.0`   |
+|Type|Default|
+|-|-|
+|number|`1.0`|
 
----
+***
 
 #### `overflow`
 
-| Type                          | Default     |
-| ----------------------------- | ----------- |
-| enum(`'visible'`, `'hidden'`) | `'visible'` |
+|Type|Default|
+|-|-|
+|enum(`'visible'`, `'hidden'`)|`'visible'`|
 
----
+***
 
 #### `overlayColor` (Android)
 
@@ -4090,11 +4090,11 @@ A common use case involves images on a solid background where the `overlayColor`
 
 For more details, refer to the Fresco documentation.
 
-| Type   |
-| ------ |
-| string |
+|Type|
+|-|
+|string|
 
----
+***
 
 #### `resizeMode`
 
@@ -4113,29 +4113,29 @@ Defines how an image should be resized when its frame dimensions do not match th
 
 - **`center`:** Center the image along both dimensions. If larger than the view, scale it down uniformly to fit within the view.
 
-| Type | Default |
-| --- | --- |
-| enum(`'cover'`, `'contain'`, `'stretch'`, `'repeat'`, `'center'`) | `'cover'` |
+|Type|Default|
+|-|-|
+|enum(`'cover'`, `'contain'`, `'stretch'`, `'repeat'`, `'center'`)|`'cover'`|
 
----
+***
 
 #### `objectFit`
 
 Specifies how an image should be resized when its frame dimensions do not match the raw image dimensions.
 
-| Type                                                   | Default   |
-| ------------------------------------------------------ | --------- |
-| enum(`'cover'`, `'contain'`, `'fill'`, `'scale-down'`) | `'cover'` |
+|Type|Default|
+|-|-|
+|enum(`'cover'`, `'contain'`, `'fill'`, `'scale-down'`)|`'cover'`|
 
----
+***
 
 #### `tintColor`
 
 Alters the color of all non-transparent pixels to the specified `tintColor`.
 
-| Type  |
-| ----- |
-| color |
+|Type|
+|-|
+|color|
 
 ## Shadow Properties in React Native
 
@@ -4187,33 +4187,33 @@ Refer to View Style Props documentation for details.
 
 Sets the drop shadow color. This property functions only on Android API 28 and above. For similar effects on lower APIs, use the `elevation` property.
 
-| Type  |
-| ----- |
-| color |
+|Type|
+|-|
+|color|
 
 #### `shadowOffset` (iOS)
 
 Defines the drop shadow offset.
 
-| Type                                     |
-| ---------------------------------------- |
-| object: `{width: number,height: number}` |
+|Type|
+|-|
+|object: `{width: number,height: number}`|
 
 #### `shadowOpacity` (iOS)
 
 Determines the drop shadow opacity, factoring in the color's alpha component.
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
 #### `shadowRadius` (iOS)
 
 Specifies the drop shadow blur radius.
 
-| Type   |
-| ------ |
-| number |
+|Type|
+|-|
+|number|
 
 ## Text Style Properties
 
@@ -4520,7 +4520,7 @@ If the rounded border is not visible, try applying `overflow: 'hidden'` as well.
 #### `boxShadow`
 
 **Note:**\
-`boxShadow` is only available on the New Architecture. Outset shadows are supported on Android 9+, and inset shadows on Android 10+. This prop adds a shadow effect to an element, allowing control over position, color, size, and blurriness of the shadow. It can be either outside or inside the border box depending on whether it is _inset_. This implementation follows web standards.
+`boxShadow` is only available on the New Architecture. Outset shadows are supported on Android 9+, and inset shadows on Android 10+. This prop adds a shadow effect to an element, allowing control over position, color, size, and blurriness of the shadow. It can be either outside or inside the border box depending on whether it is *inset*. This implementation follows web standards.
 
 Multiple shadows can be combined into a single `boxShadow`.
 
@@ -4751,33 +4751,33 @@ The `DropShadowValue` object is utilized by the `filter` style property for impl
 
 The offset on the x-axis. This value can be either positive or negative, where a positive value indicates a rightward shift and a negative value indicates a leftward shift.
 
-| Type             | Optional |
-| ---------------- | -------- |
-| number \| string | No       |
+|Type|Optional|
+|-|-|
+|number \| string|No|
 
 #### `offsetY`
 
 The offset on the y-axis. Similar to `offsetX`, this value can be either positive or negative, with a positive value indicating an upward shift and a negative value indicating a downward shift.
 
-| Type             | Optional |
-| ---------------- | -------- |
-| number \| string | No       |
+|Type|Optional|
+|-|-|
+|number \| string|No|
 
 #### `standardDeviation`
 
 This represents the standard deviation used in the Gaussian blur algorithm. A larger value results in a blurrier shadow. Only non-negative values are valid, with the default being 0.
 
-| Type             | Optional |
-| ---------------- | -------- |
-| number \| string | Yes      |
+|Type|Optional|
+|-|-|
+|number \| string|Yes|
 
 #### `color`
 
 The color of the shadow. By default, this is set to `black`.
 
-| Type  | Optional |
-| ----- | -------- |
-| color | Yes      |
+|Type|Optional|
+|-|-|
+|color|Yes|
 
 ### Used by
 
@@ -4807,41 +4807,41 @@ The `LayoutEvent` object is provided in the callback following a layout change o
 
 Represents the component's height after a layout change.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `width`
 
 Indicates the component's width following a layout change.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `x`
 
 Specifies the X coordinate of the component within its parent component.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `y`
 
 Denotes the Y coordinate of the component inside its parent component.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `target`
 
 Identifies the node ID of the element that receives the PressEvent. It can be a number, or it may be `null` or `undefined`.
 
-| Type                        | Optional |
-| --------------------------- | -------- |
-| number, `null`, `undefined` | No       |
+|Type|Optional|
+|-|-|
+|number, `null`, `undefined`|No|
 
 ### Components Utilizing LayoutEvent
 
@@ -4879,81 +4879,81 @@ The `PressEvent` object is returned in the callback as a result of user press in
 
 An array containing all `PressEvents` that have changed since the last event.
 
-| Type                 | Optional |
-| -------------------- | -------- |
-| Array of PressEvents | No       |
+|Type|Optional|
+|-|-|
+|Array of PressEvents|No|
 
 #### `force` (iOS)
 
 The amount of force used during a 3D Touch press, represented as a float value ranging from `0.0` to `1.0`.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | Yes      |
+|Type|Optional|
+|-|-|
+|number|Yes|
 
 #### `identifier`
 
 A unique numeric identifier assigned to the event.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `locationX`
 
 The X coordinate of the touch origin within the touchable area, relative to the element.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `locationY`
 
 The Y coordinate of the touch origin within the touchable area, relative to the element.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `pageX`
 
 The X coordinate of the touch origin on the screen, relative to the root view.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `pageY`
 
 The Y coordinate of the touch origin on the screen, relative to the root view.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `target`
 
 The node ID of the element receiving the `PressEvent`. It can be a number or `null`/`undefined`.
 
-| Type                    | Optional |
-| ----------------------- | -------- |
-| number, null, undefined | No       |
+|Type|Optional|
+|-|-|
+|number, null, undefined|No|
 
 #### `timestamp`
 
 A timestamp value indicating when the `PressEvent` occurred, represented in milliseconds.
 
-| Type   | Optional |
-| ------ | -------- |
-| number | No       |
+|Type|Optional|
+|-|-|
+|number|No|
 
 #### `touches`
 
 An array containing all current `PressEvents` on the screen.
 
-| Type                 | Optional |
-| -------------------- | -------- |
-| Array of PressEvents | No       |
+|Type|Optional|
+|-|-|
+|Array of PressEvents|No|
 
 ### Used By
 
@@ -4988,27 +4988,27 @@ The `Rect` object type is designed to accept numeric pixel values, which are use
 
 #### `bottom`
 
-| Type                        | Required |
-| --------------------------- | -------- |
-| number, `null`, `undefined` | No       |
+|Type|Required|
+|-|-|
+|number, `null`, `undefined`|No|
 
 #### `left`
 
-| Type                        | Required |
-| --------------------------- | -------- |
-| number, `null`, `undefined` | No       |
+|Type|Required|
+|-|-|
+|number, `null`, `undefined`|No|
 
 #### `right`
 
-| Type                        | Required |
-| --------------------------- | -------- |
-| number, `null`, `undefined` | No       |
+|Type|Required|
+|-|-|
+|number, `null`, `undefined`|No|
 
 #### `top`
 
-| Type                        | Required |
-| --------------------------- | -------- |
-| number, `null`, `undefined` | No       |
+|Type|Required|
+|-|-|
+|number, `null`, `undefined`|No|
 
 ### Used By
 
@@ -5483,13 +5483,13 @@ Additionally, React Native allows developers to create custom Native Components 
 
 React Native includes numerous Core Components for various functionalities, from basic controls to activity indicators. These are documented in the API section. Key Core Components include:
 
-| React Native UI Component | Android View | iOS View | Web Analog | Description |
-| --- | --- | --- | --- | --- |
-| `<View>` | `<ViewGroup>` | `<UIView>` | A non-scrolling `<div>` | Acts as a container supporting layout with flexbox, style, touch handling, and accessibility controls. |
-| `<Text>` | `<TextView>` | `<UITextView>` | `<p>` | Displays, styles, nests text strings, and handles touch events. |
-| `<Image>` | `<ImageView>` | `<UIImageView>` | `<img>` | Used for displaying various types of images. |
-| `<ScrollView>` | `<ScrollView>` | `<UIScrollView>` | `<div>` | A generic scrolling container that can hold multiple components and views. |
-| `<TextInput>` | `<EditText>` | `<UITextField>` | `<input type="text">` | Enables user text input. |
+|React Native UI Component|Android View|iOS View|Web Analog|Description|
+|-|-|-|-|-|
+|`<View>`|`<ViewGroup>`|`<UIView>`|A non-scrolling `<div>`|Acts as a container supporting layout with flexbox, style, touch handling, and accessibility controls.|
+|`<Text>`|`<TextView>`|`<UITextView>`|`<p>`|Displays, styles, nests text strings, and handles touch events.|
+|`<Image>`|`<ImageView>`|`<UIImageView>`|`<img>`|Used for displaying various types of images.|
+|`<ScrollView>`|`<ScrollView>`|`<UIScrollView>`|`<div>`|A generic scrolling container that can hold multiple components and views.|
+|`<TextInput>`|`<EditText>`|`<UITextField>`|`<input type="text">`|Enables user text input.|
 
 In the following sections, you will learn how to combine these Core Components to understand React's workings better.
 
@@ -5669,7 +5669,7 @@ const Cafe = () => {
 
 > The `<>` and `</>` are JSX fragments. Adjacent JSX elements must be wrapped in an enclosing tag, which fragments allow without adding unnecessary wrapping elements like `View`.
 
----
+***
 
 Having covered React and React Native’s Core Components, let's explore handling `<TextInput>` further.
 
@@ -5796,12 +5796,12 @@ For accessing resources requiring an API key or secret, consider implementing an
 
 Async Storage is a community-maintained module for React Native that provides an asynchronous, unencrypted key-value store. Each app operates in its own sandbox environment, preventing cross-app data access.
 
-| **Use Async Storage When** | **Avoid Using Async Storage For** |
-| --- | --- |
-| Persisting non-sensitive data across app runs | Token storage |
-| Persisting Redux state | Secrets |
-| Persisting GraphQL state |  |
-| Storing global app-wide variables |  |
+|**Use Async Storage When**|**Avoid Using Async Storage For**|
+|-|-|
+|Persisting non-sensitive data across app runs|Token storage|
+|Persisting Redux state|Secrets|
+|Persisting GraphQL state||
+|Storing global app-wide variables||
 
 ##### Developer Notes
 
@@ -6456,9 +6456,9 @@ Safari can be used to debug the iOS version of your app when using JavaScriptCor
 
 ### Remote JavaScript Debugging (Removed)
 
-_Note: This feature has been removed._
+*Note: This feature has been removed.*
 
----
+***
 
 **Previous:** Debugging Release Builds\
 **Next:** Testing
@@ -6536,7 +6536,7 @@ Testing is crucial for maintaining code quality and ensuring reliable software d
 - [Appium](#)
 - [Maestro](#)
 
-_This guide was authored by Vojtech Novak._
+*This guide was authored by Vojtech Novak.*
 
 ## Performance Overview
 
@@ -6761,9 +6761,9 @@ For larger organizations, distributed caches like sccache can be beneficial. Ref
 
 #### removeClippedSubviews
 
-| Type    | Default |
-| ------- | ------- |
-| Boolean | False   |
+|Type|Default|
+|-|-|
+|Boolean|False|
 
 **Description:** When set to `true`, views outside of the viewport are detached from the native view hierarchy.
 
@@ -6773,9 +6773,9 @@ For larger organizations, distributed caches like sccache can be beneficial. Ref
 
 #### maxToRenderPerBatch
 
-| Type   | Default |
-| ------ | ------- |
-| Number | 10      |
+|Type|Default|
+|-|-|
+|Number|10|
 
 **Description:** Controls the number of items rendered per batch during scrolling.
 
@@ -6785,9 +6785,9 @@ For larger organizations, distributed caches like sccache can be beneficial. Ref
 
 #### updateCellsBatchingPeriod
 
-| Type   | Default |
-| ------ | ------- |
-| Number | 50      |
+|Type|Default|
+|-|-|
+|Number|50|
 
 **Description:** Sets the delay in milliseconds between batch renders for `VirtualizedList`.
 
@@ -6797,9 +6797,9 @@ For larger organizations, distributed caches like sccache can be beneficial. Ref
 
 #### initialNumToRender
 
-| Type   | Default |
-| ------ | ------- |
-| Number | 10      |
+|Type|Default|
+|-|-|
+|Number|10|
 
 **Description:** Specifies the number of items to render initially.
 
@@ -6809,9 +6809,9 @@ For larger organizations, distributed caches like sccache can be beneficial. Ref
 
 #### windowSize
 
-| Type   | Default |
-| ------ | ------- |
-| Number | 21      |
+|Type|Default|
+|-|-|
+|Number|21|
 
 **Description:** Measured in units where 1 equals the viewport height. The default is 21 (10 viewports above, 10 below, and one in between).
 
@@ -6916,12 +6916,12 @@ static alert(
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| titleRequired | string | The dialog's title. Passing `null` or an empty string will hide the title. |
-| message | string | An optional message displayed below the title. |
-| buttons | AlertButton\[] | Optional array for button configurations. |
-| options | AlertOptions | Optional configuration for the alert. |
+|Name|Type|Description|
+|-|-|-|
+|titleRequired|string|The dialog's title. Passing `null` or an empty string will hide the title.|
+|message|string|An optional message displayed below the title.|
+|buttons|AlertButton\[]|Optional array for button configurations.|
+|options|AlertOptions|Optional configuration for the alert.|
 
 ##### `prompt()` (iOS Only)
 
@@ -6940,15 +6940,15 @@ Creates and displays a text input alert.
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| titleRequired | string | The dialog's title. |
-| message | string | An optional message displayed above the text input. |
-| callbackOrButtons | function \| AlertButton\[] | If a function, it is invoked with the prompt's value `(text: string) => void` when 'OK' is tapped.\*\*\*If an array, buttons are configured based on its content. |
-| type | AlertType | Configures the text input. |
-| defaultValue | string | Default text in the input field. |
-| keyboardType | string | Keyboard type for the first text field (if present). One of `TextInput` keyboard types. |
-| options | AlertOptions | Optional configuration for the alert. |
+|Name|Type|Description|
+|-|-|-|
+|titleRequired|string|The dialog's title.|
+|message|string|An optional message displayed above the text input.|
+|callbackOrButtons|function \| AlertButton\[]|If a function, it is invoked with the prompt's value `(text: string) => void` when 'OK' is tapped.\*\*\*If an array, buttons are configured based on its content.|
+|type|AlertType|Configures the text input.|
+|defaultValue|string|Default text in the input field.|
+|keyboardType|string|Keyboard type for the first text field (if present). One of `TextInput` keyboard types.|
+|options|AlertOptions|Optional configuration for the alert.|
 
 #### Type Definitions
 
@@ -6958,11 +6958,11 @@ An enum representing iOS Alert button styles.
 
 **Constants:**
 
-| Value           | Description               |
-| --------------- | ------------------------- |
-| `'default'`     | Default button style.     |
-| `'cancel'`      | Cancel button style.      |
-| `'destructive'` | Destructive button style. |
+|Value|Description|
+|-|-|
+|`'default'`|Default button style.|
+|`'cancel'`|Cancel button style.|
+|`'destructive'`|Destructive button style.|
 
 ##### `AlertType` (iOS Only)
 
@@ -6970,12 +6970,12 @@ An enum representing iOS Alert types.
 
 **Constants:**
 
-| Value              | Description                  |
-| ------------------ | ---------------------------- |
-| `'default'`        | Default alert with no inputs |
-| `'plain-text'`     | Plain text input alert       |
-| `'secure-text'`    | Secure text input alert      |
-| `'login-password'` | Login and password alert     |
+|Value|Description|
+|-|-|
+|`'default'`|Default alert with no inputs|
+|`'plain-text'`|Plain text input alert|
+|`'secure-text'`|Secure text input alert|
+|`'login-password'`|Login and password alert|
 
 ##### `AlertButton`
 
@@ -6983,12 +6983,12 @@ An object describing a button's configuration in an alert.
 
 **Properties:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| text | string | Button label. |
-| onPress | function | Callback when the button is pressed. |
-| styleiOS | AlertButtonStyle | Button style, ignored on Android. |
-| isPreferrediOS | boolean | Whether to emphasize the button, ignored on Android. |
+|Name|Type|Description|
+|-|-|-|
+|text|string|Button label.|
+|onPress|function|Callback when the button is pressed.|
+|styleiOS|AlertButtonStyle|Button style, ignored on Android.|
+|isPreferrediOS|boolean|Whether to emphasize the button, ignored on Android.|
 
 ##### `AlertOptions`
 
@@ -6996,11 +6996,11 @@ An object for optional alert configurations.
 
 **Properties:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| cancelableAndroid | boolean | Determines if the alert can be dismissed by tapping outside of it. |
-| userInterfaceStyleiOS | string | Interface style for the alert, set to `light` or `dark`, otherwise defaults to system style. |
-| onDismissAndroid | function | Callback fired when the alert is dismissed. |
+|Name|Type|Description|
+|-|-|-|
+|cancelableAndroid|boolean|Determines if the alert can be dismissed by tapping outside of it.|
+|userInterfaceStyleiOS|string|Interface style for the alert, set to `light` or `dark`, otherwise defaults to system style.|
+|onDismissAndroid|function|Callback fired when the alert is dismissed.|
 
 ## Optimizing JavaScript Loading
 
@@ -8042,7 +8042,7 @@ This guide covers how to integrate native platform features into your React Nati
 1. **Fabric Native Components**
    - Android & iOS
 
----
+***
 
 **Previous:** The Codegen CLI\
 **Next:** Android and iOS
@@ -8095,7 +8095,7 @@ For those utilizing **React Navigation**, refer to their guide on customizing An
 
 The **React Native Hooks** library offers a convenient `useBackHandler` hook that simplifies setting up event listeners.
 
----
+***
 
 ## Reference Methods
 
@@ -8283,7 +8283,7 @@ To implement a cross-platform `localStorage` solution using React Native's Turbo
 
 - (instancetype)init { if (self = \[super init]) { \_localStorage = \[\[NSUserDefaults alloc] initWithSuiteName:RCTNativeLocalStorageKey]; } return self; }
 
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params { return std::make_shared<facebook::react::NativeLocalStorageSpecJSI>(params); }
+- (std::shared\_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params { return std::make\_shared<facebook::react::NativeLocalStorageSpecJSI>(params); }
 
 - (NSString \* \_Nullable)getItem:(NSString \*)key { return \[self.localStorage stringForKey:key]; }
 
@@ -8948,18 +8948,18 @@ This setup will allow you to use a native web view component in your React Nativ
 
 The following table serves as a reference for supported types and their mappings across different platforms:
 
-| Flow | TypeScript | Flow Nullable Support | TypeScript Nullable Support | Android (Java) | iOS (ObjC) |
-| --- | --- | --- | --- | --- | --- |
-| `string` | `string` | `?string` | `string \| null` | `string` | `NSString` |
-| `boolean` | `boolean` | `?boolean` | `boolean \| null` | `Boolean` | `NSNumber` |
-| Object Literal `{ foo: string, ...}` | `{ foo: string, ...} as const` | `?{ foo: string, ...}` | `?{ foo: string, ...} as const` | - | - |
-| Object \[1] | Object \[1] | `?Object` | `Object \| null` | `ReadableMap` | `@` (untyped dictionary) |
-| `Array<T>` | `Array<T>` | `?Array<T>` | `Array<T> \| null` | `ReadableArray` | `NSArray` (or `RCTConvertVecToArray` when used inside objects) |
-| `Function` | `Function` | `?Function` | `Function \| null` | - | - |
-| `Promise<T>` | `Promise<T>` | `?Promise<T>` | `Promise<T> \| null` | `com.facebook.react.bridge.Promise` | `RCTPromiseResolve` and `RCTPromiseRejectBlock` |
-| Type Unions `'SUCCESS'\|'FAIL'` | Type Unions `'SUCCESS'\|'FAIL'` | Only as callbacks |  | - | - |
-| Callbacks `() =>` | Callbacks `() =>` | Yes |  | `com.facebook.react.bridge.Callback` | `RCTResponseSenderBlock` |
-| `number` | `number` | No |  | `double` | `NSNumber` |
+|Flow|TypeScript|Flow Nullable Support|TypeScript Nullable Support|Android (Java)|iOS (ObjC)|
+|-|-|-|-|-|-|
+|`string`|`string`|`?string`|`string \| null`|`string`|`NSString`|
+|`boolean`|`boolean`|`?boolean`|`boolean \| null`|`Boolean`|`NSNumber`|
+|Object Literal `{ foo: string, ...}`|`{ foo: string, ...} as const`|`?{ foo: string, ...}`|`?{ foo: string, ...} as const`|-|-|
+|Object \[1]|Object \[1]|`?Object`|`Object \| null`|`ReadableMap`|`@` (untyped dictionary)|
+|`Array<T>`|`Array<T>`|`?Array<T>`|`Array<T> \| null`|`ReadableArray`|`NSArray` (or `RCTConvertVecToArray` when used inside objects)|
+|`Function`|`Function`|`?Function`|`Function \| null`|-|-|
+|`Promise<T>`|`Promise<T>`|`?Promise<T>`|`Promise<T> \| null`|`com.facebook.react.bridge.Promise`|`RCTPromiseResolve` and `RCTPromiseRejectBlock`|
+|Type Unions `'SUCCESS'\|'FAIL'`|Type Unions `'SUCCESS'\|'FAIL'`|Only as callbacks||-|-|
+|Callbacks `() =>`|Callbacks `() =>`|Yes||`com.facebook.react.bridge.Callback`|`RCTResponseSenderBlock`|
+|`number`|`number`|No||`double`|`NSNumber`|
 
 #### Notes:
 
@@ -8995,9 +8995,9 @@ To extract a module into its own library, use the `create-react-native-library` 
    - A valid npm name (all lowercase, using `-` for word separation)
    - A description for your package
 
-1. Follow the interactive menu until you reach the question: _"What type of library do you want to develop?"_
+1. Follow the interactive menu until you reach the question: *"What type of library do you want to develop?"*
 
-1. Select _Turbo module_ for this guide. You can create libraries for both New and Legacy Architectures.
+1. Select *Turbo module* for this guide. You can create libraries for both New and Legacy Architectures.
 
 1. Choose whether your library will access platform-specific code (Kotlin & Objective-C) or use a shared C++ library.
 
@@ -9417,7 +9417,7 @@ Select your main project file (representing the `.xcodeproj`) and choose `Build 
 
 Not all libraries require this step. Consider:
 
-_Do I need to know the contents of the library at compile time?_
+*Do I need to know the contents of the library at compile time?*
 
 This means, are you using the library on the native side or only in JavaScript? If it's just JavaScript, no further action is needed.
 
@@ -9669,11 +9669,11 @@ Schedules an animation for the next layout.
 
 ##### Parameters:
 
-| Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| config | object | Yes | Configuration details (see below). |
-| onAnimationDidEnd | function | No | Callback when the animation finishes. |
-| onAnimationDidFail | function | No | Callback if the animation fails. |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|config|object|Yes|Configuration details (see below).|
+|onAnimationDidEnd|function|No|Callback when the animation finishes.|
+|onAnimationDidFail|function|No|Callback if the animation fails.|
 
 The `config` parameter is an object with the following keys:
 
@@ -9707,35 +9707,35 @@ Helper function to generate an object with `create`, `update`, and `delete` fiel
 
 An enumeration of animation types used in the `create` method or within the `create`/`update`/`delete` configurations for `configureNext`.
 
-| Type          |
-| ------------- |
-| spring        |
-| linear        |
-| easeInEaseOut |
-| easeIn        |
-| easeOut       |
-| keyboard      |
+|Type|
+|-|
+|spring|
+|linear|
+|easeInEaseOut|
+|easeIn|
+|easeOut|
+|keyboard|
 
 #### Properties
 
 An enumeration of layout properties that can be animated, used in the `create` method or within the `create`/`update`/`delete` configurations for `configureNext`.
 
-| Property |
-| -------- |
-| opacity  |
-| scaleX   |
-| scaleY   |
-| scaleXY  |
+|Property|
+|-|
+|opacity|
+|scaleX|
+|scaleY|
+|scaleXY|
 
 #### Presets
 
 Predefined animation configurations to use with `configureNext`.
 
-| Preset | Value |
-| --- | --- |
-| easeInEaseOut | `{ create: { type: 'easeInEaseOut', property: 'opacity' } }` |
-| linear | `{ create: { type: 'linear', property: 'opacity' } }` |
-| spring | `{ duration: 700, create: { type: 'linear', property: 'opacity' }, update: { type: 'spring', springDamping: 0.4 }, delete: { type: 'linear', property: 'opacity' } }` |
+|Preset|Value|
+|-|-|
+|easeInEaseOut|`{ create: { type: 'easeInEaseOut', property: 'opacity' } }`|
+|linear|`{ create: { type: 'linear', property: 'opacity' } }`|
+|spring|`{ duration: 700, create: { type: 'linear', property: 'opacity' }, update: { type: 'spring', springDamping: 0.4 }, delete: { type: 'linear', property: 'opacity' } }`|
 
 #### `easeInEaseOut`
 
@@ -9794,7 +9794,7 @@ Supported values:
 - `'dark'`: User prefers a dark theme.
 - `null`: No preference indicated.
 
-_Note_: When debugging with Chrome, this method always returns `'light'`.
+*Note*: When debugging with Chrome, this method always returns `'light'`.
 
 ##### `setColorScheme()`
 
@@ -9810,7 +9810,7 @@ Supported values:
 - `'dark'`: Apply dark user interface.
 - `null`: Follow the system's interface style.
 
-_Note_: This change does not affect other applications or the system's overall settings.
+*Note*: This change does not affect other applications or the system's overall settings.
 
 ##### `addChangeListener()`
 
@@ -9908,11 +9908,11 @@ Registers a headless task that can be cancelled. A headless task runs without a 
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| **taskKey** | `string` | Required, the native ID for this task instance used when startHeadlessTask was called. |
-| **taskProvider** | `TaskProvider` | Required, a promise-returning function that takes data from the native side as an argument. When resolved or rejected, the native side is notified and may destroy the JS context. |
-| **taskCancelProvider** | `TaskCancelProvider` | Required, a void-returning function with no arguments; when cancellation is requested, the taskProvider should wrap up and return ASAP. |
+|Name|Type|Description|
+|-|-|-|
+|**taskKey**|`string`|Required, the native ID for this task instance used when startHeadlessTask was called.|
+|**taskProvider**|`TaskProvider`|Required, a promise-returning function that takes data from the native side as an argument. When resolved or rejected, the native side is notified and may destroy the JS context.|
+|**taskCancelProvider**|`TaskCancelProvider`|Required, a void-returning function with no arguments; when cancellation is requested, the taskProvider should wrap up and return ASAP.|
 
 ##### `registerComponent()`
 
@@ -9926,11 +9926,11 @@ static registerComponent(
 
 **Parameters:**
 
-| Name                 | Type                |          |
-| -------------------- | ------------------- | -------- |
-| **appKey**           | `string`            |          |
-| **getComponentFunc** | `ComponentProvider` | Required |
-| **section**          | `boolean`           |          |
+|Name|Type||
+|-|-|-|
+|**appKey**|`string`||
+|**getComponentFunc**|`ComponentProvider`|Required|
+|**section**|`boolean`||
 
 ##### `registerConfig()`
 
@@ -9955,10 +9955,10 @@ Registers a headless task. A headless task runs without a UI and can be used for
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| **taskKey** | `string` | Required, the native ID for this task instance used when startHeadlessTask was called. |
-| **taskProvider** | `TaskProvider` | Required, a promise-returning function that takes data from the native side as an argument. When resolved or rejected, the native side is notified and may destroy the JS context. |
+|Name|Type|Description|
+|-|-|-|
+|**taskKey**|`string`|Required, the native ID for this task instance used when startHeadlessTask was called.|
+|**taskProvider**|`TaskProvider`|Required, a promise-returning function that takes data from the native side as an argument. When resolved or rejected, the native side is notified and may destroy the JS context.|
 
 ##### `registerRunnable()`
 
@@ -9968,10 +9968,10 @@ static registerRunnable(appKey: string, func: Runnable): string;
 
 **Parameters:**
 
-| Name       | Type       |
-| ---------- | ---------- |
-| **appKey** | `string`   |
-| **func**   | `function` |
+|Name|Type|
+|-|-|
+|**appKey**|`string`|
+|**func**|`function`|
 
 ##### `registerSection()`
 
@@ -9984,10 +9984,10 @@ static registerSection(
 
 **Parameters:**
 
-| Name          | Type                |          |
-| ------------- | ------------------- | -------- |
-| **appKey**    | `string`            |          |
-| **component** | `ComponentProvider` | Required |
+|Name|Type||
+|-|-|-|
+|**appKey**|`string`||
+|**component**|`ComponentProvider`|Required|
 
 ##### `runApplication()`
 
@@ -9999,10 +9999,10 @@ Loads the JavaScript bundle and runs the app.
 
 **Parameters:**
 
-| Name              | Type     |
-| ----------------- | -------- |
-| **appKey**        | `string` |
-| **appParameters** | `any`    |
+|Name|Type|
+|-|-|
+|**appKey**|`string`|
+|**appParameters**|`any`|
 
 ##### `setComponentProviderInstrumentationHook()`
 
@@ -10018,10 +10018,10 @@ static setComponentProviderInstrumentationHook(
 
 A valid `hook` function accepts the following as arguments:
 
-| Name                        | Type                 |          |
-| --------------------------- | -------------------- | -------- |
-| **component**               | `ComponentProvider`  | Required |
-| **scopedPerformanceLogger** | `IPerformanceLogger` | Required |
+|Name|Type||
+|-|-|-|
+|**component**|`ComponentProvider`|Required|
+|**scopedPerformanceLogger**|`IPerformanceLogger`|Required|
 
 The function must return a React Component.
 
@@ -10051,11 +10051,11 @@ Only called from native code. Starts a headless task.
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| **taskId** | `number` | Required, the native ID for this task instance to track its execution. |
-| **taskKey** | `string` | Required, the key for the task to start. |
-| **data** | `any` | Required, the data to pass to the task. |
+|Name|Type|Description|
+|-|-|-|
+|**taskId**|`number`|Required, the native ID for this task instance to track its execution.|
+|**taskKey**|`string`|Required, the key for the task to start.|
+|**data**|`any`|Required, the data to pass to the task.|
 
 ##### `unmountApplicationComponentAtRootTag()`
 
@@ -10079,12 +10079,12 @@ Application configuration for the `registerConfig` method.
 
 **Properties:**
 
-| Name       | Type                |          |
-| ---------- | ------------------- | -------- |
-| **appKey** | `string`            | Required |
-| component  | `ComponentProvider` |          |
-| run        | `function`          |          |
-| section    | `boolean`           |          |
+|Name|Type||
+|-|-|-|
+|**appKey**|`string`|Required|
+|component|`ComponentProvider`||
+|run|`function`||
+|section|`boolean`||
 
 > **Note:** Every config must set either the `component` or `run` function.
 
@@ -10094,10 +10094,10 @@ Application configuration for the `registerConfig` method.
 
 **Properties:**
 
-| Name      | Type               |
-| --------- | ------------------ |
-| runnables | Array of Runnables |
-| sections  | Array of strings   |
+|Name|Type|
+|-|-|
+|runnables|Array of Runnables|
+|sections|Array of strings|
 
 #### Runnable
 
@@ -10105,10 +10105,10 @@ Application configuration for the `registerConfig` method.
 
 **Properties:**
 
-| Name      | Type                |
-| --------- | ------------------- |
-| component | `ComponentProvider` |
-| run       | `function`          |
+|Name|Type|
+|-|-|
+|component|`ComponentProvider`|
+|run|`function`|
 
 #### Runnables
 
@@ -10279,9 +10279,9 @@ Inherits props from `VirtualizedList`.
 
 Default renderer for every item in every section. Can be overridden per-section. Should return a React element.
 
-| Type     |
-| -------- |
-| function |
+|Type|
+|-|
+|function|
 
 The render function receives an object with:
 
@@ -10299,137 +10299,137 @@ The render function receives an object with:
 
 The data to render, similar to the `data` prop in `FlatList`.
 
-| Type              |
-| ----------------- |
-| array of Sections |
+|Type|
+|-|
+|array of Sections|
 
 ##### `extraData`
 
 A marker property for re-rendering since it implements `PureComponent`. Use this if your `renderItem`, Header, Footer, etc., depend on anything outside the `data` prop. Treat it immutably.
 
-| Type |
-| ---- |
-| any  |
+|Type|
+|-|
+|any|
 
 ##### `initialNumToRender`
 
 Number of items to render initially. Should fill the screen but not much more. These items won't be unmounted for improved scroll-to-top performance.
 
-| Type   | Default |
-| ------ | ------- |
-| number | `10`    |
+|Type|Default|
+|-|-|
+|number|`10`|
 
 ##### `inverted`
 
 Reverses the direction of scroll using scale transforms of -1.
 
-| Type    | Default |
-| ------- | ------- |
-| boolean | `false` |
+|Type|Default|
+|-|-|
+|boolean|`false`|
 
 ##### `ItemSeparatorComponent`
 
 Rendered between each item, excluding top and bottom. By default, provides `highlighted`, `section`, and `[leading/trailing][Item/Section]` props. `renderItem` offers `separators.highlight`/`unhighlight` to update the `highlighted` prop, with custom props via `separators.updateProps`. Can be a React Component or element.
 
-| Type                         |
-| ---------------------------- |
-| component, function, element |
+|Type|
+|-|
+|component, function, element|
 
 ##### `keyExtractor`
 
 Extracts a unique key for an item at a specified index. Used for caching and tracking item re-ordering. Defaults to checking `item.key`, then `item.id`, and falls back to the index.
 
-| Type                                    |
-| --------------------------------------- |
-| (item: object, index: number) => string |
+|Type|
+|-|
+|(item: object, index: number) => string|
 
 ##### `ListEmptyComponent`
 
 Rendered when the list is empty. Can be a React Component or element.
 
-| Type               |
-| ------------------ |
-| component, element |
+|Type|
+|-|
+|component, element|
 
 ##### `ListFooterComponent`
 
 Rendered at the end of the list. Can be a React Component or element.
 
-| Type               |
-| ------------------ |
-| component, element |
+|Type|
+|-|
+|component, element|
 
 ##### `ListHeaderComponent`
 
 Rendered at the beginning of the list. Can be a React Component or element.
 
-| Type               |
-| ------------------ |
-| component, element |
+|Type|
+|-|
+|component, element|
 
 ##### `onRefresh`
 
 Adds "Pull to Refresh" functionality if provided. Ensure the `refreshing` prop is set correctly. Use `progressViewOffset={100}` to offset from the top.
 
-| Type     |
-| -------- |
-| function |
+|Type|
+|-|
+|function|
 
 ##### `onViewableItemsChanged`
 
 Called when viewability of rows changes, as defined by the `viewabilityConfig` prop.
 
-| Type                                                                     |
-| ------------------------------------------------------------------------ |
-| `(callback: {changed: ViewToken[], viewableItems: ViewToken[]}) => void` |
+|Type|
+|-|
+|`(callback: {changed: ViewToken[], viewableItems: ViewToken[]}) => void`|
 
 ##### `refreshing`
 
 Set to true while waiting for new data from a refresh.
 
-| Type    | Default |
-| ------- | ------- |
-| boolean | `false` |
+|Type|Default|
+|-|-|
+|boolean|`false`|
 
 ##### `removeClippedSubviews`
 
 > Note: May have bugs (missing content) in some circumstances - use at your own risk. This may improve scroll performance for large lists.
 
-| Type    | Default |
-| ------- | ------- |
-| boolean | `false` |
+|Type|Default|
+|-|-|
+|boolean|`false`|
 
 ##### `renderSectionFooter`
 
 Rendered at the bottom of each section.
 
-| Type                                            |
-| ----------------------------------------------- |
-| `(info: {section: Section}) => element ｜ null` |
+|Type|
+|-|
+|`(info: {section: Section}) => element ｜ null`|
 
 ##### `renderSectionHeader`
 
 Rendered at the top of each section. Sticks to the top by default on iOS unless `stickySectionHeadersEnabled` is set otherwise.
 
-| Type                                            |
-| ----------------------------------------------- |
-| `(info: {section: Section}) => element ｜ null` |
+|Type|
+|-|
+|`(info: {section: Section}) => element ｜ null`|
 
 ##### `SectionSeparatorComponent`
 
 Rendered at the top and bottom of each section, different from `ItemSeparatorComponent`. Receives `highlighted`, `[leading/trailing][Item/Section]`, and custom props via `separators.updateProps`.
 
-| Type               |
-| ------------------ |
-| component, element |
+|Type|
+|-|
+|component, element|
 
 ##### `stickySectionHeadersEnabled`
 
 Makes section headers stick to the top of the screen until pushed off by the next one. Enabled by default on iOS.
 
-| Type    | Default                       |
-| ------- | ----------------------------- |
-| boolean | `false`Android\*\*\*`true`iOS |
+|Type|Default|
+|-|-|
+|boolean|`false`Android\*\*\*`true`iOS|
 
 ### Methods
 
@@ -10459,9 +10459,9 @@ Scrolls to the item at the specified `sectionIndex` and `itemIndex`, positioning
 
 **Parameters:**
 
-| Name           | Type   |
-| -------------- | ------ |
-| paramsRequired | object |
+|Name|Type|
+|-|-|
+|paramsRequired|object|
 
 Valid `params` keys:
 
@@ -10477,19 +10477,19 @@ Valid `params` keys:
 
 An object identifying data to be rendered for a given section.
 
-| Type |
-| ---- |
-| any  |
+|Type|
+|-|
+|any|
 
 **Properties:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| dataRequired | array | Data for rendering items in this section. Array of objects, similar to `FlatList`'s data prop. |
-| key | string | Optional key for tracking section re-ordering. Defaults to array index if not specified. |
-| renderItem | function | Optionally define an arbitrary item renderer for this section, overriding the default `renderItem`. |
-| ItemSeparatorComponent | component, element | Optionally define an arbitrary item separator for this section, overriding the default `ItemSeparatorComponent`. |
-| keyExtractor | function | Optionally define a custom key extractor for this section, overriding the default `keyExtractor`. |
+|Name|Type|Description|
+|-|-|-|
+|dataRequired|array|Data for rendering items in this section. Array of objects, similar to `FlatList`'s data prop.|
+|key|string|Optional key for tracking section re-ordering. Defaults to array index if not specified.|
+|renderItem|function|Optionally define an arbitrary item renderer for this section, overriding the default `renderItem`.|
+|ItemSeparatorComponent|component, element|Optionally define an arbitrary item separator for this section, overriding the default `ItemSeparatorComponent`.|
+|keyExtractor|function|Optionally define a custom key extractor for this section, overriding the default `keyExtractor`.|
 
 ## AccessibilityInfo
 
@@ -10497,7 +10497,7 @@ The `AccessibilityInfo` API is designed to determine if a screen reader or other
 
 ### Example
 
-_Example content omitted._
+*Example content omitted.*
 
 ### Reference
 
@@ -10516,16 +10516,16 @@ static addEventListener(
 
 Adds an event handler for various accessibility-related events. Supported events include:
 
-| Event Name | Description |
-| --- | --- |
-| `accessibilityServiceChanged` (Android) | Fires when any accessibility services, such as TalkBack or third-party apps, are enabled. The argument is a boolean: `true` if enabled, otherwise `false`. |
-| `announcementFinished` (iOS) | Fires after the screen reader finishes an announcement. Argument includes: - `announcement`: The announced string.<br>- `success`: Boolean indicating success of the announcement. |
-| `boldTextChanged` (iOS) | Fires when bold text toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
-| `grayscaleChanged` (iOS) | Fires when grayscale toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
-| `invertColorsChanged` (iOS) | Fires when invert colors toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
-| `reduceMotionChanged` | Fires when reduce motion toggle state changes. Argument is a boolean: `true` if enabled or "Animation off" in Developer options, otherwise `false`. |
-| `reduceTransparencyChanged` (iOS) | Fires when reduce transparency toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
-| `screenReaderChanged` | Fires when the screen reader's state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
+|Event Name|Description|
+|-|-|
+|`accessibilityServiceChanged` (Android)|Fires when any accessibility services, such as TalkBack or third-party apps, are enabled. The argument is a boolean: `true` if enabled, otherwise `false`.|
+|`announcementFinished` (iOS)|Fires after the screen reader finishes an announcement. Argument includes: - `announcement`: The announced string.<br>- `success`: Boolean indicating success of the announcement.|
+|`boldTextChanged` (iOS)|Fires when bold text toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`.|
+|`grayscaleChanged` (iOS)|Fires when grayscale toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`.|
+|`invertColorsChanged` (iOS)|Fires when invert colors toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`.|
+|`reduceMotionChanged`|Fires when reduce motion toggle state changes. Argument is a boolean: `true` if enabled or "Animation off" in Developer options, otherwise `false`.|
+|`reduceTransparencyChanged` (iOS)|Fires when reduce transparency toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`.|
+|`screenReaderChanged`|Fires when the screen reader's state changes. Argument is a boolean: `true` if enabled, otherwise `false`.|
 
 ##### `announceForAccessibility()`
 
@@ -10548,10 +10548,10 @@ Posts a string for the screen reader with modification options. By default, anno
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| announcement | string | The string to be announced. |
-| options | object | Contains `queue`: If set to `true`, queues the announcement behind existing speech on iOS. |
+|Name|Type|Description|
+|-|-|-|
+|announcement|string|The string to be announced.|
+|options|object|Contains `queue`: If set to `true`, queues the announcement behind existing speech on iOS.|
 
 ##### `getRecommendedTimeoutMillis()` (Android)
 
@@ -10563,9 +10563,9 @@ Returns the recommended timeout in milliseconds based on "Accessibility timeout"
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| originalTimeout | number | The fallback timeout in milliseconds if no accessibility timeout is set. |
+|Name|Type|Description|
+|-|-|-|
+|originalTimeout|number|The fallback timeout in milliseconds if no accessibility timeout is set.|
 
 ##### `isAccessibilityServiceEnabled()` (Android)
 
@@ -10699,7 +10699,7 @@ static currentState: AppStateStatus;
 
 ### Example
 
----
+***
 
 ### Reference
 
@@ -10715,25 +10715,25 @@ Returns an object containing all common and specific platform-related constants.
 
 **Properties:**
 
-| Name | Type | Optional | Description |
-| --- | --- | --- | --- |
-| isTesting | boolean | No |  |
-| reactNativeVersion | object | No | Information about React Native version. Keys are `major`, `minor`, `patch` with optional `prerelease` and values are `number`s. |
-| VersionAndroid | number | No | OS version constant specific to Android. |
-| ReleaseAndroid | string | No |  |
-| SerialAndroid | string | No | Hardware serial number of an Android device. |
-| FingerprintAndroid | string | No | A unique identifier for the build. |
-| ModelAndroid | string | No | The end-user-visible name for the Android device. |
-| BrandAndroid | string | No | The consumer-visible brand associated with the product/hardware. |
-| ManufacturerAndroid | string | No | The manufacturer of the Android device. |
-| ServerHostAndroid | string | Yes |  |
-| uiModeAndroid | string | No | Possible values: `'car'`, `'desk'`, `'normal'`,`'tv'`, `'watch'` and `'unknown'`. Read more about Android ModeType. |
-| forceTouchAvailableiOS | boolean | No | Indicates the availability of 3D Touch on a device. |
-| interfaceIdiomiOS | string | No | The interface type for the device. Read more about UIUserInterfaceIdiom. |
-| osVersioniOS | string | No | OS version constant specific to iOS. |
-| systemNameiOS | string | No | OS name constant specific to iOS. |
+|Name|Type|Optional|Description|
+|-|-|-|-|
+|isTesting|boolean|No||
+|reactNativeVersion|object|No|Information about React Native version. Keys are `major`, `minor`, `patch` with optional `prerelease` and values are `number`s.|
+|VersionAndroid|number|No|OS version constant specific to Android.|
+|ReleaseAndroid|string|No||
+|SerialAndroid|string|No|Hardware serial number of an Android device.|
+|FingerprintAndroid|string|No|A unique identifier for the build.|
+|ModelAndroid|string|No|The end-user-visible name for the Android device.|
+|BrandAndroid|string|No|The consumer-visible brand associated with the product/hardware.|
+|ManufacturerAndroid|string|No|The manufacturer of the Android device.|
+|ServerHostAndroid|string|Yes||
+|uiModeAndroid|string|No|Possible values: `'car'`, `'desk'`, `'normal'`,`'tv'`, `'watch'` and `'unknown'`. Read more about Android ModeType.|
+|forceTouchAvailableiOS|boolean|No|Indicates the availability of 3D Touch on a device.|
+|interfaceIdiomiOS|string|No|The interface type for the device. Read more about UIUserInterfaceIdiom.|
+|osVersioniOS|string|No|OS version constant specific to iOS.|
+|systemNameiOS|string|No|OS name constant specific to iOS.|
 
----
+***
 
 #### `isPad`iOS
 
@@ -10743,11 +10743,11 @@ static isPad: boolean;
 
 Returns a boolean indicating if the device is an iPad.
 
-| Type    |
-| ------- |
-| boolean |
+|Type|
+|-|
+|boolean|
 
----
+***
 
 #### `isTV`
 
@@ -10757,11 +10757,11 @@ static isTV: boolean;
 
 Returns a boolean indicating if the device is a TV.
 
-| Type    |
-| ------- |
-| boolean |
+|Type|
+|-|
+|boolean|
 
----
+***
 
 #### `isVision`
 
@@ -10771,11 +10771,11 @@ static isVision: boolean;
 
 Returns a boolean indicating if the device is an Apple Vision. Note that for Apple Vision Pro (Designed for iPad), `isVision` will be `false`, but `isPad` will be `true`.
 
-| Type    |
-| ------- |
-| boolean |
+|Type|
+|-|
+|boolean|
 
----
+***
 
 #### `isTesting`
 
@@ -10785,11 +10785,11 @@ static isTesting: boolean;
 
 Returns a boolean indicating if the application is running in Developer Mode with the testing flag set.
 
-| Type    |
-| ------- |
-| boolean |
+|Type|
+|-|
+|boolean|
 
----
+***
 
 #### `OS`
 
@@ -10799,11 +10799,11 @@ static OS: 'android' | 'ios';
 
 Returns a string representing the current operating system.
 
-| Type                       |
-| -------------------------- |
-| enum(`'android'`, `'ios'`) |
+|Type|
+|-|
+|enum(`'android'`, `'ios'`)|
 
----
+***
 
 #### `Version`
 
@@ -10813,9 +10813,9 @@ static Version: 'number' | 'string';
 
 Returns the version of the OS, as either a number for Android or a string for iOS.
 
-| Type                         |
-| ---------------------------- |
-| numberAndroid\*\*\*stringiOS |
+|Type|
+|-|
+|numberAndroid\*\*\*stringiOS|
 
 ### Methods
 
@@ -10829,9 +10829,9 @@ Returns the most fitting value for the platform you are currently running on.
 
 ##### Parameters:
 
-| Name   | Type   | Required | Description                          |
-| ------ | ------ | -------- | ------------------------------------ |
-| config | object | Yes      | See configuration description below. |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|config|object|Yes|See configuration description below.|
 
 The `select` method returns the most appropriate value based on the current platform. If running on a phone, keys for `android` and `ios` take precedence. If these are not specified, the `native` key is used, followed by the `default` key.
 
@@ -11453,10 +11453,10 @@ Adds a custom menu item to the Developer Menu.
 
 **Parameters:**
 
-| Name    | Type     |
-| ------- | -------- |
-| title   | string   |
-| handler | function |
+|Name|Type|
+|-|-|
+|title|string|
+|handler|function|
 
 **Example Usage:**
 
@@ -11480,7 +11480,7 @@ Reloads the application. This can be triggered directly or through user interact
 <Button title="Reload" onPress={() => DevSettings.reload()} />
 ```
 
----
+***
 
 ### Related Modules
 
@@ -11555,10 +11555,10 @@ This method opens a dialog to share text content.
 
 **Properties:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| contentRequired | object | - `message`: A message to share<br>- `url`: A URL to share<br>- iOS: `title`: Title of the message<br>- Android: At least one of `url` or `message` is required. |
-| options | object | - Android: `dialogTitle`<br>- iOS: `excludedActivityTypes`, `subject` (a subject for email), `tintColor`, `anchor` (node to anchor the action sheet, used on iPad) |
+|Name|Type|Description|
+|-|-|-|
+|contentRequired|object|- `message`: A message to share<br>- `url`: A URL to share<br>- iOS: `title`: Title of the message<br>- Android: At least one of `url` or `message` is required.|
+|options|object|- Android: `dialogTitle`<br>- iOS: `excludedActivityTypes`, `subject` (a subject for email), `tintColor`, `anchor` (node to anchor the action sheet, used on iPad)|
 
 ### Properties
 
@@ -11589,7 +11589,7 @@ A React Node can be one of several types:
 - A **React element**, which results from JSX.
 - An array containing any of the above types, potentially nested.
 
----
+***
 
 ### Related Object Types
 
@@ -11600,7 +11600,7 @@ A React Node can be one of several types:
 - Rect Object Type
 - ViewToken Object Type
 
----
+***
 
 #### Navigation
 
@@ -11713,7 +11713,7 @@ Add an event handler. Supported events:
 
 - `change`: Triggers when a property within the `Dimensions` object changes. The argument to the event handler is of type `DimensionsValue`.
 
----
+***
 
 #### `get()`
 
@@ -11731,13 +11731,13 @@ const { height, width } = Dimensions.get("window")
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| dimRequired | string | The name of the dimension as defined when calling `set`. Returns value for the dimension. |
+|Name|Type|Description|
+|-|-|-|
+|dimRequired|string|The name of the dimension as defined when calling `set`. Returns value for the dimension.|
 
 > Note: On Android, the `window` dimension excludes the size used by the status bar (if not translucent) and bottom navigation bar.
 
----
+***
 
 ### Type Definitions
 
@@ -11745,25 +11745,25 @@ const { height, width } = Dimensions.get("window")
 
 **Properties:**
 
-| Name   | Type       | Description                             |
-| ------ | ---------- | --------------------------------------- |
-| window | ScaledSize | Size of the visible Application window. |
-| screen | ScaledSize | Size of the device's screen.            |
+|Name|Type|Description|
+|-|-|-|
+|window|ScaledSize|Size of the visible Application window.|
+|screen|ScaledSize|Size of the device's screen.|
 
 #### ScaledSize
 
-| Type   |
-| ------ |
-| object |
+|Type|
+|-|
+|object|
 
 **Properties:**
 
-| Name      | Type   |
-| --------- | ------ |
-| width     | number |
-| height    | number |
-| scale     | number |
-| fontScale | number |
+|Name|Type|
+|-|-|
+|width|number|
+|height|number|
+|scale|number|
+|fontScale|number|
 
 ## Props in React Native
 
@@ -11830,7 +11830,7 @@ Directly sets the value, stopping any running animations and updating all bound 
 
 **Parameters:**
 
-- **value**: _number_ (Required) - The new value to set.
+- **value**: *number* (Required) - The new value to set.
 
 ##### `setOffset()`
 
@@ -11842,7 +11842,7 @@ Applies an offset on top of the current value, useful for adjustments like compe
 
 **Parameters:**
 
-- **offset**: _number_ (Required) - The offset value to apply.
+- **offset**: *number* (Required) - The offset value to apply.
 
 ##### `flattenOffset()`
 
@@ -11870,7 +11870,7 @@ Adds an asynchronous listener for observing updates from animations. Returns a s
 
 **Parameters:**
 
-- **callback**: _function_ (Required) - A function receiving an object with a `value` key set to the new value.
+- **callback**: *function* (Required) - A function receiving an object with a `value` key set to the new value.
 
 ##### `removeListener()`
 
@@ -11882,7 +11882,7 @@ Unregisters a listener using the identifier returned by `addListener()`.
 
 **Parameters:**
 
-- **id**: _string_ (Required) - The identifier of the listener being removed.
+- **id**: *string* (Required) - The identifier of the listener being removed.
 
 ##### `removeAllListeners()`
 
@@ -11902,7 +11902,7 @@ Stops any running animation or tracking. Optionally invokes a callback with the 
 
 **Parameters:**
 
-- **callback**: _function_ (Optional) - A function receiving the final value after stopping the animation.
+- **callback**: *function* (Optional) - A function receiving the final value after stopping the animation.
 
 ##### `resetAnimation()`
 
@@ -11914,7 +11914,7 @@ Stops any animation and resets the value to its original state. Optionally invok
 
 **Parameters:**
 
-- **callback**: _function_ (Optional) - A function receiving the original value after resetting the animation.
+- **callback**: *function* (Optional) - A function receiving the original value after resetting the animation.
 
 ##### `interpolate()`
 
@@ -11926,13 +11926,13 @@ Interpolates the value before updating properties, e.g., mapping 0-1 to 0-10. Se
 
 **Parameters:**
 
-- **config**: _object_ (Required) - Configuration object with keys:
-  - **inputRange**: _array of numbers_
-  - **outputRange**: _array of numbers or strings_
-  - **easing** (optional): _function_ returning a number given an input number
-  - **extrapolate** (optional): _string_ such as 'extend', 'identity', or 'clamp'
-  - **extrapolateLeft** (optional): _string_ such as 'extend', 'identity', or 'clamp'
-  - **extrapolateRight** (optional): _string_ such as 'extend', 'identity', or 'clamp'
+- **config**: *object* (Required) - Configuration object with keys:
+  - **inputRange**: *array of numbers*
+  - **outputRange**: *array of numbers or strings*
+  - **easing** (optional): *function* returning a number given an input number
+  - **extrapolate** (optional): *string* such as 'extend', 'identity', or 'clamp'
+  - **extrapolateLeft** (optional): *string* such as 'extend', 'identity', or 'clamp'
+  - **extrapolateRight** (optional): *string* such as 'extend', 'identity', or 'clamp'
 
 ##### `animate()`
 
@@ -11944,10 +11944,10 @@ Typically used internally but can be utilized by a custom Animation class.
 
 **Parameters:**
 
-| Name      | Type      | Required | Description         |
-| --------- | --------- | -------- | ------------------- |
-| animation | Animation | Yes      | See `Animation.js`. |
-| callback  | function  | Yes      | Callback function.  |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|animation|Animation|Yes|See `Animation.js`.|
+|callback|function|Yes|Callback function.|
 
 ## Systrace
 
@@ -12244,7 +12244,7 @@ For Android applications, it is necessary to request the `android.permission.VIB
 
 On iOS devices, vibration functionality is achieved using the `AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)` method.
 
----
+***
 
 ### Reference
 
@@ -12258,7 +12258,7 @@ static cancel(): void;
 
 This method stops any ongoing vibrations that were initiated with a repeating pattern by calling `vibrate()`.
 
----
+***
 
 ##### `vibrate()`
 
@@ -12278,10 +12278,10 @@ The `vibrate()` method can accept a `pattern` argument, which is an array of num
 
 **Parameters:**
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| pattern | number \| number\[] | `400` | Specifies either a single duration for vibration in milliseconds or an array of times. |
-| repeat | boolean | `false` | If true, the vibration pattern will continue until `cancel()` is called. |
+|Name|Type|Default|Description|
+|-|-|-|-|
+|pattern|number \| number\[]|`400`|Specifies either a single duration for vibration in milliseconds or an array of times.|
+|repeat|boolean|`false`|If true, the vibration pattern will continue until `cancel()` is called.|
 
 ## Animated.ValueXY
 
@@ -12289,7 +12289,7 @@ A 2D value designed for driving 2D animations such as pan gestures. It shares a 
 
 ### Example
 
-_Example content not provided._
+*Example content not provided.*
 
 ### Reference
 
@@ -12464,7 +12464,7 @@ useWindowDimensions().fontScale
 
 This property indicates the current font size scale. Some operating systems allow users to adjust their font sizes for better readability. This value reflects any such adjustments.
 
----
+***
 
 #### `height`
 
@@ -12474,7 +12474,7 @@ useWindowDimensions().height
 
 Represents the height in pixels of the window or screen that your application occupies.
 
----
+***
 
 #### `scale`
 
@@ -12487,7 +12487,7 @@ This property provides the pixel ratio of the device. Possible values include:
 - `1`: One point equals one pixel (commonly PPI/DPI of 96, 76 on some platforms).
 - `2` or `3`: Indicates a Retina or high DPI display.
 
----
+***
 
 #### `width`
 
@@ -12526,10 +12526,10 @@ Connects a JavaScript function to a specified native keyboard notification event
 
 **Parameters:**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| `eventType` | string | Identifies the event you're listening for. See list below. |
-| `listener` | function | The callback function executed when the event occurs. |
+|Name|Type|Description|
+|-|-|-|
+|`eventType`|string|Identifies the event you're listening for. See list below.|
+|`listener`|function|The callback function executed when the event occurs.|
 
 **Supported Events:**
 
@@ -12657,9 +12657,9 @@ Returns a promise resolving to a boolean indicating whether the specified permis
 
 **Parameters:**
 
-| Name       | Type   | Required | Description                  |
-| ---------- | ------ | -------- | ---------------------------- |
-| permission | string | Yes      | The permission to check for. |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|permission|string|Yes|The permission to check for.|
 
 ##### `request()`
 
@@ -12682,20 +12682,20 @@ If `rationale` is provided, this function checks with the OS whether it is neces
 
 **Parameters:**
 
-| Name       | Type   | Required | Description                |
-| ---------- | ------ | -------- | -------------------------- |
-| permission | string | Yes      | The permission to request. |
-| rationale  | object | No       | See `rationale` below.     |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|permission|string|Yes|The permission to request.|
+|rationale|object|No|See `rationale` below.|
 
 **Rationale:**
 
-| Name           | Type   | Required | Description                      |
-| -------------- | ------ | -------- | -------------------------------- |
-| title          | string | Yes      | The title of the dialog.         |
-| message        | string | Yes      | The message of the dialog.       |
-| buttonPositive | string | Yes      | The text of the positive button. |
-| buttonNegative | string | No       | The text of the negative button. |
-| buttonNeutral  | string | No       | The text of the neutral button.  |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|title|string|Yes|The title of the dialog.|
+|message|string|Yes|The message of the dialog.|
+|buttonPositive|string|Yes|The text of the positive button.|
+|buttonNegative|string|No|The text of the negative button.|
+|buttonNeutral|string|No|The text of the neutral button.|
 
 ##### `requestMultiple()`
 
@@ -12709,9 +12709,9 @@ Prompts the user to enable multiple permissions in the same dialog and returns a
 
 **Parameters:**
 
-| Name        | Type  | Required | Description                      |
-| ----------- | ----- | -------- | -------------------------------- |
-| permissions | array | Yes      | Array of permissions to request. |
+|Name|Type|Required|Description|
+|-|-|-|-|
+|permissions|array|Yes|Array of permissions to request.|
 
 ## Signing Your Android Application for Distribution
 

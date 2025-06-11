@@ -217,9 +217,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## useAnimatedScrollHandler
 
@@ -281,9 +281,9 @@ The hook returns a handler object suitable for integration with a scrollable con
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## useEvent Hook Overview
 
@@ -338,9 +338,9 @@ For simpler implementations, consider using `useScrollViewOffset`.
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 This overview provides a concise guide to using the `useEvent` hook effectively within React Native Reanimated projects.
 
@@ -406,9 +406,9 @@ For simpler implementations, consider using `useScrollViewOffset`.
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 This documentation provides a comprehensive overview of how to utilize the `useHandler` hook within React Native Reanimated for creating custom event handlers.
 
@@ -480,9 +480,9 @@ keyframe
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Troubleshooting
 
@@ -904,9 +904,9 @@ Expand the full code:
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ❌  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|❌|
 
 ## useAnimatedScrollHandler
 
@@ -968,9 +968,9 @@ The hook returns a handler object suitable for integration with a scrollable con
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## scrollTo Function in React Native Reanimated
 
@@ -1018,9 +1018,9 @@ The `scrollTo` function returns `undefined`.
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## getRelativeCoords Functionality
 
@@ -1071,9 +1071,9 @@ An object containing:
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## useAnimatedGestureHandler
 
@@ -1132,9 +1132,9 @@ The `useAnimatedGestureHandler` hook returns a handler object that can be attach
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ⚠️  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|⚠️|
 
 - On the Web, it is necessary to pass the returned handler object to both `onGestureEvent` and `onHandlerStateChange` parameters.
 
@@ -1183,9 +1183,9 @@ The hook returns a shared value representing the current offset of the `ScrollVi
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ```markdown
 # Advanced APIs - Version 3.x
@@ -1417,9 +1417,9 @@ The `withRepeat` function returns an animation object representing the current s
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Measure Functionality in React Native Reanimated
 
@@ -1455,14 +1455,14 @@ function App() {
 
 The `measure` function returns an object containing:
 
-| Field | Description |
-| --- | --- |
-| `x` | A number representing the X coordinate relative to the parent component. |
-| `y` | A number representing the Y coordinate relative to the parent component. |
-| `width` | A number representing the width of the component. |
-| `height` | A number representing the height of the component. |
-| `pageX` | A number representing the X coordinate relative to the screen. |
-| `pageY` | A number representing the Y coordinate relative to the screen. |
+|Field|Description|
+|-|-|
+|`x`|A number representing the X coordinate relative to the parent component.|
+|`y`|A number representing the Y coordinate relative to the parent component.|
+|`width`|A number representing the width of the component.|
+|`height`|A number representing the height of the component.|
+|`pageX`|A number representing the X coordinate relative to the screen.|
+|`pageY`|A number representing the Y coordinate relative to the screen.|
 
 Alternatively, it returns `null` if the measurement could not be performed.
 
@@ -1510,9 +1510,9 @@ Alternatively, it returns `null` if the measurement could not be performed.
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## useAnimatedReaction
 
@@ -1601,9 +1601,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ````markdown
 # withSequence
@@ -1640,9 +1640,9 @@ The `withSequence` function returns an animation object representing the current
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ````
 
@@ -1700,9 +1700,9 @@ The `useFrameCallback` hook returns an object with these properties:
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 - Reference
   - Arguments
@@ -1909,7 +1909,7 @@ function App() {
 
 - **`delayedAnimation`**: The animation that will be delayed.
 
-- **`reduceMotion`** _(Optional)_: Determines how the animation responds to the device's reduced motion accessibility setting.
+- **`reduceMotion`** *(Optional)*: Determines how the animation responds to the device's reduced motion accessibility setting.
 
 #### Returns
 
@@ -1917,15 +1917,15 @@ The `withDelay` function returns an animation object representing the current st
 
 ### Example
 
-_(Example content would go here)_
+*(Example content would go here)*
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
----
+***
 
 ## useAnimatedKeyboard in React Native Reanimated (Version: 3.x)
 
@@ -1963,10 +1963,10 @@ An optional configuration object that includes:
 
 The `useAnimatedKeyboard` hook returns an object with the following fields:
 
-| Name | Type | Description |
-| --- | --- | --- |
-| height | `SharedValue<number>` | A shared value representing the current height of the keyboard. |
-| state | `SharedValue<KeyboardState>` | A shared value indicating the current state of the keyboard. Possible states: `{ CLOSED, OPEN, CLOSING, OPENING }` |
+|Name|Type|Description|
+|-|-|-|
+|height|`SharedValue<number>`|A shared value representing the current height of the keyboard.|
+|state|`SharedValue<KeyboardState>`|A shared value indicating the current state of the keyboard. Possible states: `{ CLOSED, OPEN, CLOSING, OPENING }`|
 
 ### Remarks
 
@@ -1990,9 +1990,9 @@ The `useAnimatedKeyboard` hook returns an object with the following fields:
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ❌  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|❌|
 
 - **Reference**
 
@@ -2060,9 +2060,9 @@ The hook returns a handler object that can be used with any `Animated component`
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## dispatchCommand
 
@@ -2114,9 +2114,9 @@ const goDown = Gesture.Tap().onStart(() => {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ❌  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|❌|
 
 ## withClamp
 
@@ -2139,10 +2139,10 @@ function App() {
 
 An object containing the following properties:
 
-| Name | Type   | Description                                           |
-| ---- | ------ | ----------------------------------------------------- |
-| min  | number | Optional. The lowest value your animation can reach.  |
-| max  | number | Optional. The highest value your animation can reach. |
+|Name|Type|Description|
+|-|-|-|
+|min|number|Optional. The lowest value your animation can reach.|
+|max|number|Optional. The highest value your animation can reach.|
 
 ##### `animation`
 
@@ -2160,11 +2160,11 @@ const clampedStyleWithDelay = useAnimatedStyle(() => {
 
 `withClamp` returns an animation object. This can be directly assigned to a shared value or used as a style value in `useAnimatedStyle`.
 
-| Platform | Supported |
-| -------- | --------- |
-| Android  | ✅        |
-| iOS      | ✅        |
-| Web      | ✅        |
+|Platform|Supported|
+|-|-|
+|Android|✅|
+|iOS|✅|
+|Web|✅|
 
 ## useAnimatedSensor
 
@@ -2206,11 +2206,11 @@ Specifies the sensor type using a `SensorType` enum:
 
 ##### `config` (Optional)
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| interval | `number \| "auto"` | `"auto"` | Time between sensor readings in milliseconds. `"auto"` matches the device's screen refresh rate. |
-| adjustToInterfaceOrientation | `boolean` | `true` | Adjusts measurements to the current interface orientation. |
-| iosReferenceFrame | `IOSReferenceFrame` | `IOSReferenceFrame.Auto` | Frame of reference for iOS sensors. |
+|Name|Type|Default|Description|
+|-|-|-|-|
+|interval|`number \| "auto"`|`"auto"`|Time between sensor readings in milliseconds. `"auto"` matches the device's screen refresh rate.|
+|adjustToInterfaceOrientation|`boolean`|`true`|Adjusts measurements to the current interface orientation.|
+|iosReferenceFrame|`IOSReferenceFrame`|`IOSReferenceFrame.Auto`|Frame of reference for iOS sensors.|
 
 Available `IOSReferenceFrame` options:
 
@@ -2224,12 +2224,12 @@ Available `IOSReferenceFrame` options:
 
 `useAnimatedSensor` returns an object:
 
-| Name | Type | Description |
-| --- | --- | --- |
-| sensor | `SharedValue<Value3D \| ValueRotation>` | Shared value with sensor measurements. |
-| unregister | `() => void` | Stops listening to sensor updates when called. |
-| isAvailable | `boolean` | Indicates if the sensor is available for use. |
-| config | `SensorConfig` | Contains sensor configuration details. |
+|Name|Type|Description|
+|-|-|-|
+|sensor|`SharedValue<Value3D \| ValueRotation>`|Shared value with sensor measurements.|
+|unregister|`() => void`|Stops listening to sensor updates when called.|
+|isAvailable|`boolean`|Indicates if the sensor is available for use.|
+|config|`SensorConfig`|Contains sensor configuration details.|
 
 The shared value from the **rotation sensor** includes:
 
@@ -2278,9 +2278,9 @@ export default function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## setNativeProps
 
@@ -2325,11 +2325,11 @@ The function returns `undefined`.
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
----
+***
 
 ## React Native Reanimated: useReducedMotion Hook (Version 3.x)
 
@@ -2382,9 +2382,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 This hook is compatible across Android, iOS, and Web platforms.
 
@@ -2418,7 +2418,7 @@ This argument specifies the initial value to be stored in the mutable. It can en
 
 ### Remarks
 
-**Info:** The term _mutable value_ refers to an object created by `makeMutable`, distinguishing it from a _shared value_, which is essentially a mutable value with automatic cleanup.
+**Info:** The term *mutable value* refers to an object created by `makeMutable`, distinguishing it from a *shared value*, which is essentially a mutable value with automatic cleanup.
 
 - All remarks applicable to the `useSharedValue` hook are relevant to `makeMutable`.
 - Avoid invoking `makeMutable` directly within component scope. Component re-renders will generate a new object, potentially resetting the initial value and losing previous state.
@@ -2477,19 +2477,19 @@ function App() {
 
 #### Comparison with `useSharedValue`
 
-| Feature | `makeMutable` | `useSharedValue` |
-| --- | --- | --- |
-| Object Creation | Creates a new object on each call | Reuses the same object on each call |
-| Initial Value Change | A new object is created if `initial` changes | The initially created object remains unchanged if `initialValue` changes |
-| Scope Usage | Can be used outside of component scope | Limited to use within component scope |
-| Loop Usage | Usable in loops with variable iterations | Usable in loops only if the number of hooks (`useSharedValue` calls) is constant |
-| Animation Cancellation | Does not automatically cancel animations on unmount | Automatically cancels animations when the component unmounts |
+|Feature|`makeMutable`|`useSharedValue`|
+|-|-|-|
+|Object Creation|Creates a new object on each call|Reuses the same object on each call|
+|Initial Value Change|A new object is created if `initial` changes|The initially created object remains unchanged if `initialValue` changes|
+|Scope Usage|Can be used outside of component scope|Limited to use within component scope|
+|Loop Usage|Usable in loops with variable iterations|Usable in loops only if the number of hooks (`useSharedValue` calls) is constant|
+|Animation Cancellation|Does not automatically cancel animations on unmount|Automatically cancels animations when the component unmounts|
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Accurate Call Stacks
 
@@ -2502,11 +2502,11 @@ function debugReanimatedCode() {
 }
 ```
 
-| Aspect | Description |
-| --- | --- |
-| **Issue** | Misleading call stacks in error or warning messages. |
-| **Cause** | Call stacks often highlight Reanimated's internal code rather than API misuse. |
-| **Impact** | Difficulty in identifying the true source of problems during debugging. |
+|Aspect|Description|
+|-|-|
+|**Issue**|Misleading call stacks in error or warning messages.|
+|**Cause**|Call stacks often highlight Reanimated's internal code rather than API misuse.|
+|**Impact**|Difficulty in identifying the true source of problems during debugging.|
 
 Understanding this behavior is crucial for effectively diagnosing and resolving issues within Reanimated projects.
 
@@ -2700,9 +2700,9 @@ This parameter determines how animations should respond to the device's reduced 
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 - Reference
   - Arguments
@@ -2734,17 +2734,17 @@ export default wrapWithReanimatedMetroConfig(config)
 
 The example below illustrates the difference in call stacks before and after applying the Reanimated Metro config wrapper. The **Before** scenario shows Reanimated source code as the error origin, while the **After** scenario reveals the actual incorrect code that caused the error.
 
-| Before | After |
-| ------ | ----- |
-|        |       |
+|Before|After|
+|-|-|
+|||
 
 ### Remarks
 
 - `wrapWithReanimatedMetroConfig` does not remove any stack frames; it only collapses irrelevant ones from Reanimated. To inspect these, you can expand collapsed stack frames by clicking on the **See N more frames** text at the bottom of the **Call Stack**.
 
-| Collapsed | Expanded |
-| --------- | -------- |
-|           |          |
+|Collapsed|Expanded|
+|-|-|
+|||
 
 - Some errors, especially those arising from asynchronous code, may still point to Reanimated internals instead of the exact problematic line in your code. This happens because stack traces can lose track of the original code that initiated the asynchronous operation. In such cases, manual debugging based on the error message is necessary to identify the potential cause of the problem.
 
@@ -2787,9 +2787,9 @@ configureReanimatedLogger({
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ```markdown
 # Guides
@@ -3315,11 +3315,11 @@ Use the latest supported version of Reanimated based on your app setup:
 - **Expo SDK**: Match major and minor versions with Expo SDK.
   - Example: Expo SDK 52 supports `~3.16.x`. Update to the latest patch, e.g., `3.16.7`.
 
-| Expo SDK Version | Reanimated Version |
-| ---------------- | ------------------ |
-| `52`             | `~3.16.1`          |
-| `51`             | `~3.10.1`          |
-| `50`             | `~3.6.2`           |
+|Expo SDK Version|Reanimated Version|
+|-|-|
+|`52`|`~3.16.1`|
+|`51`|`~3.10.1`|
+|`50`|`~3.6.2`|
 
 - **Expo Prebuild or React Native without Framework**: Use a version compatible with your React Native version according to the Compatibility table.
 
@@ -3370,25 +3370,25 @@ If problems persist after following these steps, submit an issue in the reposito
 
 ### Currently Supported React Native Versions (Paper)
 
-| Version | 0.63 | 0.64 | 0.65 | 0.66 | 0.67 | 0.68 | 0.69 | 0.70 | 0.71 | 0.72 | 0.73 | 0.74 | 0.75 | 0.76 | 0.77 | 0.78 | 0.79 | 0.80 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 3.18.0 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | yes | yes |
-| 3.17.4 - 3.17.5 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | yes | no |
-| 3.17.1 – 3.17.3 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | no | no |
-| 3.17.0 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | no | no | no |
-| 3.16.7 | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | no | no | no |
-| 3.16.0 – 3.16.6 | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | no | no | no | no |
-| 3.15.x | no | no | no | no | no | no | no | no | no | no | no | yes | yes | no | no | no | no | no |
-| 3.9.x – 3.14.x | no | no | no | no | no | no | no | no | no | no | no | yes | no | no | no | no | no | no |
-| 3.6.x – 3.8.x | no | no | no | yes | yes | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no |
-| 3.5.x | no | no | no | yes | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no |
-| 3.3.x – 3.4.x | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no |
-| 3.0.x – 3.2.x | yes | yes | yes | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no | no |
-| 2.14.x – 2.17.x | yes | yes | yes | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no | no |
-| 2.11.x – 2.13.x | yes | yes | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no | no | no |
-| 2.10.x | yes | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no | no | no | no |
-| 2.5.x – 2.9.x | yes | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no | no | no | no | no |
-| 2.3.x – 2.4.x | yes | yes | yes | yes | yes | no | no | no | no | no | no | no | no | no | no | no | no | no |
+|Version|0.63|0.64|0.65|0.66|0.67|0.68|0.69|0.70|0.71|0.72|0.73|0.74|0.75|0.76|0.77|0.78|0.79|0.80|
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|3.18.0|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|yes|yes|
+|3.17.4 - 3.17.5|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|yes|no|
+|3.17.1 – 3.17.3|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|no|no|
+|3.17.0|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|no|no|no|
+|3.16.7|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|no|no|no|
+|3.16.0 – 3.16.6|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|no|no|no|no|
+|3.15.x|no|no|no|no|no|no|no|no|no|no|no|yes|yes|no|no|no|no|no|
+|3.9.x – 3.14.x|no|no|no|no|no|no|no|no|no|no|no|yes|no|no|no|no|no|no|
+|3.6.x – 3.8.x|no|no|no|yes|yes|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|
+|3.5.x|no|no|no|yes|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|
+|3.3.x – 3.4.x|yes|yes|yes|yes|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|
+|3.0.x – 3.2.x|yes|yes|yes|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|no|
+|2.14.x – 2.17.x|yes|yes|yes|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|no|
+|2.11.x – 2.13.x|yes|yes|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|no|no|
+|2.10.x|yes|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|no|no|no|
+|2.5.x – 2.9.x|yes|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|no|no|no|no|
+|2.3.x – 2.4.x|yes|yes|yes|yes|yes|no|no|no|no|no|no|no|no|no|no|no|no|no|
 
 **Note:** Reanimated 2 will not receive support for the newest React Native versions. To access the latest features and updates, upgrade to Reanimated 3.
 
@@ -3398,19 +3398,19 @@ To use Reanimated with the experimental New Architecture, update the package to 
 
 Reanimated supports bridgeless mode.
 
-| Version | 0.63 | 0.64 | 0.65 | 0.66 | 0.67 | 0.68 | 0.69 | 0.70 | 0.71 | 0.72 | 0.73 | 0.74 | 0.75 | 0.76 | 0.77 | 0.78 | 0.79 | 0.80 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 3.18.0 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | yes | yes |
-| 3.17.4 - 3.17.5 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | yes | no |
-| 3.17.1 – 3.17.3 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | no | no |
-| 3.17.0 | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | no | no | no |
-| 3.16.7 | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | no | no | no |
-| 3.16.0 – 3.16.6 | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | no | no | no | no |
-| 3.15.x | no | no | no | no | no | no | no | no | no | no | no | yes | yes | no | no | no | no | no |
-| 3.9.x – 3.14.x | no | no | no | no | no | no | no | no | no | no | no | yes | no | no | no | no | no | no |
-| 3.6.x – 3.8.x | no | no | no | no | no | no | no | no | no | yes | yes | no | no | no | no | no | no | no |
-| 3.1.x – 3.5.x | no | no | no | no | no | no | no | no | no | yes | no | no | no | no | no | no | no | no |
-| 3.0.x | no | no | no | no | no | no | no | no | yes | no | no | no | no | no | no | no | no | no |
+|Version|0.63|0.64|0.65|0.66|0.67|0.68|0.69|0.70|0.71|0.72|0.73|0.74|0.75|0.76|0.77|0.78|0.79|0.80|
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|3.18.0|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|yes|yes|
+|3.17.4 - 3.17.5|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|yes|no|
+|3.17.1 – 3.17.3|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|no|no|
+|3.17.0|no|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|no|no|no|
+|3.16.7|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|yes|no|no|no|
+|3.16.0 – 3.16.6|no|no|no|no|no|no|no|no|no|no|no|yes|yes|yes|no|no|no|no|
+|3.15.x|no|no|no|no|no|no|no|no|no|no|no|yes|yes|no|no|no|no|no|
+|3.9.x – 3.14.x|no|no|no|no|no|no|no|no|no|no|no|yes|no|no|no|no|no|no|
+|3.6.x – 3.8.x|no|no|no|no|no|no|no|no|no|yes|yes|no|no|no|no|no|no|no|
+|3.1.x – 3.5.x|no|no|no|no|no|no|no|no|no|yes|no|no|no|no|no|no|no|no|
+|3.0.x|no|no|no|no|no|no|no|no|yes|no|no|no|no|no|no|no|no|no|
 
 ## Animating Styles and Props
 
@@ -3579,9 +3579,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Contributing Guide for Reanimated
 
@@ -3982,9 +3982,9 @@ The duration is the sum of entering and exiting durations.
 
 #### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 This table indicates that all predefined transitions are compatible across Android, iOS, and web platforms.
 
@@ -4018,18 +4018,18 @@ For web applications, standard browser tools or any preferred debugging tools ca
 
 ### Compatibility Summary
 
-| Tool                      | Platform | JSC    | Hermes | V8     |
-| ------------------------- | -------- | ------ | ------ | ------ |
-| Chrome Debugger           | Android  | ⚛️ ✅¹ | ⚛️ ✅¹ | ⚛️ ✅¹ |
-|                           | iOS      | ⚛️ ✅¹ | ⚛️ ✅¹ | N/A    |
-| Chrome DevTools           | Android  | N/A    | ⚛️ ✅² | ⚛️     |
-|                           | iOS      | N/A    | ⚛️ ✅² | N/A    |
-| Flipper (Hermes debugger) | Android  | N/A    | ⚛️ ✅² | ⚛️     |
-|                           | iOS      | N/A    | ⚛️ ✅² | N/A    |
-| Safari DevTools           | Android  | N/A    | N/A    | N/A    |
-|                           | iOS      | ⚛️ ✅  | N/A    | N/A    |
-| React Developer Tools     | Android  | ⚛️     | ⚛️     | ⚛️     |
-|                           | iOS      | ⚛️     | ⚛️     | N/A    |
+|Tool|Platform|JSC|Hermes|V8|
+|-|-|-|-|-|
+|Chrome Debugger|Android|⚛️ ✅¹|⚛️ ✅¹|⚛️ ✅¹|
+||iOS|⚛️ ✅¹|⚛️ ✅¹|N/A|
+|Chrome DevTools|Android|N/A|⚛️ ✅²|⚛️|
+||iOS|N/A|⚛️ ✅²|N/A|
+|Flipper (Hermes debugger)|Android|N/A|⚛️ ✅²|⚛️|
+||iOS|N/A|⚛️ ✅²|N/A|
+|Safari DevTools|Android|N/A|N/A|N/A|
+||iOS|⚛️ ✅|N/A|N/A|
+|React Developer Tools|Android|⚛️|⚛️|⚛️|
+||iOS|⚛️|⚛️|N/A|
 
 ¹ - Functions use web implementations, running worklets on the JS thread. Measure and Layout Animations are unavailable. ² - Experimental feature.
 
@@ -4045,46 +4045,46 @@ For web applications, standard browser tools or any preferred debugging tools ca
 
 #### Chrome Debugger
 
-| Platform | JSC   | Hermes | V8    |
-| -------- | ----- | ------ | ----- |
-| Android  | ⚛️ ✅ | ⚛️ ✅  | ⚛️ ✅ |
-| iOS      | ⚛️ ✅ | ⚛️ ✅  | N/A   |
+|Platform|JSC|Hermes|V8|
+|-|-|-|-|
+|Android|⚛️ ✅|⚛️ ✅|⚛️ ✅|
+|iOS|⚛️ ✅|⚛️ ✅|N/A|
 
 **Summary:** Functions use web implementations, running on the JS thread. Measure and Layout Animations are unavailable.
 
 #### Chrome DevTools
 
-| Platform | JSC | Hermes | V8  |
-| -------- | --- | ------ | --- |
-| Android  | N/A | ⚛️ ✅² | ⚛️  |
-| iOS      | N/A | ⚛️ ✅² | N/A |
+|Platform|JSC|Hermes|V8|
+|-|-|-|-|
+|Android|N/A|⚛️ ✅²|⚛️|
+|iOS|N/A|⚛️ ✅²|N/A|
 
 **Summary:** Both contexts can be debugged. This is an experimental feature.
 
 #### Flipper (Hermes Debugger)
 
-| Platform | JSC | Hermes | V8  |
-| -------- | --- | ------ | --- |
-| Android  | N/A | ⚛️ ✅² | ⚛️  |
-| iOS      | N/A | ⚛️ ✅² | N/A |
+|Platform|JSC|Hermes|V8|
+|-|-|-|-|
+|Android|N/A|⚛️ ✅²|⚛️|
+|iOS|N/A|⚛️ ✅²|N/A|
 
 **Summary:** Both contexts can be debugged. This is an experimental feature.
 
 #### Safari DevTools
 
-| Platform | JSC   | Hermes | V8  |
-| -------- | ----- | ------ | --- |
-| Android  | N/A   | N/A    | N/A |
-| iOS      | ⚛️ ✅ | N/A    | N/A |
+|Platform|JSC|Hermes|V8|
+|-|-|-|-|
+|Android|N/A|N/A|N/A|
+|iOS|⚛️ ✅|N/A|N/A|
 
 **Summary:** Available only on iOS devices with the JSC engine. Worklet debugging is supported.
 
 #### React Developer Tools
 
-| Platform | JSC | Hermes | V8  |
-| -------- | --- | ------ | --- |
-| Android  | ⚛️  | ⚛️     | ⚛️  |
-| iOS      | ⚛️  | ⚛️     | N/A |
+|Platform|JSC|Hermes|V8|
+|-|-|-|-|
+|Android|⚛️|⚛️|⚛️|
+|iOS|⚛️|⚛️|N/A|
 
 **Summary:** Functions as expected, with profiler and layout inspector available.
 
@@ -4094,7 +4094,7 @@ For web applications, standard browser tools or any preferred debugging tools ca
 
 - **Known Issues:** Include reload failures, breakpoint issues on iOS, unresponsive consoles without animations, and more. These do not affect release builds or debug builds where the debugger is disconnected during a reload.
 
-_Efforts are ongoing to enhance debugging experiences with Chrome DevTools and Flipper on Hermes._
+*Efforts are ongoing to enhance debugging experiences with Chrome DevTools and Flipper on Hermes.*
 
 ## Incremental Migration from Reanimated 1 to Reanimated 2
 
@@ -4114,7 +4114,7 @@ The transition from Reanimated 1 to Reanimated 2 is designed to be incremental. 
 
 ## Getting Started
 
-The _Fundamentals_ section aims to establish a solid understanding of the core concepts of Reanimated, empowering you to explore more complex scenarios independently. This section includes interactive examples, code snippets, and detailed explanations.
+The *Fundamentals* section aims to establish a solid understanding of the core concepts of Reanimated, empowering you to explore more complex scenarios independently. This section includes interactive examples, code snippets, and detailed explanations.
 
 ### What is React Native Reanimated?
 
@@ -4577,9 +4577,9 @@ const customLayoutTransition = (values: any) => {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ❌  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|❌|
 
 ## useAnimatedProps
 
@@ -4682,9 +4682,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## React Native Reanimated: LayoutAnimationConfig (Version 3.x)
 
@@ -4748,9 +4748,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ❌  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|❌|
 
 - **Reference**
   - Arguments
@@ -5019,9 +5019,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 - **Example**
 - **Remarks**
@@ -5067,11 +5067,11 @@ Ensure `toValue` and the shared value being animated are of the same category (e
 
 The configuration for timing animations. Available properties:
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| duration | `number` | 300 | Length of the animation in milliseconds. |
-| easing | `Easing` | `Easing.inOut(Easing.quad)` | An easing function defining the animation curve. |
-| reduceMotion | `ReduceMotion` | `ReduceMotion.System` | Determines how the animation responds to reduced motion settings on devices. |
+|Name|Type|Default|Description|
+|-|-|-|-|
+|duration|`number`|300|Length of the animation in milliseconds.|
+|easing|`Easing`|`Easing.inOut(Easing.quad)`|An easing function defining the animation curve.|
+|reduceMotion|`ReduceMotion`|`ReduceMotion.System`|Determines how the animation responds to reduced motion settings on devices.|
 
 ###### `Easing`
 
@@ -5126,13 +5126,13 @@ A function called upon animation completion. If the animation is canceled, it re
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Getting Started
 
-The _Fundamentals_ section aims to establish a solid understanding of the core concepts of Reanimated, empowering you to explore more complex scenarios independently. This section includes interactive examples, code snippets, and detailed explanations.
+The *Fundamentals* section aims to establish a solid understanding of the core concepts of Reanimated, empowering you to explore more complex scenarios independently. This section includes interactive examples, code snippets, and detailed explanations.
 
 ### What is React Native Reanimated?
 
@@ -5340,9 +5340,9 @@ The hook returns a shared value representing the current offset of the `ScrollVi
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ```markdown
 # Overview
@@ -5387,7 +5387,7 @@ To understand its impact, compare a `linear` easing with the default easing. Rea
 
 Unlike `withTiming`, `withSpring` is physics-based and simulates real-world spring dynamics, making animations appear more realistic.
 
-When adjusting springs, focus on these three properties: `mass`, `stiffness` (also known as _tension_), and `damping` (also known as _friction_).
+When adjusting springs, focus on these three properties: `mass`, `stiffness` (also known as *tension*), and `damping` (also known as *friction*).
 
 ```typescript
 import { withSpring } from "react-native-reanimated"
@@ -5467,31 +5467,31 @@ Configuration options for spring animations:
 
 **Physics-based Spring Configuration:**
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| mass (optional) | `number` | 1 | The weight of the spring. Lower values make the animation faster. |
-| damping (optional) | `number` | 10 | Controls how quickly a spring slows down; higher values result in quicker rest. |
+|Name|Type|Default|Description|
+|-|-|-|-|
+|mass (optional)|`number`|1|The weight of the spring. Lower values make the animation faster.|
+|damping (optional)|`number`|10|Controls how quickly a spring slows down; higher values result in quicker rest.|
 
 **Duration-based Spring Configuration:**
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| duration (optional) | `number` | 2000 | Length of the animation in milliseconds. Available in Reanimated ≥ 3.2.x. |
-| dampingRatio (optional) | `number` | 0.5 | Determines how damped the spring is; `1` means critically damped, and values >1 mean overdamped. Available in Reanimated ≥ 3.2.x. |
+|Name|Type|Default|Description|
+|-|-|-|-|
+|duration (optional)|`number`|2000|Length of the animation in milliseconds. Available in Reanimated ≥ 3.2.x.|
+|dampingRatio (optional)|`number`|0.5|Determines how damped the spring is; `1` means critically damped, and values >1 mean overdamped. Available in Reanimated ≥ 3.2.x.|
 
 **Note**: The `mass` and `damping` properties cannot be used simultaneously with `duration` and `dampingRatio`. When both are provided, `duration` and `dampingRatio` take precedence.
 
 **Common Spring Configuration:**
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| stiffness (optional) | `number` | 100 | Determines the bounciness of the spring. |
-| velocity (optional) | `number` | 0 | Initial velocity applied to the spring equation. |
-| overshootClamping (optional) | `boolean` | false | Prevents the spring from bouncing over the `toValue`. |
-| restDisplacementThreshold (optional) | `number` | 0.01 | Displacement below which the spring will settle at `toValue`. |
-| restSpeedThreshold (optional) | `number` | 2 | Speed threshold in pixels per second for settling at `toValue`. |
-| reduceMotion (optional) | `ReduceMotion` | `ReduceMotion.System` | Determines animation response to reduced motion settings. Available in Reanimated ≥ 3.5.x. |
-| clamp (optional) | `[number, number]` | `undefined` | Limits the movement scope; reduces bounciness if exceeded. Available in Reanimated ≥ 3.6.x. |
+|Name|Type|Default|Description|
+|-|-|-|-|
+|stiffness (optional)|`number`|100|Determines the bounciness of the spring.|
+|velocity (optional)|`number`|0|Initial velocity applied to the spring equation.|
+|overshootClamping (optional)|`boolean`|false|Prevents the spring from bouncing over the `toValue`.|
+|restDisplacementThreshold (optional)|`number`|0.01|Displacement below which the spring will settle at `toValue`.|
+|restSpeedThreshold (optional)|`number`|2|Speed threshold in pixels per second for settling at `toValue`.|
+|reduceMotion (optional)|`ReduceMotion`|`ReduceMotion.System`|Determines animation response to reduced motion settings. Available in Reanimated ≥ 3.5.x.|
+|clamp (optional)|`[number, number]`|`undefined`|Limits the movement scope; reduces bounciness if exceeded. Available in Reanimated ≥ 3.6.x.|
 
 ##### `callback` (Optional)
 
@@ -5509,9 +5509,9 @@ A function executed upon animation completion. If the animation is canceled, it 
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## useAnimatedRef
 
@@ -5588,9 +5588,9 @@ Alternatively, you can access the value in `current` through event handlers or t
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## createWorkletRuntime
 
@@ -5790,9 +5790,9 @@ The `useDerivedValue` function returns a new, readonly shared value that reflect
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Run On JS
 
@@ -5845,9 +5845,9 @@ A reference to a function you wish to execute on the JavaScript thread from the 
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## runOnUI
 
@@ -5894,9 +5894,9 @@ A reference to a function intended for execution on the UI thread, originating f
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Your First Animation
 
@@ -6058,15 +6058,15 @@ function App() {
 
 Configuration for the decay animation. The following properties are available:
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `velocity` (optional) | `number` | 0 | Initial velocity of the animation. |
-| `deceleration` (optional) | `number` | 0.998 | Rate at which the velocity decreases over time. |
-| `clamp` (optional)\* | `[number, number]` | \[] | Array specifying bounds to restrict the animation's range. The animation stops when either bound is reached unless `rubberBandEffect` is set to `true`. \*Required if `rubberBandEffect` is enabled. |
-| `velocityFactor` (optional) | `number` | 1 | Multiplier for velocity. |
-| `rubberBandEffect` (optional) | `boolean` | false | Enables bouncing over the limit specified in `clamp`. |
-| `rubberBandFactor` (optional) | `number` | 0.6 | Determines the strength of the rubber band effect. |
-| `reduceMotion` (optional) | `ReduceMotion` | `ReduceMotion.System` | Controls how the animation responds to the device's reduced motion accessibility setting. |
+|Name|Type|Default|Description|
+|-|-|-|-|
+|`velocity` (optional)|`number`|0|Initial velocity of the animation.|
+|`deceleration` (optional)|`number`|0.998|Rate at which the velocity decreases over time.|
+|`clamp` (optional)\*|`[number, number]`|\[]|Array specifying bounds to restrict the animation's range. The animation stops when either bound is reached unless `rubberBandEffect` is set to `true`. \*Required if `rubberBandEffect` is enabled.|
+|`velocityFactor` (optional)|`number`|1|Multiplier for velocity.|
+|`rubberBandEffect` (optional)|`boolean`|false|Enables bouncing over the limit specified in `clamp`.|
+|`rubberBandFactor` (optional)|`number`|0.6|Determines the strength of the rubber band effect.|
+|`reduceMotion` (optional)|`ReduceMotion`|`ReduceMotion.System`|Controls how the animation responds to the device's reduced motion accessibility setting.|
 
 ##### `callback` (Optional)
 
@@ -6078,7 +6078,7 @@ The `withDecay` function returns an animation object representing the current st
 
 ### Example
 
-_Note: An example section is mentioned but not provided in the original content._
+*Note: An example section is mentioned but not provided in the original content.*
 
 ### Remarks
 
@@ -6086,9 +6086,9 @@ _Note: An example section is mentioned but not provided in the original content.
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## createAnimatedComponent
 
@@ -6127,9 +6127,9 @@ The component you wish to make animatable. Function components must be wrapped w
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## runOnRuntime
 
@@ -6180,9 +6180,9 @@ A function intended for execution on the UI thread from the JavaScript thread. T
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ❌  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|❌|
 
 ## Canceling Animations with `cancelAnimation`
 
@@ -6220,9 +6220,9 @@ To cancel an ongoing animation, simply call `cancelAnimation` with the relevant 
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 This function is compatible across Android, iOS, and web platforms.
 
@@ -6276,9 +6276,9 @@ The `createWorkletRuntime` function returns a `WorkletRuntime`, which is represe
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ❌  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|❌|
 
 ```markdown
 # `useAnimatedGestureHandler`
@@ -6547,9 +6547,9 @@ The `interpolate` function returns a value mapped within the specified output ra
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 ## Clamp Function in React Native Reanimated
 
@@ -6589,9 +6589,9 @@ function App() {
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 This function is compatible across Android, iOS, and Web platforms.
 
@@ -6631,14 +6631,14 @@ function App() {
 
 - **`output`**: An array of color strings (e.g., `'red'`, `'#ff0000'`, `'rgba(255, 0, 0, 0.5)'`) that define the output colors. It must have at least as many points as the input range.
 
-- **`colorSpace`** _(Optional)_: Specifies the color space for interpolation, either `'HSV'` or `'RGB'`. Defaults to `'RGB'`.
+- **`colorSpace`** *(Optional)*: Specifies the color space for interpolation, either `'HSV'` or `'RGB'`. Defaults to `'RGB'`.
 
-- **`options`** _(Optional)_: Additional parameters for color interpolation:
+- **`options`** *(Optional)*: Additional parameters for color interpolation:
 
-  | Options | Type | Default | Description |
-  | --- | --- | --- | --- |
-  | `gamma` | `number` | 2.2 | Gamma parameter used in gamma correction. |
-  | `useCorrectedHSVInterpolation` | `boolean` | true | Reduces the number of hues during interpolation by treating HSV as circular. |
+  |Options|Type|Default|Description|
+  |-|-|-|-|
+  |`gamma`|`number`|2.2|Gamma parameter used in gamma correction.|
+  |`useCorrectedHSVInterpolation`|`boolean`|true|Reduces the number of hues during interpolation by treating HSV as circular.|
 
 #### Options Explanation
 
@@ -6656,8 +6656,8 @@ The function returns an interpolated color in `rgba(r, g, b, a)` format within t
 
 ### Platform Compatibility
 
-| Android | iOS | Web |
-| ------- | --- | --- |
-| ✅      | ✅  | ✅  |
+|Android|iOS|Web|
+|-|-|-|
+|✅|✅|✅|
 
 This function is versatile and compatible across major platforms, making it ideal for cross-platform applications.
