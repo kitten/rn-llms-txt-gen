@@ -7,13 +7,17 @@
     "start": "DEBUG=* bun src/index.ts"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^1.3.22",
     "@mozilla/readability": "^0.6.0",
     "@tsconfig/bun": "^1.0.8",
+    "ai": "^4.3.16",
+    "ai-fallback": "^0.1.5",
     "debug": "^4.4.1",
     "happy-dom": "^18.0.1",
     "hast-util-sanitize": "^5.0.2",
     "js-graph-algorithms": "^1.0.18",
     "mdast": "^3.0.0",
+    "ollama-ai-provider": "^1.2.0",
     "prettier": "^3.5.3",
     "rehype-parse": "^9.0.1",
     "rehype-remark": "^10.0.1",

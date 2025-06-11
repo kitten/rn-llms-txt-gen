@@ -1,20 +1,13 @@
 import { debug } from 'debug';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
+import { makeCacheFileHelper } from './path';
 
 const log = debug('llms-txt-gen.fetch');
 
-const cacheDir = path.join(process.cwd(), '.cache');
+const cacheDir = path.join(process.cwd(), '.cache/fetch');
 await fs.mkdir(cacheDir, { recursive: true });
-
-const getCacheFile = async (url: URL) => {
-  const { hostname, pathname } = url;
-  const name = pathname.split('/').filter(Boolean).join('_');
-  const targetDir = path.join(cacheDir, hostname);
-  const basename = path.basename(name, path.extname(name));
-  await fs.mkdir(targetDir, { recursive: true });
-  return path.join(targetDir, `${basename}.html`);
-};
+const getCacheFile = makeCacheFileHelper(cacheDir);
 
 export async function fetchHtml(url: URL): Promise<string | null> {
   const cacheFile = await getCacheFile(url);

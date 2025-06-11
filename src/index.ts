@@ -18,10 +18,13 @@ await fs.mkdir(output, { recursive: true });
 async function generate(site: Site) {
   log('crawl', site.name);
   const pages = await crawl(site);
-  const contents = await concatMarkdown(
-    pages.map((page) => page.getContent())
-  );
-  const formatted = await formatMarkdown(contents);
+  const contents: string[] = [];
+  for (const page of pages) {
+    const content = await page.getContent();
+    if (content) contents.push(content);
+  }
+  const output = await concatMarkdown(contents);
+  const formatted = await formatMarkdown(output);
   const file = path.join(output, `llms-full-${site.name}.txt`);
   await fs.writeFile(file, formatted, 'utf-8');
 }

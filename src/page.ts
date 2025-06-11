@@ -1,9 +1,13 @@
 import { debug } from 'debug';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
 import { URLPattern } from 'urlpattern-polyfill/urlpattern';
 import { WeightedDiGraph, KruskalMST, Edge } from 'js-graph-algorithms';
 import { extractContent, extractLinks, parseBody } from "./dom";
 import { fetchHtml } from "./fetch";
 import { htmlToMarkdown, sanitizeHtml } from "./unified";
+import { rewriteMarkdown } from './rewrite';
+import { makeCacheFileHelper } from './path';
 
 const log = debug('llms-txt-gen.graph');
 
@@ -11,6 +15,31 @@ export interface CrawlOptions {
   baseURL: URL | string;
   include?: string[];
   exclude?: string[];
+}
+
+const cacheDir = path.join(process.cwd(), '.cache/page');
+await fs.mkdir(cacheDir, { recursive: true });
+const getCacheFile = makeCacheFileHelper(cacheDir, '.md');
+
+async function extractContentToMarkdown(url: URL, html: string): Promise<string | null> {
+  const cacheFile = await getCacheFile(url);
+  try {
+    const content = await fs.readFile(cacheFile, 'utf-8');
+    if (content) {
+      log('extracted output from cache', url.pathname);
+      return content;
+    }
+  } catch {}
+  log('extracting content', url.pathname);
+  const doc = parseBody(url, html);
+  const output = extractContent(doc);
+  if (output) {
+    const markdown = await htmlToMarkdown(output);
+    await fs.writeFile(cacheFile, markdown, 'utf-8');
+    return markdown;
+  } else {
+    return null;
+  }
 }
 
 class Root {
@@ -106,14 +135,11 @@ class Page {
     if (this.#content !== null || !this.isPage)
       return this.#content;
     const html = await this.getHTML();
-    if (!html) return null;
-    const doc = parseBody(this.url, html);
-    const content = extractContent(doc);
-    if (content) {
-      return (this.#content = await htmlToMarkdown(content));
-    } else {
-      return (this.#content = null);
-    }
+    if (!html) return (this.#content = null);
+    const markdown = await extractContentToMarkdown(this.url, html);
+    if (!markdown) return (this.#content = null);
+    const rewritten = await rewriteMarkdown(this.url, markdown);
+    return (this.#content = rewritten);
   }
 }
 

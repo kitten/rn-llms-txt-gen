@@ -58,7 +58,8 @@ export async function htmlToMarkdown(content: {
             parent.children.splice(index, 1);
           if (node.children.length > 1 || !child || child.type !== 'text')
             return;
-          switch (child.value.trim()) {
+          const value = child.value.trim();
+          switch (value) {
             case 'Example':
             case 'Remarks':
             case 'Note':
@@ -71,7 +72,15 @@ export async function htmlToMarkdown(content: {
         } else if (node.type === 'text') {
           if (!parent || parent.type !== 'paragraph' || parent.children.length > 1)
             return;
-          switch (node.value.trim()) {
+          const value = node.value.trim();
+          if (
+            value.startsWith('Last updated on ') ||
+            value.startsWith('Copyright ')
+          ) {
+            parent.children.splice(index, 1);
+            return;
+          }
+          switch (value) {
             case 'Loading...':
             case 'Caution':
             case 'tsx':
