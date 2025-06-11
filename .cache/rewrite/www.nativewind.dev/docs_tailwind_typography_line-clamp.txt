@@ -1,0 +1,17 @@
+# Line Clamp
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| `line-clamp-1`          | ✅ Full Support |
+| `line-clamp-2`          | ✅ Full Support |
+| `line-clamp-3`          | ✅ Full Support |
+| `line-clamp-4`          | ✅ Full Support |
+| `line-clamp-5`          | ✅ Full Support |
+| `line-clamp-6`          | ✅ Full Support |
+| `line-clamp-none`       | ✅ Full Support |

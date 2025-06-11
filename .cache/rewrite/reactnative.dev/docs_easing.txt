@@ -1,0 +1,204 @@
+# Easing Module
+
+The `Easing` module provides a collection of common easing functions used to create physically believable motion in animations, particularly with `Animated.timing()`.
+
+A visualization of some common easing functions can be found at [easings.net](https://easings.net/).
+
+## Predefined Animations
+
+The `Easing` module offers several predefined animations:
+
+- **Back**: An animation where the object moves slightly backward before proceeding forward.
+- **Bounce**: A bouncing effect for animations.
+- **Ease**: A basic inertial interaction, akin to an object gradually accelerating.
+- **Elastic**: Simulates a spring-like oscillation.
+
+## Standard Functions
+
+The module includes three standard easing functions:
+
+- `linear`
+- `quad`
+- `cubic`
+
+Additionally, the `poly` function can be used for higher power functions like quartic and quintic.
+
+## Additional Mathematical Functions
+
+Other mathematical functions provided include:
+
+- **Bezier**: Implements a cubic bezier curve.
+- **Circle**: Provides a circular easing function.
+- **Sin**: Offers a sinusoidal function.
+- **Exp**: An exponential function.
+
+### Helpers to Modify Easing Functions
+
+- `in`: Runs an easing function forwards.
+- `out`: Executes an easing function in reverse.
+- `inOut`: Symmetrizes any easing function, running it forward for half the duration and backward for the remainder.
+
+## Example Usage
+
+The module can be used with TypeScript or JavaScript.
+
+## Reference Methods
+
+### Stepping Functions
+
+#### `step0()`
+
+```typescript
+static step0(n: number): number;
+```
+Returns 1 for any positive value of `n`.
+
+#### `step1()`
+
+```typescript
+static step1(n: number): number;
+```
+Returns 1 if `n` is greater than or equal to 1.
+
+### Linear Function
+
+#### `linear()`
+
+```typescript
+static linear(t: number): number;
+```
+A linear function where position correlates directly with elapsed time.  
+[Visualization](https://cubic-bezier.com/#0,0,1,1)
+
+### Basic Inertial Interaction
+
+#### `ease()`
+
+```typescript
+static ease(t: number): number;
+```
+Simulates an object slowly accelerating to speed.  
+[Visualization](https://cubic-bezier.com/#.42,0,1,1)
+
+### Quadratic Function
+
+#### `quad()`
+
+```typescript
+static quad(t: number): number;
+```
+Position equals the square of elapsed time.  
+[Visualization](https://easings.net/#easeInQuad)
+
+### Cubic Function
+
+#### `cubic()`
+
+```typescript
+static cubic(t: number): number;
+```
+Position equals the cube of elapsed time.  
+[Visualization](https://easings.net/#easeInCubic)
+
+### Power Function
+
+#### `poly(n)`
+
+```typescript
+static poly(n: number): (t: number) => number;
+```
+Position is equal to the Nth power of elapsed time.  
+- n = 4: [Quartic Visualization](https://easings.net/#easeInQuart)
+- n = 5: [Quintic Visualization](https://easings.net/#easeInQuint)
+
+### Sinusoidal Function
+
+#### `sin()`
+
+```typescript
+static sin(t: number): number;
+```
+[Visualization](https://easings.net/#easeInSine)
+
+### Circular Function
+
+#### `circle()`
+
+```typescript
+static circle(t: number): number;
+```
+[Visualization](https://easings.net/#easeInCirc)
+
+### Exponential Function
+
+#### `exp()`
+
+```typescript
+static exp(t: number): number;
+```
+[Visualization](https://easings.net/#easeInExpo)
+
+### Elastic Interaction
+
+#### `elastic(bounciness)`
+
+```typescript
+static elastic(bounciness: number): (t: number) => number;
+```
+Simulates a spring oscillating back and forth.  
+- Default bounciness is 1, with slight overshoot.
+- Bounciness of 0 results in no overshoot.
+- Higher values result in more overshoots.  
+[Visualization](https://easings.net/#easeInElastic)
+
+### Back Animation
+
+#### `back(s)`
+
+```typescript
+static back(s: number): (t: number) => number;
+```
+Use with `Animated.parallel()` to create an effect where the object moves slightly backward at the start of the animation.
+
+### Bouncing Effect
+
+#### `bounce()`
+
+```typescript
+static bounce(t: number): number;
+```
+Provides a basic bouncing effect.  
+[Visualization](https://easings.net/#easeInBounce)
+
+### Cubic Bezier Curve
+
+#### `bezier(x1, y1, x2, y2)`
+
+```typescript
+static bezier(x1: number, y1: number, x2: number, y2: number): (t: number) => number;
+```
+Equivalent to CSS Transitions' `transition-timing-function`.  
+[Bezier Curve Tool](https://cubic-bezier.com/)
+
+### Modify Easing Functions
+
+#### `in(easing)`
+
+```typescript
+static in(easing: (t: number) => number): (t: number) => number;
+```
+Runs an easing function forwards.
+
+#### `out(easing)`
+
+```typescript
+static out(easing: (t: number) => number): (t: number) => number;
+```
+Executes an easing function in reverse.
+
+#### `inOut(easing)`
+
+```typescript
+static inOut(easing: (t: number) => number): (t: number) => number;
+```
+Symmetrizes any easing function, running it forward for half the duration and backward for the remainder.

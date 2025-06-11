@@ -1,0 +1,36 @@
+# InputAccessoryView
+
+The `InputAccessoryView` component allows for customization of the keyboard input accessory view on iOS. This view appears above the keyboard when a `TextInput` is focused, enabling the creation of custom toolbars.
+
+To utilize this component, wrap your custom toolbar with `InputAccessoryView` and assign it a `nativeID`. Then, use that `nativeID` as the `inputAccessoryViewID` for any desired `TextInput`. Here's a basic example:
+
+This component can also facilitate sticky text inputs—text inputs anchored to the top of the keyboard. To achieve this, wrap a `TextInput` with `InputAccessoryView` without setting a `nativeID`. For an example, refer to `InputAccessoryViewExample.js`.
+
+## Reference
+
+### Props
+
+#### `backgroundColor`
+
+| Type  |
+| ----- |
+| color |
+
+#### `nativeID`
+
+A unique identifier used to associate this `InputAccessoryView` with specific TextInput(s).
+
+| Type   |
+| ------ |
+| string |
+
+#### `style`
+
+| Type       |
+| ---------- |
+| View Style |
+
+## Known Issues
+
+- **react-native#18997**: Does not support multiline `TextInput`.
+- **react-native#20157**: Incompatible with a bottom tab bar.

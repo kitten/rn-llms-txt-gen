@@ -1,0 +1,117 @@
+# TouchableNativeFeedback
+
+> For a more comprehensive and future-proof approach to handling touch-based input, consider using the Pressable API.
+
+TouchableNativeFeedback is an Android-specific wrapper designed to ensure views respond appropriately to touch interactions. It utilizes native state drawables to provide visual feedback during touches.
+
+Currently, it supports only a single View instance as a child node by replacing that View with another RCTView node, which includes additional properties.
+
+The background drawable for the native feedback touchable can be customized using the `background` property.
+
+## Example
+
+## Reference
+
+## Props
+
+### TouchableWithoutFeedback Props
+
+Inherits props from TouchableWithoutFeedback.
+
+### `background`
+
+Specifies the type of background drawable used to display feedback. It requires an object with a `type` property and additional data based on that `type`. Using static methods to generate this dictionary is recommended.
+
+- **Type**: `backgroundPropType`
+
+### `useForeground`
+
+When set to true, adds a ripple effect to the foreground of the view instead of the background. This is useful if child views have their own backgrounds or when displaying images where you don't want the ripple covered by them.
+
+Ensure to check `TouchableNativeFeedback.canUseNativeForeground()` first, as this feature is only available on Android 6.0 and above. Using it on older versions will trigger a warning and fallback to background usage.
+
+- **Type**: `bool`
+
+### `hasTVPreferredFocus` (Android)
+
+Indicates TV preferred focus (refer to the View component documentation).
+
+- **Type**: `bool`
+
+### `nextFocusDown` (Android)
+
+Specifies TV next focus down (see View component documentation).
+
+- **Type**: `number`
+
+### `nextFocusForward` (Android)
+
+Specifies TV next focus forward (see View component documentation).
+
+- **Type**: `number`
+
+### `nextFocusLeft` (Android)
+
+Specifies TV next focus left (see View component documentation).
+
+- **Type**: `number`
+
+### `nextFocusRight` (Android)
+
+Specifies TV next focus right (see View component documentation).
+
+- **Type**: `number`
+
+### `nextFocusUp` (Android)
+
+Specifies TV next focus up (see View component documentation).
+
+- **Type**: `number`
+
+## Methods
+
+### `SelectableBackground()`
+
+```typescript
+static SelectableBackground(
+  rippleRadius: number | null,
+): ThemeAttributeBackgroundPropType;
+```
+
+Generates an object representing the Android theme's default background for selectable elements (`?android:attr/selectableItemBackground`). The `rippleRadius` parameter controls the radius of the ripple effect.
+
+### `SelectableBackgroundBorderless()`
+
+```typescript
+static SelectableBackgroundBorderless(
+  rippleRadius: number | null,
+): ThemeAttributeBackgroundPropType;
+```
+
+Generates an object representing the Android theme's default background for borderless selectable elements (`?android:attr/selectableItemBackgroundBorderless`). This is available on Android API level 21+. The `rippleRadius` parameter controls the radius of the ripple effect.
+
+### `Ripple()`
+
+```typescript
+static Ripple(
+  color: ColorValue,
+  borderless: boolean,
+  rippleRadius?: number | null,
+): RippleBackgroundPropType;
+```
+
+Creates an object representing a ripple drawable with a specified color (as a string). If the `borderless` property is true, the ripple will render outside of the view bounds (similar to native action bar buttons). This background type is available on Android API level 21+.
+
+**Parameters:**
+
+| Name       | Type      | Required | Description                                      |
+|------------|-----------|----------|--------------------------------------------------|
+| color      | string    | Yes      | The ripple color                                 |
+| borderless | boolean   | Yes      | Determines if the ripple can render outside bounds |
+| rippleRadius | ?number  | No       | Controls the radius of the ripple effect         |
+
+### `canUseNativeForeground()`
+
+```typescript
+static canUseNativeForeground(): boolean;
+```

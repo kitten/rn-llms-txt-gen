@@ -1,0 +1,82 @@
+# PinchGestureHandler
+
+> **Warning:**  
+> The old API will be deprecated in future versions of Gesture Handler. It is recommended to migrate to the gestures API. Refer to our upgrading guide for more details.
+
+The `PinchGestureHandler` is a continuous gesture handler designed to recognize pinch gestures, which are commonly used to scale or zoom content on the screen. This handler activates when two fingers touch and move across the screen. The callback function associated with this gesture provides continuous tracking of the pinch gesture, offering insights into velocity, the focal point (anchor) of the gesture, and the scaling factor.
+
+The distance between the fingers is represented as a scale factor. Initially, at the start of the gesture, the scale factor is set to 1.0. As the distance between the two fingers increases or decreases, the scale factor adjusts proportionally. Pinch gestures are frequently utilized for resizing objects or content onscreen, such as adjusting the zoom level in map views.
+
+On iOS, this handler leverages `UIPinchGestureRecognizer`, while on Android, it is implemented from scratch.
+
+## Properties
+
+The properties specific to `PinchGestureHandler` do not extend beyond those provided by the base handler class.
+
+## Event Data
+
+For a comprehensive list of event attributes from the base handler class, refer to its documentation. Below are gesture event attributes unique to `PinchGestureHandler`:
+
+- **`scale`:** Represents the scale factor relative to the screen coordinates of the two touch points.
+  
+- **`velocity`:** Indicates the velocity of the pinch gesture at the current moment, expressed in terms of scale factor per second.
+
+- **`focalX`:** The X-axis position (in points) of the center anchor point of the gesture.
+
+- **`focalY`:** The Y-axis position (in points) of the center anchor point of the gesture.
+
+## Example
+
+For a practical demonstration, refer to the scale and rotation example in the Gesture Handler Example App.
+
+```typescript
+import React from 'react';
+import { Animated, View } from 'react-native';
+import { PinchGestureHandler, State } from 'react-native-gesture-handler';
+
+const USE_NATIVE_DRIVER = true;
+
+export class PinchableBox extends React.Component {
+  _baseScale = new Animated.Value(1);
+  _pinchScale = new Animated.Value(1);
+  _scale = Animated.multiply(this._baseScale, this._pinchScale);
+  _lastScale = 1;
+  
+  _onPinchGestureEvent = Animated.event(
+    [{ nativeEvent: { scale: this._pinchScale } }],
+    { useNativeDriver: USE_NATIVE_DRIVER }
+  );
+
+  _onPinchHandlerStateChange = (event) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      this._lastScale *= event.nativeEvent.scale;
+      this._baseScale.setValue(this._lastScale);
+      this._pinchScale.setValue(1);
+    }
+  };
+
+  render() {
+    return (
+      <PinchGestureHandler
+        onGestureEvent={this._onPinchGestureEvent}
+        onHandlerStateChange={this._onPinchHandlerStateChange}>
+        <View style={{ flex: 1 }} collapsable={false}>
+          <Animated.Image
+            source={{ uri: 'https://example.com/image.jpg' }}
+            style={{
+              width: 200,
+              height: 200,
+              transform: [
+                { perspective: 200 },
+                { scale: this._scale }
+              ],
+            }}
+          />
+        </View>
+      </PinchGestureHandler>
+    );
+  }
+}
+```
+
+This example demonstrates how to implement a pinchable box using `PinchGestureHandler` in React Native. The component tracks the pinch gesture and updates the image's scale accordingly.

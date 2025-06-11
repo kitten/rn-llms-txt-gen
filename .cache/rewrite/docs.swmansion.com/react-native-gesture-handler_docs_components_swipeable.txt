@@ -1,0 +1,126 @@
+# Swipeable Component
+
+**Caution:** This component facilitates the implementation of swipeable rows or similar interactions. It renders its children within a panable container, allowing for horizontal swiping left and right. Depending on whether the user swipes left or right, one of two "action" containers can be displayed, rendered by `renderLeftActions` or `renderRightActions` props.
+
+## Usage
+
+The `Swipeable` component is not exported by default from the `react-native-gesture-handler` package. To use it, import as follows:
+
+```typescript
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+```
+
+## Properties
+
+| Property | Description |
+|----------|-------------|
+| `friction` | A number specifying how much the visual interaction will be delayed compared to the gesture distance. For example, a value of `1` means the swipeable panel follows the gesture exactly; `2` makes it two times "slower". |
+| `leftThreshold` | Distance from the left edge at which the released panel animates to the open state (or vice versa). Default is half of the panel's width. |
+| `rightThreshold` | Distance from the right edge for similar behavior as `leftThreshold`. Default is also half of the panel's width. |
+| `dragOffsetFromLeftEdge` | Minimum distance that must be dragged from the left edge to consider it a swipe. Default value: `10`. |
+| `dragOffsetFromRightEdge` | Similar to `dragOffsetFromLeftEdge`, but for the right edge. Default value: `10`. |
+| `overshootLeft` | Boolean indicating if the panel can be pulled further than the left actions panel's width. Defaults to `true` if a left panel render method is present. |
+| `overshootRight` | Similar to `overshootLeft`, but for the right side. Defaults to `true` if a right panel render method is present. |
+| `overshootFriction` | Number specifying visual interaction delay at overshoot. Default value: `1`. For a native feel, try `8` or above. |
+
+**Deprecated Callbacks:**
+
+- `onSwipeableLeftOpen`: Deprecated; use `onSwipeableOpen(direction)`.
+- `onSwipeableRightOpen`: Deprecated; use `onSwipeableOpen(direction)`.
+
+| Property | Description |
+|----------|-------------|
+| `onSwipeableOpen` | Called when an action panel gets open (either right or left). Takes swipe direction as an argument. |
+| `onSwipeableClose` | Called when the action panel is closed, with swipe direction as an argument. |
+| `onSwipeableWillOpen` | Called when an action panel starts animating on open (either right or left), taking swipe direction as an argument. |
+| `onSwipeableWillClose` | Called when an action panel starts animating on close, with swipe direction as an argument. |
+
+**Rendering Methods:**
+
+- `renderLeftActions`: Returns the left-side action panel revealed upon a right swipe.
+  - **Interpolation Values:** 
+    - `progressAnimatedValue`: `[0, 1]`
+    - `dragAnimatedValue`: `[0, +]`
+  - Use `flexDirection` for RTL flexbox layouts.
+
+- `renderRightActions`: Returns the right-side action panel revealed upon a left swipe.
+  - **Interpolation Values:** 
+    - `progressAnimatedValue`: `[0, 1]`
+    - `dragAnimatedValue`: `[0, -]`
+  - Use `flexDirection` for RTL flexbox layouts.
+
+**Additional Styles:**
+
+- `containerStyle`: Style object for the container (Animated.View), e.g., to override `overflow: 'hidden'`.
+- `childrenContainerStyle`: Style object for the children container (Animated.View), e.g., to apply `flex: 1`.
+
+**Platform-Specific Properties:**
+
+- `enableTrackpadTwoFingerGesture` (iOS only): Enables two-finger gestures on supported devices.
+- `mouseButton(value: MouseButton)` (Web & Android only): Chooses which mouse button should trigger the handler. Options include:
+  - `LEFT`
+  - `RIGHT`
+  - `MIDDLE`
+  - `BUTTON_4`
+  - `BUTTON_5`
+  - `ALL` (default is `MouseButton.LEFT`)
+- `enableContextMenu(value: boolean)` (Web only): Specifies if a context menu should be enabled after right-clicking. Default is `false`.
+
+## Methods
+
+Using a reference to `Swipeable`, you can trigger actions:
+
+| Method | Description |
+|--------|-------------|
+| `close` | Closes the component with animation. |
+| `openLeft` | Opens the component on the left side. |
+| `openRight` | Opens the component on the right side. |
+| `reset` | Resets swiping states without triggering any animation. |
+
+## Example
+
+```typescript
+import React, { Component } from 'react';
+import { Animated, StyleSheet, View, Text } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+
+class AppleStyleSwipeableRow extends Component {
+  renderLeftActions = (progress, dragX) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [-20, 0, 0, 1],
+    });
+    return (
+      <RectButton style={styles.leftAction} onPress={() => this.close()}>
+        <Animated.Text
+          style={[
+            styles.actionText,
+            {
+              transform: [{ translateX: trans }],
+            },
+          ]}>
+          Archive
+        </Animated.Text>
+      </RectButton>
+    );
+  };
+
+  render() {
+    return (
+      <Swipeable renderLeftActions={this.renderLeftActions}>
+        <Text>"hello"</Text>
+      </Swipeable>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  leftAction: {
+    // Define your styles here
+  },
+  actionText: {
+    // Define your styles here
+  },
+});
+```

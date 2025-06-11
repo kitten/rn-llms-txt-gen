@@ -1,0 +1,71 @@
+# Safe Area Insets
+
+## Overview
+
+Safe Area Insets refer to the screen areas not covered by elements like the notch, home indicator, or rounded corners. These insets are crucial for placing content so it remains visible and unobstructed by system UI components.
+
+## Usage (Native)
+
+For native applications, safe area measurements can be accessed using `react-native-safe-area-context`. It's essential to wrap your application with a `SafeAreaProvider` and utilize the `useSafeAreaEnv` hook to retrieve the safe area insets.
+
+```typescript
+import { View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+export function MyApp(props) {
+  // Ensure SafeAreaProvider is at the root of your app
+  return (
+    <SafeAreaProvider>
+      <View className="p-safe" {...props} />
+    </SafeAreaProvider>
+  );
+}
+```
+
+Note: Expo Router automatically includes `<SafeAreaProvider />` in every route, so additional setup is unnecessary.
+
+## Usage (Web)
+
+For web applications, CSS stylesheets can leverage the `env()` function without requiring extra configuration. However, for certain utilities like `h-screen-safe` and `min-h-screen-safe`, issues may arise on Google Chrome. To address this, apply `height: -webkit-fill-available` to parent elements:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    height: -webkit-fill-available;
+  }
+
+  body {
+    height: -webkit-fill-available;
+  }
+
+  #root {
+    height: -webkit-fill-available;
+  }
+}
+```
+
+## Compatibility
+
+| Class                     | Support        | Comments                                                                                                                                                                                                                                                                      |
+|---------------------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `m-safe`                  | ✅ Full Support | Applies margins using safe area insets: `margin-top`, `margin-bottom`, `margin-left`, and `margin-right`.                                                                                                                                                                      |
+| `p-safe`                  | ✅ Full Support | Applies padding using safe area insets: `padding-top`, `padding-bottom`, `padding-left`, and `padding-right`.                                                                                                                                                                  |
+| `mx-safe`                 | ✅ Full Support | Sets horizontal margins with safe area insets.                                                                                                                                                                                                                               |
+| `px-safe`                 | ✅ Full Support | Sets horizontal padding with safe area insets.                                                                                                                                                                                                                              |
+| `my-safe`                 | ✅ Full Support | Sets vertical margins using safe area insets.                                                                                                                                                                                                                                |
+| `py-safe`                 | ✅ Full Support | Sets vertical padding using safe area insets.                                                                                                                                                                                                                                |
+| `mt-safe`                 | ✅ Full Support | Applies top margin with a safe area inset.                                                                                                                                                                                                                                   |
+| `pt-safe`                 | ✅ Full Support | Applies top padding with a safe area inset.                                                                                                                                                                                                                                  |
+| `mr-safe`                 | ✅ Full Support | Sets right margin using a safe area inset.                                                                                                                                                                                                                                   |
+| `pr-safe`                 | ✅ Full Support | Sets right padding using a safe area inset.                                                                                                                                                                                                                                  |
+| `mb-safe`                 | ✅ Full Support | Applies bottom margin with a safe area inset.                                                                                                                                                                                                                                |
+| `pb-safe`                 | ✅ Full Support | Applies bottom padding with a safe area inset.                                                                                                                                                                                                                               |
+| `ml-safe`                 | ✅ Full Support | Sets left margin using a safe area inset.                                                                                                                                                                                                                                    |
+| `pl-safe`                 | ✅ Full Support | Sets left padding using a safe area inset.                                                                                                                                                                                                                                   |
+| `*-safe-or-[n]`           | ✅ Full Support | Allows substitution of any spacing utility (`*`) and value (`[n]`). Example: `mt-safe-or-4` translates to `margin-top: max(env(safe-area-inset-top), 1rem);`. Another example is `mt-safe-or-[2px]`, resulting in `margin-top: max(env(safe-area-inset-top), 2px);`. |
+| `h-screen-safe`           | 🌐 Web only    | Adjusts height using safe area insets: `height: calc(100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))`.                                                                                                                                                     |
+| `*-safe-offset-[n]`       | 🌐 Web only    | Allows substitution of any spacing utility (`*`) and value (`[n]`). Example: `mt-safe-offset-4` results in `margin-top: calc(env(safe-area-inset-top) + 1rem);`. Another example is `mt-safe-offset-[2px]`, resulting in `margin-top: calc(env(safe-area-inset-top) + 2px);`. |

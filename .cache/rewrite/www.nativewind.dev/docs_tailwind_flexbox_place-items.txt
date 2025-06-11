@@ -1,0 +1,20 @@
+# Place Content
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+The following table outlines the compatibility of various place content classes:
+
+| Class                          | Support     |
+| ------------------------------ | ----------- |
+| `place-content-center`         | 🌐 Web only |
+| `place-content-start`          | 🌐 Web only |
+| `place-content-end`            | 🌐 Web only |
+| `place-content-between`        | 🌐 Web only |
+| `place-content-around`         | 🌐 Web only |
+| `place-content-evenly`         | 🌐 Web only |
+| `place-content-baseline`       | 🌐 Web only |
+| `place-content-stretch`        | 🌐 Web only |

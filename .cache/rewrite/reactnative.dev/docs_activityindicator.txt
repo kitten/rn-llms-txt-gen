@@ -1,0 +1,66 @@
+# ActivityIndicator
+
+Displays a circular loading indicator.
+
+## Example
+
+## Reference
+
+## Properties
+
+### Inherited from View
+
+The `ActivityIndicator` inherits properties from the `View`.
+
+### `animating`
+
+Determines if the indicator is visible (`true`) or hidden (`false`).
+
+- **Type**: `bool`
+- **Default**: `true`
+
+### `color`
+
+Sets the color of the spinner.
+
+- **Type**: `color`
+- **Default**:
+  - General: `null` (system accent default)
+  - Android: `'#999999'`
+  - iOS: Inherits system accent default
+
+### `hidesWhenStopped` (iOS Only)
+
+Controls whether the indicator is hidden when not animating.
+
+- **Type**: `bool`
+- **Default**: `true`
+
+### `size`
+
+Specifies the size of the indicator.
+
+- **Type**:
+  - Enum: `'small'`, `'large'` for iOS
+  - Number for Android
+- **Default**: `'small'`
+
+## Example
+
+```typescript
+// Example usage of ActivityIndicator with props
+<ActivityIndicator 
+  animating={true} 
+  color={'#FF0000'} 
+  hidesWhenStopped={false} 
+  size={'large'}
+/>
+```
+
+## Props Summary
+
+- Inherited from View
+- `animating`
+- `color`
+- `hidesWhenStopped` (iOS)
+- `size`

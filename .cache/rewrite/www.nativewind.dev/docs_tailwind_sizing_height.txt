@@ -1,0 +1,18 @@
+# Height
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class            | Support        |
+| ---------------- | -------------- |
+| `h-{n}`          | ✅ Full Support |
+| `h-[n]`          | ✅ Full Support |
+| `h-full`         | ✅ Full Support |
+| `h-screen`       | ✅ Full Support |
+| `h-auto`         | 🌐 Web only    |
+| `h-min`          | 🌐 Web only    |
+| `h-max`          | 🌐 Web only    |
+| `h-fit`          | 🌐 Web only    |

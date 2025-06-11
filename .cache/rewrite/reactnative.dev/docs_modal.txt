@@ -1,0 +1,160 @@
+# Modal Component
+
+The Modal component provides a straightforward method to display content above an enclosing view.
+
+## Example
+
+---
+
+## Reference
+
+## Props
+
+### View Props
+
+Inherits properties from the View component.
+
+---
+
+### `animationType`
+
+Controls the animation style of the modal. 
+
+Possible values:
+
+- `slide`: Slides in from the bottom.
+- `fade`: Fades into view.
+- `none`: Appears without any animation.
+
+| Type                                | Default |
+| ----------------------------------- | ------- |
+| enum(`'none'`, `'slide'`, `'fade'`) | `none`  |
+
+---
+
+### `backdropColor`
+
+Sets the background color of the modal's container. Defaults to `white` unless `transparent` is set to `true`.
+
+| Type  | Default |
+| ----- | ------- |
+| color | white   |
+
+---
+
+### `hardwareAccelerated` (Android)
+
+Determines if hardware acceleration should be forced for the underlying window.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `false` |
+
+---
+
+### `navigationBarTranslucent` (Android)
+
+Decides whether the modal appears under the system navigation bar. Requires `statusBarTranslucent` to also be `true`.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `false` |
+
+---
+
+### `onDismiss` (iOS)
+
+Allows a function to be called when the modal is dismissed.
+
+| Type     |
+| -------- |
+| function |
+
+---
+
+### `onOrientationChange` (iOS)
+
+Triggered when the orientation changes while the modal is displayed. The callback provides 'portrait' or 'landscape'. It also fires on initial render, regardless of current orientation.
+
+| Type     |
+| -------- |
+| function |
+
+---
+
+### `onRequestClose`
+
+Invoked when the user presses the hardware back button on Android or the menu button on Apple TV. Note that `BackHandler` events are suppressed while the modal is open. On iOS, it's called during a drag gesture dismissal with `presentationStyle` set to `pageSheet` or `formSheet`.
+
+| Type                                    |
+| --------------------------------------- |
+| functionRequiredAndroidTV***functioniOS |
+
+---
+
+### `onShow`
+
+Allows a function to be executed once the modal is displayed.
+
+| Type     |
+| -------- |
+| function |
+
+---
+
+### `presentationStyle` (iOS)
+
+Determines how the modal appears on larger devices like iPads or plus-sized iPhones. Refer to [UIModalPresentationStyle](https://developer.apple.com/reference/uikit/uimodalpresentationstyle) for more details.
+
+Possible values:
+
+- `fullScreen`: Covers the entire screen.
+- `pageSheet`: Centers a portrait-width view (on larger devices).
+- `formSheet`: Centers a narrow-width view (on larger devices).
+- `overFullScreen`: Covers the screen completely but allows transparency.
+
+| Type                                                                   | Default                                                                          |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| enum(`'fullScreen'`, `'pageSheet'`, `'formSheet'`, `'overFullScreen'`) | `fullScreen` if `transparent={false}`***`overFullScreen` if `transparent={true}` |
+
+---
+
+### `statusBarTranslucent` (Android)
+
+Determines whether the modal appears under the system status bar.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `false` |
+
+---
+
+### `supportedOrientations` (iOS)
+
+Allows rotation of the modal to specified orientations. On iOS, it's limited by the app's Info.plist settings for UISupportedInterfaceOrientations.
+
+> Ignored when using `presentationStyle` of `pageSheet` or `formSheet`.
+
+| Type                                                                                                           | Default        |
+| -------------------------------------------------------------------------------------------------------------- | -------------- |
+| array of enums(`'portrait'`, `'portrait-upside-down'`, `'landscape'`, `'landscape-left'`, `'landscape-right'`) | `['portrait']` |
+
+---
+
+### `transparent`
+
+Determines if the modal will cover the entire view with a transparent background.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `false` |
+
+---
+
+### `visible`
+
+Controls whether the modal is visible or not.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `true`  |

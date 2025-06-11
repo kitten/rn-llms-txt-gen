@@ -1,0 +1,152 @@
+# Tap Gesture
+
+A tap gesture recognizes one or multiple taps. It detects brief touches on the screen by fingers, which must remain relatively stationary from their initial positions. You can configure tap gestures to recognize single, double, or triple taps based on specific requirements such as `minPointers`, `numberOfTaps`, `maxDist`, `maxDuration`, and `maxDelayMs`.
+
+## Example
+
+```typescript
+import { View, StyleSheet } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+
+export default function App() {
+  const singleTap = Gesture.Tap()
+    .maxDuration(250)
+    .onStart(() => {
+      console.log('Single tap!');
+    });
+
+  const doubleTap = Gesture.Tap()
+    .maxDuration(250)
+    .numberOfTaps(2)
+    .onStart(() => {
+      console.log('Double tap!');
+    });
+
+  return (
+    <GestureDetector gesture={Gesture.Exclusive(doubleTap, singleTap)}>
+      <View style={styles.box} />
+    </GestureDetector>
+  );
+}
+
+const styles = StyleSheet.create({
+  box: {
+    height: 120,
+    width: 120,
+    backgroundColor: '#b58df1',
+    borderRadius: 20,
+    marginBottom: 30,
+  },
+});
+```
+
+## Configuration
+
+### Properties Specific to `TapGesture`:
+
+- **minPointers(value: number)**  
+  Minimum number of fingers required for gesture activation. Default is 1.
+
+- **maxDuration(value: number)**  
+  Maximum time in milliseconds for a finger release after touch. Default is 500 ms.
+
+- **maxDelay(value: number)**  
+  Maximum delay in milliseconds before the next tap if multiple taps are needed. Default is 500 ms.
+
+- **numberOfTaps(value: number)**  
+  Number of taps required to activate the gesture. Default is 1.
+
+- **maxDeltaX(value: number)**  
+  Maximum distance allowed along the X-axis during a tap. Exceeding this distance will cause the gesture to fail.
+
+- **maxDeltaY(value: number)**  
+  Maximum distance allowed along the Y-axis during a tap. Exceeding this distance will cause the gesture to fail.
+
+- **maxDistance(value: number)**  
+  Maximum distance allowed in any direction during a tap. Exceeding this distance will cause the gesture to fail.
+
+- **mouseButton(value: MouseButton) (Web & Android only)**  
+  Specifies which mouse button should trigger the handler. Options include `LEFT`, `RIGHT`, `MIDDLE`, `BUTTON_4`, `BUTTON_5`, and `ALL`. Default is `MouseButton.LEFT`.
+
+### Properties Common to All Gestures:
+
+- **enabled(value: boolean)**  
+  Determines if the gesture handler analyzes touch events. Default is `true`.
+
+- **shouldCancelWhenOutside(value: boolean)**  
+  Cancels or fails recognition when a finger leaves the view area. Defaults vary by gesture type.
+
+- **hitSlop(settings)**  
+  Controls the active area for gesture recognition, allowing adjustments to each boundary side or overall dimensions.
+
+- **withRef(ref)**  
+  Sets a reference to the gesture object for interoperability with older APIs.
+
+- **withTestId(testID)**  
+  Assigns a `testID` property for querying in tests.
+
+- **cancelsTouchesInView(value) (iOS only)**  
+  Cancels touches on native UI components when active. Default is `true`.
+
+- **runOnJS(value: boolean)**  
+  Determines if callbacks run on the JS thread instead of the UI thread. Defaults to `false`.
+
+- **simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)**  
+  Marks gestures for simultaneous recognition without composing them.
+
+- **requireExternalGestureToFail(otherGesture1, otherGesture2, ...)**  
+  Requires another gesture to fail before activation.
+
+- **blocksExternalGesture(otherGesture1, otherGesture2, ...)**  
+  Delays activation of other gestures until this one fails or doesn't start.
+
+### Callbacks Common to All Gestures:
+
+- **onBegin(callback)**  
+  Called when the handler starts receiving touches but hasn't yet recognized a gesture.
+
+- **onStart(callback)**  
+  Triggered when the gesture is recognized and transitions to an active state.
+
+- **onEnd(callback)**  
+  Invoked when a recognized gesture finishes, provided it was previously active.
+
+- **onFinalize(callback)**  
+  Called upon finalizing gesture handling, whether successful or failed.
+
+- **onTouchesDown(callback)**  
+  Triggered every time a finger touches the screen.
+
+- **onTouchesMove(callback)**  
+  Activated whenever a finger moves on the screen.
+
+- **onTouchesUp(callback)**  
+  Invoked when a finger is lifted from the screen.
+
+- **onTouchesCancelled(callback)**  
+  Called when a touch stops being tracked, such as when a gesture ends.
+
+## Event Data Specific to `TapGesture`:
+
+- **x**  
+  X coordinate of the pointer relative to the attached view.
+
+- **y**  
+  Y coordinate of the pointer relative to the attached view.
+
+- **absoluteX**  
+  Absolute X coordinate of the pointer relative to the window. Use this for transformed views.
+
+- **absoluteY**  
+  Absolute Y coordinate of the pointer relative to the window. Use this for transformed views.
+
+## Event Attributes Common to All Gestures:
+
+- **state**  
+  Current state of the handler, expressed as a constant from the `State` object.
+
+- **numberOfPointers**  
+  Number of fingers currently on the screen.
+
+- **pointerType**  
+  Type of pointer device in use, represented by the `PointerType` enum (`TOUCH`, `STYLUS`, `MOUSE`, `KEY`, `OTHER`).

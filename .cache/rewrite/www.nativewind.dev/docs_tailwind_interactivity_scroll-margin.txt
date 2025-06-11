@@ -1,0 +1,26 @@
+# Scroll Margin
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+The following classes are supported exclusively on web platforms:
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| `scroll-m-{n}`        | 🌐 Web only |
+| `scroll-m-[n]`        | 🌐 Web only |
+| `scroll-mx-{n}`       | 🌐 Web only |
+| `scroll-mx-[n]`       | 🌐 Web only |
+| `scroll-my-{n}`       | 🌐 Web only |
+| `scroll-my-[n]`       | 🌐 Web only |
+| `scroll-mt-{n}`       | 🌐 Web only |
+| `scroll-mt-[n]`       | 🌐 Web only |
+| `scroll-mr-{n}`       | 🌐 Web only |
+| `scroll-mr-[n]`       | 🌐 Web only |
+| `scroll-mb-{n}`       | 🌐 Web only |
+| `scroll-mb-[n]`       | 🌐 Web only |
+| `scroll-ml-{n}`       | 🌐 Web only |
+| `scroll-ml-[n]`       | 🌐 Web only |

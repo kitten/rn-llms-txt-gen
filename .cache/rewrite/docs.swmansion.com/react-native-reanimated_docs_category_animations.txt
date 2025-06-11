@@ -1,0 +1,31 @@
+```markdown
+# Animations (Version: 3.x)
+
+## withTiming
+
+`withTiming` allows for creating animations based on a specified duration and easing function.
+
+## withSpring
+
+`withSpring` enables the creation of spring-based animations, providing a natural motion effect.
+
+## withDecay
+
+`withDecay` creates animations that simulate objects in motion experiencing friction. The animation begins at a given velocity and gradually slows down according to a specified deceleration rate until it comes to a stop.
+
+## withSequence
+
+`withSequence` is an animation modifier used for executing multiple animations one after another in sequence.
+
+## withRepeat
+
+`withRepeat` is an animation modifier that allows an animation to be repeated a certain number of times or indefinitely.
+
+## withDelay
+
+`withDelay` is an animation modifier that introduces a delay before starting the animation.
+
+## withClamp
+
+`withClamp` is an animation modifier used to restrict the movement range of an animation, ensuring it stays within predefined limits.
+```

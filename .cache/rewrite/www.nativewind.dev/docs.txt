@@ -1,0 +1,137 @@
+# Overview
+
+## What is Nativewind?
+
+Nativewind enables the use of Tailwind CSS for styling components in React Native. It allows styled components to be shared across all React Native platforms, utilizing the optimal style engine for each: `CSS StyleSheet` on web and `StyleSheet.create` for native environments. The primary objectives are to ensure a consistent styling experience across platforms, enhance Developer UX, improve component performance, and maintain code quality.
+
+On native platforms, Nativewind serves two main purposes. Firstly, during build time, it compiles Tailwind CSS styles into `StyleSheet.create` objects and determines the conditional logic for styles (e.g., hover, focus, active). Secondly, it features an efficient runtime system that applies these styles to components. This allows developers to leverage all of Tailwind CSS's capabilities, including media queries, container queries, and custom values, while maintaining native style performance.
+
+For web platforms, Nativewind acts as a small polyfill to add `className` support to React Native Web.
+
+## Key Features
+
+- **Universal**: Utilizes the best style system for each platform.
+- **DevUX**: Offers plugins for easy setup and enhanced intellisense support.
+- **Media & Container Queries**: Supports modern mobile styling features like media and container queries.
+- **Custom Values (CSS Variables)**: Enables theme creation, sub-themes, and dynamic styles using custom values.
+- **Pseudo Classes**: Supports hover/focus/active on compatible components.
+- **Parent State Styles**: Automatically styles children based on parent pseudo classes.
+- **Additional Features**:
+  - Dark mode
+  - Arbitrary classes
+  - Platform selectors
+  - Plugins
+
+## How is this different from StyleSheet.create?
+
+A comprehensive style system should include:
+
+- Static styles
+- UI state styles (active, hover, focus, etc.)
+- Responsive styles (media queries, dynamic units)
+- Container queries (styling based on parent appearance)
+- Device state styles (orientation, color scheme)
+- Optimal rendering engine usage
+
+React Native's StyleSheet system only provides static styles, leaving other features for users to implement. Nativewind allows developers to focus on building their systems rather than creating custom style solutions.
+
+On the web, it avoids runtime StyleSheet injection by reusing existing Tailwind CSS stylesheets, facilitating Server Side Rendering and improved initial page load performance.
+
+## In Action
+
+Nativewind manages both Tailwind CSS compilation and runtime styles through a JSX transform, eliminating the need for custom wrappers or boilerplate. It integrates seamlessly with all React components transformed via JSX, including third-party modules.
+
+```typescript
+import { CustomText } from "third-party-text-component";
+
+export function BoldText(props) {
+  // Simply use `className="<your styles>"`
+  return <CustomText className="text-bold" {...props} />;
+}
+```
+
+Styling can be dynamic, allowing for conditional logic and complex style objects.
+
+```typescript
+import { Text } from "react-native";
+
+export function MyText({ bold, italic, lineThrough, ...props }) {
+  const classNames = [];
+
+  if (bold) classNames.push("font-bold");
+  if (italic) classNames.push("italic");
+  if (lineThrough) classNames.push("line-through");
+
+  return <Text className={classNames.join(" ")} {...props} />;
+}
+```
+
+By default, Nativewind maps `className` to `style`, but it can also handle complex component mappings.
+
+```typescript
+remapProps(FlatList, {
+  className: "style",
+  ListFooterComponentClassName: "ListFooterComponentStyle",
+  ListHeaderComponentClassName: "ListHeaderComponentStyle",
+  columnWrapperClassName: "columnWrapperStyle",
+  contentContainerClassName: "contentContainerStyle",
+});
+
+<FlatList
+  {...}
+  className="bg-black"
+  ListHeaderComponentClassName="bg-black text-white"
+  ListFooterComponentClassName="bg-black text-white"
+  columnWrapperClassName="bg-black"
+  contentContainerClassName="bg-black"
+  indicatorClassName="bg-black"
+/>
+```
+
+It can also work with components expecting style attributes as props.
+
+```typescript
+import { Text } from "react-native";
+import { cssInterop } from "nativewind";
+import { Svg, Circle } from "react-native-svg";
+
+/**
+ * Svg uses `height`/`width` props on native and className on web
+ */
+const StyledSVG = cssInterop(Svg, {
+  className: {
+    target: "style",
+    nativeStyleToProp: {
+      height: true,
+      width: true,
+    },
+  },
+});
+
+/**
+ * Circle uses `fill`/`stroke`/`strokeWidth` props on native and className on web
+ */
+const StyledCircle = cssInterop(Circle, {
+  className: {
+    target: "style",
+    nativeStyleToProp: {
+      fill: true,
+      stroke: true,
+      strokeWidth: true,
+    },
+  },
+});
+
+export function BoldText(props) {
+  return (
+    <Svg className="w-1/2 h-1/2" viewBox="0 0 100 100">
+      <StyledCircle
+        className="fill-green-500 stroke-blue-500 stroke-2"
+        cx="50"
+        cy="50"
+        r="45"
+      />
+    </Svg>
+  );
+}
+```

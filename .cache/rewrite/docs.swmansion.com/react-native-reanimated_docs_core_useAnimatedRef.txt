@@ -1,0 +1,78 @@
+# useAnimatedRef
+
+The `useAnimatedRef` hook provides a way to obtain a reference to a view, which can be used in conjunction with functions like `measure`, `scrollTo`, and `useScrollViewOffset`.
+
+To utilize this hook, you must assign the object created by `useAnimatedRef` to the `ref` property of a component.
+
+## Reference
+
+```typescript
+import { useAnimatedRef } from 'react-native-reanimated';
+
+function App() {
+  const animatedRef = useAnimatedRef();
+
+  return <Animated.View ref={animatedRef} />;
+}
+```
+
+### Arguments
+
+The `useAnimatedRef` hook does not accept any arguments.
+
+### Returns
+
+This hook returns an object with a `current` property, which holds an instance of the component.
+
+## Example
+
+Here is a complete example:
+
+```typescript
+export default function App() {
+  const animatedRef = useAnimatedRef<Animated.View>();
+
+  return (
+    <View style={styles.container}>
+      <Animated.View
+        ref={animatedRef}
+        style={styles.box}
+        onLayout={() => {
+          // Access the component reference
+          const component = animatedRef.current;
+        }}
+      />
+    </View>
+  );
+}
+```
+
+## Remarks
+
+- `useAnimatedRef` can be used to reference not only Animated components but any React Native component.
+  
+- The value in the `current` property is available after the component has been mounted.
+
+```typescript
+function App() {
+  const animatedRef = useAnimatedRef();
+
+  console.log(animatedRef.current); // 🚩 Returns null
+
+  useEffect(() => {
+    console.log(animatedRef.current); // ✅ Returns the component
+  }, []);
+
+  return <View ref={animatedRef} />;
+}
+```
+
+Alternatively, you can access the value in `current` through event handlers or the `onLayout` property.
+
+- The value stored in the `current` property is not available on the UI thread.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

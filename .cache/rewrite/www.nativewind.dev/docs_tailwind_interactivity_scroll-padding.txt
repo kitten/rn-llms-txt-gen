@@ -1,0 +1,26 @@
+# Scroll Padding
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+The following classes are supported exclusively on web platforms:
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| `scroll-p-{n}`        | 🌐 Web only |
+| `scroll-p-[n]`        | 🌐 Web only |
+| `scroll-px-{n}`       | 🌐 Web only |
+| `scroll-px-[n]`       | 🌐 Web only |
+| `scroll-py-{n}`       | 🌐 Web only |
+| `scroll-py-[n]`       | 🌐 Web only |
+| `scroll-pt-{n}`       | 🌐 Web only |
+| `scroll-pt-[n]`       | 🌐 Web only |
+| `scroll-pr-{n}`       | 🌐 Web only |
+| `scroll-pr-[n]`       | 🌐 Web only |
+| `scroll-pb-{n}`       | 🌐 Web only |
+| `scroll-pb-[n]`       | 🌐 Web only |
+| `scroll-pl-{n}`       | 🌐 Web only |
+| `scroll-pl-[n]`       | 🌐 Web only |

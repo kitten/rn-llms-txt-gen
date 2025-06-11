@@ -1,0 +1,96 @@
+To integrate image handling capabilities in your React Native application, you can utilize the `<Image />` component along with various methods and properties provided for efficient image management. Below is an overview of how to use these features effectively:
+
+### Adding Image Support
+
+1. **Install Required Libraries:**
+   - For GIF support on Android, ensure you have `react-native-gesture-handler`.
+   - For WebP support on iOS, bundle the JavaScript code with your app.
+
+2. **Configure Build Files:**
+   - Add dependencies in `android/build.gradle` and `android/app/build.gradle`.
+
+3. **Modify Native Code:**
+   - Update `MainApplication.java` to include necessary packages.
+   - Modify `settings.gradle` to include new modules like `react-native-gesture-handler`.
+
+### Using the `<Image />` Component
+
+The `<Image />` component in React Native allows you to display images from various sources. Here’s how you can use it:
+
+```jsx
+import React from 'react';
+import { Image, StyleSheet } from 'react-native';
+
+const MyComponent = () => (
+  <Image
+    source={{ uri: 'https://example.com/image.png' }}
+    style={styles.image}
+    resizeMode="contain"
+  />
+);
+
+const styles = StyleSheet.create({
+  image: {
+    width: 200,
+    height: 100,
+  },
+});
+
+export default MyComponent;
+```
+
+### Key Properties
+
+- **`source`**: Can be a URI, local file path, or static resource. Supports multiple formats like PNG, JPEG, GIF, and WebP.
+- **`style`**: Apply styles such as width, height, and transformations.
+- **`resizeMode`**: Controls how the image should resize to fit its container (e.g., `contain`, `cover`).
+- **`tintColor`**: Changes the color of non-transparent pixels.
+
+### Methods for Image Management
+
+1. **Prefetching Images:**
+   ```javascript
+   import { Image } from 'react-native';
+
+   const prefetchImage = async () => {
+     try {
+       await Image.prefetch('https://example.com/image.png');
+       console.log('Image prefetched successfully!');
+     } catch (error) {
+       console.error('Error prefetching image:', error);
+     }
+   };
+   ```
+
+2. **Querying Cache:**
+   ```javascript
+   const checkCache = async () => {
+     try {
+       const cacheStatus = await Image.queryCache(['https://example.com/image.png']);
+       console.log(cacheStatus);
+     } catch (error) {
+       console.error('Error querying cache:', error);
+     }
+   };
+   ```
+
+3. **Getting Image Size:**
+   ```javascript
+   const getImageSize = async () => {
+     try {
+       const { width, height } = await Image.getSize(
+         'https://example.com/image.png',
+         (width, height) => console.log(`Image size is ${width}x${height}`)
+       );
+     } catch (error) {
+       console.error('Error getting image size:', error);
+     }
+   };
+   ```
+
+### Advanced Features
+
+- **`srcSet`**: Allows specifying multiple image sources for different resolutions.
+- **Cache Control**: Use `cache` property in `source` to manage caching behavior.
+
+By leveraging these features, you can efficiently handle images in your React Native application, ensuring optimal performance and user experience.

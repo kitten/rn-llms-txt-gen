@@ -1,0 +1,145 @@
+# Installing Dependencies
+
+To develop a React Native app, ensure you have Node, Watchman, the React Native CLI, a JDK, and Android Studio installed. While any editor can be used for development, Android Studio is necessary for setting up the Android build environment.
+
+## Node & Watchman
+
+Install Node and Watchman using Homebrew with these commands:
+
+```shell
+brew install node
+brew install watchman
+```
+
+Ensure your Node version is 18.18 or newer if already installed. Watchman, a filesystem monitoring tool by Facebook, enhances performance and is recommended for installation.
+
+## Java Development Kit (JDK)
+
+Install the OpenJDK distribution Azul Zulu using Homebrew:
+
+```shell
+brew install --cask zulu@17
+
+# Find the JDK installer path
+brew info --cask zulu@17
+```
+
+After locating the package, double-click `Double-Click to Install Azul Zulu JDK 17.pkg` in Finder. Set or update your `JAVA_HOME` environment variable:
+
+```shell
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+```
+
+Zulu OpenJDK supports both Intel and M1 Macs, optimizing build speeds on M1 devices. If a JDK is already installed, use version 17 to avoid compatibility issues.
+
+## Android Development Environment
+
+Setting up the Android development environment can be complex for newcomers but straightforward if familiar with Android development. Follow these steps:
+
+### 1. Install Android Studio
+
+Download and install Android Studio, ensuring you select `Android SDK`, `Android SDK Platform`, and `Android Virtual Device` during installation. If checkboxes are unavailable, they will appear later.
+
+After setup, proceed to the next step upon reaching the Welcome screen.
+
+### 2. Install the Android SDK
+
+By default, Android Studio installs the latest Android SDK. For React Native apps with native code, install the `Android 15 (VanillaIceCream)` SDK via the SDK Manager in Android Studio:
+
+- Open Android Studio and select "More Actions" > "SDK Manager".
+- In the "SDK Platforms" tab, enable "Show Package Details", then expand `Android 15 (VanillaIceCream)`. Ensure these are checked:
+  - `Android SDK Platform 35`
+  - `Intel x86 Atom_64 System Image` or `Google APIs Intel x86 Atom System Image` or for M1 Silicon: `Google APIs ARM 64 v8a System Image`
+
+- In the "SDK Tools" tab, enable "Show Package Details", expand "Android SDK Build-Tools", and select version `35.0.0`.
+- Click "Apply" to install.
+
+### 3. Configure the ANDROID_HOME Environment Variable
+
+Set up necessary environment variables for React Native tools:
+
+```shell
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+Load these settings with `source ~/.zprofile` (or `source ~/.bash_profile` for bash). Verify by running `echo $ANDROID_HOME` and `echo $PATH`.
+
+Ensure the correct Android SDK path is used, which can be found in Android Studio under **Languages & Frameworks** → **Android SDK**.
+
+## Preparing the Android Device
+
+To run your React Native app on Android, use either a physical device or an Android Virtual Device (AVD).
+
+### Using a Physical Device
+
+Connect your Android device via USB and follow setup instructions for development.
+
+### Using a Virtual Device
+
+Open `./AwesomeProject/android` in Android Studio to access AVDs. If needed, create a new AVD by selecting "Create Virtual Device...", choosing any Phone model, then the **VanillaIceCream** API Level 35 image. Launch your AVD with the green triangle button.
+
+## Congratulations!
+
+You've successfully set up your development environment for React Native on Android.
+
+### Next Steps
+
+- For integrating React Native into an existing app, refer to the Integration guide.
+- To learn more about React Native, explore the Introduction to React Native.
+
+# Installing Dependencies (iOS)
+
+For iOS development with React Native, ensure you have Node, Watchman, Xcode, and CocoaPods installed. While any editor can be used for coding, Xcode is essential for building your app.
+
+## Node & Watchman
+
+Install Node and Watchman using Homebrew:
+
+```shell
+brew install node
+brew install watchman
+```
+
+Ensure Node version 18.18 or newer if already installed. Watchman improves performance by monitoring filesystem changes.
+
+## Xcode
+
+Use the latest version of Xcode, available via the Mac App Store. This installs the iOS Simulator and necessary tools for building your app.
+
+### Command Line Tools
+
+Install Xcode Command Line Tools from **Xcode > Settings...** under the Locations panel.
+
+### Installing an iOS Simulator in Xcode
+
+Access simulators through **Xcode > Settings... > Platforms (or Components)** tab, selecting a simulator with the desired iOS version. For Xcode 14.0 or newer, use the "+" icon and select "iOS…".
+
+## CocoaPods
+
+CocoaPods is a dependency management system for iOS, installable via Ruby gem using macOS's default Ruby.
+
+For more details, visit the CocoaPods Getting Started guide.
+
+### Optional: Configuring Your Environment
+
+From React Native 0.69 onwards, configure Xcode with the `.xcode.env` file provided by the template. Set the `NODE_BINARY` variable to your Node executable path for decoupling from system Node versions. Add other environment variables as needed and source `.xcode.env` in build script phases.
+
+If using NVM (Node Version Manager) with zsh, move NVM initialization code from `~/.zshrc` to `~/.zshenv`:
+
+```shell
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+
+Ensure all "shell script build phase" in Xcode uses `/bin/zsh`.
+
+## Congratulations!
+
+You've successfully set up your iOS development environment for React Native.
+
+### Next Steps
+
+- For integrating React Native into an existing app, refer to the Integration guide.
+- To learn more about React Native, explore the Introduction to React Native.

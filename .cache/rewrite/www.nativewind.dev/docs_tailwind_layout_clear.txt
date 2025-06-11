@@ -1,0 +1,14 @@
+# Clear
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| `clear-left`        | 🌐 Web only |
+| `clear-right`       | 🌐 Web only |
+| `clear-both`        | 🌐 Web only |
+| `clear-none`        | 🌐 Web only |

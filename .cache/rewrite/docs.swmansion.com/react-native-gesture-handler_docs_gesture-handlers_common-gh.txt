@@ -1,0 +1,79 @@
+# Common Handler Properties
+
+**Warning:** The old API will be removed in future versions of Gesture Handler. Please migrate to the gestures API instead. Refer to our upgrading guide for more information.
+
+This page covers the common set of properties that all gesture handler components expose.
+
+## Units
+
+All handler component properties and event attributes representing onscreen dimensions are expressed in screen density-independent units known as "points." These units are commonly used in the React Native ecosystem (e.g., in the layout system). They do not map directly to physical pixels but correspond to iOS's points and Android's dp units.
+
+## Properties
+
+This section describes properties applicable to all gesture handler components:
+
+### `enabled`
+
+- **Type:** Boolean
+- **Description:** Indicates whether the handler should analyze a stream of touch events. When set to `false`, the handler's state will never become `ACTIVE`. If updated while recognizing a gesture, it changes to `FAILED` or `CANCELLED` based on its current state.
+- **Default Value:** `true`
+
+### `shouldCancelWhenOutside`
+
+- **Type:** Boolean
+- **Description:** When `true`, the handler cancels or fails recognition if the finger leaves the connected view's area. The default value varies by handler type; most handlers default to `false`, except for `LongPressGestureHandler` and `TapGestureHandler`, which default to `true`.
+
+### `cancelsTouchesInView` (**iOS only**)
+
+- **Type:** Boolean
+- **Description:** When `true`, the handler cancels touches for native UI components (e.g., `UIButton`, `UISwitch`) it's attached to when active.
+- **Default Value:** `true`
+
+### `simultaneousHandlers`
+
+- **Type:** React ref object or array of refs
+- **Description:** Allows activation even if other handlers provided by their refs are in an `ACTIVE` state. Prevents these handlers from cancelling the current handler upon activation. See cross-handler interaction for more details.
+
+### `waitFor`
+
+- **Type:** React ref object or array of refs
+- **Description:** The handler will not activate as long as handlers provided by their refs are in the `BEGAN` state. See cross-handler interaction for more details.
+
+### `hitSlop`
+
+- **Description:** Controls the area within the connected view where gesture recognition can begin. A negative number reduces the view's bounds evenly on all sides. Alternatively, an object can specify reductions for each side (`left`, `right`, `top`, `bottom`) or use `horizontal`/`vertical`. The object may also include `width` and `height` attributes to restrict activation to edges.
+- **Note:** Primarily designed to reduce the gesture activation area; supported values are non-positive (0 or lower) on all platforms except Android, where positive values expand beyond view bounds but not past parent view bounds. Use React Native's View hitSlop property for cross-platform support.
+
+### `userSelect` (**Web only**)
+
+- **Type:** `"none" | "auto" | "text"`
+- **Description:** Specifies the `userSelect` property applied to the underlying view.
+- **Default Value:** `"none"`
+
+### `activeCursor` (**Web only**)
+
+- **Type:** CSS cursor value (e.g., `"grab"`, `"zoom-in"`)
+- **Description:** Specifies the cursor used when a gesture activates.
+- **Default Value:** `"auto"`
+
+### `onGestureEvent`
+
+- **Type:** Callback or `Animated.event`
+- **Description:** Triggered for each touch event while the handler is in an ACTIVE state. The event payload varies by handler type, with common attributes documented below and specific ones on corresponding handler pages.
+
+### `onHandlerStateChange`
+
+- **Type:** Callback or `Animated.event`
+- **Description:** Triggered when the handler's state changes. Includes the same payload as `onGestureEvent` plus an `oldState` attribute representing the previous state before the change.
+
+## Event Data
+
+This section describes attributes of the event object provided to `onGestureEvent` and `onHandlerStateChange` callbacks:
+
+### `state`
+
+- **Description:** Current state of the handler, expressed as one of the constants in the `State` object exported by the library. Refer to the handler state section for more details.
+
+### `numberOfPointers`
+
+- **Description:** Represents the number of pointers (fingers) currently on the screen.

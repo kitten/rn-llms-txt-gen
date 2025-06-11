@@ -1,0 +1,55 @@
+# Interpolation with `react-native-reanimated`
+
+The `interpolate` function is used to map a numeric value from one specified range to another using linear interpolation.
+
+## Reference Usage
+
+```typescript
+import { interpolate, Extrapolation } from 'react-native-reanimated';
+
+function App() {
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(sv.value, [0, 100], [0, 1], Extrapolation.CLAMP),
+  }));
+}
+```
+
+### Parameters
+
+- **`value`**: A numeric value that will be mapped to the specified `output` range.
+
+- **`input`**: An array of numbers defining the input range for interpolation. 
+
+- **`output`**: An array of numbers defining the output range for interpolation, which should have at least as many points as the input range.
+
+- **`extrapolate` (Optional)**: Determines behavior when `value` is outside the `input` range. Defaults to `Extrapolation.EXTEND`.
+
+  Available options:
+
+  - `Extrapolation.EXTEND`: Predicts values beyond the output range.
+  - `Extrapolation.CLAMP`: Clamps the value to the edge of the output range.
+  - `Extrapolation.IDENTITY`: Returns the provided value unchanged.
+
+  String equivalents include `"extend"`, `"clamp"`, and `"identity"`.
+
+  To apply extrapolation to a specific edge, use an object:
+
+  ```typescript
+  const opacity = interpolate(
+    sv.value,
+    [0, 100],
+    [0, 1],
+    { extrapolateLeft: Extrapolation.CLAMP }
+  );
+  ```
+
+### Return Value
+
+The `interpolate` function returns a value mapped within the specified output range.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+

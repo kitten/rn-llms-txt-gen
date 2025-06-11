@@ -1,0 +1,22 @@
+# Visibility
+
+In native implementations, the `Visibility` class names correspond to CSS `opacity` rather than `visibility`.
+
+## Usage
+
+For detailed information, consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class       | Support        |
+|-------------|----------------|
+| `visible`   | ✅ Full Support |
+| `invisible` | ✅ Full Support |
+| `collapse`  | 🌐 Web only    |
+
+```typescript
+// Example TypeScript typings for visibility classes
+type VisibilityClass = 'visible' | 'invisible' | 'collapse';
+```
+
+This table outlines the support level of each class, indicating full browser compatibility for `visible` and `invisible`, while `collapse` is limited to web environments.

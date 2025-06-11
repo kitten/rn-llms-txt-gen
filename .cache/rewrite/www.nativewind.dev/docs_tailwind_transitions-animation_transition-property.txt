@@ -1,0 +1,22 @@
+# Transition Property
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+**CAUTION**
+
+The animation support is currently experimental. We welcome your feedback to enhance its implementation.
+
+## Compatibility
+
+| Class                        | Support                 |
+| ---------------------------- | ----------------------- |
+| `transition`                 | 🧪 Experimental Support |
+| `transition-all`             | 🧪 Experimental Support |
+| `transition-colors`          | 🧪 Experimental Support |
+| `transition-opacity`         | 🧪 Experimental Support |
+| `transition-transform`       | 🧪 Experimental Support |
+| `transition-{n}`             | 🧪 Experimental Support |
+| `transition-[n]`             | 🧪 Experimental Support |
+| `transition-shadow`          | 🌐 Web only             |

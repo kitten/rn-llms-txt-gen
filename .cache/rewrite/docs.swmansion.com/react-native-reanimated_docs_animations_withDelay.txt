@@ -1,0 +1,38 @@
+# withDelay
+
+`withDelay` is an animation modifier that allows you to initiate an animation after a specified delay period.
+
+## Reference
+
+```typescript
+import { withDelay } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withDelay(500, withTiming(0));
+  // ...
+}
+```
+
+### Arguments
+
+- **`delayMs`**: Specifies the duration (in milliseconds) before the animation begins.
+  
+- **`delayedAnimation`**: The animation that will be delayed.
+
+- **`reduceMotion`** *(Optional)*: Determines how the animation responds to the device's reduced motion accessibility setting.
+
+### Returns
+
+The `withDelay` function returns an animation object representing the current state of the animation. This object can either be directly assigned to a shared value or used as a value for a style object returned from `useAnimatedStyle`.
+
+## Example
+
+*(Example content would go here)*
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+---

@@ -1,0 +1,21 @@
+# App Extensions
+
+App extensions enable you to offer custom functionality and content beyond your primary application. iOS supports various types of app extensions, all detailed in the App Extension Programming Guide. This guide provides an overview of how you can utilize app extensions on iOS.
+
+## Memory Use in Extensions
+
+Since these extensions operate outside the standard app sandbox, it's common for multiple extensions to be loaded at once. Consequently, they have strict memory usage limits that developers should consider during development. Testing your application on a real device is crucial, especially for app extensions, as they may function correctly in the iOS Simulator but fail on actual devices.
+
+We recommend watching Conrad Kramer's talk on Memory Use in Extensions for more insights into this topic.
+
+### Today Widget
+
+The memory limit for a Today widget is 16 MB. Implementations using React Native can be unreliable due to high memory usage. If your Today widget displays 'Unable to Load,' it may have exceeded the memory limit.
+
+Testing app extensions on real devices is essential, but not always sufficient, particularly with Today widgets. Debug builds are more prone to exceeding memory limits compared to release builds, which might not fail immediately. We advise using Xcode's Instruments to analyze actual memory usage, as your release build could be near the 16 MB limit. Common operations like API data fetching can quickly push you over this limit.
+
+To explore React Native Today widget limitations, consider extending the example project in react-native-today-widget.
+
+### Other App Extensions
+
+Other app extensions have higher memory limits than Today widgets. For instance, Custom Keyboard extensions are limited to 48 MB, and Share extensions to 120 MB. Implementing these with React Native is more feasible. A proof of concept for such implementations can be found in react-native-ios-share-extension.

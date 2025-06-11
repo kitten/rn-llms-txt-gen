@@ -1,0 +1,9 @@
+# Handling Text Input
+
+`TextInput` is a Core Component designed to facilitate text entry by users. It includes two key properties: `onChangeText`, which triggers a function every time the text changes, and `onSubmitEditing`, which activates a function when the text is submitted.
+
+Consider an example where user input is translated into another language. In this hypothetical scenario, each word translates to 🍕. Thus, "Hello there Bob" becomes "🍕 🍕 🍕". Here, we manage `text` within the component's state due to its dynamic nature.
+
+Text inputs offer various functionalities beyond basic text entry. For instance, you can validate input in real-time as users type. To explore more comprehensive examples, refer to React documentation on controlled components or the reference materials for `TextInput`.
+
+Text input represents one method of user interaction with an application. Next, we will examine another form of input and learn how to manage touch interactions.

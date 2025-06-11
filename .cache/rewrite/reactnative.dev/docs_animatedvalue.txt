@@ -1,0 +1,127 @@
+# Animated.Value
+
+`Animated.Value` is the standard value used for driving animations in a synchronized manner across multiple properties, though it can only be driven by one mechanism at a time. Initiating a new animation or calling `setValue` will halt any ongoing ones.
+
+Typically initialized with `useAnimatedValue(0);` or `new Animated.Value(0);` in class components.
+
+## Reference
+
+### Methods
+
+#### `setValue()`
+
+```typescript
+setValue(value: number): void;
+```
+Directly sets the value, stopping any running animations and updating all bound properties.
+
+**Parameters:**
+
+- **value**: *number* (Required) - The new value to set.
+
+#### `setOffset()`
+
+```typescript
+setOffset(offset: number): void;
+```
+Applies an offset on top of the current value, useful for adjustments like compensating a pan gesture start.
+
+**Parameters:**
+
+- **offset**: *number* (Required) - The offset value to apply.
+
+#### `flattenOffset()`
+
+```typescript
+flattenOffset(): void;
+```
+Merges the offset into the base value and resets the offset to zero without changing the final output of the value.
+
+#### `extractOffset()`
+
+```typescript
+extractOffset(): void;
+```
+Sets the offset to the base value, resetting the base value to zero while keeping the final output unchanged.
+
+#### `addListener()`
+
+```typescript
+addListener(callback: (state: {value: number}) => void): string;
+```
+Adds an asynchronous listener for observing updates from animations. Returns a string identifier for the listener.
+
+**Parameters:**
+
+- **callback**: *function* (Required) - A function receiving an object with a `value` key set to the new value.
+
+#### `removeListener()`
+
+```typescript
+removeListener(id: string): void;
+```
+Unregisters a listener using the identifier returned by `addListener()`.
+
+**Parameters:**
+
+- **id**: *string* (Required) - The identifier of the listener being removed.
+
+#### `removeAllListeners()`
+
+```typescript
+removeAllListeners(): void;
+```
+Removes all registered listeners.
+
+#### `stopAnimation()`
+
+```typescript
+stopAnimation(callback?: (value: number) => void): void;
+```
+Stops any running animation or tracking. Optionally invokes a callback with the final value, useful for updating state to match the animation position.
+
+**Parameters:**
+
+- **callback**: *function* (Optional) - A function receiving the final value after stopping the animation.
+
+#### `resetAnimation()`
+
+```typescript
+resetAnimation(callback?: (value: number) => void): void;
+```
+Stops any animation and resets the value to its original state. Optionally invokes a callback with the original value.
+
+**Parameters:**
+
+- **callback**: *function* (Optional) - A function receiving the original value after resetting the animation.
+
+#### `interpolate()`
+
+```typescript
+interpolate(config: InterpolationConfigType): void;
+```
+Interpolates the value before updating properties, e.g., mapping 0-1 to 0-10. See `AnimatedInterpolation.js` for details.
+
+**Parameters:**
+
+- **config**: *object* (Required) - Configuration object with keys:
+  - **inputRange**: *array of numbers*
+  - **outputRange**: *array of numbers or strings*
+  - **easing** (optional): *function* returning a number given an input number
+  - **extrapolate** (optional): *string* such as 'extend', 'identity', or 'clamp'
+  - **extrapolateLeft** (optional): *string* such as 'extend', 'identity', or 'clamp'
+  - **extrapolateRight** (optional): *string* such as 'extend', 'identity', or 'clamp'
+
+#### `animate()`
+
+```typescript
+animate(animation: Animation, callback: () => void): void;
+```
+Typically used internally but can be utilized by a custom Animation class.
+
+**Parameters:**
+
+| Name       | Type     | Required | Description                          |
+|------------|----------|----------|--------------------------------------|
+| animation  | Animation| Yes      | See `Animation.js`.                  |
+| callback   | function | Yes      | Callback function.                   |

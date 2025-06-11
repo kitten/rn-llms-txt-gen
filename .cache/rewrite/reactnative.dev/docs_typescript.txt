@@ -1,0 +1,184 @@
+# Using TypeScript
+
+TypeScript enhances JavaScript by adding type definitions. New React Native projects target TypeScript by default, but also support JavaScript and Flow.
+
+## Getting Started with TypeScript
+
+React Native CLI or popular templates like Ignite create new projects using TypeScript by default.
+
+TypeScript can be used with Expo, which provides TypeScript templates or prompts for automatic installation and configuration when a `.ts` or `.tsx` file is added to your project.
+
+```shell
+npx create-expo-app --template
+```
+
+## Adding TypeScript to an Existing Project
+
+1. Install TypeScript, types, and ESLint plugins:
+
+   - **npm**
+     ```shell
+     npm install -D typescript @react-native/typescript-config @types/jest @types/react @types/react-test-renderer
+     ```
+
+   - **Yarn**
+     ```shell
+     yarn add --dev typescript @react-native/typescript-config @types/jest @types/react @types/react-test-renderer
+     ```
+
+   > Note: This command installs the latest versions of dependencies. You may need to adjust versions to match existing packages in your project using tools like React Native Upgrade Helper.
+
+2. Create a `tsconfig.json` file at the root of your project:
+
+   ```json
+   {
+     "extends": "@react-native/typescript-config"
+   }
+   ```
+
+3. Rename a JavaScript file to use `.tsx`.
+
+   > Keep the `./index.js` entrypoint file unchanged to avoid bundling issues in production builds.
+
+4. Run `tsc` for type-checking:
+
+   - **npm**
+     ```shell
+     npx tsc
+     ```
+
+   - **Yarn**
+     ```shell
+     yarn tsc
+     ```
+
+## Using JavaScript Instead of TypeScript
+
+React Native defaults to TypeScript, but `.jsx` files are treated as JavaScript and won't be type-checked. JavaScript modules can still be imported by TypeScript modules and vice versa.
+
+## How TypeScript and React Native Work
+
+TypeScript sources are transformed by Babel during bundling. It's recommended to use the TypeScript compiler only for type checking, which is `tsc`'s default behavior in new applications. Existing TypeScript code ported to React Native may require adjustments when using Babel instead of TypeScript.
+
+## Example: React Native + TypeScript
+
+You can define interfaces for a React Component's Props and State using `React.Component<Props, State>`, enabling type-checking and editor auto-completion:
+
+```tsx
+import { useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+
+export type Props = {
+  name: string;
+  baseEnthusiasmLevel?: number;
+};
+
+function Hello({ name, baseEnthusiasmLevel = 0 }: Props) {
+  const [enthusiasmLevel, setEnthusiasmLevel] = useState(baseEnthusiasmLevel);
+
+  const onIncrement = () => setEnthusiasmLevel(enthusiasmLevel + 1);
+  const onDecrement = () =>
+    setEnthusiasmLevel(enthusiasmLevel > 0 ? enthusiasmLevel - 1 : 0);
+
+  const getExclamationMarks = (numChars: number) =>
+    numChars > 0 ? Array(numChars + 1).join('!') : '';
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.greeting}>
+        Hello {name}{getExclamationMarks(enthusiasmLevel)}
+      </Text>
+      <View>
+        <Button
+          title="Increase enthusiasm"
+          accessibilityLabel="increment"
+          onPress={onIncrement}
+          color="blue"
+        />
+        <Button
+          title="Decrease enthusiasm"
+          accessibilityLabel="decrement"
+          onPress={onDecrement}
+          color="red"
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  greeting: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    margin: 16,
+  },
+});
+
+export default Hello;
+```
+
+Explore more syntax in the TypeScript playground.
+
+## Where to Find Useful Advice
+
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- React's documentation on TypeScript
+- React + TypeScript Cheatsheets for an overview of using React with TypeScript
+
+## Using Custom Path Aliases with TypeScript
+
+To use custom path aliases, configure both Babel and TypeScript:
+
+1. Update `tsconfig.json` to include custom path mappings:
+
+   ```json
+   {
+     "extends": "@react-native/typescript-config",
+     "compilerOptions": {
+       "baseUrl": ".",
+       "paths": {
+         "*": ["src/*"],
+         "tests": ["tests/*"],
+         "@components/*": ["src/components/*"]
+       }
+     }
+   }
+   ```
+
+2. Install `babel-plugin-module-resolver`:
+
+   - **npm**
+     ```shell
+     npm install --save-dev babel-plugin-module-resolver
+     ```
+
+   - **Yarn**
+     ```shell
+     yarn add --dev babel-plugin-module-resolver
+     ```
+
+3. Configure `babel.config.js`:
+
+   ```json
+   {
+     "presets": ["module:metro-react-native-babel-preset"],
+     "plugins": [
+       [
+         "module-resolver",
+         {
+           "root": ["./src"],
+           "extensions": [".ios.js", ".android.js", ".js", ".ts", ".tsx", ".json"],
+           "alias": {
+             "tests": ["./tests/"],
+             "@components": "./src/components"
+           }
+         }
+       ]
+     ]
+   }
+   ```

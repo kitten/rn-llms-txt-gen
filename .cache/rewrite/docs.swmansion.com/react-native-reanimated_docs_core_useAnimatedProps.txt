@@ -1,0 +1,104 @@
+# useAnimatedProps
+
+`useAnimatedProps` is a function that allows you to create an animated properties object, which can be animated using shared values. This object is particularly useful for animating properties of third-party components.
+
+For style animations, consider using `useAnimatedStyle`.
+
+## Reference
+
+```typescript
+import { useAnimatedProps } from 'react-native-reanimated';
+
+function App() {
+  const animatedProps = useAnimatedProps(() => ({
+    opacity: sv.value ? 1 : 0,
+  }));
+
+  return <Animated.View animatedProps={animatedProps} />;
+}
+```
+
+### Arguments
+
+#### `updater`
+
+A function that returns an object containing the properties you wish to animate.
+
+#### `dependencies` (Optional)
+
+An optional array of dependencies. This is only relevant when using Reanimated without the Babel plugin on the Web.
+
+#### `adapters` (Optional)
+
+An optional function or an array of functions. Adapters are useful for handling cases where property names differ between the API surface and their native representation. 
+
+Reanimated includes two built-in adapters:
+
+- `SVGAdapter` for managing the `transform` property in `react-native-svg`.
+- `TextInputAdapter`.
+
+You can create custom adapters using the `createAnimatedPropAdapter` function.
+
+Example of adapting `fill` and `stroke` properties from `react-native-svg` to animate them with Reanimated:
+
+```typescript
+const adapter = createAnimatedPropAdapter(
+  (props) => {
+    if ('fill' in props) {
+      props.fill = { type: 0, payload: processColor(props.fill) };
+    }
+    if ('stroke' in props) {
+      props.stroke = { type: 0, payload: processColor(props.stroke) };
+    }
+  },
+  ['fill', 'stroke']
+);
+```
+
+### Color-related Properties
+
+Color properties from custom components often require special handling as they may not be directly interpretable by the native side. Reanimated includes built-in color processing for commonly used color properties, managed in a predefined list within `Colors.ts`.
+
+For color properties not included in this list, manual processing is necessary using the `processColor` function to ensure correct interpretation on the native side.
+
+Example of manually processing custom color properties:
+
+```typescript
+import { processColor } from 'react-native-reanimated';
+
+function App() {
+  const animatedProps = useAnimatedProps(() => {
+    const mainColor = interpolateColor(
+      colorProgress.value,
+      [0, 1],
+      ['red', 'blue']
+    );
+
+    const bgColor = interpolateColor(
+      colorProgress.value,
+      [0, 1],
+      ['green', 'yellow']
+    );
+
+    return {
+      // `colors` prop is not on our list - we need to process it manually
+      colors: processColor([mainColor, bgColor]),
+    };
+  });
+}
+```
+
+## Returns
+
+`useAnimatedProps` returns an animated properties object that should be assigned to the `animatedProps` property of an Animated component you wish to animate.
+
+## Example
+
+- You can share animated props between components to avoid code duplication.
+- It is recommended to create adapters outside of a component's body to prevent unnecessary recalculations.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

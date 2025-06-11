@@ -1,0 +1,27 @@
+# Accent Color
+
+## Usage
+
+For detailed instructions and guidelines, please consult the Tailwind CSS documentation available on their official website.
+
+## Compatibility
+
+The following table outlines the compatibility of various accent classes with different platforms:
+
+| Class                      | Support     |
+| -------------------------- | ----------- |
+| `accent-{n}`               | Web only    |
+| `accent-[n]`               | Web only    |
+| `accent-black`             | Web only    |
+| `accent-white`             | Web only    |
+| `accent-transparent`       | Web only    |
+| `accent-inherit`           | Web only    |
+| `accent-current`           | Web only    |
+
+## Contributors
+
+We welcome contributions in the following areas:
+
+### Add `accent-{value}`
+
+React Native currently lacks support for an `accent` value, although many third-party libraries do provide it. A potential solution could involve allowing `accent` to compile but stripping it if not used within a `nativeStyleProps` mapping.

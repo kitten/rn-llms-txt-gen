@@ -1,0 +1,68 @@
+# FlingGestureHandler
+
+> **Warning:**  
+> The old API will be deprecated in future versions of Gesture Handler. It is recommended to migrate to the gestures API. Refer to our upgrading guide for more details.
+
+The `FlingGestureHandler` is a discrete gesture handler that activates when movement is sufficiently long and fast. Activation occurs if the movement duration is short enough. Once activated, it transitions to an END state upon finger release. If the finger is lifted before activation, the gesture will not be recognized. On iOS, this handler uses `UISwipeGestureRecognizer`, while on Android, it's implemented from scratch.
+
+## Properties
+
+In addition to properties inherited from the base handler class, `FlingGestureHandler` includes specific properties:
+
+### `direction`
+
+Specifies the allowed direction(s) of movement. You can define one or multiple directions in a single parameter:
+
+```typescript
+direction={Directions.RIGHT | Directions.LEFT}
+```
+
+or
+
+```typescript
+direction={Directions.DOWN}
+```
+
+### `numberOfPointers`
+
+Determines the exact number of pointers required to recognize the fling gesture.
+
+## Event Data
+
+In addition to event attributes from the base handler class, `FlingGestureHandler` provides specific gesture event attributes:
+
+### `x`
+
+Represents the X coordinate of the current pointer position (either a single finger or the leading pointer in multi-touch scenarios) relative to the view attached to the handler. The value is expressed in point units.
+
+### `y`
+
+Represents the Y coordinate of the current pointer position (either a single finger or the leading pointer in multi-touch scenarios) relative to the view attached to the handler. The value is expressed in point units.
+
+### `absoluteX`
+
+Represents the X coordinate of the current pointer position (either a single finger or the leading pointer in multi-touch scenarios) relative to the window, expressed in point units. It's recommended over `x` when the original view can be transformed due to gestures.
+
+### `absoluteY`
+
+Represents the Y coordinate of the current pointer position (either a single finger or the leading pointer in multi-touch scenarios) relative to the window, expressed in point units. It's recommended over `y` when the original view can be transformed due to gestures.
+
+## Example
+
+Below is an example demonstrating how to use `FlingGestureHandler`:
+
+```typescript
+const LongPressButton = () => (
+  <FlingGestureHandler
+    direction={Directions.RIGHT | Directions.LEFT}
+    onHandlerStateChange={({ nativeEvent }) => {
+      if (nativeEvent.state === State.ACTIVE) {
+        Alert.alert("I'm flinged!");
+      }
+    }}>
+    <View style={styles.box} />
+  </FlingGestureHandler>
+);
+```
+
+This example shows a button that triggers an alert when flinged to the right or left.

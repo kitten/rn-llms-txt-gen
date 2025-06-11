@@ -1,0 +1,43 @@
+# Clamp Function in React Native Reanimated
+
+The `clamp` function is used to restrict a value within a specified range, ensuring it does not exceed the defined minimum and maximum bounds.
+
+## Reference
+
+```typescript
+import { clamp } from 'react-native-reanimated';
+
+function App() {
+  const result = clamp(sv.value, 0, 100);
+}
+```
+
+### Arguments
+
+- **`value`**: A numeric value that will be returned if it falls within the specified `min` and `max` range.
+  
+- **`min`**: The lower bound. If the provided `value` is less than this number, `min` will be returned.
+
+- **`max`**: The upper bound. If the provided `value` exceeds this number, `max` will be returned.
+
+### Returns
+
+The function returns a numeric value that lies between the specified `min` and `max` bounds.
+
+## Example Usage
+
+```typescript
+import { clamp } from 'react-native-reanimated';
+
+function App() {
+  const constrainedValue = clamp(150, 0, 100); // Result will be 100
+}
+```
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+This function is compatible across Android, iOS, and Web platforms.

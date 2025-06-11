@@ -1,0 +1,29 @@
+# Text Color
+
+## Usage
+
+For detailed information on usage, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| `text-{n}`           | ✅ Full Support |
+| `text-[n]`           | ✅ Full Support |
+| `text-inherit`       | 🌐 Web only    |
+| `text-current`       | 🌐 Web only    |
+
+## textOpacity (Native Only)
+
+Due to performance considerations, Nativewind renders with the `corePlugin` `textOpacity` feature disabled by default. This plugin enables dynamic changes in text opacity using the `--tw-text-opacity` variable. Instead, opacity is set as a static value within the `color` property.
+
+To enable this feature, modify your `tailwind.config.js` file as follows:
+
+```typescript
+module.exports = {
+  /* ... */
+  corePlugin: {
+    textOpacity: true,
+  },
+};
+```

@@ -1,0 +1,64 @@
+# TouchableOpacity Component
+
+> For a more comprehensive and future-proof approach to handling touch-based input, consider using the Pressable API.
+
+The `TouchableOpacity` is a wrapper that ensures views respond appropriately to touch interactions. When pressed, it reduces the opacity of the wrapped view, creating a dimming effect.
+
+This behavior is achieved by enclosing the children in an `Animated.View`, which is then added to the view hierarchy. Note that this can influence layout.
+
+## Example
+
+## Reference
+
+## Properties
+
+### Inherited from TouchableWithoutFeedback Props
+
+`TouchableOpacity` inherits properties from `TouchableWithoutFeedback`.
+
+### `style`
+
+- **Type**: View.style
+- Description: Defines the style of the component.
+
+### `activeOpacity`
+
+- **Type**: number
+- **Default**: 0.2
+- Description: Specifies the opacity level of the wrapped view during an active touch event.
+
+### `hasTVPreferredFocus` (iOS)
+
+- **Type**: bool
+- **Platform**: Apple TV only
+- Description: Determines if the component should have preferred focus on Apple TV, as detailed in the View component documentation.
+
+### `nextFocusDown` (Android)
+
+- **Type**: number
+- **Platform**: Android
+- Description: Specifies the next focusable view when navigating down using a TV remote, as described in the View component documentation.
+
+### `nextFocusForward` (Android)
+
+- **Type**: number
+- **Platform**: Android
+- Description: Identifies the next focusable view when navigating forward with a TV remote, according to the View component documentation.
+
+### `nextFocusLeft` (Android)
+
+- **Type**: number
+- **Platform**: Android
+- Description: Determines the next focusable view when navigating left using a TV remote, as per the View component documentation.
+
+### `nextFocusRight` (Android)
+
+- **Type**: number
+- **Platform**: Android
+- Description: Specifies the next focusable view when navigating right with a TV remote, based on the View component documentation.
+
+### `nextFocusUp` (Android)
+
+- **Type**: number
+- **Platform**: Android
+- Description: Identifies the next focusable view when navigating up using a TV remote, as detailed in the View component documentation.

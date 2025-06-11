@@ -1,0 +1,66 @@
+# interpolateColor Function
+
+The `interpolateColor` function maps an input range to output colors using linear interpolation. This is particularly useful in animations where you want a smooth transition between colors.
+
+## Reference Example
+
+```typescript
+import { interpolateColor } from 'react-native-reanimated';
+
+function App() {
+  const progress = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor: interpolateColor(
+        progress.value,
+        [0, 1],
+        ['red', 'green']
+      ),
+    };
+  });
+
+  // ...
+
+  return <Animated.View style={[{ width: 100, height: 100 }, animatedStyle]} />;
+}
+```
+
+### Arguments
+
+- **`value`**: A number from the input range that is mapped to the output range.
+
+- **`input`**: An array of numbers specifying the input range for interpolation. The values should be in increasing order.
+
+- **`output`**: An array of color strings (e.g., `'red'`, `'#ff0000'`, `'rgba(255, 0, 0, 0.5)'`) that define the output colors. It must have at least as many points as the input range.
+
+- **`colorSpace`** *(Optional)*: Specifies the color space for interpolation, either `'HSV'` or `'RGB'`. Defaults to `'RGB'`.
+
+- **`options`** *(Optional)*: Additional parameters for color interpolation:
+
+  | Options                        | Type       | Default   | Description                                                                 |
+  |--------------------------------|------------|-----------|-----------------------------------------------------------------------------|
+  | `gamma`                        | `number`   | 2.2       | Gamma parameter used in gamma correction.                                   |
+  | `useCorrectedHSVInterpolation` | `boolean`  | true      | Reduces the number of hues during interpolation by treating HSV as circular. |
+
+### Options Explanation
+
+- **Gamma**: Colors on web/mobile are typically expressed in sRGB, a gamma-corrected color space. Operations like addition can yield incorrect results if performed directly in this non-linear space. To address this, colors are converted to linear space for interpolation and then back to sRGB. The default gamma value of 2.2 is commonly used for this conversion.
+
+- **Use Corrected HSV Interpolation**: This option optimizes hue transitions by selecting the shortest path on a circular spectrum (e.g., transitioning from yellow to purple via red instead of green and blue).
+
+### Returns
+
+The function returns an interpolated color in `rgba(r, g, b, a)` format within the specified output range.
+
+## Remarks
+
+- The function operates similarly to the `interpolate` function but specifically outputs a color string in `rgba(r, g, b, a)` notation.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+This function is versatile and compatible across major platforms, making it ideal for cross-platform applications.

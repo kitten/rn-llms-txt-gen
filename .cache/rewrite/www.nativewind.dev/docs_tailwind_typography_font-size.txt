@@ -1,0 +1,104 @@
+# Font Size
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## `rem` Scaling
+
+Tailwind CSS defaults to using `rem` units for font sizes. To enhance performance, Nativewind inlines these `rem` values across all platforms except Web. The default `rem` values used by Nativewind are:
+
+- **Web**: `16px`
+- **Other Platforms**: `14px`, aligning with React Native's default Text size
+
+For sections of your app requiring dynamically scaling text, using a CSS variable is recommended.
+
+### Configuration in `tailwind.config.js`
+
+```typescript
+module.exports = {
+  theme: {
+    extend: {
+      fontSize: {
+        dynamic: "var(--font-size-dynamic)",
+      },
+    },
+  },
+};
+```
+
+### Scaling Text Based on Screen Width
+
+To scale text dynamically with screen width, utilize CSS variables and media queries. Note that Nativewind does not support media queries directly on `:root`, so a class is necessary.
+
+#### Example in `global.css`
+
+```css
+@media (min-width: 640px) {
+  .text-root {
+    --font-size-dynamic: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .text-root {
+    --font-size-dynamic: 18px;
+  }
+}
+```
+
+#### Example in `App.tsx`
+
+```typescript
+export default function App() {
+  return (
+    <Text className="text-root">
+      <Text className="text-[--font-size-dynamic]">I scale with screen width</Text>
+    </Text>
+  );
+}
+```
+
+### Modifying the Default Inlined `rem` Value
+
+To change the default inlined `rem` value, adjust it within your `metro.config.js`.
+
+#### Example in `metro.config.js`
+
+```typescript
+module.exports = withNativeWind({
+  input: "./global.css",
+  inlineRem: 16,
+});
+```
+
+### Disabling `inlineRem`
+
+Disabling the inlining behavior is possible by setting `inlineRem` to `false`.
+
+#### Example in `metro.config.js`
+
+```typescript
+module.exports = withNativeWind({
+  input: "./global.css",
+  inlineRem: false,
+});
+```
+
+After disabling, specify your own `rem` value within your CSS.
+
+#### Example in `global.css`
+
+```css
+:root {
+  font-size: 16px;
+}
+```
+
+## Compatibility
+
+| Class             | Support        |
+| ----------------- | -------------- |
+| `text-{n}`        | ✅ Full Support |
+| `text-[n]`        | ✅ Full Support |
+| `text-base`       | ✅ Full Support |

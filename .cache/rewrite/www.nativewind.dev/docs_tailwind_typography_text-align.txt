@@ -1,0 +1,14 @@
+# Text Transform
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support        |
+| ------------------- | -------------- |
+| `uppercase`         | ✅ Full Support |
+| `lowercase`         | ✅ Full Support |
+| `capitalize`        | ✅ Full Support |
+| `normal-case`       | 🌐 Web only    |

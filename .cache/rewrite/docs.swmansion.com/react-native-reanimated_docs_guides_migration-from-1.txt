@@ -1,0 +1,15 @@
+# Incremental Migration from Reanimated 1 to Reanimated 2
+
+The transition from Reanimated 1 to Reanimated 2 is designed to be incremental. Upon installing Reanimated 2, users can access both the old and new APIs. The latest stable version of Reanimated 1 is included in the same package, with some exceptions due to naming collisions. To maintain a cleaner API in Reanimated 2, methods from Reanimated 1 that had naming conflicts were renamed. This approach aligns with plans to gradually phase out the older API, focusing on fixing existing issues rather than developing new features for it. Consequently, this strategy introduces some breaking changes where certain method names have been altered. However, the list of renamed methods is relatively short and these methods are not frequently used.
+
+## Renamed Methods
+
+### 1. `interpolate` to `interpolateNode`
+
+- **Reanimated 1**: Use `interpolate` imported directly from `react-native-reanimated`.
+- **Reanimated 2**: Replace with `interpolateNode`. If using the class member method `AnimatedValue.interpolate`, no changes are needed.
+
+### 2. `Easing` to `EasingNode`
+
+- **Reanimated 1**: Use `Easing` imported from `react-native-reanimated`.
+- **Reanimated 2**: Replace with `EasingNode`.

@@ -1,0 +1,92 @@
+# Metro Configuration in React Native
+
+React Native utilizes Metro to compile JavaScript code and manage assets. Below are guidelines for configuring Metro within your project.
+
+## Configuring Metro
+
+To customize Metro's configuration, modify the `metro.config.js` file in your project directory. This file can export:
+
+- **An Object**: Recommended approach that merges with Metro's internal default configurations.
+- **A Function**: Called with Metro's defaults and should return a final configuration object.
+
+For comprehensive documentation on all available configuration options, refer to the "Configuring Metro" section on the Metro website.
+
+In React Native projects, it is advisable to extend either `@react-native/metro-config` or `@expo/metro-config`. These packages provide essential default settings required for building and running React Native applications.
+
+### Default Configuration Example
+
+Here's a typical `metro.config.js` file found in a React Native template project:
+
+```typescript
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+
+/**
+ * Metro configuration
+ * https://metrobundler.dev/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+```
+
+Customize Metro options by modifying the `config` object.
+
+### Advanced Configuration: Using a Config Function
+
+Exporting a configuration function allows you to manage the final configuration manually. **Note**: Metro will not apply any internal defaults in this case. This approach is useful for accessing the base default config from Metro or setting options dynamically.
+
+**Important Update**: From version `@react-native/metro-config` 0.72.1, it's no longer necessary to use a config function to access the complete default configuration. Refer to the "Tip" section below for simpler methods.
+
+```typescript
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+
+module.exports = function (baseConfig) {
+  const defaultConfig = mergeConfig(baseConfig, getDefaultConfig(__dirname));
+  const { resolver: { assetExts, sourceExts } } = defaultConfig;
+
+  return mergeConfig(
+    defaultConfig,
+    {
+      resolver: {
+        assetExts: assetExts.filter(ext => ext !== 'svg'),
+        sourceExts: [...sourceExts, 'svg'],
+      },
+    }
+  );
+};
+```
+
+### Simpler Alternative
+
+For simpler customizations like modifying `sourceExts`, you can directly read these defaults from `@react-native/metro-config`.
+
+```typescript
+const defaultConfig = getDefaultConfig(__dirname);
+
+const config = {
+  resolver: {
+    sourceExts: [...defaultConfig.resolver.sourceExts, 'svg'],
+  },
+};
+
+module.exports = mergeConfig(defaultConfig, config);
+```
+
+**Recommendation**: It's best to copy and edit configuration values directly in your `metro.config.js` file. This ensures that the source of truth for these settings resides within your project.
+
+✅ **Recommended Approach**
+
+```typescript
+const config = {
+  resolver: {
+    sourceExts: ['js', 'ts', 'tsx', 'svg'],
+  },
+};
+```
+
+## Further Learning
+
+- Visit the [Metro website](https://metrobundler.dev/docs/configuration) for more information.
+- Watch the "Metro & React Native DevX" talk at App.js 2023 for insights into Metro's role in React Native development.

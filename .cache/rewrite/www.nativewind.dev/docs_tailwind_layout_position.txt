@@ -1,0 +1,14 @@
+# Position
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class       | Support        |
+| ----------- | -------------- |
+| `absolute`  | ✅ Full Support |
+| `relative`  | ✅ Full Support |
+| `fixed`     | 🌐 Web only    |
+| `sticky`    | 🌐 Web only    |

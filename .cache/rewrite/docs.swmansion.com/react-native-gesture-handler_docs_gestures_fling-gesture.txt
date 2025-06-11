@@ -1,0 +1,107 @@
+# Fling Gesture
+
+A discrete gesture activated by sufficiently long and fast movement. The gesture becomes ACTIVE when the movement meets these criteria, transitioning to END upon finger release. If the finger lifts before activation, recognition fails.
+
+## Example
+
+```typescript
+import { StyleSheet } from 'react-native';
+import {
+  Gesture,
+  GestureDetector,
+  Directions,
+} from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
+
+export default function App() {
+  const position = useSharedValue(0);
+  const flingGesture = Gesture.Fling()
+    .direction(Directions.RIGHT)
+    .onStart((e) => {
+      position.value = withTiming(position.value + 10, { duration: 100 });
+    });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: position.value }],
+  }));
+
+  return (
+    <GestureDetector gesture={flingGesture}>
+      <Animated.View style={[styles.box, animatedStyle]} />
+    </GestureDetector>
+  );
+}
+
+const styles = StyleSheet.create({
+  box: {
+    height: 120,
+    width: 120,
+    backgroundColor: '#b58df1',
+    borderRadius: 20,
+    marginBottom: 30,
+  },
+});
+```
+
+## Configuration
+
+### Properties Specific to `FlingGesture`:
+
+| Property | Description |
+|----------|-------------|
+| `direction(value: Directions)` | Specifies allowed movement directions. Use constants from the `Directions` object, combining multiple directions with `|`. Example: `fling.direction(Directions.RIGHT | Directions.LEFT);` or `fling.direction(Directions.DOWN);` |
+| `numberOfPointers(value: number)` | Sets the exact number of pointers required for gesture recognition. |
+| `mouseButton(value: MouseButton)` (Web & Android only) | Chooses which mouse button to respond to, using predefined fields in `MouseButton`: `LEFT`, `RIGHT`, `MIDDLE`, `BUTTON_4`, `BUTTON_5`, `ALL`. Combine with `|` operator; default is `LEFT`. |
+
+### Properties Common to All Gestures:
+
+| Property | Description |
+|----------|-------------|
+| `enabled(value: boolean)` | Determines if the handler analyzes touch events. Default is `true`. Disabling during recognition changes state to `FAILED` or `CANCELLED`. |
+| `shouldCancelWhenOutside(value: boolean)` | Cancels/fails recognition when a finger leaves the view area. Defaults vary by gesture type; most are `false`, except for `LongPressGesture` and `TapGesture` which default to `true`. |
+| `hitSlop(settings)` | Controls the active area for gesture recognition, reducing or expanding bounds as specified. Supports negative numbers, objects with specific side reductions, and `width`/`height` attributes. |
+| `withRef(ref)` | Sets a ref for interoperability with older APIs. |
+| `withTestId(testID)` | Assigns a `testID` for querying in tests. |
+| `cancelsTouchesInView(value)` (**iOS only**) | When `true`, cancels touches for native UI components when active. Default is `true`. |
+| `runOnJS(value: boolean)` | Determines if callbacks run on the JS thread (`true`) or UI thread (`false`). Defaults to `false` with `react-native-reanimated`. |
+| `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)` | Marks gestures for simultaneous recognition without composing them. Requires separate detectors. |
+| `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)` | Requires another gesture to fail before activation. Does not compose gestures; requires separate detectors. |
+| `blocksExternalGesture(otherGesture1, otherGesture2, ...)` | Delays other gestures until this one fails or doesn't start. Marks relations without composing; requires separate detectors. |
+
+## Callbacks
+
+### Common to All Gestures:
+
+| Callback | Description |
+|----------|-------------|
+| `onBegin(callback)` | Called when the gesture handler starts receiving touches but hasn't yet recognized the gesture. |
+| `onStart(callback)` | Triggered when the gesture is recognized and transitions to active state. |
+| `onEnd(callback)` | Invoked when a recognized gesture finishes, only if previously active. |
+| `onFinalize(callback)` | Called upon finalizing gesture handling—either recognition or failure. |
+| `onTouchesDown(callback)` | Executed every time a finger touches the screen. |
+| `onTouchesMove(callback)` | Triggered with each finger movement on the screen. |
+| `onTouchesUp(callback)` | Invoked when a finger is lifted from the screen. |
+| `onTouchesCancelled(callback)` | Called when a finger stops being tracked, such as gesture completion. |
+
+## Event Data
+
+### Specific to `FlingGesture`:
+
+| Attribute | Description |
+|-----------|-------------|
+| `x` | X coordinate of the pointer relative to the attached view (in points). |
+| `y` | Y coordinate of the pointer relative to the attached view (in points). |
+| `absoluteX` | X coordinate of the pointer relative to the window, recommended for transformed views. |
+| `absoluteY` | Y coordinate of the pointer relative to the window, recommended for transformed views. |
+
+### Common to All Gestures:
+
+| Attribute | Description |
+|-----------|-------------|
+| `state` | Current handler state, expressed as constants from the `State` object. |
+| `numberOfPointers` | Number of pointers currently on the screen. |
+| `pointerType` | Type of pointer device, using `PointerType`: `TOUCH`, `STYLUS`, `MOUSE`, `KEY`, `OTHER`. |

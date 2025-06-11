@@ -1,0 +1,63 @@
+Mix Blend Mode
+
+# Mix Blend Mode
+
+## Usage
+
+Please refer to the documentation on the Tailwind CSS website
+
+## Compatibility
+
+| Class                          | Support     |
+| ------------------------------ | ----------- |
+| ```
+mix-blend-normal
+```       | 🌐 Web only |
+| ```
+mix-blend-multiply
+```     | 🌐 Web only |
+| ```
+mix-blend-screen
+```       | 🌐 Web only |
+| ```
+mix-blend-overlay
+```      | 🌐 Web only |
+| ```
+mix-blend-darken
+```       | 🌐 Web only |
+| ```
+mix-blend-lighten
+```      | 🌐 Web only |
+| ```
+mix-blend-color-dodge
+```  | 🌐 Web only |
+| ```
+mix-blend-color-burn
+```   | 🌐 Web only |
+| ```
+mix-blend-hard-light
+```   | 🌐 Web only |
+| ```
+mix-blend-soft-light
+```   | 🌐 Web only |
+| ```
+mix-blend-difference
+```   | 🌐 Web only |
+| ```
+mix-blend-exclusion
+```    | 🌐 Web only |
+| ```
+mix-blend-hue
+```          | 🌐 Web only |
+| ```
+mix-blend-saturation
+```   | 🌐 Web only |
+| ```
+mix-blend-color
+```        | 🌐 Web only |
+| ```
+mix-blend-luminosity
+```   | 🌐 Web only |
+| ```
+mix-blend-plus-lighter
+``` | 🌐 Web only |

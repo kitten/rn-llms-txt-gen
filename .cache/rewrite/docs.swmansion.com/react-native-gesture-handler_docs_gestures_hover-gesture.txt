@@ -1,0 +1,163 @@
+# Hover Gesture
+
+A continuous gesture designed to recognize hovering actions over a view. This can be triggered by moving a mouse or stylus above the view.
+
+On iOS, additional visual effects are configurable.
+
+## Reference
+
+```typescript
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+
+function App() {
+  const hover = Gesture.Hover();
+
+  return (
+    <GestureDetector gesture={hover}>
+      <View />
+    </GestureDetector>
+  );
+}
+```
+
+## Remarks
+
+- The `Hover` gesture does not continue after a mouse click or stylus touch. For handling both scenarios, combine it with the `Pan` gesture.
+
+## Configuration
+
+### Properties Specific to `HoverGesture` (iOS Only)
+
+#### `effect(effect: HoverEffect)`
+
+Defines the visual effect applied while hovering over the view. Possible values include:
+
+- `HoverEffect.None`
+- `HoverEffect.Lift`
+- `HoverEffect.Highlight`
+
+Defaults to `HoverEffect.None`.
+
+```typescript
+import { HoverEffect } from 'react-native-gesture-handler';
+```
+
+### Properties Common to All Gestures
+
+#### `enabled(value: boolean)`
+
+Determines if the handler analyzes touch events. When set to `false`, the handler's state will never be `ACTIVE`. If updated during gesture recognition, it transitions to `FAILED` or `CANCELLED`. Default is `true`.
+
+#### `shouldCancelWhenOutside(value: boolean)`
+
+If `true`, the handler cancels or fails when a finger leaves the view area. Defaults vary by handler type; most are `false`, except for `LongPressGesture` and `TapGesture`, which default to `true`.
+
+#### `hitSlop(settings)`
+
+Controls the gesture activation area within the view. Negative numbers reduce the bounds evenly on all sides. Alternatively, specify reductions per side (`left`, `right`, `top`, `bottom`) or use `horizontal`/`vertical`. You can also set `width` and `height` to restrict gestures to edges.
+
+**Note:** Primarily reduces activation area; supported for non-positive values (0 or lower). On Android, positive values are allowed but limited by parent view bounds. For cross-platform edge effects, use React Native's View hitSlop property.
+
+#### `withRef(ref)`
+
+Sets a ref to the gesture object for interoperability with older APIs.
+
+#### `withTestId(testID)`
+
+Assigns a `testID` to the gesture object for test querying.
+
+#### `cancelsTouchesInView(value)` (iOS Only)
+
+When `true`, cancels touches for native UI components (`UIButton`, `UISwitch`, etc.) when active. Default is `true`.
+
+#### `runOnJS(value: boolean)`
+
+If `react-native-reanimated` is installed, callbacks are workletized and run on the UI thread by default. Setting this to `true` runs all callbacks on the JS thread instead. Defaults to `false`.
+
+#### `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)`
+
+Marks gestures for simultaneous recognition without composing them. Requires adding `otherGestures` to another detector.
+
+#### `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)`
+
+Requires specified gestures to fail before this one can activate.
+
+#### `blocksExternalGesture(otherGesture1, otherGesture2, ...)`
+
+Prevents specified gestures from activating until this gesture fails or doesn't start. Requires adding `otherGestures` to another detector.
+
+**Note:** Marks relations without composing them; `GestureDetector` won't recognize `otherGestures`.
+
+#### `activeCursor(value)` (Web Only)
+
+Specifies the cursor style when the gesture activates, supporting all CSS cursor values (e.g., `"grab"`, `"zoom-in"`). Default is `"auto"`.
+
+## Callbacks
+
+### Common to All Gestures
+
+#### `onBegin(callback)`
+
+Called when the handler starts receiving touches but hasn't yet recognized a gesture.
+
+#### `onStart(callback)`
+
+Triggered when the gesture is recognized and transitions to an active state.
+
+#### `onEnd(callback)`
+
+Invoked when a recognized gesture finishes, provided it was previously in an active state.
+
+#### `onFinalize(callback)`
+
+Called when the handler finalizes handling a gesture, whether recognized or failed.
+
+#### `onTouchesDown(callback)`
+
+Executed every time a finger touches the screen.
+
+#### `onTouchesMove(callback)`
+
+Triggered whenever a finger moves on the screen.
+
+#### `onTouchesUp(callback)`
+
+Invoked each time a finger is lifted from the screen.
+
+#### `onTouchesCancelled(callback)`
+
+Called when a finger stops being tracked, such as when a gesture finishes.
+
+### Common to All Continuous Gestures
+
+#### `onUpdate(callback)`
+
+Executed every time an active gesture receives an update.
+
+#### `onChange(callback)`
+
+Triggered with updates during an active gesture, providing change information relative to the last event.
+
+## Event Data Specific to `HoverGesture`
+
+- **`x`**: X coordinate of the pointer relative to the view, in points.
+- **`y`**: Y coordinate of the pointer relative to the view, in points.
+- **`absoluteX`**: X coordinate of the pointer relative to the window, in points. Use this for transformed views.
+- **`absoluteY`**: Y coordinate of the pointer relative to the window, in points. Use this for transformed views.
+- **`stylusData`**: Contains additional stylus information:
+  - `tiltX`: Angle between the Y-Z plane of the stylus and the screen (degrees).
+  - `tiltY`: Angle between the X-Z plane of the stylus and the screen (degrees).
+  - `altitudeAngle`: Angle between stylus axis and device screen's X-Y plane.
+  - `azimuthAngle`: Angle between the Y-Z plane and the plane containing both the stylus axis and the Y axis.
+  - `pressure`: Normalized pressure of the stylus.
+
+## Event Attributes Common to All Gestures
+
+- **`state`**: Current state of the handler, expressed as a constant from the `State` object.
+- **`numberOfPointers`**: Number of pointers (fingers) on the screen.
+- **`pointerType`**: Type of pointer device in use, represented by the `PointerType` enum:
+  - `TOUCH`: Finger
+  - `STYLUS`: Stylus or digital pen
+  - `MOUSE`: Computer mouse
+  - `KEY`: Keyboard
+  - `OTHER`: Unknown device type

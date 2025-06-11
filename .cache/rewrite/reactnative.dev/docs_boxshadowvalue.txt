@@ -1,0 +1,64 @@
+# BoxShadowValue Object Type
+
+The `BoxShadowValue` object is utilized by the `boxShadow` style property. It consists of two to four length values, an optional color specification, and an optional boolean for inset shadows. These elements collectively define the shadow's color, position, size, and blurriness.
+
+## Example
+
+```typescript
+{
+  offsetX: 10,
+  offsetY: -3,
+  blurRadius: '15px',
+  spreadDistance: '10px',
+  color: 'red',
+  inset: true,
+}
+```
+
+## Keys and Values
+
+### `offsetX`
+
+The x-axis offset, which can be positive or negative. A positive value indicates a rightward direction, while a negative value indicates leftward.
+
+- **Type**: number | string
+- **Optional**: No
+
+### `offsetY`
+
+The y-axis offset, which can also be positive or negative. A positive value indicates an upward direction, and a negative value indicates downward.
+
+- **Type**: number | string
+- **Optional**: No
+
+### `blurRadius`
+
+This represents the radius used in the Gaussian blur algorithm. Larger values result in a blurrier shadow. Only non-negative values are valid; the default is 0.
+
+- **Type**: number | string
+- **Optional**: Yes
+
+### `spreadDistance`
+
+Determines how much larger or smaller the shadow grows or shrinks. A positive value enlarges the shadow, while a negative value reduces it.
+
+- **Type**: number | string
+- **Optional**: Yes
+
+### `color`
+
+Specifies the color of the shadow. The default is `black`.
+
+- **Type**: color
+- **Optional**: Yes
+
+### `inset`
+
+Indicates whether the shadow is inset or not. Inset shadows appear inside the element's border box, rather than outside.
+
+- **Type**: boolean
+- **Optional**: Yes
+
+## Used by
+
+* `boxShadow`

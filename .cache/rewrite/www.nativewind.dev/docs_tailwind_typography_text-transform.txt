@@ -1,0 +1,18 @@
+# Text Alignment
+
+## How to Use
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility Table
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| `text-left`          | ✅ Full Support |
+| `text-center`        | ✅ Full Support |
+| `text-right`         | ✅ Full Support |
+| `text-justify`       | ✅ Full Support |
+| `text-start`         | ✅ Full Support |
+| `text-end`           | ✅ Full Support |
+
+---

@@ -1,0 +1,72 @@
+# Keyframe Animations
+
+Keyframes provide a schema for defining animations, offering more flexibility than standard Entering and Exiting presets. They allow you to create complex animations with ease.
+
+## Reference
+
+```typescript
+import { Keyframe } from 'react-native-reanimated';
+
+const keyframe = new Keyframe({
+  0: {
+    transform: [{ rotate: '0deg' }],
+  },
+  45: {
+    transform: [{ rotate: '100deg' }],
+    easing: Easing.exp,
+  },
+  100: {
+    transform: [{ rotate: '45deg' }],
+  },
+});
+
+function App() {
+  return <Animated.View entering={keyframe} />;
+}
+```
+
+### Arguments
+
+#### `definitions`
+
+An object containing animation definitions. The keys should be within the range of `0-100`, representing the progress of the animation. Values consist of style properties and optionally an easing function, defaulting to `Easing.linear` if not specified.
+
+Key values include:
+
+* `0` or `from`: Represents the initial state.
+* Intermediate points (e.g., `45`): Represent intermediate states.
+* `100` or `to`: Represents the final state.
+
+The key `0` (or `from`) should define the style at the start of the animation, while `100` (or `to`) defines it at the end.
+
+## Modifiers
+
+```typescript
+keyframe
+  .duration(1000)
+  .delay(500)
+  .reduceMotion(ReduceMotion.Never)
+  .withCallback((finished) => {
+    console.log(`finished without interruptions: ${finished}`);
+  });
+```
+
+* `.duration(durationMs: number)` sets the animation length in milliseconds, defaulting to `500`.
+* `.delay(durationMs: number)` specifies a delay before starting the animation, defaulting to `0`.
+* `.reduceMotion(reduceMotion: ReduceMotion)` adjusts the animation based on the device's reduced motion setting.
+* `.withCallback(callback: (finished: boolean) => void)` triggers after the animation ends, indicating if it finished without interruptions.
+
+## Remarks
+
+- Providing keyframe `0` or `from` is mandatory as it defines the initial state of the object to be animated.
+- Ensure all style properties intended for animation have an initial value in other keyframes.
+- Easing should only be applied to subsequent keyframes, not to keyframe `0`.
+- Avoid using both `0` and `from`, or `100` and `to`, as it causes parsing conflicts.
+- When animating transform styles, maintain the order of properties consistently across all keyframes.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+

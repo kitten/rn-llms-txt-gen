@@ -1,0 +1,254 @@
+To create a native web view component in React Native, you need to implement platform-specific code for both Android and iOS. Below is a step-by-step guide on how to achieve this:
+
+### Step 1: Set Up Your Project
+
+Ensure your project is set up with the necessary dependencies for React Native development.
+
+```bash
+npx react-native init WebViewDemo
+cd WebViewDemo
+```
+
+### Step 2: Run Codegen
+
+Codegen helps generate boilerplate code based on your component specifications. This step is crucial for both Android and iOS platforms.
+
+#### For iOS:
+
+1. Navigate to the `ios` directory:
+   ```bash
+   cd ios
+   ```
+
+2. Install dependencies using CocoaPods:
+   ```bash
+   bundle install
+   bundle exec pod install
+   ```
+
+3. Open the generated Xcode workspace:
+   ```bash
+   open Demo.xcworkspace
+   ```
+
+#### For Android:
+
+1. Navigate to the `android` directory:
+   ```bash
+   cd android
+   ```
+
+2. Run Codegen using your terminal or command prompt.
+
+### Step 3: Implement Native Components
+
+#### Android Implementation
+
+1. **Create a New Group**: In Android Studio, right-click on the app and select `New → Directory`. Name it `WebView`.
+
+2. **Add Java Files**:
+   - Create `RCTWebView.java` and `RCTWebViewPackage.java`.
+   
+3. **Implement RCTWebView.java**:
+
+```java
+package com.webviewdemo;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import androidx.annotation.Nullable;
+import com.facebook.react.uimanager.SimpleViewManager;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.views.view.ReactViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+public class RCTWebView extends ReactViewGroup {
+
+    private WebView webView;
+
+    public RCTWebView(ThemedReactContext context) {
+        super(context);
+        init();
+    }
+
+    public RCTWebView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    private void init() {
+        webView = new WebView(getContext());
+        addView(webView);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                // Emit event when page is loaded
+            }
+        });
+    }
+
+    public void loadUrl(String url) {
+        webView.loadUrl(url);
+    }
+}
+```
+
+4. **Implement RCTWebViewPackage.java**:
+
+```java
+package com.webviewdemo;
+
+import androidx.annotation.NonNull;
+import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.ViewManager;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class RCTWebViewPackage implements ReactPackage {
+
+    @NonNull
+    @Override
+    public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
+        return Collections.emptyList();
+    }
+
+    @NonNull
+    @Override
+    public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
+        List<ViewManager> viewManagers = new ArrayList<>();
+        viewManagers.add(new RCTWebViewManager());
+        return viewManagers;
+    }
+}
+```
+
+5. **Register the Package**: Add `RCTWebViewPackage` to your `MainApplication.java`.
+
+```java
+@Override
+protected List<ReactPackage> getPackages() {
+  return Arrays.<ReactPackage>asList(
+      new MainReactPackage(),
+      new RCTWebViewPackage()
+  );
+}
+```
+
+#### iOS Implementation
+
+1. **Create Files**: In Xcode, create `RCTWebView.h` and `RCTWebView.mm`.
+
+2. **Implement RCTWebView.h**:
+
+```objc
+#import <React/RCTViewComponentView.h>
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface RCTWebView : RCTViewComponentView
+
+@end
+
+NS_ASSUME_NONNULL_END
+```
+
+3. **Implement RCTWebView.mm**:
+
+```objc
+#import "RCTWebView.h"
+#import <WebKit/WebKit.h>
+
+@implementation RCTWebView {
+  NSURL *_sourceURL;
+  WKWebView *_webView;
+}
+
+- (instancetype)init {
+  if (self = [super init]) {
+    _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+    [_webView setNavigationDelegate:self];
+    [self addSubview:_webView];
+  }
+  return self;
+}
+
+- (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps {
+  auto newViewProps = *std::static_pointer_cast<CustomWebViewProps const>(props);
+  NSString *urlString = [NSString stringWithCString:newViewProps.sourceURL.c_str() encoding:NSUTF8StringEncoding];
+  _sourceURL = [NSURL URLWithString:urlString];
+
+  if (_sourceURL) {
+    [_webView loadRequest:[NSURLRequest requestWithURL:_sourceURL]];
+  }
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  _webView.frame = self.bounds;
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+  // Emit event when page is loaded
+}
+
+@end
+```
+
+### Step 4: Use Your Native Component in React Native
+
+Update your `App.tsx` to use the new WebView component:
+
+```tsx
+import React from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
+import { WebView as CustomWebView } from './specs/WebViewNativeComponent';
+
+function App(): React.JSX.Element {
+  return (
+    <View style={styles.container}>
+      <CustomWebView
+        sourceURL="https://react.dev/"
+        style={styles.webview}
+        onScriptLoaded={() => Alert.alert('Page Loaded')}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  webview: {
+    width: '100%',
+    height: '100%',
+  },
+});
+
+export default App;
+```
+
+### Step 5: Run Your App
+
+#### Android:
+
+```bash
+npx react-native run-android
+```
+
+#### iOS:
+
+```bash
+npx react-native run-ios
+```
+
+This setup will allow you to use a native web view component in your React Native application, providing better performance and integration with platform-specific features.

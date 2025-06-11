@@ -1,0 +1,31 @@
+```markdown
+# Core (Version: 3.x)
+
+## useSharedValue
+
+`useSharedValue` is used for defining shared values within your components. These shared values can be utilized across different parts of the component tree.
+
+## useAnimatedStyle
+
+With `useAnimatedStyle`, you can create a styles object akin to StyleSheet styles, which allows animation using shared values. This enables dynamic styling changes in response to animations.
+
+## useAnimatedProps
+
+`useAnimatedProps` facilitates the creation of an animated props object that can be animated with shared values. It is particularly useful for animating properties of third-party components by providing them with animated props.
+
+## useAnimatedRef
+
+The `useAnimatedRef` function provides a reference to a view, which can then be used in conjunction with functions like measure, scrollTo, and useScrollViewOffset to manipulate the view's position or dimensions.
+
+## useDerivedValue
+
+`useDerivedValue` allows for the creation of new shared values derived from existing ones. This ensures that these new values remain reactive and update automatically when their dependencies change.
+
+## createAnimatedComponent
+
+`createAnimatedComponent` enables you to transform any React Native component into an animated version. By wrapping a component with `createAnimatedComponent`, Reanimated can animate any prop or style associated with it, enhancing the component's interactivity.
+
+## cancelAnimation
+
+The `cancelAnimation` function is used to stop a running animation that is linked to a shared value. This allows for greater control over animations by providing the ability to halt them when necessary.
+```

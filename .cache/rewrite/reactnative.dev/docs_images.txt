@@ -1,0 +1,164 @@
+# Images
+
+## Static Image Resources
+
+React Native offers a unified approach for managing images and other media assets in Android and iOS applications. To add a static image, place it within your source code directory and reference it as follows:
+
+```typescript
+<Image source={require('./my-icon.png')} />
+```
+
+The image name is resolved similarly to how JavaScript modules are resolved. In the example above, the bundler searches for `my-icon.png` in the same folder as the component that requires it.
+
+You can use the `@2x` and `@3x` suffixes to provide images for different screen densities. For instance, with this file structure:
+
+```
+.
+├── button.js
+└── img
+    ├── check.png
+    ├── check@2x.png
+    └── check@3x.png
+```
+
+...and the `button.js` code containing:
+
+```typescript
+<Image source={require('./img/check.png')} />
+```
+
+...the bundler will bundle and serve the image corresponding to the device's screen density. For example, `check@2x.png` is used on an iPhone 7, while `check@3x.png` is used on an iPhone 7 Plus or a Nexus 5. If no matching image for the screen density exists, the closest available option will be selected.
+
+On Windows, you might need to restart the bundler if new images are added to your project.
+
+Benefits include:
+
+1. A unified system across Android and iOS.
+2. Images reside in the same folder as JavaScript code, making components self-contained.
+3. No global namespace, avoiding name collisions.
+4. Only used images are packaged into your app.
+5. Adding or changing images doesn't require recompilation; you can refresh the simulator as usual.
+6. The bundler knows image dimensions, eliminating the need to duplicate this information in code.
+7. Images can be distributed via npm packages.
+
+For this to work, the image name in `require` must be known statically:
+
+```typescript
+// GOOD
+<Image source={require('./my-icon.png')} />;
+
+// BAD
+const icon = this.props.active
+  ? 'my-icon-active'
+  : 'my-icon-inactive';
+<Image source={require('./' + icon + '.png')} />;
+
+// GOOD
+const icon = this.props.active
+  ? require('./my-icon-active.png')
+  : require('./my-icon-inactive.png');
+<Image source={icon} />;
+```
+
+Note that image sources required in this manner include size (width, height) information. If you need to scale the image dynamically (e.g., via flex), you may need to manually set `{width: undefined, height: undefined}` on the style attribute.
+
+## Static Non-Image Resources
+
+The `require` syntax described above can also be used to statically include audio, video, or document files in your project. Common file types supported include `.mp3`, `.wav`, `.mp4`, `.mov`, `.html`, and `.pdf`. See bundler defaults for the full list.
+
+You can add support for other types by adding an `assetExts` resolver option in your Metro configuration.
+
+A caveat is that videos must use absolute positioning instead of `flexGrow`, as size information is not currently passed for non-image assets. This limitation does not occur for videos linked directly into Xcode or the Assets folder for Android.
+
+## Images From Hybrid App's Resources
+
+If you are building a hybrid app (some UIs in React Native, some in platform code), you can still use images already bundled into the app.
+
+For images included via Xcode asset catalogs or the Android Assets folder, reference them by name:
+
+```typescript
+<Image source={{ uri: 'image-name' }} />
+```
+
+Note that you must specify some width and height style attributes.
+
+## iOS Border Radius Styles
+
+Please note that the following corner-specific border radius style properties might be ignored by iOS's image component:
+
+- `borderTopLeftRadius`
+- `borderTopRightRadius`
+- `borderBottomLeftRadius`
+- `borderBottomRightRadius`
+
+## Off-thread Decoding
+
+Image decoding can take more than a frame-worth of time, which is a major source of frame drops on the web because decoding is done in the main thread. In React Native, image decoding occurs in a different thread. Practically, you already handle cases where the image isn't downloaded yet, so displaying a placeholder for a few extra frames while it decodes doesn't require any code changes.
+
+## Configuring iOS Image Cache Limits
+
+On iOS, an API is available to override React Native's default image cache limits. This should be called from within your native AppDelegate code (e.g., within `didFinishLaunchingWithOptions`):
+
+```objective-c
+RCTSetImageCacheLimits(4*1024*1024, 200*1024*1024);
+```
+
+**Parameters:**
+
+| Name           | Type   | Required | Description             |
+| -------------- | ------ | -------- | ----------------------- |
+| imageSizeLimit | number | Yes      | Image cache size limit. |
+| totalCostLimit | number | Yes      | Total cache cost limit. |
+
+In the example above, the image size limit is set to 4 MB and the total cost limit to 200 MB.
+
+## Source as an Object
+
+In React Native, the `src` attribute is named `source` and doesn't take a string but an object with a `uri` attribute:
+
+```typescript
+<Image source={{ uri: 'something.jpg' }} />
+```
+
+On the infrastructure side, this allows attaching metadata to the object. For example, if you use `require('./my-icon.png')`, information about its actual location and size is added (though relying on this fact might change in the future!). This approach also future-proofs for features like sprites, where instead of outputting `{uri: ...}`, we can output `{uri: ..., crop: {left: 10, top: 50, width: 20, height: 40}}` and transparently support spriting on all existing call sites.
+
+On the user side, this lets you annotate the object with useful attributes such as image dimensions to compute its display size. Feel free to use it as your data structure for storing more information about your image.
+
+## Background Image via Nesting
+
+A common feature request from developers familiar with web development is `background-image`. To handle this use case, use the `<ImageBackground>` component, which has the same props as `<Image>`, and add any children you want to layer on top of it:
+
+```typescript
+return (
+  <ImageBackground source={...} style={{ width: '100%', height: '100%' }}>
+    <Text>Inside</Text>
+  </ImageBackground>
+);
+```
+
+Note that you must specify some width and height style attributes.
+
+## Best Camera Roll Image
+
+iOS saves multiple sizes for the same image in your Camera Roll. It's crucial to pick the one closest to your display size for performance reasons. For example, avoid using a full-quality 3264x2448 image as a source when displaying a 200x200 thumbnail. If there's an exact match, React Native will select it; otherwise, it uses the first one that's at least 50% larger to prevent blurring during resizing. This process is automatic, so you don't need to write tedious code for it.
+
+## Why Not Automatically Size Everything?
+
+*In the browser*, if no size is given to an image, the browser renders a 0x0 element, downloads the image, and then displays it with the correct size. The issue here is that your UI will jump around as images load, leading to a poor user experience known as Cumulative Layout Shift.
+
+*In React Native*, this behavior isn't implemented intentionally. It requires more work for developers to know the dimensions (or aspect ratio) of remote images in advance, but it leads to a better user experience. Static images loaded from the app bundle via `require('./my-icon.png')` can be automatically sized because their dimensions are available immediately at mounting time.
+
+For example, the result of `require('./my-icon.png')` might be:
+
+```json
+{"__packager_asset":true,"uri":"my-icon.png","width":591,"height":573}
+```
+
+## iOS Border Radius Styles
+
+Please note that the following corner-specific border radius style properties might be ignored by iOS's image component:
+
+- `borderTopLeftRadius`
+- `borderTopRightRadius`
+- `borderBottomLeftRadius`
+- `borderBottomRightRadius`

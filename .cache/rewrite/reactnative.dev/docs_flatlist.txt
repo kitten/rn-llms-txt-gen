@@ -1,0 +1,139 @@
+# FlatList
+
+A performant interface for rendering basic, flat lists with a variety of features:
+
+- Fully cross-platform.
+- Optional horizontal mode.
+- Configurable viewability callbacks.
+- Header and footer support.
+- Separator support.
+- Pull-to-refresh functionality.
+- Scroll loading.
+- `ScrollToIndex` support.
+- Multiple column support.
+
+For sectioned lists, use `<SectionList>` instead.
+
+## Example
+
+### TypeScript & JavaScript
+
+To render multiple columns, utilize the `numColumns` prop. This method avoids conflicts with item height logic that might arise from using a `flexWrap` layout.
+
+A more complex example includes:
+
+- Passing `extraData={selectedId}` to `FlatList` ensures it re-renders when state changes. Without this prop, `FlatList`, being a `PureComponent`, wouldn't recognize the need for re-rendering due to unchanged props.
+- The `keyExtractor` prop allows using item `id`s as React keys instead of default `key` properties.
+
+This component is a convenience wrapper around `<VirtualizedList>`, inheriting its and `<ScrollView>`'s unlisted props, with specific considerations:
+
+* Internal state isn't preserved when content scrolls out of view. Ensure all data is captured in the item data or external stores like Flux, Redux, or Relay.
+* As a `PureComponent`, it won't re-render if `props` remain shallow-equal. Pass everything your `renderItem` function depends on as props (e.g., `extraData`) that aren't strictly equal after updates to ensure UI updates on changes. This includes the `data` prop and parent component state.
+* Content is rendered asynchronously offscreen for memory constraints and smooth scrolling, which might lead to blank content during fast scrolls. This tradeoff can be adjusted per application needs.
+* By default, it looks for a `key` prop on each item for React keys or uses a custom `keyExtractor`.
+
+## Reference
+
+### Props
+
+#### VirtualizedList Props
+
+Inherits from VirtualizedList Props.
+
+#### Required: `renderItem`
+
+```typescript
+renderItem({
+  item: ItemT,
+  index: number,
+  separators: {
+    highlight: () => void;
+    unhighlight: () => void;
+    updateProps: (select: 'leading' | 'trailing', newProps: any) => void;
+  }
+}): JSX.Element;
+```
+
+- **item**: The item to be rendered.
+- **index**: Index of the item in the list.
+- **separators**: Object containing methods for separator interactions.
+
+#### Required: `data`
+
+An array of items to render. Each item should have a unique key or use the `keyExtractor` prop.
+
+### Methods
+
+#### `flashScrollIndicators()`
+
+Displays scroll indicators momentarily.
+
+```typescript
+flashScrollIndicators(): void;
+```
+
+#### `getNativeScrollRef()`
+
+Provides a reference to the underlying scroll component.
+
+```typescript
+getNativeScrollRef(): React.ElementRef<typeof ScrollViewComponent>;
+```
+
+#### `getScrollResponder()`
+
+Provides access to the underlying scroll responder.
+
+```typescript
+getScrollResponder(): ScrollResponderMixin;
+```
+
+#### `getScrollableNode()`
+
+Provides access to the underlying scroll node.
+
+```typescript
+getScrollableNode(): any;
+```
+
+#### `scrollToEnd(params?: { animated?: boolean })`
+
+Scrolls to the end of the content. May be less smooth without `getItemLayout`.
+
+**Parameters:**
+
+- **params**: Optional object with:
+  - `animated`: Whether to animate the scroll (default is `true`).
+
+#### `scrollToIndex(params: { index: number; animated?: boolean; viewOffset?: number; viewPosition?: number })`
+
+Scrolls to a specific item index, positioning it based on `viewPosition`.
+
+**Parameters:**
+
+- **params**: Required object with:
+  - `index`: Index of the item.
+  - `animated`: Whether to animate (default is `true`).
+  - `viewOffset`: Pixels to offset the final position.
+  - `viewPosition`: Position in view (`0` for top, `1` for bottom, `0.5` for center).
+
+#### `scrollToItem(params: { animated?: boolean; item: Item; viewPosition?: number })`
+
+Scrolls to a specific item. Requires linear scan through data.
+
+**Parameters:**
+
+- **params**: Required object with:
+  - `item`: The item to scroll to.
+  - `animated`: Whether to animate (default is `true`).
+  - `viewPosition`: Position in view (`0` for top, `1` for bottom, `0.5` for center).
+
+#### `scrollToOffset(params: { offset: number; animated?: boolean })`
+
+Scrolls to a specific content pixel offset.
+
+**Parameters:**
+
+- **params**: Required object with:
+  - `offset`: The offset to scroll to.
+  - `animated`: Whether to animate (default is `true`).

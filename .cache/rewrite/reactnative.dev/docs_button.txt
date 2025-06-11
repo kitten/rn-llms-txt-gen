@@ -1,0 +1,48 @@
+# Button Component
+
+The Button component is designed to render consistently across different platforms, offering a basic level of customization. If the default appearance does not meet your needs, consider creating a custom button using Pressable. For guidance, refer to the source code of the Button component.
+
+```typescript
+<Button
+  onPress={onPressLearnMore}
+  title="Learn More"
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/>
+```
+
+## Example
+
+## Reference
+
+## Props
+
+| Prop Name                  | Description                                                                                   | Type                | Required |
+|----------------------------|-----------------------------------------------------------------------------------------------|---------------------|----------|
+| **`onPress`**              | Handler called when the user taps the button.                                                 | `({nativeEvent: PressEvent})` | Yes      |
+| **`title`**                | Text displayed inside the button. On Android, this title is converted to uppercase.           | string              | Yes      |
+| `accessibilityLabel`       | Text for blindness accessibility features.                                                    | string              | No       |
+| `accessibilityLanguage`    | Language used by screen readers on iOS, following BCP 47 specification.                       | string              | No       |
+| `accessibilityActions`     | List of actions for assistive technologies to invoke programmatically.                        | array               | No       |
+| `onAccessibilityAction`    | Invoked when an accessibility action is performed by the user.                                | function            | No       |
+| `color`                    | Text color on iOS, background color on Android.                                               | color               | No       |
+|                            | Default:                                                                                      |                     |          |
+|                            | - Android: `'#2196F3'`                                                                        |                     |          |
+|                            | - iOS: `'#007AFF'`                                                                            |                     |          |
+| `disabled`                 | Disables all interactions if set to true.                                                     | bool                | No       |
+|                            | Default:                                                                                      |                     |          |
+|                            | - false                                                                                        |                     |          |
+| `hasTVPreferredFocus`      | Indicates TV preferred focus.                                                                  | bool                | No       |
+|                            | Default:                                                                                      |                     |          |
+|                            | - false                                                                                        |                     |          |
+| `nextFocusDown`            | Next view to receive focus when navigating down on Android TV.                                | number              | No       |
+| `nextFocusForward`         | Next view to receive focus when navigating forward on Android TV.                             | number              | No       |
+| `nextFocusLeft`            | Next view to receive focus when navigating left on Android TV.                                | number              | No       |
+| `nextFocusRight`           | Next view to receive focus when navigating right on Android TV.                               | number              | No       |
+| `nextFocusUp`              | Next view to receive focus when navigating up on Android TV.                                  | number              | No       |
+| `testID`                   | Identifier for locating this view in end-to-end tests.                                        | string              | No       |
+| `touchSoundDisabled`       | Disables system sound on touch if set to true (Android only).                                 | boolean             | No       |
+|                            | Default:                                                                                      |                     |          |
+|                            | - false                                                                                        |                     |          |
+
+This table summarizes the properties available for the Button component, detailing their purpose and default values where applicable.

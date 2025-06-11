@@ -1,0 +1,17 @@
+# Typescript
+
+Nativewind enhances React Native's type definitions through declaration merging. To incorporate these types, create a new file named `nativewind-env.d.ts` and include a triple-slash directive to reference the necessary types.
+
+```typescript
+/// <reference types="nativewind/types" />
+```
+
+**CAUTION**
+
+Avoid naming this file:
+
+- `nativewind.d.ts`
+- The same as any existing file or folder in the directory, such as `app.d.ts` if there's an `/app` folder.
+- Identically to a folder within `node_modules`, like `react.d.ts`.
+
+Naming conflicts may prevent the TypeScript compiler from recognizing your types.

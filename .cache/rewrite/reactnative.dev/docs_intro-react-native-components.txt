@@ -1,0 +1,35 @@
+# React Native: Building Cross-Platform Apps
+
+React Native is an open-source framework designed for developing Android and iOS applications. It leverages React along with the native capabilities of each platform, allowing developers to use JavaScript to access platform-specific APIs and define UI components using React's component model.
+
+## Understanding Views in Mobile Development
+
+In both Android and iOS development, a **view** serves as the fundamental unit of user interface (UI). These are small rectangular elements on the screen that can display text, images, or respond to user interactions. Every visual element within an app, from lines of text to buttons, is considered a view. Some views can even contain other views, creating a hierarchical structure.
+
+## Native Components in React Native
+
+In traditional Android development, views are typically written using Kotlin or Java, while iOS developers use Swift or Objective-C. React Native bridges these platforms by allowing you to invoke native views through JavaScript via React components. At runtime, React Native translates these components into the corresponding native views for both Android and iOS. This ensures that React Native applications have a look, feel, and performance comparable to native apps. These platform-backed components are known as **Native Components**.
+
+React Native provides a set of essential, ready-to-use Native Components called **Core Components**, which serve as building blocks for app development. However, it's important to note that this documentation references an older API version and should be updated to reflect the New Architecture.
+
+Additionally, React Native allows developers to create custom Native Components tailored to their specific needs. There is also a vibrant ecosystem of community-contributed components available through resources like Native Directory.
+
+## Core Components Overview
+
+React Native includes numerous Core Components for various functionalities, from basic controls to activity indicators. These are documented in the API section. Key Core Components include:
+
+| React Native UI Component | Android View   | iOS View         | Web Analog              | Description                                                                                           |
+| ------------------------- | -------------- | ---------------- | ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| `<View>`                  | `<ViewGroup>`  | `<UIView>`       | A non-scrolling `<div>` | Acts as a container supporting layout with flexbox, style, touch handling, and accessibility controls.|
+| `<Text>`                  | `<TextView>`   | `<UITextView>`   | `<p>`                   | Displays, styles, nests text strings, and handles touch events.                                       |
+| `<Image>`                 | `<ImageView>`  | `<UIImageView>`  | `<img>`                 | Used for displaying various types of images.                                                          |
+| `<ScrollView>`            | `<ScrollView>` | `<UIScrollView>` | `<div>`                 | A generic scrolling container that can hold multiple components and views.                            |
+| `<TextInput>`             | `<EditText>`   | `<UITextField>`  | `<input type="text">`   | Enables user text input.                                                                              |
+
+In the following sections, you will learn how to combine these Core Components to understand React's workings better.
+
+## Introduction to React Component APIs
+
+React Native utilizes the same API structure as React components, so familiarity with React component APIs is essential for getting started. The next section provides a brief introduction or refresher on this topic. If you are already well-versed in React, feel free to proceed ahead.
+
+A diagram illustrates that React Native's Core Components are a subset of React Components included with React Native.

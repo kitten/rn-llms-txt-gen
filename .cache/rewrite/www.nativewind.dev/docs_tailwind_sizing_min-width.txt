@@ -1,0 +1,28 @@
+# Min-Width
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `min-w-0`          | ✅ Full Support |
+| `min-w-[n]`        | ✅ Full Support |
+| `min-w-full`       | ✅ Full Support |
+| `min-w-min`        | 🌐 Web only    |
+| `min-w-max`        | 🌐 Web only    |
+| `min-w-fit`        | 🌐 Web only    |
+
+```typescript
+// TypeScript typings for min-width classes
+
+type MinWidthClasses = 
+  'min-w-0' | 
+  `min-w-[${string}]` | 
+  'min-w-full' | 
+  'min-w-min' | 
+  'min-w-max' | 
+  'min-w-fit';
+```

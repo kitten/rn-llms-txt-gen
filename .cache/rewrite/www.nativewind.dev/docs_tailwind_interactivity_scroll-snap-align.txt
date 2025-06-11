@@ -1,0 +1,14 @@
+# Scroll Snap Align
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                   | Support     |
+|-------------------------|-------------|
+| `snap-start`            | 🌐 Web only |
+| `snap-end`              | 🌐 Web only |
+| `snap-center`           | 🌐 Web only |
+| `snap-align-none`       | 🌐 Web only |

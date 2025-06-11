@@ -1,0 +1,75 @@
+Display
+
+# Display
+
+## Usage
+
+Please refer to the documentation on the Tailwind CSS website
+
+## Compatibility
+
+| Class                      | Support        |
+| -------------------------- | -------------- |
+| ```
+flex
+```               | ✅ Full Support |
+| ```
+hidden
+```             | ✅ Full Support |
+| ```
+block
+```              | 🌐 Web only    |
+| ```
+inline-block
+```       | 🌐 Web only    |
+| ```
+inline
+```             | 🌐 Web only    |
+| ```
+inline-flex
+```        | 🌐 Web only    |
+| ```
+table
+```              | 🌐 Web only    |
+| ```
+inline-table
+```       | 🌐 Web only    |
+| ```
+table-caption
+```      | 🌐 Web only    |
+| ```
+table-cell
+```         | 🌐 Web only    |
+| ```
+table-column
+```       | 🌐 Web only    |
+| ```
+table-column-group
+``` | 🌐 Web only    |
+| ```
+table-footer-group
+``` | 🌐 Web only    |
+| ```
+table-header-group
+``` | 🌐 Web only    |
+| ```
+table-row-group
+```    | 🌐 Web only    |
+| ```
+table-row
+```          | 🌐 Web only    |
+| ```
+flow-root
+```          | 🌐 Web only    |
+| ```
+grid
+```               | 🌐 Web only    |
+| ```
+inline-grid
+```        | 🌐 Web only    |
+| ```
+contents
+```           | 🌐 Web only    |
+| ```
+list-item
+```          | 🌐 Web only    |

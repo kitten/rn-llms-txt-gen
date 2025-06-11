@@ -1,0 +1,90 @@
+# useAnimatedReaction
+
+The `useAnimatedReaction` hook enables responses to changes in shared values, particularly useful when comparing previous and current values stored within a shared value.
+
+## Reference
+
+```typescript
+import { useAnimatedReaction } from 'react-native-reanimated';
+
+function App() {
+  useAnimatedReaction(
+    () => sv.value,
+    (currentValue, previousValue) => {
+      if (currentValue !== previousValue) {
+        // perform an action ✨
+      }
+    }
+  );
+
+  // ...
+}
+```
+
+### Arguments
+
+#### `prepare`
+
+A function returning the value to which you want to react. This returned value serves as the first parameter for the `react` argument.
+
+```typescript
+function App() {
+  useAnimatedReaction(
+    () => Math.floor(sv.value),
+    (currentValue, previousValue) => {
+      // ...
+    }
+  );
+}
+```
+
+#### `react`
+
+A function that responds to changes in the value provided by the `prepare` function. It receives two parameters: the current value from `prepare` and the previous value, initially set to `null`.
+
+```typescript
+function App() {
+  useAnimatedReaction(
+    () => Math.floor(sv.value),
+    (currentValue, previousValue) => {
+      // ...
+    }
+  );
+}
+```
+
+#### `dependencies` (Optional)
+
+An optional array of dependencies. This is only relevant when using Reanimated without the Babel plugin on the Web.
+
+### Returns
+
+The `useAnimatedReaction` hook returns `undefined`.
+
+## Example
+
+## Remarks
+
+- Avoid mutating the same shared value in the `react` function that was used in the `prepare` function to prevent infinite loops.
+
+```typescript
+function App() {
+  useAnimatedReaction(
+    () => width.value,
+    (currentValue) => {
+      // 🚨 An infinite loop!
+      width.value += currentValue;
+    }
+  );
+}
+```
+
+- Callbacks for both `prepare` and `react` are automatically workletized, running on the UI thread.
+
+- While you can use `useAnimatedReaction` to react to any stateful React value, it's generally better to use a `useEffect` for such purposes.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

@@ -1,0 +1,151 @@
+# AccessibilityInfo
+
+The `AccessibilityInfo` API is designed to determine if a screen reader or other accessibility services are active on a device. It allows querying the current state of these services and registering for notifications when their states change.
+
+## Example
+
+*Example content omitted.*
+
+## Reference
+
+### Methods
+
+#### `addEventListener()`
+
+```typescript
+static addEventListener(
+  eventName: AccessibilityChangeEventName | AccessibilityAnnouncementEventName,
+  handler: (
+    event: AccessibilityChangeEvent | AccessibilityAnnouncementFinishedEvent,
+  ) => void,
+): EmitterSubscription;
+```
+
+Adds an event handler for various accessibility-related events. Supported events include:
+
+| Event Name                  | Description                                                                 |
+|-----------------------------|-----------------------------------------------------------------------------|
+| `accessibilityServiceChanged` (Android) | Fires when any accessibility services, such as TalkBack or third-party apps, are enabled. The argument is a boolean: `true` if enabled, otherwise `false`. |
+| `announcementFinished` (iOS)            | Fires after the screen reader finishes an announcement. Argument includes: - `announcement`: The announced string.<br>- `success`: Boolean indicating success of the announcement. |
+| `boldTextChanged` (iOS)                 | Fires when bold text toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
+| `grayscaleChanged` (iOS)                | Fires when grayscale toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
+| `invertColorsChanged` (iOS)             | Fires when invert colors toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
+| `reduceMotionChanged`                   | Fires when reduce motion toggle state changes. Argument is a boolean: `true` if enabled or "Animation off" in Developer options, otherwise `false`. |
+| `reduceTransparencyChanged` (iOS)       | Fires when reduce transparency toggle state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
+| `screenReaderChanged`                   | Fires when the screen reader's state changes. Argument is a boolean: `true` if enabled, otherwise `false`. |
+
+#### `announceForAccessibility()`
+
+```typescript
+static announceForAccessibility(announcement: string);
+```
+
+Posts a string to be announced by the screen reader.
+
+#### `announceForAccessibilityWithOptions()`
+
+```typescript
+static announceForAccessibilityWithOptions(
+  announcement: string,
+  options: { queue?: boolean },
+);
+```
+
+Posts a string for the screen reader with modification options. By default, announcements interrupt existing speech; on iOS, they can be queued by setting `queue` to `true`.
+
+**Parameters:**
+
+| Name          | Type   | Description                                                                 |
+|---------------|--------|-----------------------------------------------------------------------------|
+| announcement  | string | The string to be announced.                                                 |
+| options       | object | Contains `queue`: If set to `true`, queues the announcement behind existing speech on iOS. |
+
+#### `getRecommendedTimeoutMillis()` (Android)
+
+```typescript
+static getRecommendedTimeoutMillis(originalTimeout: number): Promise<number>;
+```
+
+Returns the recommended timeout in milliseconds based on "Accessibility timeout" settings.
+
+**Parameters:**
+
+| Name                  | Type   | Description                                                                 |
+|-----------------------|--------|-----------------------------------------------------------------------------|
+| originalTimeout       | number | The fallback timeout in milliseconds if no accessibility timeout is set.    |
+
+#### `isAccessibilityServiceEnabled()` (Android)
+
+```typescript
+static isAccessibilityServiceEnabled(): Promise<boolean>;
+```
+
+Checks if any accessibility service, including TalkBack or third-party apps, is enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+> **Note**: Use `isScreenReaderEnabled` for checking only the status of TalkBack.
+
+#### `isBoldTextEnabled()` (iOS)
+
+```typescript
+static isBoldTextEnabled(): Promise<boolean>;
+```
+
+Checks if bold text is currently enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+#### `isGrayscaleEnabled()` (iOS)
+
+```typescript
+static isGrayscaleEnabled(): Promise<boolean>;
+```
+
+Checks if grayscale mode is currently enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+#### `isInvertColorsEnabled()` (iOS)
+
+```typescript
+static isInvertColorsEnabled(): Promise<boolean>;
+```
+
+Checks if invert colors mode is currently enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+#### `isReduceMotionEnabled()`
+
+```typescript
+static isReduceMotionEnabled(): Promise<boolean>;
+```
+
+Checks if reduce motion is currently enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+#### `isReduceTransparencyEnabled()` (iOS)
+
+```typescript
+static isReduceTransparencyEnabled(): Promise<boolean>;
+```
+
+Checks if reduce transparency mode is currently enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+#### `isScreenReaderEnabled()`
+
+```typescript
+static isScreenReaderEnabled(): Promise<boolean>;
+```
+
+Checks if a screen reader is currently enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+#### `prefersCrossFadeTransitions()` (iOS)
+
+```typescript
+static prefersCrossFadeTransitions(): Promise<boolean>;
+```
+
+Checks if reduce motion and prefer cross-fade transitions settings are enabled. Returns a promise resolving to a boolean: `true` if enabled, otherwise `false`.
+
+#### `setAccessibilityFocus()`
+
+```typescript
+static setAccessibilityFocus(reactTag: number);
+```
+
+Sets accessibility focus on a React component by calling `UIManager.sendAccessibilityEvent` with the specified `reactTag` and `UIManager.AccessibilityEventTypes.typeViewFocused`.
+
+> **Note**: Ensure any `View` intended to receive accessibility focus has `accessible={true}`.

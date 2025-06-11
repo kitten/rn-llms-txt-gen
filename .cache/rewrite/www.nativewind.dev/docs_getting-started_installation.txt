@@ -1,0 +1,125 @@
+# Installation Guide for Nativewind
+
+Nativewind is compatible with both Expo and framework-less React Native projects, offering a more streamlined experience when used with Expo.
+
+## Web Setup
+
+For Metro bundling on websites or App Clips without using Expo, you'll need either Expo's Metro config `@expo/metro-config` or to manually generate a CSS file using Tailwind CLI.
+
+### Supported Environments
+- **Expo**
+- **Framework-less React Native**
+- **Next.js**
+
+To quickly set up Nativewind with Expo, use the following command:
+
+```bash
+npx rn-new@latest --nativewind
+```
+
+## Installation Steps for Expo
+
+### 1. Install Required Packages
+
+Install `nativewind` along with its peer dependencies: `tailwindcss`, `react-native-reanimated`, and `react-native-safe-area-context`.
+
+Using npm:
+
+```bash
+npm install nativewind react-native-reanimated@~3.17.4 react-native-safe-area-context@5.4.0
+npm install -D tailwindcss@^3.4.17 prettier-plugin-tailwindcss@^0.5.11
+```
+
+### 2. Configure Tailwind CSS
+
+Initialize a `tailwind.config.js` file by running:
+
+```bash
+npx tailwindcss init
+```
+
+Update the configuration to include paths to your component files:
+
+```javascript
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./App.tsx", "./components/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Create a CSS file and add Tailwind directives:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+### 3. Configure Babel
+
+Modify your `babel.config.js` to include the Nativewind preset:
+
+```javascript
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+      "nativewind/babel",
+    ],
+  };
+};
+```
+
+### 4. Set Up Metro Configuration
+
+Create or modify `metro.config.js` with the following configuration:
+
+```javascript
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require('nativewind/metro');
+
+const config = getDefaultConfig(__dirname);
+
+module.exports = withNativeWind(config, { input: './global.css' });
+```
+
+### 5. Import CSS File
+
+In your `App.js`, import the CSS file:
+
+```javascript
+import "./global.css";
+
+export default function App() {
+  /* Your App */
+}
+```
+
+### 6. Update app.json
+
+Configure the bundler to use Metro in `app.json`:
+
+```json
+{
+  "expo": {
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
+```
+
+### 7. TypeScript Setup (Optional)
+
+For TypeScript users, follow the specific guide provided.
+
+## Additional Resources
+
+- **Monorepos**: Instructions for setting up Nativewind in monorepo environments like NX.
+- **Other Bundlers**: Guidance on using Nativewind with different bundlers.

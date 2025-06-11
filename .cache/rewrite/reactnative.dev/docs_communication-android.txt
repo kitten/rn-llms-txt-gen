@@ -1,0 +1,124 @@
+# Cross-Language Communication in React Native
+
+React Native allows integration with existing apps by embedding it within native components and vice versa. This guide summarizes techniques to facilitate communication between native and React Native components.
+
+## Introduction
+
+Inspired by React, React Native follows a one-directional information flow where data is passed from parent to child components using properties. When integrating React Native with native components, specific cross-language mechanisms are required for effective communication.
+
+### Properties
+
+Properties serve as the primary method of cross-component communication, allowing data transfer between native and React Native components in both directions.
+
+#### Passing Properties from Native to React Native
+
+To pass properties from a native component to React Native, implement `ReactActivityDelegate` in your main activity. Override `getLaunchOptions` to return a `Bundle` with the desired properties.
+
+**Java Example:**
+
+```java
+public class MainActivity extends ReactActivity {
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegate(this, getMainComponentName()) {
+      @Override
+      protected Bundle getLaunchOptions() {
+        Bundle initialProperties = new Bundle();
+        ArrayList<String> imageList = new ArrayList<>(Arrays.asList(
+                "https://dummyimage.com/600x400/ffffff/000000.png",
+                "https://dummyimage.com/600x400/000000/ffffff.png"
+        ));
+        initialProperties.putStringArrayList("images", imageList);
+        return initialProperties;
+      }
+    };
+  }
+}
+```
+
+**Kotlin Example:**
+
+```kotlin
+class MainActivity : ReactActivity() {
+    override fun createReactActivityDelegate(): ReactActivityDelegate {
+        return object : ReactActivityDelegate(this, mainComponentName) {
+            override fun getLaunchOptions(): Bundle {
+                val imageList = arrayListOf(
+                    "https://dummyimage.com/600x400/ffffff/000000.png",
+                    "https://dummyimage.com/600x400/000000/ffffff.png"
+                )
+                return Bundle().apply { putStringArrayList("images", imageList) }
+            }
+        }
+    }
+}
+```
+
+**React Native Example:**
+
+```javascript
+import React from 'react';
+import { View, Image } from 'react-native';
+
+export default class ImageBrowserApp extends React.Component {
+  renderImage(imgURI) {
+    return <Image source={{ uri: imgURI }} />;
+  }
+
+  render() {
+    return (
+      <View>
+        {this.props.images.map(this.renderImage)}
+      </View>
+    );
+  }
+}
+```
+
+`ReactRootView` provides a `appProperties` property that can be updated to re-render the React Native app with new properties. Ensure updates occur on the main thread.
+
+**Java Update Example:**
+
+```java
+Bundle updatedProps = mReactRootView.getAppProperties();
+ArrayList<String> imageList = new ArrayList<>(Arrays.asList(
+        "https://dummyimage.com/600x400/ff0000/000000.png",
+        "https://dummyimage.com/600x400/ffffff/ff0000.png"
+));
+updatedProps.putStringArrayList("images", imageList);
+mReactRootView.setAppProperties(updatedProps);
+```
+
+**Kotlin Update Example:**
+
+```kotlin
+var updatedProps: Bundle = reactRootView.getAppProperties()
+val imageList = arrayListOf(
+    "https://dummyimage.com/600x400/ff0000/000000.png",
+    "https://dummyimage.com/600x400/ffffff/ff0000.png"
+)
+```
+
+> **Note:** The `componentWillUpdateProps` function is not called after a prop update. Access new props in the `componentDidMount` function.
+
+#### Passing Properties from React Native to Native
+
+Expose native component properties using setter methods annotated with `@ReactProp`. These can be used as if they were regular React Native components.
+
+### Limits of Properties
+
+Properties do not support callbacks for bottom-up data bindings, limiting their use in scenarios where a JS action should trigger changes in the native parent view. Cross-language callbacks exist but are not intended to be passed as properties; instead, they allow triggering native actions from JS and handling results within JS.
+
+## Other Ways of Cross-Language Interaction (Events and Native Modules)
+
+For more flexible communication beyond properties, React Native offers events and native modules for both internal and external interactions.
+
+### Calling React Native Functions from Native (Events)
+
+Events enable executing handlers in JS without needing component references. However, they can introduce dependencies, potential name collisions, and require identifiers to distinguish between multiple instances of the same component.
+
+### Calling Native Functions from React Native (Native Modules)
+
+Native modules are Java/Kotlin classes accessible in JS, allowing arbitrary functions and constants to be exported. Each module instance is created per JS bridge, but all share the same namespace, necessitating caution against name collisions.
+
+> **Warning:** Be mindful of shared namespaces when creating new native modules.

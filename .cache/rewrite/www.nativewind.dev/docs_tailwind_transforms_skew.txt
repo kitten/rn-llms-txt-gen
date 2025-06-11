@@ -1,0 +1,14 @@
+# Skew
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `skew-x-{n}`       | ✅ Full Support |
+| `skew-x-[n]`       | ✅ Full Support |
+| `skew-y-{n}`       | ✅ Full Support |
+| `skew-y-[n]`       | ✅ Full Support |

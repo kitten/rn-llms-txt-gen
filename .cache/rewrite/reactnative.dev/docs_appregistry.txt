@@ -1,0 +1,301 @@
+# AppRegistry
+
+## Project with Native Code Required
+
+In the managed Expo workflow, there's only one entry component registered with `AppRegistry`, handled automatically or through `registerRootComponent`. This API isn't necessary in this context.
+
+`AppRegistry` serves as the JavaScript entry point for all React Native applications. Root components should register themselves using `AppRegistry.registerComponent`. The native system then loads the app bundle and runs it by invoking `AppRegistry.runApplication`.
+
+```typescript
+import { Text, View } from 'react-native';
+
+const App = () => (
+  <View>
+    <Text>App1</Text>
+  </View>
+);
+
+AppRegistry.registerComponent('AppName', () => App);
+```
+
+To stop an application when a view is destroyed, use `AppRegistry.unmountApplicationComponentAtRootTag` with the tag passed to `runApplication`. These should always be used as pairs.
+
+Ensure `AppRegistry` is required early in the sequence to set up the JavaScript execution environment before other modules are loaded.
+
+## Reference
+
+### Methods
+
+#### `getAppKeys()`
+
+```typescript
+static getAppKeys(): string[];
+```
+Returns an array of strings.
+
+#### `getRegistry()`
+
+```typescript
+static getRegistry(): { sections: string[]; runnables: Runnable[] };
+```
+Returns a Registry object.
+
+#### `getRunnable()`
+
+```typescript
+static getRunnable(appKey: string): Runnable | undefined;
+```
+**Parameters:**
+
+- **appKey**: Required, type: `string`.
+
+Returns a Runnable object.
+
+#### `getSectionKeys()`
+
+```typescript
+static getSectionKeys(): string[];
+```
+Returns an array of strings.
+
+#### `getSections()`
+
+```typescript
+static getSections(): Record<string, Runnable>;
+```
+Returns a Runnables object.
+
+#### `registerCancellableHeadlessTask()`
+
+```typescript
+static registerCancellableHeadlessTask(
+  taskKey: string,
+  taskProvider: TaskProvider,
+  taskCancelProvider: TaskCancelProvider
+);
+```
+Registers a headless task that can be cancelled. A headless task runs without a UI.
+
+**Parameters:**
+
+| Name          | Type                | Description                                                                 |
+|---------------|---------------------|-----------------------------------------------------------------------------|
+| **taskKey**   | `string`            | Required, the native ID for this task instance used when startHeadlessTask was called. |
+| **taskProvider** | `TaskProvider`    | Required, a promise-returning function that takes data from the native side as an argument. When resolved or rejected, the native side is notified and may destroy the JS context. |
+| **taskCancelProvider** | `TaskCancelProvider` | Required, a void-returning function with no arguments; when cancellation is requested, the taskProvider should wrap up and return ASAP. |
+
+#### `registerComponent()`
+
+```typescript
+static registerComponent(
+  appKey: string,
+  getComponentFunc: ComponentProvider,
+  section?: boolean
+): string;
+```
+**Parameters:**
+
+| Name          | Type                |
+|---------------|---------------------|
+| **appKey**    | `string`            |
+| **getComponentFunc** | `ComponentProvider` | Required |
+| **section**   | `boolean`           |
+
+#### `registerConfig()`
+
+```typescript
+static registerConfig(config: AppConfig[]);
+```
+**Parameters:**
+
+- **config**: Required, type: `AppConfig[]`.
+
+#### `registerHeadlessTask()`
+
+```typescript
+static registerHeadlessTask(
+  taskKey: string,
+  taskProvider: TaskProvider
+);
+```
+Registers a headless task. A headless task runs without a UI and can be used for background tasks like syncing data, handling notifications, or playing music.
+
+**Parameters:**
+
+| Name          | Type                | Description                                                                 |
+|---------------|---------------------|-----------------------------------------------------------------------------|
+| **taskKey**   | `string`            | Required, the native ID for this task instance used when startHeadlessTask was called. |
+| **taskProvider** | `TaskProvider`    | Required, a promise-returning function that takes data from the native side as an argument. When resolved or rejected, the native side is notified and may destroy the JS context. |
+
+#### `registerRunnable()`
+
+```typescript
+static registerRunnable(appKey: string, func: Runnable): string;
+```
+**Parameters:**
+
+| Name          | Type                |
+|---------------|---------------------|
+| **appKey**    | `string`            |
+| **func**      | `function`          |
+
+#### `registerSection()`
+
+```typescript
+static registerSection(
+  appKey: string,
+  component: ComponentProvider
+);
+```
+**Parameters:**
+
+| Name          | Type                |
+|---------------|---------------------|
+| **appKey**    | `string`            |
+| **component** | `ComponentProvider` | Required |
+
+#### `runApplication()`
+
+```typescript
+static runApplication(appKey: string, appParameters: any): void;
+```
+Loads the JavaScript bundle and runs the app.
+
+**Parameters:**
+
+| Name          | Type                |
+|---------------|---------------------|
+| **appKey**    | `string`            |
+| **appParameters** | `any`           |
+
+#### `setComponentProviderInstrumentationHook()`
+
+```typescript
+static setComponentProviderInstrumentationHook(
+  hook: ComponentProviderInstrumentationHook
+);
+```
+**Parameters:**
+
+- **hook**: Required, type: `function`.
+
+A valid `hook` function accepts the following as arguments:
+
+| Name          | Type                |
+|---------------|---------------------|
+| **component** | `ComponentProvider` | Required |
+| **scopedPerformanceLogger** | `IPerformanceLogger` | Required |
+
+The function must return a React Component.
+
+#### `setWrapperComponentProvider()`
+
+```typescript
+static setWrapperComponentProvider(
+  provider: WrapperComponentProvider
+);
+```
+**Parameters:**
+
+- **provider**: Required, type: `ComponentProvider`.
+
+#### `startHeadlessTask()`
+
+```typescript
+static startHeadlessTask(
+  taskId: number,
+  taskKey: string,
+  data: any
+);
+```
+Only called from native code. Starts a headless task.
+
+**Parameters:**
+
+| Name          | Type                | Description                                                                 |
+|---------------|---------------------|-----------------------------------------------------------------------------|
+| **taskId**    | `number`            | Required, the native ID for this task instance to track its execution.      |
+| **taskKey**   | `string`            | Required, the key for the task to start.                                    |
+| **data**      | `any`               | Required, the data to pass to the task.                                     |
+
+#### `unmountApplicationComponentAtRootTag()`
+
+```typescript
+static unmountApplicationComponentAtRootTag(rootTag: number);
+```
+Stops an application when a view should be destroyed.
+
+**Parameters:**
+
+- **rootTag**: Required, type: `number`.
+
+## Type Definitions
+
+### AppConfig
+
+Application configuration for the `registerConfig` method.
+
+- Type: `object`
+
+**Properties:**
+
+| Name          | Type                |
+|---------------|---------------------|
+| **appKey**    | `string`            | Required |
+| component     | `ComponentProvider` |
+| run           | `function`          |
+| section       | `boolean`           |
+
+> **Note:** Every config must set either the `component` or `run` function.
+
+### Registry
+
+- Type: `object`
+
+**Properties:**
+
+| Name          | Type                |
+|---------------|---------------------|
+| runnables     | Array of Runnables  |
+| sections      | Array of strings    |
+
+### Runnable
+
+- Type: `object`
+
+**Properties:**
+
+| Name          | Type                |
+|---------------|---------------------|
+| component     | `ComponentProvider` |
+| run           | `function`          |
+
+### Runnables
+
+An object with a key of `appKey` and value of type `Runnable`.
+
+- Type: `object`
+
+### Task
+
+A `Task` is a function that accepts any data as an argument and returns a Promise resolving to `undefined`.
+
+- Type: `function`
+
+### TaskCanceller
+
+A `TaskCanceller` is a function that accepts no arguments and returns void.
+
+- Type: `function`
+
+### TaskCancelProvider
+
+A valid `TaskCancelProvider` is a function returning a `TaskCanceller`.
+
+- Type: `function`
+
+### TaskProvider
+
+A valid `TaskProvider` is a function returning a `Task`.
+
+- Type: `function`

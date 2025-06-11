@@ -1,0 +1,269 @@
+# ECMAScript Features Overview
+
+## ECMAScript 5 Reserved Words
+
+- **Example**: 
+  ```typescript
+  promise.catch(function() {...});
+  ```
+
+## ECMAScript 2015 (ES6) Arrow Functions
+
+- **Example**:
+  ```typescript
+  <C onPress={() => this.setState({pressed: true})} />
+  ```
+
+## Block Scoping
+
+- **Example**:
+  ```typescript
+  let greeting = 'hi';
+  ```
+
+## Call Spread
+
+- **Example**:
+  ```typescript
+  Math.max(...array);
+  ```
+
+## Classes
+
+- **Example**:
+  ```typescript
+  class C extends React.Component {render() { return <View />; }}
+  ```
+
+## Computed Properties
+
+- **Example**:
+  ```typescript
+  const key = 'abc'; 
+  const obj = {[key]: 10};
+  ```
+
+## Constants
+
+- **Example**:
+  ```typescript
+  const answer = 42;
+  ```
+
+## Destructuring
+
+- **Example**:
+  ```typescript
+  const {isActive, style} = this.props;
+  ```
+
+## for…of Loop
+
+- **Example**:
+  ```typescript
+  for (var num of [1, 2, 3]) {...};
+  ```
+
+## Function Name
+
+- **Example**:
+  ```typescript
+  let number = x => x;
+  ```
+
+## Literals
+
+- **Example**:
+  ```typescript
+  const b = 0b11; 
+  const o = 0o7; 
+  const u = 'Hello\u{000A}\u{0009}!';
+  ```
+
+## Modules
+
+- **Example**:
+  ```typescript
+  import React, {Component} from 'react';
+  ```
+
+## Object Concise Method
+
+- **Example**:
+  ```typescript
+  const obj = {method() { return 10; }};
+  ```
+
+## Object Short Notation
+
+- **Example**:
+  ```typescript
+  const name = 'vjeux'; 
+  const obj = {name};
+  ```
+
+## Parameters with Default Values and Destructuring
+
+- **Example**:
+  ```typescript
+  function test(x = 'hello', {a, b}, ...args) {}
+  ```
+
+## Rest Params
+
+- **Example**:
+  ```typescript
+  function(type, ...args) {};
+  ```
+
+## Shorthand Properties
+
+- **Example**:
+  ```typescript
+  const o = {a, b, c};
+  ```
+
+## Sticky Regex
+
+- **Example**:
+  ```typescript
+  const a = /o+/y;
+  ```
+
+## Template Literals
+
+- **Example**:
+  ```typescript
+  const who = 'world'; 
+  const str = `Hello ${who}`;
+  ```
+
+## Unicode Regex
+
+- **Example**:
+  ```typescript
+  const string = 'foo💩bar'; 
+  const match = string.match(/foo(.)bar/u);
+  ```
+
+## ECMAScript 2016 (ES7) Exponentiation Operator
+
+- **Example**:
+  ```typescript
+  let x = 10 ** 2;
+  ```
+
+## ECMAScript 2017 (ES8) Async Functions
+
+- **Example**:
+  ```typescript
+  async function doStuffAsync() {const foo = await doOtherStuffAsync();};
+  ```
+
+## Function Trailing Comma
+
+- **Example**:
+  ```typescript
+  function f(a, b, c,) {};
+  ```
+
+## ECMAScript 2018 (ES9) Object Spread
+
+- **Example**:
+  ```typescript
+  const extended = {...obj, a: 10};
+  ```
+
+## ECMAScript 2019 (ES10) Optional Catch Binding
+
+- **Example**:
+  ```typescript
+  try {throw 0; } catch { doSomethingWhichDoesNotCareAboutTheValueThrown();}
+  ```
+
+## ECMAScript 2020 (ES11) Dynamic Imports
+
+- **Example**:
+  ```typescript
+  const package = await import('package'); 
+  package.function()
+  ```
+
+## Nullish Coalescing Operator
+
+- **Example**:
+  ```typescript
+  const foo = object.foo ?? 'default';
+  ```
+
+## Optional Chaining
+
+- **Example**:
+  ```typescript
+  const name = obj.user?.name;
+  ```
+
+## ECMAScript 2022 (ES13) Class Fields
+
+- **Example**:
+  ```typescript
+  class Bork {static a = 'foo'; static b; x = 'bar'; y;}
+  ```
+
+## Stage 1 Proposal: Export Default From
+
+- **Example**:
+  ```typescript
+  export v from 'mod';
+  ```
+
+## Miscellaneous Features
+
+### Babel Template
+
+- **Example**:
+  ```typescript
+  template(`const %%importName%% = require(%%source%%);`);
+  ```
+
+### Flow Typing
+
+- **Example**:
+  ```typescript
+  function foo(x: ?number): string {};
+  ```
+
+### ESM to CJS
+
+- **Example**:
+  ```typescript
+  export default 42;
+  ```
+
+### JSX Syntax
+
+- **Example**:
+  ```typescript
+  <View style={{color: 'red'}} />
+  ```
+
+### Object Assign
+
+- **Example**:
+  ```typescript
+  Object.assign(a, b);
+  ```
+
+### React Display Name
+
+- **Example**:
+  ```typescript
+  const bar = createReactClass({});
+  ```
+
+### TypeScript Typing
+
+- **Example**:
+  ```typescript
+  function foo(x: {hello: true, target: 'react native!'}): string {};
+  ```

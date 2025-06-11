@@ -1,0 +1,14 @@
+# Text Decoration
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| `underline`          | ✅ Full Support |
+| `line-through`       | ✅ Full Support |
+| `no-underline`       | ✅ Full Support |
+| `overline`           | 🌐 Web only    |

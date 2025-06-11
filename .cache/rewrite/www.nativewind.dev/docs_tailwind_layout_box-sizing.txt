@@ -1,0 +1,12 @@
+# Box Sizing
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| `box-border`        | 🌐 Web only |
+| `box-content`       | 🌐 Web only |

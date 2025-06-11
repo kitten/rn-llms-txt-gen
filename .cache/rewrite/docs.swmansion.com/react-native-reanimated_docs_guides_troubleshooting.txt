@@ -1,0 +1,252 @@
+# Troubleshooting
+
+## Initialization Issues
+
+Reanimated consists of four core components that must align within the same minor version:
+
+* C++
+* Java
+* JavaScript
+* Reanimated Babel plugin.
+
+Discrepancies in these components, especially when transpiled with different versions of the Reanimated Babel plugin, can lead to undefined behavior and errors.
+
+### Failed to Create a Worklet
+
+**Problem:** This typically occurs if Reanimated is not installed correctly, such as omitting the Reanimated Babel plugin from `babel.config.js`.
+
+**Solution:** Refer to the installation documentation at [Reanimated Getting Started](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/#step-2-add-reanimateds-babel-plugin) for guidance.
+
+### Native Part of Reanimated Doesn't Seem to Be Initialized
+
+**Problem:** This issue arises when the native side of Reanimated fails to initialize from JavaScript.
+
+**Solution:**
+
+1. Ensure your app is rebuilt after installing or upgrading Reanimated.
+2. Verify that your platform is supported by Reanimated, including:
+   - Android
+   - iOS
+   - macOS
+   - tvOS
+   - visionOS
+   - Web
+3. For brownfield apps, manually initialize the native library.
+
+### Unknown Version of Reanimated Babel Plugin
+
+**Problem:** This occurs when the JavaScript side cannot retrieve the version of the Reanimated Babel plugin.
+
+**Solution:**
+
+1. Check if any part of your code is transpiled with an outdated version of the Reanimated Babel plugin.
+2. Ensure you are not using a release bundle with a debug build, as this is unsupported.
+
+### Mismatch Between JavaScript Code Version and Reanimated Babel Plugin Version
+
+**Problem:** This can happen when code is transpiled with an outdated version of the Reanimated Babel plugin.
+
+**Solution:** Reset your Metro bundler cache using `yarn start --reset-cache`, `npm start -- --reset-cache`, or `expo start -c` and rerun the app. If issues persist, identify dependencies that may contain outdated worklets by examining error messages.
+
+### Using Dev Bundle in a Release App Build is Not Supported
+
+**Problem:** This occurs when a release build uses a development JavaScript bundle.
+
+**Solution:** Refer to relevant documentation for more information.
+
+### Couldn't Determine the Version of the Native Part of Reanimated
+
+**Problem:** This happens when Reanimated cannot determine its native part's version.
+
+**Solution:** Ensure your app is rebuilt after upgrading `react-native-reanimated`. For Expo Go users, use the exact version bundled with the Expo SDK.
+
+### Mismatch Between JavaScript and Native Parts of Reanimated
+
+**Problem:** This occurs when different versions of the JavaScript and native parts are used.
+
+**Solution:** Confirm that your app is rebuilt post-upgrade. For Expo Go, ensure compatibility with the bundled version in the Expo SDK.
+
+### C++ Side Failed to Resolve JavaScript Code Version
+
+See "Couldn't Determine the Version of the Native Part of Reanimated" and "Unknown Version of Reanimated Babel Plugin."
+
+### Mismatch Between C++ Code Version and JavaScript Code Version
+
+Refer to issues regarding mismatches between JavaScript parts, native parts, and the Reanimated Babel plugin.
+
+### C++ Side Failed to Resolve Java Code Version
+
+**Problem:** This occurs when the version of the Java part cannot be determined, likely due to a missed rebuild after an upgrade.
+
+**Solution:** Rebuild your app and check if the issue persists. If it does, consider reporting it on GitHub.
+
+### Mismatch Between C++ Code Version and Java Code Version
+
+Refer to "Native Side Failed to Resolve Java Code Version."
+
+### Java Side Failed to Resolve C++ Code Version
+
+**Problem:** This happens when the version of the C++ part cannot be determined, likely due to a missed rebuild after an upgrade.
+
+**Solution:** Refer to "Native Side Failed to Resolve Java Code Version."
+
+### Mismatch Between Java Code Version and C++ Code Version
+
+Refer to "Native Side Failed to Resolve Java Code Version."
+
+### Multiple Versions of Reanimated Were Detected
+
+**Problem:** This error occurs when more than one instance of Reanimated exists in your project, often due to dependencies installing it within their own `node_modules`.
+
+**Solution:**
+
+- For Yarn users, add a `resolutions` property in `package.json`:
+
+  ```json
+  "resolutions": {
+    "react-native-reanimated": "<Reanimated version>"
+  }
+  ```
+
+- For npm users, use the `overrides` property:
+
+  ```json
+  "overrides": {
+    "react-native-reanimated": "<Reanimated version>"
+  }
+  ```
+
+Afterward, run your package manager again (`yarn` or `npm install`).
+
+### Another Instance of Reanimated Was Detected
+
+Refer to "Multiple Versions of Reanimated Were Detected."
+
+### Outdated Version of React Native for New Architecture
+
+**Problem:** Reanimated supports the New Architecture (Fabric) only on the latest minor release of React Native.
+
+**Solution:** Upgrade to a newer version of React Native or downgrade Reanimated. Consult the compatibility table for supported versions.
+
+## Warnings
+
+### Reduced Motion Setting is Enabled on This Device
+
+**Problem:** This warning helps avoid confusion when reduced motion is enabled.
+
+**Solution:** Ignore this warning in development mode as it's safe. To disable, add:
+
+```javascript
+LogBox.ignoreLogs([
+  '[Reanimated] Reduced motion setting is enabled on this device.',
+]);
+```
+
+### Tried to Modify Key of an Object Which Has Been Converted to a Shareable
+
+**Problem:** This warning indicates that a shared value should be used or objects in worklets accessed more granularly.
+
+#### 1. Not Using Shared Values
+
+Example:
+
+```javascript
+const obj = { prop: 1 };
+
+function worklet() {
+  'worklet';
+  console.log(obj.prop);
+}
+
+runOnUI(worklet)();
+obj.prop = 2; // Warning occurs here.
+runOnUI(worklet)();
+```
+
+**Solution:** Use a shared value instead:
+
+```typescript
+const sv = useSharedValue({ prop: 1 });
+
+function worklet() {
+  'worklet';
+  console.log(sv.value.prop);
+}
+
+runOnUI(worklet)();
+sv.value = { prop: 2 }; // Correct usage.
+```
+
+#### 2. Not Accessing Object Properties Granularly
+
+Example:
+
+```javascript
+const obj = { propAccessedInWorklet: 1, propNotAccessedInWorklet: 2 };
+
+function worklet() {
+  'worklet';
+  console.log(obj.propAccessedInWorklet);
+}
+
+runOnUI(worklet)();
+obj.propNotAccessedInWorklet = 3; // Warning occurs here.
+```
+
+**Solution:** Assign accessed properties to variables beforehand:
+
+```typescript
+const obj = { propAccessedInWorklet: 1, propNotAccessedInWorklet: 2 };
+const propAccessedInWorklet = obj.propAccessedInWorklet;
+
+function worklet() {
+  'worklet';
+  console.log(propAccessedInWorklet);
+}
+
+runOnUI(worklet)();
+obj.propNotAccessedInWorklet = 3; // Correct usage.
+```
+
+## Threading Issues
+
+### Tried to Synchronously Call a Non-Worklet Function on the UI Thread
+
+**Problem:** This occurs when calling a non-worklet function from within a worklet.
+
+Example:
+
+```javascript
+function callee() {
+  console.log('hello');
+}
+
+function caller() {
+  'worklet';
+  callee(); // Error here.
+}
+
+runOnUI(caller)();
+```
+
+**Solution:**
+
+1. Mark the function as a worklet using `worklet` directive:
+
+   ```typescript
+   function callee() {
+     'worklet';
+     console.log("hello");
+   }
+   ```
+
+2. Execute the function on the JS thread with `runOnJS`:
+
+   ```typescript
+   function caller() {
+     'worklet';
+     runOnJS(callee)();
+   }
+   ```
+
+For more information, refer to Reanimated's documentation on worklets.

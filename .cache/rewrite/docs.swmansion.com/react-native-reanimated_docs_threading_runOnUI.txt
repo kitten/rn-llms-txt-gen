@@ -1,0 +1,48 @@
+# runOnUI
+
+The `runOnUI` function allows you to asynchronously execute workletized functions on the UI thread. It is commonly used within an `useEffect` for initiating animations upon component mount or unmount, as well as with `measure` and `scrollTo` functions that are implemented solely on the UI thread.
+
+## Reference
+
+```typescript
+import { runOnUI } from 'react-native-reanimated';
+
+function App() {
+  // Example usage in an event handler or effect
+  runOnUI((greeting: string) => {
+    console.log(`${greeting} from the UI thread`);
+  })('Howdy');
+
+  // ...
+}
+```
+
+### Arguments
+
+#### fn
+
+A reference to a function intended for execution on the UI thread, originating from the JavaScript thread. Any arguments required by your function must be passed to the function returned by `runOnUI`, e.g., `runOnUI(myWorklet)(10)`.
+
+### Returns
+
+`runOnUI` returns a function that accepts arguments for the initially provided function.
+
+**Note:** Ensure you invoke the function returned from `runOnUI`.
+
+## Example
+
+## Remarks
+
+- When creating animations, prioritize more general solutions such as `useDerivedValue`, `useAnimatedReaction`, or executing code within gesture callbacks. Resort to using `runOnUI` only after exploring these alternatives.
+  
+- A common error is attempting to execute a function inside of `runOnUI` like this: ~~`runOnUI(myWorklet(10))()`~~. The correct usage should be `runOnUI(myWorklet)(10)`.
+
+- The callback provided as an argument is automatically workletized, making it ready for execution on the UI thread.
+
+- Avoid executing `runOnUI` directly on the UI thread to prevent errors.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

@@ -1,0 +1,23 @@
+# React NativeGesture Handler
+
+## Overview
+
+The **React Native Gesture Handler** offers a declarative API that exposes the native touch and gesture systems to React Native applications.
+
+### How It Works
+
+Explore its functionality by tapping and dragging circles to understand various gestures.
+
+## Reasons to Use Gesture Handler
+
+- **Native Gesture Recognizers**: Utilizes platform-specific APIs for handling touch streams on the UI thread.
+  
+- **Native Components**: Includes components like `SwipeableRow` or `Drawer` designed for optimal interactions.
+
+- **High Performance (120 FPS)**: Integrates with Reanimated to enable smooth gesture-based experiences at up to 120 frames per second.
+
+For more details, refer to the latest article on Gesture Handler features and check out related blog posts.
+
+## About Software Mansion
+
+Software Mansion is a team of React Native Core Contributors and experts specializing in resolving various React Native challenges. Whether you need assistance with gestures, animations, or general development, we are here to help.

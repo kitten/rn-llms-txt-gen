@@ -1,0 +1,16 @@
+# Letter Spacing
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                    | Support        |
+| ------------------------ | -------------- |
+| `tracking-tighter`       | ✅ Full Support |
+| `tracking-tight`         | ✅ Full Support |
+| `tracking-normal`        | ✅ Full Support |
+| `tracking-wide`          | ✅ Full Support |
+| `tracking-wider`         | ✅ Full Support |
+| `tracking-widest`        | ✅ Full Support |

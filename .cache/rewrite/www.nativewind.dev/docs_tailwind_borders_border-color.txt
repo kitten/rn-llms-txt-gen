@@ -1,0 +1,31 @@
+# Border Color
+
+## Usage
+
+For detailed instructions and examples, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support        |
+|------------------------|----------------|
+| `border-{n}`           | ✅ Full Support |
+| `border-[n]`           | ✅ Full Support |
+| `border-inherit`       | 🌐 Web only    |
+| `border-current`       | 🌐 Web only    |
+
+### Border Opacity (Native Only)
+
+Nativewind, by default, does not support the `corePlugin` feature for `borderOpacity`. This means that border color opacity cannot dynamically change using the `--tw-border-opacity` variable. Instead, opacity is set as a static value within the `color` property.
+
+To enable dynamic border opacity in Nativewind, modify your `tailwind.config.js` file by adding:
+
+```typescript
+module.exports = {
+  /* ... */
+  corePlugin: {
+    borderOpacity: true,
+  },
+};
+```
+
+This configuration allows you to utilize the `borderOpacity` feature.

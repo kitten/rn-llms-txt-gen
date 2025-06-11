@@ -1,0 +1,141 @@
+# Manual Gesture
+
+A manual gesture lacks specific activation criteria and event data. Its state must be managed manually using a state manager, ensuring it doesn't fail when all pointers are lifted from the screen.
+
+## Reference
+
+```typescript
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+
+function App() {
+  const manual = Gesture.Manual();
+
+  return (
+    <GestureDetector gesture={manual}>
+      <Animated.View />
+    </GestureDetector>
+  );
+}
+```
+
+## Configuration
+
+### Common Properties for All Gestures:
+
+#### `enabled(value: boolean)`
+
+Determines if the handler analyzes touch events. When set to `false`, the handler's state will **never** become `ACTIVE`. If updated during gesture recognition, it changes to `FAILED` or `CANCELLED` based on its current state. Default is `true`.
+
+#### `shouldCancelWhenOutside(value: boolean)`
+
+If `true`, the handler cancels or fails recognition when a finger leaves the connected view's area. Defaults vary by handler type; most are `false`, except for `LongPressGesture` and `TapGesture`, which default to `true`.
+
+#### `hitSlop(settings)`
+
+Controls the gesture activation area within the connected view. Negative numbers reduce bounds evenly on all sides. Alternatively, specify reductions with `left`, `right`, `top`, or `bottom`. Use `horizontal` or `vertical` for combined adjustments. `width` and `height` allow edge-specific activations (e.g., `left: 0` and `width: 20`). Note: Primarily reduces activation area; non-positive values are supported, with Android allowing positive values within parent bounds.
+
+**IMPORTANT:** This parameter is designed to reduce the gesture activation area. It supports only non-positive values for all parameters except `width` and `height`. On Android, positive values are allowed but limited by parent view bounds. Use React Native's View hitSlop property for cross-platform edge effects.
+
+#### `withRef(ref)`
+
+Sets a ref to the gesture object for interoperability with older APIs.
+
+#### `withTestId(testID)`
+
+Assigns a `testID` to the gesture object, enabling test queries.
+
+#### `cancelsTouchesInView(value)` (**iOS only**)
+
+Accepts a boolean. When `true`, cancels touches for native UI components (`UIButton`, `UISwitch`, etc.) when active. Default is `true`.
+
+#### `runOnJS(value: boolean)`
+
+When `react-native-reanimated` is installed, callbacks are workletized and run on the UI thread by default. This option allows running all callbacks on the JS thread instead. Defaults to `false`.
+
+#### `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)`
+
+Marks a gesture for simultaneous recognition with this one.
+
+**IMPORTANT:** This method only marks relations between gestures without composing them. `GestureDetector` will not recognize `otherGestures`; they must be added to another detector for recognition.
+
+#### `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)`
+
+Requires another gesture to fail before activation.
+
+#### `blocksExternalGesture(otherGesture1, otherGesture2, ...)`
+
+Waits for this gesture to fail (or not start) before activating others.
+
+**IMPORTANT:** This method only marks relations between gestures without composing them. `GestureDetector` will not recognize `otherGestures`; they must be added to another detector for recognition.
+
+#### `activeCursor(value)` (Web only)
+
+Specifies the cursor used when the gesture activates, supporting all CSS cursor values (e.g., `"grab"`, `"zoom-in"`). Default is `"auto"`.
+
+## Callbacks
+
+### Common Callbacks for All Gestures:
+
+#### `onBegin(callback)`
+
+Called when the handler starts receiving touches but hasn't yet recognized the gesture.
+
+#### `onStart(callback)`
+
+Triggered when the gesture is recognized and transitions to an active state.
+
+#### `onEnd(callback)`
+
+Invoked when a recognized gesture finishes, provided it was previously active.
+
+#### `onFinalize(callback)`
+
+Called when the handler finalizes handling a gesture—either recognized and finished or failed.
+
+#### `onTouchesDown(callback)`
+
+Executed every time a finger touches the screen.
+
+#### `onTouchesMove(callback)`
+
+Triggered whenever a finger moves on the screen.
+
+#### `onTouchesUp(callback)`
+
+Invoked each time a finger is lifted from the screen.
+
+#### `onTouchesCancelled(callback)`
+
+Called when a finger stops being tracked, such as when a gesture finishes.
+
+### Common Callbacks for All Continuous Gestures:
+
+#### `onUpdate(callback)`
+
+Executed every time an active gesture receives an update.
+
+#### `onChange(callback)`
+
+Triggered with each update during an active gesture, providing change information relative to the last event.
+
+## Event Data
+
+### Attributes Common to All Gestures:
+
+#### `state`
+
+Represents the handler's current state using constants from the `State` object exported by the library.
+
+#### `numberOfPointers`
+
+Indicates the number of pointers (fingers) currently on the screen.
+
+#### `pointerType`
+
+Specifies the pointer device type, represented by the `PointerType` enum with fields:
+
+- `TOUCH`: Finger
+- `STYLUS`: Stylus or digital pen
+- `MOUSE`: Computer mouse
+- `KEY`: Keyboard
+- `OTHER`: Unknown device type

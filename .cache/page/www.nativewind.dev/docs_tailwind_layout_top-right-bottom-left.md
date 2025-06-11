@@ -1,0 +1,67 @@
+Top / Right / Bottom / Left
+
+# Usage
+
+Please refer to the documentation on the Tailwind CSS website
+
+## Compatibility
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| ```
+inset-{n}
+```    | ✅ Full Support |
+| ```
+inset-[n]
+```    | ✅ Full Support |
+| ```
+inset-x-{n}
+```  | ✅ Full Support |
+| ```
+inset-y-[n]
+```  | ✅ Full Support |
+| ```
+top-{n}
+```      | ✅ Full Support |
+| ```
+top-[n]
+```      | ✅ Full Support |
+| ```
+bottom-{n}
+```   | ✅ Full Support |
+| ```
+bottom-[n]
+```   | ✅ Full Support |
+| ```
+left-{n}
+```     | ✅ Full Support |
+| ```
+left-[n]
+```     | ✅ Full Support |
+| ```
+right-{n}
+```    | ✅ Full Support |
+| ```
+right-[n]
+```    | ✅ Full Support |
+| ```
+inset-auto
+```   | 🌐 Web only    |
+| ```
+inset-x-auto
+``` | 🌐 Web only    |
+| ```
+inset-y-auto
+``` | 🌐 Web only    |
+| ```
+top-auto
+```     | 🌐 Web only    |
+| ```
+bottom-auto
+```  | 🌐 Web only    |
+| ```
+left-auto
+```    | 🌐 Web only    |
+| ```
+right-auto
+```   | 🌐 Web only    |

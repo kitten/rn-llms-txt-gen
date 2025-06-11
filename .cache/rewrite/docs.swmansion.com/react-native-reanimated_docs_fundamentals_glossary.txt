@@ -1,0 +1,164 @@
+# Glossary of Terms
+
+## Animated Component
+
+Animated components are those that can be animated using Reanimated. The library includes built-in components such as `Animated.View`, `Animated.Text`, and `Animated.ScrollView`.
+
+```typescript
+import Animated from 'react-native-reanimated';
+
+function App() {
+  return (
+    <Animated.View
+      style={{
+        width: 100,
+        height: 100,
+        backgroundColor: 'violet',
+      }}
+    />
+  );
+}
+```
+
+For components not included in Reanimated, you can make their props and styles animatable by wrapping them with `createAnimatedComponent`:
+
+```typescript
+import Animated from 'react-native-reanimated';
+import { Circle } from 'react-native-svg';
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+```
+
+## Shared Value
+
+Shared values are essential for animations in Reanimated. They are defined using the `useSharedValue` hook and accessed or modified via their `.value` property.
+
+```typescript
+import { useSharedValue } from 'react-native-reanimated';
+
+function App() {
+  const sv = useSharedValue(0);
+
+  const handlePress = () => {
+    sv.value += 10;
+  };
+
+  // rest of your glamorous code ✨
+}
+```
+
+Shared values can store any type and automatically synchronize data between the JavaScript thread and the UI thread.
+
+## Animatable Value
+
+An animatable value is a type that can be used for animations, including numbers, strings, and arrays of numbers. Strings in specific formats like `"10deg"`, `"21%"`, or colors such as `"#ffaabb"` or `"rgba(100, 200, 100, 0.7)"` are also animatable.
+
+## Animation Function
+
+Animation functions define how animations should behave. Reanimated provides three built-in animation functions:
+
+- `withSpring`: Creates spring-based animations.
+- `withTiming`: Creates duration and easing-based animations.
+- `withDecay`: Mimics motion with a given deceleration rate.
+
+These can be combined with modifiers for complex animations.
+
+## Animation Modifier
+
+Animation modifiers customize animations. Known as higher-order animations, Reanimated includes:
+
+- `withDelay`: Adds a delay before the animation starts.
+- `withRepeat`: Repeats an animation a specified number of times.
+- `withSequence`: Chains animations sequentially.
+- `withClamp`: Limits animation boundaries to a specific range.
+
+## Animation Object
+
+An animation object is returned from animation functions and modifiers, containing the current state of the animation. It includes start and end conditions and an `onFrame` function for calculating each frame's state.
+
+When passed to a shared value, it is treated as an animatable value:
+
+```typescript
+sv.value = withSpring(100);
+```
+
+## Animations in Inline Styling
+
+Shared values can be directly used in the `style` property without `useAnimatedStyle`.
+
+Example:
+
+```typescript
+function App() {
+  const width = useSharedValue(100);
+
+  return <Animated.View style={{ width }} />;
+}
+```
+
+## Layout Animation Modifier
+
+Layout animation modifiers customize layout animations. Example usage:
+
+```typescript
+<Animated.View entering={FadeOutLeft.duration(500).easing(Easing.ease)} />
+```
+
+Built-in modifiers include:
+
+- `.duration(durationMs: number)`: Sets the animation length in milliseconds.
+- `.easing(easingFunction: EasingFunction)`: Defines the animation curve.
+- `.springify()`: Enables spring-based animations.
+- `.damping(value: number)`: Controls how quickly a spring stops moving.
+- `.withCallback(callback: (finished: boolean) => void)`: Triggers after the animation ends.
+
+## Worklet
+
+Worklets are short-running JavaScript functions executed on the UI thread. They can also run on the JavaScript thread like regular functions.
+
+Code is often automatically workletized and runs on the UI thread by default:
+
+```typescript
+const style = useAnimatedStyle(() => {
+  console.log('Running on the UI thread');
+  return { opacity: 0.5 };
+});
+```
+
+Custom worklets can be created using the `"worklet";` directive:
+
+```typescript
+function myWorklet() {
+  'worklet';
+  console.log('Running on the UI thread');
+}
+```
+
+Use `runOnUI` to manually execute worklets on the UI thread:
+
+```typescript
+function myWorklet(greeting) {
+  'worklet';
+  console.log(`${greeting} from the UI thread`);
+}
+
+function onPress() {
+  runOnUI(myWorklet)('Howdy');
+}
+```
+
+## To Workletize
+
+Converts a JavaScript function into an object that can be serialized and executed on the UI thread. Functions marked with `"worklet";` are automatically workletized by the Reanimated Babel plugin.
+
+## JavaScript Thread
+
+The JavaScript thread handles code execution in the app, serving as the primary location for React Native app code execution.
+
+## UI Thread
+
+The UI thread manages user interface updates and is also known as the Main thread. More information can be found in the Threading model article of the official React Native documentation.
+
+## Reanimated Babel Plugin
+
+This plugin automatically workletizes certain functions used with Reanimated, reducing boilerplate code. Details are available in the Reanimated Babel plugin README.

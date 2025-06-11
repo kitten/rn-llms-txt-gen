@@ -1,0 +1,140 @@
+# Signing Your Android Application for Distribution
+
+Android mandates that applications must be digitally signed with a certificate before installation. For distribution via the Google Play Store, an app needs to be signed with a release key used for all future updates. Since 2017, Google Play can manage signing releases automatically through App Signing by Google Play. However, prior to uploading your application binary to Google Play, it must be signed with an upload key.
+
+## Generating an Upload Key
+
+### Windows
+On Windows, `keytool` should be executed from `C:\Program Files\Java\jdkx.x.x_x\bin` as administrator:
+
+```shell
+keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+```
+
+This command prompts for passwords and Distinguished Name fields, generating a keystore file named `my-upload-key.keystore`. The key is valid for 10,000 days. Remember the alias used.
+
+### macOS
+On macOS, locate your JDK bin folder using:
+
+```shell
+/usr/libexec/java_home
+```
+
+Navigate to that directory with `cd /your/jdk/path` and run:
+
+```shell
+sudo keytool -genkey -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+```
+
+**Caution:** Keep the keystore file private. If lost or compromised, follow recovery instructions.
+
+## Setting Up Gradle Variables
+
+1. Place `my-upload-key.keystore` in the `android/app` directory.
+2. Edit `~/.gradle/gradle.properties` or `android/gradle.properties`, adding:
+
+```properties
+MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore
+MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
+MYAPP_UPLOAD_STORE_PASSWORD=*****
+MYAPP_UPLOAD_KEY_PASSWORD=*****
+```
+
+These are global Gradle variables for signing the app. Use `~/.gradle/gradle.properties` to avoid checking them into git.
+
+## Adding Signing Config to Your App's Gradle Config
+
+Edit `android/app/build.gradle` and add:
+
+```groovy
+...
+android {
+    ...
+    defaultConfig { ... }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
+    }
+    buildTypes {
+        release {
+            ...
+            signingConfig signingConfigs.release
+        }
+    }
+}
+...
+```
+
+## Generating the Release AAB
+
+Run:
+
+```shell
+npx react-native build-android --mode=release
+```
+
+This bundles JavaScript into an Android App Bundle (AAB). Ensure `gradle.properties` does not include `org.gradle.configureondemand=true`.
+
+The generated AAB is located at `android/app/build/outputs/bundle/release/app-release.aab`, ready for Google Play upload. Configure App Signing by Google Play on the Google Play Console.
+
+## Testing the Release Build
+
+Uninstall any previous app versions and install using:
+
+```shell
+npm run android -- --mode="release"
+```
+
+or
+
+```shell
+yarn android --mode release
+```
+
+Ensure signing is set up as described above. Terminate running bundler instances since all code is bundled in the APK's assets.
+
+## Publishing to Other Stores
+
+The default APK includes native code for `x86`, `x86_64`, `ARMv7a`, and `ARM64-v8a`. For smaller APKs, create separate APKs per CPU:
+
+```groovy
+android {
+    splits {
+        abi {
+            reset()
+            enable true
+            universalApk false
+            include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+}
+```
+
+Upload to markets supporting device targeting. For others, set `universalApk true` for a universal APK.
+
+## Enabling Proguard (Optional)
+
+Proguard reduces APK size by stripping unused React Native Java bytecode:
+
+```groovy
+/**
+ * Run Proguard to shrink the Java bytecode in release builds.
+ */
+def enableProguardInReleaseBuilds = true
+```
+
+Test thoroughly if enabled, as it may require specific configurations for native libraries.
+
+## Migrating Old Android React Native Apps
+
+For apps not using App Signing by Google Play, generate a new upload key and update `android/app/build.gradle` to use this key. Follow Google Play Help instructions to send your original release key to Google Play.
+
+## Default Permissions
+
+The `INTERNET` permission is added by default. The `SYSTEM_ALERT_WINDOW` permission is included in debug mode but removed in production.

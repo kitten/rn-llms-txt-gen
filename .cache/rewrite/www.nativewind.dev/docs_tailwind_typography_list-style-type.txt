@@ -1,0 +1,13 @@
+# List Style Type
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| `list-none`          | ✅ Full Support |
+| `list-disc`          | ✅ Full Support |
+| `list-decimal`       | ✅ Full Support |

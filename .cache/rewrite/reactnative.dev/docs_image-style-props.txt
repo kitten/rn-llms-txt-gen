@@ -1,0 +1,161 @@
+# Image Style Properties
+
+## Examples
+
+### Image Resize Mode
+
+### Image Border
+
+### Image Border Radius
+
+### Image Tint
+
+## Reference
+
+## Properties
+
+### `backfaceVisibility`
+
+This property specifies whether the back face of a rotated image should be visible.
+
+| Type                          | Default     |
+| ----------------------------- | ----------- |
+| enum(`'visible'`, `'hidden'`) | `'visible'` |
+
+***
+
+### `backgroundColor`
+
+| Type  |
+| ----- |
+| color |
+
+***
+
+### `borderBottomLeftRadius`
+
+| Type   |
+| ------ |
+| number |
+
+***
+
+### `borderBottomRightRadius`
+
+| Type   |
+| ------ |
+| number |
+
+***
+
+### `borderColor`
+
+| Type  |
+| ----- |
+| color |
+
+***
+
+### `borderRadius`
+
+| Type   |
+| ------ |
+| number |
+
+***
+
+### `borderTopLeftRadius`
+
+| Type   |
+| ------ |
+| number |
+
+***
+
+### `borderTopRightRadius`
+
+| Type   |
+| ------ |
+| number |
+
+***
+
+### `borderWidth`
+
+| Type   |
+| ------ |
+| number |
+
+***
+
+### `opacity`
+
+Sets the opacity level for the image, with values ranging from `0.0` to `1.0`.
+
+| Type   | Default |
+| ------ | ------- |
+| number | `1.0`   |
+
+***
+
+### `overflow`
+
+| Type                          | Default     |
+| ----------------------------- | ----------- |
+| enum(`'visible'`, `'hidden'`) | `'visible'` |
+
+***
+
+### `overlayColor` (Android)
+
+When an image has rounded corners, specifying an `overlayColor` will fill the remaining corner space with a solid color. This is particularly useful for resize modes like `'contain'` and animated GIFs that are not fully supported by Android's implementation of rounded corners.
+
+A common use case involves images on a solid background where the `overlayColor` matches the background color.
+
+For more details, refer to the Fresco documentation.
+
+| Type   |
+| ------ |
+| string |
+
+***
+
+### `resizeMode`
+
+Defines how an image should be resized when its frame dimensions do not match the raw image dimensions. The default mode is `cover`.
+
+- **`cover`:** Scale the image uniformly (maintaining aspect ratio) so that:
+  - Both dimensions of the image are equal to or larger than those of the view (minus padding).
+  - At least one dimension matches the corresponding dimension of the view (minus padding).
+
+- **`contain`:** Scale the image uniformly (maintaining aspect ratio) so that both dimensions are equal to or less than those of the view (minus padding).
+
+- **`stretch`:** Independently scale width and height, potentially altering the aspect ratio.
+
+- **`repeat`:** Repeat the image to cover the frame. The image retains its size and aspect ratio unless larger than the view, in which case it is scaled down uniformly to fit within the view.
+
+- **`center`:** Center the image along both dimensions. If larger than the view, scale it down uniformly to fit within the view.
+
+| Type                                                              | Default   |
+| ----------------------------------------------------------------- | --------- |
+| enum(`'cover'`, `'contain'`, `'stretch'`, `'repeat'`, `'center'`) | `'cover'` |
+
+***
+
+### `objectFit`
+
+Specifies how an image should be resized when its frame dimensions do not match the raw image dimensions.
+
+| Type                                                   | Default   |
+| ------------------------------------------------------ | --------- |
+| enum(`'cover'`, `'contain'`, `'fill'`, `'scale-down'`) | `'cover'` |
+
+***
+
+### `tintColor`
+
+Alters the color of all non-transparent pixels to the specified `tintColor`.
+
+| Type  |
+| ----- |
+| color |

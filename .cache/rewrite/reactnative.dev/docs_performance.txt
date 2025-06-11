@@ -1,0 +1,82 @@
+# Performance Overview
+
+React Native offers a compelling advantage over WebView-based tools by aiming for smooth performance, specifically targeting 60 frames per second (FPS) with a native look and feel. While React Native handles many optimizations automatically, there are areas where manual intervention is necessary to achieve optimal performance. This guide provides insights into troubleshooting performance issues and addressing common problems.
+
+## Understanding Frames
+
+The concept of "frames" originates from the early days of cinema when movies were referred to as "moving pictures." Realistic motion in video or UI is achieved by rapidly displaying static images at a consistent rate. Each image is called a frame, and the number of frames displayed per second affects how smooth the motion appears.
+
+iOS devices aim for 60 FPS, allowing approximately 16.67 milliseconds (ms) to generate each frame. If this time limit is exceeded, a "frame drop" occurs, making the UI seem unresponsive. To observe frame rates in your app, open the Dev Menu and toggle `Show Perf Monitor`. You'll notice two different frame rates:
+
+### JS Frame Rate (JavaScript Thread)
+
+In most React Native applications, business logic runs on the JavaScript thread, which handles tasks like API calls and touch events. Updates to native views are batched and sent to the native side at each event loop iteration before the frame deadline. If the JavaScript thread is unresponsive for a frame, it's considered dropped. For instance, calling `this.setState` in a complex component might take 200ms, resulting in 12 frames being dropped and causing animations to freeze.
+
+Common issues include:
+
+- **Navigator Transitions**: Rendering components for new scenes can cause jank as transitions are controlled by the JavaScript thread.
+- **Touch Responsiveness**: Delays in processing touch events due to a busy JavaScript thread can affect components like `TouchableOpacity`.
+
+### UI Frame Rate (Main Thread)
+
+Performance differences between `NavigatorIOS` and `Navigator` arise because `NavigatorIOS` handles animations on the main thread, avoiding interruptions from JavaScript frame drops. Similarly, scrolling through a `ScrollView` remains smooth even if the JavaScript thread is busy.
+
+## Common Performance Issues
+
+### Development Mode (`dev=true`)
+
+JavaScript performance degrades in development mode due to additional runtime work for warnings and error messages. Always test performance in release builds.
+
+### Using `console.log`
+
+In bundled apps, `console.log` statements can bottleneck the JavaScript thread. Remove them before bundling using a Babel plugin:
+
+```json
+{
+  "env": {
+    "production": {
+      "plugins": ["transform-remove-console"]
+    }
+  }
+}
+```
+
+Install with `npm i babel-plugin-transform-remove-console --save-dev`.
+
+### Slow ListView Rendering
+
+Switch to `FlatList` or `SectionList` for better performance, especially with large lists. Implement `getItemLayout` to optimize rendering speed.
+
+### Re-rendering Unchanged Views
+
+For `ListView`, use a `rowHasChanged` function to minimize unnecessary re-renders. For components, implement `shouldComponentUpdate` or use `PureComponent` with immutable data structures for efficient updates.
+
+### High JavaScript Thread Workload
+
+Slow transitions often result from excessive work on the JavaScript thread. Use InteractionManager or LayoutAnimation to manage workload during animations. LayoutAnimation leverages Core Animation and is unaffected by frame drops.
+
+### UI Frame Drops During View Movement
+
+Alpha compositing can cause FPS drops when moving views with transparent backgrounds. Enable `shouldRasterizeIOS` or `renderToHardwareTextureAndroid` for improvement, but monitor memory usage.
+
+### Image Size Animations
+
+Animating image size on iOS involves re-cropping and scaling, which is costly. Use the `transform: [{scale}]` style property instead.
+
+### Unresponsive TouchableX Views
+
+If actions in `onPress` cause frame drops, wrap them in `requestAnimationFrame`:
+
+```typescript
+handleOnPress() {
+  requestAnimationFrame(() => {
+    this.doExpensiveAction();
+  });
+}
+```
+
+### Slow Navigator Transitions
+
+Navigator animations are controlled by the JavaScript thread. Offloading animations to the native thread can improve performance. React Navigation addresses this by using native components and the `Animated` library for smooth, high-FPS animations.
+
+This guide aims to help you identify and resolve common performance issues in React Native applications, ensuring a smoother user experience.

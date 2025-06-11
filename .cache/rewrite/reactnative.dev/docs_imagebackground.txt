@@ -1,0 +1,38 @@
+# ImageBackground Component Overview
+
+The `<ImageBackground>` component is designed for developers who are accustomed to using `background-image` in web development. It functions similarly to the `<Image>` component, allowing you to layer additional content on top of an image.
+
+## Considerations
+
+While `<ImageBackground>` provides basic functionality, it may not be suitable for all use cases. Developers are encouraged to review its source code and consider creating a custom component if necessary.
+
+**Note:** It is essential to define width and height style attributes when using this component.
+
+## Example Usage
+
+*Example section would typically include a demonstration of how to implement the `<ImageBackground>` component.*
+
+## Reference
+
+*Reference section would provide additional resources or links for further information about the `<ImageBackground>` component.*
+
+## Props
+
+### Image Props
+
+The `<ImageBackground>` inherits all props from the `<Image>` component.
+
+### `imageStyle`
+
+- **Type:** Image Style
+- Description: Customizes the style of the image within the background.
+
+### `imageRef`
+
+- **Type:** Ref
+- Description: Allows setting a reference to the inner `Image` component for direct manipulation or access.
+
+### `style`
+
+- **Type:** View Style
+- Description: Applies styling to the view that contains the `<ImageBackground>`.

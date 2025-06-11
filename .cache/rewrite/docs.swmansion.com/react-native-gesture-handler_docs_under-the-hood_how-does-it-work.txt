@@ -1,0 +1,36 @@
+# How It Works
+
+## Units
+
+All properties and event attributes in handler components representing onscreen dimensions are expressed in screen density-independent units called "points." These units align with those used in the React Native ecosystem, such as iOS's points and Android's dp (density-independent pixels). Points do not directly correspond to physical pixels.
+
+## iOS Implementation
+
+Gestures on iOS utilize UIGestureRecognizers. Some recognizers have been customized for enhanced customization and to adhere to the state flow of RNGH (React Native Gesture Handler). When a gesture configuration is assigned to `GestureDetector`, it creates all necessary recognizers and assigns them to the child view of the detector. Subsequently, most processing is managed by UIKit, with assistance from our implementation to ensure correct interactions between gestures.
+
+## Android Implementation
+
+Android lacks an easy method for handling gestures, necessitating custom implementations, including a system for managing gesture interactions. Here's how it functions:
+
+1. **GestureHandlerRootView**: Wrapping a component in `GestureHandlerRootView` allows RNGH to intercept all touch events on that component and determine whether they should be handled by gesture handlers or passed to the underlying view.
+
+2. **Touch Event Handling**:
+   - Gesture handlers are initialized when a gesture configuration is assigned to `GestureDetector`.
+   - Each `GestureHandlerRootView` has a handler to decide if touch events should be consumed or passed through.
+   - This handler cannot activate but can begin, end, or be cancelled.
+
+3. **State Transitions**:
+   - In the `UNDETERMINED` state, no touch is in progress. Upon touch start, it transitions to the `BEGAN` state.
+   - While in the `BEGAN` state, touch events are not consumed. If a handler activates (or gets cancelled), all incoming touch events are consumed, preventing them from reaching the underlying view.
+
+4. **Gesture Recognition**:
+   - When a pointer touches the screen, the view tree is traversed to extract handlers attached to views beneath the finger, including those on `GestureHandlerRootView`.
+   - Extracted handlers transition to the `BEGAN` state, indicating a potential gesture start.
+   - Touch events are delivered to all extracted handlers until one recognizes and attempts to activate the gesture.
+
+5. **Orchestrator Role**:
+   - The orchestrator checks if the activating gesture should wait for other gestures to fail.
+   - If it waits, it is placed on a waiting list; otherwise, it activates, cancelling non-simultaneous gestures.
+   - When a gesture handler finishes (gesture recognized, fails, or cancels), the orchestrator reviews waiting handlers. Those that waited for the failed gesture attempt activation again, with the process repeating as necessary.
+
+This system ensures efficient and accurate gesture handling across both iOS and Android platforms.

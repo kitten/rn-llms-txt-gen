@@ -1,0 +1,47 @@
+# Configuration
+
+Nativewind utilizes the same configuration file as Tailwind CSS, namely `tailwind.config.js`. For detailed guidance on configuring your project, refer to the Tailwind CSS documentation.
+
+## Metro Configuration
+
+### `input`
+
+**Required**
+
+- **Type:** `string`
+- Description: Specifies the path to the entry file for your Tailwind styles.
+
+### `projectRoot`
+
+- **Default:** `process.cwd()`
+- Description: Indicates the root directory of your project.
+
+### `outputDir`
+
+- **Default:** `node_modules/.cache/nativewind`
+- Description: Defines the relative path from `projectRoot` where generated styles should be saved.
+
+### `configFile`
+
+- **Default:** `tailwind.config.js`
+- Description: Specifies the location of your Tailwind configuration file.
+
+### `cliCommand`
+
+- **Default:** `node node_modules/tailwind/lib/cli.js`
+- Description: The command used to execute the Tailwind CLI.
+
+### `browserslist`
+
+- **Default:** `last 1 versions`
+- Description: Determines the browserslist and autoprefixer settings.
+
+### `browserslistEnv`
+
+- **Default:** `native`
+- Description: Sets the environment for browserslist and autoprefixer.
+
+### `hotServerOptions`
+
+- **Default:** `{ port: <next-available> }`
+- Description: Provides options for the development hot reloading server via `ws`.

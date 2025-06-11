@@ -1,0 +1,92 @@
+# React Native DevTools
+
+React Native DevTools offers a modern debugging experience specifically designed for React Native applications. Built from scratch, it aims to provide deeper integration and reliability compared to previous methods.
+
+While React Native DevTools focuses on debugging React app concerns, it does not replace native tools. For inspecting the underlying platform layers of React Native (e.g., when developing a Native Module), use the debugging tools available in Android Studio and Xcode (see Debugging Native Code).
+
+## Core Features
+
+React Native DevTools is based on the Chrome DevTools frontend, making its features familiar to those with web development experience. For comprehensive guides and video resources, refer to the Chrome DevTools documentation.
+
+### Console
+
+The Console panel allows you to view and filter messages, evaluate JavaScript, inspect object properties, among other functionalities.
+
+Console features reference | [Chrome DevTools](https://developer.chrome.com/docs/devtools/console/)
+
+#### Useful Tips
+
+- Use the filter box or adjust log levels if your app generates many logs.
+- Monitor values over time with Live Expressions.
+- Preserve messages across reloads using Preserve Logs.
+- Clear the console view with `Ctrl` + `L`.
+
+### Sources & Breakpoints
+
+The Sources panel lets you view source files and set breakpoints. Breakpoints pause your app at specific lines of code, enabling inspection of the live state and step-by-step execution.
+
+Pause your code with breakpoints | [Chrome DevTools](https://developer.chrome.com/docs/devtools/javascript/breakpoints/)
+
+#### Mini-Guide
+
+Breakpoints are essential for debugging:
+
+1. Navigate to a source file using the sidebar or `Cmd ⌘`+`P` / `Ctrl`+`P`.
+2. Click in the line number column next to code to add a breakpoint.
+3. Use navigation controls at the top right to step through code when paused.
+
+#### Useful Tips
+
+- A "Paused in Debugger" overlay appears when your app is paused; tap it to resume.
+- Inspect the current scope and call stack, and set watch expressions using the panels on the right-hand side when paused.
+- Insert a `debugger;` statement in your text editor to quickly set a breakpoint via Fast Refresh.
+- Explore different types of breakpoints, such as Conditional Breakpoints and Logpoints.
+
+### Memory
+
+The Memory panel allows you to take heap snapshots and monitor JavaScript memory usage over time.
+
+Record heap snapshots | [Chrome DevTools](https://developer.chrome.com/docs/devtools/memory-problems/)
+
+#### Useful Tips
+
+- Use `Cmd ⌘`+`F` / `Ctrl`+`F` to filter for specific objects in the heap.
+- Allocation timeline reports can help identify memory leaks by showing usage over time as a graph.
+
+## React DevTools Features
+
+The integrated Components and Profiler panels include all features of the React DevTools browser extension, working seamlessly within React Native DevTools.
+
+### React Components
+
+The React Components panel lets you inspect and update the rendered React component tree.
+
+- Highlight elements on device by hovering or selecting them in DevTools.
+- Locate an element in DevTools using the "Select element" button, then tap any app element.
+
+#### Useful Tips
+
+- View and modify props and state at runtime using the right-hand panel.
+- Components optimized with React Compiler are marked with a "Memo ✨" badge.
+
+#### Protip: Highlight Re-renders
+
+Highlighting component re-renders can help identify performance issues. Enable this feature by clicking the View Settings (`⚙︎`) icon and checking "Highlight updates when components render".
+
+### React Profiler
+
+The React Profiler panel records performance profiles to analyze component render timings and React commits.
+
+For more information, refer to the original 2018 guide (note that some parts may be outdated).
+
+## Reconnecting DevTools
+
+DevTools might disconnect from the target device due to:
+
+- App closure.
+- App rebuild (new native build installation).
+- Native app crash.
+- Metro dev server shutdown.
+- Physical device disconnection.
+
+Upon disconnection, a dialog with "Debugging connection was closed" will appear. You can either dismiss it or select "Reconnect DevTools" after addressing the disconnection cause.

@@ -1,0 +1,13 @@
+# Hyphens
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support     |
+| ---------------------- | ----------- |
+| `hyphens-none`         | 🌐 Web only |
+| `hyphens-manual`       | 🌐 Web only |
+| `hyphens-auto`         | 🌐 Web only |

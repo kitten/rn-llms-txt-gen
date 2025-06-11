@@ -1,0 +1,25 @@
+# Direct Manipulation
+
+In certain scenarios, it's necessary to modify a component directly without relying on state or props to trigger a full subtree re-render. This is akin to direct DOM manipulation in browser-based React applications and applies similarly to views in mobile apps. In React Native, `setNativeProps` serves as the equivalent for setting properties directly on a native node.
+
+> **Caution:**  
+> Use `setNativeProps` only when frequent re-renders lead to performance issues!
+
+Direct manipulation is not commonly used. It's primarily employed for continuous animations to avoid the overhead of rendering and reconciling numerous views. Since `setNativeProps` operates imperatively, storing state in the native layer (such as DOM or UIView) rather than within React components, it can make your code harder to understand.
+
+Before resorting to this method, attempt to resolve issues using `setState` and `shouldComponentUpdate`.
+
+## Using `setNativeProps` with TextInput
+
+A frequent use case for `setNativeProps` is modifying the value of a `TextInput`. The `controlled` prop in `TextInput` may drop characters if the `bufferDelay` is low and typing speed is high. Some developers opt to bypass this prop, using `setNativeProps` instead to directly adjust the `TextInput` value when needed.
+
+For instance, consider the following code that edits input upon button press:
+
+- TypeScript
+- JavaScript
+
+The `clear` method can also be used to clear the `TextInput`, employing a similar approach.
+
+## Avoiding Conflicts with Render Functions
+
+Updating properties managed by both `setNativeProps` and the render function can lead to unpredictable bugs. If a component re-renders and changes that property, any value previously set via `setNativeProps` will be disregarded and overridden.

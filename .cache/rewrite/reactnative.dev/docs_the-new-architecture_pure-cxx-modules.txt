@@ -1,0 +1,320 @@
+Creating a cross-platform native module using C++ is an efficient way to share platform-agnostic code between Android and iOS. This guide walks through the process of creating a pure C++ Turbo Native Module, which allows you to write your logic once and reuse it across platforms.
+
+### Prerequisites
+
+Ensure you have the following setup:
+
+- React Native environment set up for both Android and iOS.
+- Basic understanding of C++, Objective-C, and JavaScript/TypeScript.
+
+### Steps to Create a C++ Turbo Native Module
+
+#### 1. Set Up Your Project
+
+Start by creating a new React Native project if you haven't already:
+
+```bash
+npx react-native init SampleApp
+cd SampleApp
+```
+
+#### 2. Define the JS Spec
+
+Create a TypeScript file for your module spec in `specs/NativeSampleModule.ts`:
+
+```typescript
+import { TurboModule } from 'react-native';
+
+export interface Spec extends TurboModule {
+  reverseString(value: string): string;
+}
+
+export default NativeModules.NativeSampleModule as Spec | null;
+```
+
+#### 3. Implement the C++ Module
+
+##### Android Implementation
+
+1. **Create Header and Source Files**
+
+   Create `NativeSampleModule.h`:
+
+   ```cpp
+   #pragma once
+
+   #include <react/TurboModule.h>
+   #include <react/uimanager/ViewManager.h>
+
+   namespace facebook {
+   namespace react {
+
+   class NativeSampleModule : public TurboModule {
+   public:
+     using TurboModule::TurboModule;
+
+     virtual ~NativeSampleModule() = default;
+
+     DECLARE_TURBO_MODULE(NativeSampleModule, TurboModule);
+     static constexpr auto kName = "NativeSampleModule";
+
+     virtual std::string reverseString(std::string value) = 0;
+   };
+
+   } // namespace react
+   } // namespace facebook
+
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+
+   JNIEXPORT void JNICALL
+   Java_com_sampleapp_NativeSampleModule_init(JNIEnv* env, jclass clazz);
+
+   #ifdef __cplusplus
+   }
+   #endif
+   ```
+
+   Create `NativeSampleModule.cpp`:
+
+   ```cpp
+   #include "NativeSampleModule.h"
+
+   namespace facebook {
+   namespace react {
+
+   class NativeSampleModuleImpl : public NativeSampleModule {
+   public:
+     explicit NativeSampleModuleImpl(const std::shared_ptr<CallInvoker>& jsInvoker)
+         : TurboModule("NativeSampleModule", jsInvoker) {}
+
+     std::string reverseString(std::string value) override {
+       std::reverse(value.begin(), value.end());
+       return value;
+     }
+   };
+
+   // Register the module
+   void registerNativeSampleModule(
+       ReactApplicationContext& context,
+       const std::shared_ptr<CallInvoker>& jsInvoker) {
+     auto moduleHolder = std::make_shared<std::weak_ptr<NativeSampleModule>>();
+     getOrSetTurboModule(context, *moduleHolder, NativeSampleModule::kName, []() -> std::shared_ptr<TurboModule> {
+       return std::make_shared<NativeSampleModuleImpl>(jsInvoker);
+     });
+   }
+
+   } // namespace react
+   } // namespace facebook
+
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+
+   JNIEXPORT void JNICALL
+   Java_com_sampleapp_NativeSampleModule_init(JNIEnv* env, jclass clazz) {
+     auto& context = getReactApplicationContext();
+     auto jsInvoker = getJavaScriptCallInvoker(context);
+     facebook::react::registerNativeSampleModule(context, jsInvoker);
+   }
+
+   #ifdef __cplusplus
+   }
+   #endif
+   ```
+
+2. **Register the Module in Java**
+
+   Create `com/sampleapp/NativeSampleModule.java`:
+
+   ```java
+   package com.sampleapp;
+
+   import com.facebook.react.bridge.ReactApplicationContext;
+   import com.facebook.react.bridge.ReactContextBaseJavaModule;
+   import com.facebook.react.module.annotations.ReactModule;
+   import com.facebook.react.turbomodule.core.interfaces.TurboModule;
+   import com.facebook.react.turbomodule.core.internal.TurboReactPackage;
+
+   @ReactModule(name = NativeSampleModule.NAME)
+   public class NativeSampleModule extends ReactContextBaseJavaModule {
+     static final String NAME = "NativeSampleModule";
+
+     private final TurboReactPackage mTurboReactPackage;
+
+     public NativeSampleModule(ReactApplicationContext reactContext, TurboReactPackage turboReactPackage) {
+       super(reactContext);
+       mTurboReactPackage = turboReactPackage;
+     }
+
+     @Override
+     public String getName() {
+       return NAME;
+     }
+
+     static void registerNativeModules(ReactPackageList packages, ReactApplicationContext context) {
+       packages.add(new NativeSampleModule(context, (TurboReactPackage) packages.get(0)));
+     }
+   }
+   ```
+
+3. **Modify `MainApplication.java`**
+
+   Ensure your `MainApplication.java` includes the Turbo module package:
+
+   ```java
+   import com.facebook.react.ReactNativeHost;
+   import com.facebook.react.ReactPackage;
+   import com.facebook.react.shell.MainReactPackage;
+   import com.facebook.soloader.SoLoader;
+   import java.util.List;
+
+   public class MainApplication extends Application implements ReactApplication {
+     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+       @Override
+       public boolean getUseDeveloperSupport() {
+         return BuildConfig.DEBUG;
+       }
+
+       @Override
+       protected List<ReactPackage> getPackages() {
+         List<ReactPackage> packages = new PackageList(this).getPackages();
+         packages.add(new MainReactPackage());
+         // Add this line
+         packages.add(new TurboReactPackage());
+         return packages;
+       }
+     };
+
+     @Override
+     public ReactNativeHost getReactNativeHost() {
+       return mReactNativeHost;
+     }
+
+     @Override
+     public void onCreate() {
+       super.onCreate();
+       SoLoader.init(this, /* native exopackage */ false);
+     }
+   }
+   ```
+
+##### iOS Implementation
+
+1. **Create the Module Provider**
+
+   Create `SampleNativeModuleProvider.mm`:
+
+   ```objc
+   #import "SampleNativeModuleProvider.h"
+   #import <React/RCTBridge+Private.h>
+   #import <ReactCommon/TurboModule.h>
+   #import "NativeSampleModule.h"
+
+   @implementation SampleNativeModuleProvider
+
+   - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params {
+     return std::make_shared<facebook::react::NativeSampleModule>(params.jsInvoker);
+   }
+
+   @end
+   ```
+
+2. **Register the Module in `package.json`**
+
+   Update your `package.json`:
+
+   ```json
+   "codegenConfig": {
+     "name": "AppSpecs",
+     "type": "modules",
+     "jsSrcsDir": "specs",
+     "android": {
+       "javaPackageName": "com.sampleapp"
+     },
+     "ios": {
+       "modulesProvider": {
+         "NativeSampleModule": "SampleNativeModuleProvider"
+       }
+     }
+   }
+   ```
+
+3. **Reinstall Pods**
+
+   Run the following commands in the `ios` directory:
+
+   ```bash
+   bundle install
+   bundle exec pod install
+   open SampleApp.xcworkspace
+   ```
+
+#### 4. Test Your Module
+
+Modify `App.tsx` to use your Turbo Native Module:
+
+```tsx
+import React, { useState } from 'react';
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import SampleTurboModule from './specs/NativeSampleModule';
+
+function App(): JSX.Element {
+  const [value, setValue] = useState('');
+  const [reversedValue, setReversedValue] = useState('');
+
+  const onPress = () => {
+    const revString = SampleTurboModule?.reverseString(value) || '';
+    setReversedValue(revString);
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.title}>Welcome to C++ Turbo Native Module Example</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Write your text here"
+          onChangeText={setValue}
+          value={value}
+        />
+        <Button title="Reverse" onPress={onPress} />
+        <Text>Reversed text: {reversedValue}</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  textInput: {
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+  },
+});
+
+export default App;
+```
+
+### Conclusion
+
+You've successfully created a C++ Turbo Native Module that works on both Android and iOS. This setup allows you to write platform-agnostic code in C++, reducing redundancy and improving maintainability across platforms.

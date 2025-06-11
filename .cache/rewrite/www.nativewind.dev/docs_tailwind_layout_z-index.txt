@@ -1,0 +1,13 @@
+# Z-Index
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class          | Support        |
+| -------------- | -------------- |
+| `z-{n}`        | ✅ Full Support |
+| `z-[n]`        | ✅ Full Support |
+| `z-auto`       | 🌐 Web only    |

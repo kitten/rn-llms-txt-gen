@@ -1,0 +1,55 @@
+# KeyboardAvoidingView
+
+The `KeyboardAvoidingView` component automatically adjusts its height, position, or bottom padding based on the keyboard's height to ensure it remains visible when the virtual keyboard is displayed.
+
+## Example
+
+***
+
+## Reference
+
+## Props
+
+### View Props
+
+Inherits properties from the View component.
+
+***
+
+### `behavior`
+
+Defines how the view should respond to the presence of the keyboard. Note that Android and iOS handle this prop differently, but setting `behavior` is recommended for both platforms.
+
+| Type                                        |
+| ------------------------------------------- |
+| enum(`'height'`, `'position'`, `'padding'`) |
+
+***
+
+### `contentContainerStyle`
+
+Specifies the style applied to the content container (View) when the behavior is set to `'position'`.
+
+| Type       |
+| ---------- |
+| View Style |
+
+***
+
+### `enabled`
+
+Determines whether the `KeyboardAvoidingView` is active or inactive.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | `true`  |
+
+***
+
+### `keyboardVerticalOffset`
+
+Represents the distance between the top of the user's screen and the React Native view. This value may be non-zero in certain scenarios.
+
+| Type   | Default |
+| ------ | ------- |
+| number | `0`     |

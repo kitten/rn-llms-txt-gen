@@ -1,0 +1,40 @@
+# Box Shadow
+
+Nativewind leverages the scaling system from react-native-shadow-generator to facilitate cross-platform shadow generation.
+
+## Usage
+
+For detailed usage instructions, please consult the Tailwind CSS documentation.
+
+**CAUTION:**  
+On native platforms, shadows may not be visible if a background color is absent.
+
+## Example
+
+```typescript
+import { Text, View } from 'react-native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
+
+const App = () => {
+  return (
+    <StyledView className="flex-1 items-center justify-center">
+      <StyledView className="h-[50vh] items-center justify-center shadow">
+        <StyledText className="text-slate-800 shadow">Try editing me! 🎉</StyledText>
+      </StyledView>
+    </StyledView>
+  );
+}
+```
+
+## Compatibility
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| `shadow`             | ✅ Full Support |
+| `shadow-{n}`         | ✅ Full Support |
+| `shadow-none`        | ✅ Full Support |
+| `shadow-[n]`         | 🌐 Web only    |
+| `shadow-inner`       | 🌐 Web only    |

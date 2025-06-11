@@ -1,0 +1,87 @@
+# DevSettings Module
+
+The `DevSettings` module provides methods for developers to customize settings during development.
+
+## Reference
+
+### Methods
+
+#### `addMenuItem()`
+
+```typescript
+static addMenuItem(title: string, handler: () => any): void;
+```
+
+Adds a custom menu item to the Developer Menu.
+
+**Parameters:**
+
+| Name     | Type   |
+|----------|--------|
+| title    | string |
+| handler  | function |
+
+**Example Usage:**
+
+```typescript
+DevSettings.addMenuItem('Show Secret Dev Screen', () => {
+  Alert.alert('Showing secret dev screen!');
+});
+```
+
+#### `reload()`
+
+```typescript
+static reload(reason?: string): void;
+```
+
+Reloads the application. This can be triggered directly or through user interaction.
+
+**Example Usage:**
+
+```typescript
+<Button title="Reload" onPress={() => DevSettings.reload()} />
+```
+
+---
+
+## Related Modules
+
+- **AccessibilityInfo**
+  - Alert
+  - Animated
+    - Animated.Value
+    - Animated.ValueXY
+  - Appearance
+  - AppRegistry
+  - AppState
+  - Dimensions
+  - Easing
+  - InteractionManager
+  - Keyboard
+  - LayoutAnimation
+  - Linking
+  - PanResponder
+  - PixelRatio
+  - Platform
+  - PlatformColor
+  - RootTag
+  - Share
+  - StyleSheet
+  - Systrace
+  - Transforms
+  - Vibration
+
+- **Hooks**
+  - useColorScheme
+  - useWindowDimensions
+
+- **iOS Specific Modules**
+  - ActionSheetIOS
+  - DynamicColorIOS
+  - Settings
+
+- **Android Specific Modules**
+  - BackHandler
+  - PermissionsAndroid
+  - ToastAndroid

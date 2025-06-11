@@ -1,0 +1,28 @@
+# Accessing and Managing Device Color Scheme
+
+The `useColorScheme()` function provides a way to access and manage the device's current color scheme.
+
+| Property         | Description                                                                                           |
+|------------------|-------------------------------------------------------------------------------------------------------|
+| `colorScheme`    | Represents the current color scheme of the device.                                                   |
+| `setColorScheme` | Allows overriding the current color scheme with either `light`, `dark`, or `system`.                  |
+| `toggleColorScheme` | Switches the color scheme between `light` and `dark`.                                               |
+
+Additionally, you can manually adjust the color scheme using `NativeWindStyleSheet.setColorScheme(colorScheme)`.
+
+```typescript
+import { useColorScheme } from "nativewind";
+import { Text } from "react-native";
+
+function MyComponent() {
+  const { colorScheme, setColorScheme } = useColorScheme();
+
+  return (
+    <Text
+      onPress={() => setColorScheme(colorScheme === "light" ? "dark" : "light")}
+    >
+      {`The current color scheme is ${colorScheme}`}
+    </Text>
+  );
+}
+```

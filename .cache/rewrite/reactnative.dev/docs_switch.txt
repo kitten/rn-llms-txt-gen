@@ -1,0 +1,54 @@
+# Switch Component
+
+The `Switch` component renders a boolean input and functions as a controlled component. It necessitates an `onValueChange` callback to update its `value` prop, ensuring that user interactions are accurately reflected in the UI. Without updating the `value` prop, the component will persistently display the initially supplied value.
+
+## Example
+
+*Example usage of the Switch component is not provided here.*
+
+## Reference
+
+*Reference details for the Switch component are not included here.*
+
+## Props
+
+### View Props
+
+The `Switch` inherits all View Props.
+
+### `disabled`
+
+- **Description**: Disables user interaction with the switch.
+- **Type**: `bool`
+- **Default**: `false`
+
+### `ios_backgroundColor`
+
+- **Description**: On iOS, this sets a custom background color for the switch. This color is visible when the switch value is `false` or if the switch is disabled and translucent.
+- **Type**: `color`
+
+### `onChange`
+
+- **Description**: Triggered when there's an attempt to change the switch's value. It receives the change event as its argument. For receiving only the new value, use `onValueChange`.
+- **Type**: `function`
+
+### `onValueChange`
+
+- **Description**: Called upon attempts to alter the switch's value. This prop receives the new value directly. To receive an event instead, utilize `onChange`.
+- **Type**: `function`
+
+### `thumbColor`
+
+- **Description**: Sets the color of the switch's foreground grip. On iOS, setting this will remove the drop shadow from the switch grip.
+- **Type**: `color`
+
+### `trackColor`
+
+- **Description**: Defines custom colors for the switch track. 
+  - *iOS*: When the switch is off (`false`), the track contracts into its border. To modify the color of the background revealed by this contracted track, use `ios_backgroundColor`.
+- **Type**: `object: { false: color, true: color }`
+
+### `value`
+
+- **Description**: Determines the state of the switch. If set to `true`, the switch is on; otherwise, it's off. The default value is `false`.
+- **Type**: `bool`

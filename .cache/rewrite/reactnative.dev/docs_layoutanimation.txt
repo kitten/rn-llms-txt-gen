@@ -1,0 +1,115 @@
+# LayoutAnimation
+
+Automatically animates views to their new positions when the next layout occurs. This API is typically used by calling it before updating state in functional components or using `setState` in class components.
+
+To enable this functionality on **Android**, you must set specific flags via `UIManager`:
+
+```typescript
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
+```
+
+## Example
+
+## Reference
+
+## Methods
+
+### `configureNext()`
+
+```typescript
+static configureNext(
+  config: LayoutAnimationConfig,
+  onAnimationDidEnd?: () => void,
+  onAnimationDidFail?: () => void,
+): void;
+```
+
+Schedules an animation for the next layout.
+
+#### Parameters:
+
+| Name               | Type     | Required | Description                         |
+| ------------------ | -------- | -------- | ----------------------------------- |
+| config             | object   | Yes      | Configuration details (see below).  |
+| onAnimationDidEnd  | function | No       | Callback when the animation finishes.|
+| onAnimationDidFail | function | No       | Callback if the animation fails.    |
+
+The `config` parameter is an object with the following keys:
+
+- `duration`: Duration in milliseconds.
+- `create`: Optional configuration for animating new views.
+- `update`: Optional configuration for animating updated views.
+- `delete`: Optional configuration for animating removed views.
+
+Each of these configurations (`create`, `update`, `delete`) includes:
+
+- `type`: The animation type to use.
+- `property`: The layout property to animate (optional, recommended for `create` and `delete`).
+- `springDamping`: A number used only with `type: Type.spring`.
+- `initialVelocity`: An optional number.
+- `delay`: An optional number.
+- `duration`: An optional number.
+
+### `create()`
+
+```typescript
+static create(duration: number, type: string, creationProp?: string): LayoutAnimationConfig;
+```
+
+Helper function to generate an object with `create`, `update`, and `delete` fields for use in `configureNext`. The `type` parameter specifies the animation type, while `creationProp` is a layout property.
+
+**Example:**
+
+## Properties
+
+### Types
+
+An enumeration of animation types used in the `create` method or within the `create`/`update`/`delete` configurations for `configureNext`.
+
+| Type          |
+| ------------- |
+| spring        |
+| linear        |
+| easeInEaseOut |
+| easeIn        |
+| easeOut       |
+| keyboard      |
+
+### Properties
+
+An enumeration of layout properties that can be animated, used in the `create` method or within the `create`/`update`/`delete` configurations for `configureNext`.
+
+| Property  |
+| --------- |
+| opacity   |
+| scaleX    |
+| scaleY    |
+| scaleXY   |
+
+### Presets
+
+Predefined animation configurations to use with `configureNext`.
+
+| Preset       | Value                                                                                                                                                          |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| easeInEaseOut| `{ create: { type: 'easeInEaseOut', property: 'opacity' } }`                                                                                                    |
+| linear       | `{ create: { type: 'linear', property: 'opacity' } }`                                                                                                          |
+| spring       | `{ duration: 700, create: { type: 'linear', property: 'opacity' }, update: { type: 'spring', springDamping: 0.4 }, delete: { type: 'linear', property: 'opacity' } }` |
+
+### `easeInEaseOut`
+
+Invokes `configureNext()` with the `Presets.easeInEaseOut`.
+
+### `linear`
+
+Invokes `configureNext()` with the `Presets.linear`.
+
+### `spring`
+
+Invokes `configureNext()` with the `Presets.spring`.
+
+**Example:**

@@ -1,0 +1,98 @@
+# Platform Support
+
+- Android
+- iOS
+- macOS
+- TV
+- watchOS
+- Web
+- Windows
+- visionOS
+
+If your project constraints are not well-served by a Framework or you prefer creating your own, it's possible to develop a React Native app without using one. Begin by setting up your environment and follow the steps below to create an application.
+
+## Step 1: Creating a New Application
+
+> **Note:** If you have previously installed a global `react-native-cli` package, remove it to avoid unexpected issues:
+>
+> ```shell
+> npm uninstall -g react-native-cli @react-native-community/cli
+> ```
+
+Use the React Native Community CLI to generate a new project. For example, create a new React Native project named "AwesomeProject":
+
+```shell
+npx @react-native-community/cli@latest init AwesomeProject
+```
+
+This step is unnecessary if you are integrating React Native into an existing application, using Expo, or adding Android support to an existing React Native project (refer to Integration with Existing Apps). Alternatively, a third-party CLI like Ignite CLI can be used for setup.
+
+**Info:** If you encounter issues on iOS, try reinstalling dependencies by executing the following commands:
+
+1. Navigate to the `ios` folder: `cd ios`
+2. Install Bundler: `bundle install`
+3. Install iOS dependencies with CocoaPods: `bundle exec pod install`
+
+#### [Optional] Using a Specific Version or Template
+
+To start a new project with a specific React Native version, use the `--version` argument:
+
+```shell
+npx @react-native-community/cli@X.XX.X init AwesomeProject --version X.XX.X
+```
+
+You can also initiate a project using a custom template with the `--template` argument. More details are available in related documentation.
+
+## Step 2: Start Metro
+
+**Metro** is React Native's JavaScript build tool. To start the Metro development server, run one of these commands from your project folder:
+
+- Using npm:
+  
+  ```shell
+  npm start
+  ```
+
+- Using Yarn:
+  
+  ```shell
+  yarn start
+  ```
+
+**Note:** For those familiar with web development, Metro is akin to bundlers like Vite and webpack but tailored for React Native. It uses Babel to transform syntax such as JSX into executable JavaScript.
+
+## Step 3: Start Your Application
+
+Keep the Metro Bundler running in its own terminal. Open a new terminal within your project folder and execute one of these commands:
+
+- Using npm:
+  
+  ```shell
+  npm run android
+  ```
+
+- Using Yarn:
+  
+  ```shell
+  yarn android
+  ```
+
+If everything is configured correctly, your app should appear on the Android emulator shortly. Alternatively, you can launch it directly from within Android Studio.
+
+> If issues arise, consult the Troubleshooting page for assistance.
+
+## Step 4: Modifying Your App
+
+With the app running successfully, proceed to modify it:
+
+- Open `App.tsx` in your preferred text editor and make changes.
+- Reload the app by pressing `R` twice or selecting `Reload` from the Dev Menu (`Ctrl + M`) to view updates.
+
+## Congratulations!
+
+You've run and modified your first barebone React Native app successfully.
+
+### Next Steps
+
+- To integrate this new React Native code into an existing application, refer to the Integration guide.
+- For more insights on React Native, explore the Introduction to React Native.

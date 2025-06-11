@@ -1,0 +1,119 @@
+# Testing with Jest
+
+## Mocking Native Modules
+
+To load mocks provided by RNGH, add the following to your Jest configuration in `package.json`:
+
+```json
+"setupFiles": ["./node_modules/react-native-gesture-handler/jestSetup.js"]
+```
+
+Example configuration:
+
+```json
+"jest": {
+  "preset": "react-native",
+  "setupFiles": ["./node_modules/react-native-gesture-handler/jestSetup.js"]
+}
+```
+
+## Testing Gestures and Gesture Handlers' Callbacks
+
+RNGH offers an API for triggering selected handlers:
+
+- `fireGestureHandler(gestureOrHandler, eventList)`
+- `getByGestureTestId(testID)`
+
+### fireGestureHandler(gestureOrHandler, eventList)
+
+This function simulates a sequence of events (starting with the `BEGIN` state and ending with one of `END`, `FAIL`, or `CANCEL`) that call appropriate callbacks associated with a specified gesture handler.
+
+#### Arguments
+
+##### `gestureOrHandler`
+
+Represents either:
+
+1. A gesture handler component found using Jest queries, such as `getByTestId`.
+2. A gesture identified by `getByGestureTestId()`.
+
+##### `eventList`
+
+The event data passed to the relevant callback. RNGH automatically fills in missing data according to these rules:
+
+1. The `oldState` is derived from the state of the previous event; for `BEGIN` events, it uses an `UNDETERMINED` value.
+2. Events following the first `ACTIVE` state can omit the `state` field.
+3. Handler-specific data (e.g., `numberOfTouches`, `x`) are filled with default values if missing.
+4. Missing `BEGIN` and `END` events are added, using data from the first and last provided event, respectively.
+5. If the initial event lacks a `state` field, it defaults to the `ACTIVE` state.
+
+Examples:
+
+```typescript
+const oldStateFilled = [
+  { state: State.BEGAN },
+  { state: State.ACTIVE },
+  { state: State.END },
+]; // Three events with specified states are fired.
+
+const implicitActiveState = [
+  { state: State.BEGAN },
+  { state: State.ACTIVE },
+  { x: 5 },
+  { state: State.END },
+]; // Four events, including two ACTIVE events (the second one has overridden additional data).
+
+const implicitBegin = [
+  { x: 1, y: 11 },
+  { x: 2, y: 12, state: State.FAILED },
+]; // Three events, including an implicit BEGAN event, one ACTIVE event, and a FAILED event with additional data.
+
+const implicitBeginAndEnd = [
+  { x: 5, y: 15 },
+  { x: 6, y: 16 },
+  { x: 7, y: 17 },
+]; // Five events, including three ACTIVE events and implicit BEGAN and END events. The BEGAN event uses the first event's additional data, while the END event uses the last event's.
+
+const allImplicits = []; // Three events, one BEGIN, one ACTIVE, and one END with default values.
+```
+
+#### Example
+
+Extracted from RNGH tests; refer to `Events.test.tsx` for full implementation:
+
+```typescript
+it('sends events with additional data to handlers', () => {
+  const panHandlers = mockedEventHandlers();
+  render(<SingleHandler handlers={panHandlers} treatStartAsUpdate />);
+  fireGestureHandler<PanGesture>(getByGestureTestId('pan'), [
+    { state: State.BEGAN, translationX: 0 },
+    { state: State.ACTIVE, translationX: 10 },
+    { translationX: 20 },
+    { translationX: 20 },
+    { state: State.END, translationX: 30 },
+  ]);
+
+  expect(panHandlers.active).toHaveBeenCalledTimes(3);
+  expect(panHandlers.active).toHaveBeenLastCalledWith(
+    expect.objectContaining({ translationX: 20 })
+  );
+});
+```
+
+## getByGestureTestId(testID)
+
+Returns an opaque data type associated with a gesture, identified via the `testID` attribute in rendered components (see `withTestID` method).
+
+### Arguments
+
+#### `testID`
+
+A string that uniquely identifies the gesture.
+
+### Notes
+
+The `testID` must be unique among components rendered in the test.
+
+### Example
+
+Refer to the example provided for `fireGestureHandler`.

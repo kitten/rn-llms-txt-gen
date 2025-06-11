@@ -1,0 +1,106 @@
+# Flexbox Layout in React Native
+
+Flexbox provides a consistent way to design layouts across different screen sizes. In React Native, it shares similarities with CSS on the web but has specific differences such as default values for properties like `flexDirection`, `alignContent`, and `flexShrink`.
+
+## Key Properties of Flexbox
+
+### Flex
+The `flex` property determines how items distribute space along the main axis within a container. For instance:
+
+- A container view with `flex: 1`.
+- Child views with `flex: 1`, `flex: 2`, and `flex: 3`.
+
+This means the red, orange, and green views will occupy `1/6`, `2/6`, and `3/6` of the available space respectively.
+
+### Flex Direction
+The `flexDirection` property controls the layout direction of children within a node:
+
+- **column** (default): Top to bottom.
+- **row**: Left to right.
+- **column-reverse**: Bottom to top.
+- **row-reverse**: Right to left.
+
+### Layout Direction
+The `direction` property specifies text and child element orientation:
+
+- **LTR** (default): Left-to-right layout.
+- **RTL**: Right-to-left layout.
+
+### Justify Content
+This property aligns children along the main axis of their container:
+
+- **flex-start** (default)
+- **flex-end**
+- **center**
+- **space-between**
+- **space-around**
+- **space-evenly**
+
+### Align Items
+`alignItems` aligns children along the cross axis:
+
+- **stretch** (default): Stretch to match the height of the container's cross axis.
+- **flex-start**
+- **flex-end**
+- **center**
+- **baseline**
+
+### Align Self
+Similar to `alignItems`, but applies to individual children, allowing them to override their parent's alignment.
+
+### Align Content
+`alignContent` manages the distribution of lines along the cross-axis when wrapping is enabled:
+
+- **flex-start** (default)
+- **flex-end**
+- **stretch** (default on web with Yoga)
+- **center**
+- **space-between**
+- **space-around**
+- **space-evenly**
+
+### Flex Wrap
+The `flexWrap` property controls how children are wrapped within a container:
+
+- Default: Single line.
+- Allows wrapping into multiple lines if necessary.
+
+### Flex Basis, Grow, and Shrink
+These properties manage the default size, growth, and shrinkage of items:
+
+- **flexBasis**: Default size along the main axis.
+- **flexGrow**: Distribution of remaining space among children.
+- **flexShrink**: Shrinking of children when overflow occurs.
+
+### Row Gap, Column Gap, and Gap
+These properties define spacing between rows and columns:
+
+- **rowGap**
+- **columnGap**
+- **gap** (shorthand for both)
+
+### Width and Height
+Specifies the dimensions of an element's content area:
+
+- **auto**: Default; calculated based on content.
+- **pixels**: Absolute size in pixels.
+- **percentage**: Relative to parent's dimension.
+
+### Position
+Defines how elements are positioned relative to their containing block:
+
+- **relative** (default): Positioned according to normal flow with offsets.
+- **absolute**: Positioned independently of the layout flow.
+- **static**: Normal flow positioning, ignoring offset values. Available only on the New Architecture.
+
+## Containing Block
+
+The containing block is an ancestor element that influences an absolutely positioned element's position and size. The `top`, `right`, `bottom`, and `left` properties are relative to this block. Percentage lengths for dimensions are calculated based on the containing block's size.
+
+### Determining the Containing Block
+- **Relative or Static Position**: Parent is the containing block.
+- **Absolute Position**: Nearest ancestor with a non-static position or transform property.
+
+## Further Exploration
+
+For deeper understanding, explore interactive tools like the yoga playground. The full list of layout-controlling props and examples from Wix Engineers are available for further study.

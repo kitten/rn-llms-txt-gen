@@ -1,0 +1,167 @@
+# Worklets
+
+Worklets are short-running JavaScript functions that execute on the UI thread, enabling efficient style calculations and event reactions. Reanimated leverages worklets for these tasks.
+
+## Creating Worklets
+
+To define a custom worklet, use the `'worklet';` directive at the start of your function:
+
+```typescript
+function myWorklet() {
+  'worklet';
+  console.log('Hello from a worklet');
+}
+```
+
+The Reanimated Babel Plugin identifies functions marked with `'worklet'`, transforming them into serializable objects—a process known as workletization. These objects can then be executed on the UI thread.
+
+## Automatic Workletization
+
+When using Reanimated and Gesture Handler, code is typically automatically workletized and executed on the UI thread:
+
+```typescript
+import { useAnimatedStyle } from 'react-native-reanimated';
+
+function App() {
+  const style = useAnimatedStyle(() => {
+    // Executed on the UI thread
+    return { opacity: 0.5 };
+  });
+}
+```
+
+## Manual Worklet Execution
+
+To manually schedule worklet execution, use `runOnUI`:
+
+```typescript
+function myWorklet() {
+  'worklet';
+  console.log('Hello from the UI thread');
+}
+
+function onPress() {
+  runOnUI(myWorklet)();
+}
+```
+
+Arguments can be passed to worklets as follows:
+
+```typescript
+function myWorklet(greeting: string) {
+  'worklet';
+  console.log(`${greeting} from the UI thread`);
+}
+
+function onPress() {
+  runOnUI(myWorklet)('Howdy');
+}
+```
+
+## Worklet Closures
+
+Worklets are closures, allowing them to access variables declared outside their scope. Only referenced variables are captured:
+
+```typescript
+const width = 135.5;
+
+function otherWorklet() {
+  'worklet';
+  console.log('Captured width is', width);
+}
+```
+
+Avoid capturing large objects within worklets to prevent performance issues:
+
+```typescript
+const theme = {...}; // Large object
+
+function myWorklet() {
+  'worklet';
+  console.log(theme.color); // 🚨 Captures entire `theme` object
+}
+```
+
+To mitigate this, assign the needed property to a separate variable:
+
+```typescript
+const theme = {...};
+const color = theme.color;
+
+function myWorklet() {
+  'worklet';
+  console.log(color); // ✅ Captures only `color`
+}
+```
+
+## Returning Data
+
+Worklets can return data within the same thread:
+
+```typescript
+function returningWorklet() {
+  'worklet';
+  return "I'm back"; // On the UI thread
+}
+
+function someWorklet() {
+  'worklet';
+  const what = returningWorklet(); // Still on the UI thread
+  console.log('On the UI thread, other worklet says', what);
+}
+```
+
+## Data Sharing Between Threads
+
+Use shared values to pass data between the UI and JS threads:
+
+```typescript
+import { useSharedValue } from 'react-native-reanimated';
+
+function App() {
+  const width = useSharedValue(100);
+
+  function myWorklet() {
+    'worklet';
+    width.value += 50;
+  }
+
+  useEffect(() => {
+    console.log(width.value); // Accessible on both JS and UI threads
+  }, []);
+}
+```
+
+## Running Functions on the JS Thread
+
+Use `runOnJS` to execute functions from the UI thread, often for non-worklet functions or React state updates:
+
+```typescript
+import { router } from 'expo-router';
+import { Gesture } from 'react-native-gesture-handler';
+
+function App() {
+  const tap = Gesture.Tap().onEnd(() => {
+    // Worklet context
+    runOnJS(router.back)();
+  });
+}
+```
+
+Ensure functions passed to `runOnJS` are defined in the JavaScript thread scope:
+
+```typescript
+function App() {
+  const tap = Gesture.Tap().onEnd(() => {
+    // myFunction is defined on the UI thread 🚨
+    const myFunction = () => {};
+    runOnJS(myFunction)(); // 💥 Error
+  });
+}
+```
+
+## Custom Worklet Runtimes
+
+Worklets can operate in custom runtimes beyond Reanimated's default. Libraries like VisionCamera and LiveMarkdown create their own worklet environments.
+
+Create your own worklet runtime using `createWorkletRuntime`.

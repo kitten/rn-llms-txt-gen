@@ -1,0 +1,56 @@
+# React Native Reanimated: useReducedMotion Hook (Version 3.x)
+
+## Overview
+
+The `useReducedMotion` hook in React Native Reanimated allows developers to check the system's reduced motion setting. This is particularly useful for disabling animations when users prefer less motion.
+
+## Reference
+
+```typescript
+import { useReducedMotion } from 'react-native-reanimated';
+
+function App() {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    // Display static content ✨
+  } else {
+    // Run animations ✨
+  }
+
+  // Additional logic...
+}
+```
+
+### Returns
+
+The `useReducedMotion` hook returns a boolean value indicating whether the reduced motion setting was enabled at the start of the app.
+
+## Example Usage
+
+```typescript
+import { useReducedMotion } from 'react-native-reanimated';
+
+function App() {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return <StaticContent />;
+  } else {
+    return <AnimatedContent />;
+  }
+}
+```
+
+## Remarks
+
+- Changing the reduced motion setting does not trigger a component rerender.
+- Unlike `AccessibilityInfo.isReduceMotionEnabled()`, `useReducedMotion` provides the value synchronously.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+This hook is compatible across Android, iOS, and Web platforms.

@@ -1,0 +1,37 @@
+# Style in React Native
+
+In React Native, styling your application is done using JavaScript. Core components accept a `style` prop, which typically mirrors CSS conventions but uses camel casing for property names (e.g., `backgroundColor` instead of `background-color`).
+
+## Using the `style` Prop
+
+The `style` prop can be defined as a plain JavaScript object, which is common in example code. Alternatively, you can pass an array of styles; the last style in the array takes precedence, allowing for inheritance.
+
+As components become more complex, it's often cleaner to use `StyleSheet.create` to define multiple styles in one place. Here’s how you might do this:
+
+```typescript
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 20,
+    color: 'blue',
+  }
+});
+```
+
+A common pattern is to allow a component to accept a `style` prop, which can then be used to style subcomponents. This approach enables styles to "cascade" similarly to CSS.
+
+For more detailed customization of text styles, refer to the Text component reference for a comprehensive list.
+
+## Enhancing Text Appearance
+
+With these styling techniques, you can enhance your text's appearance significantly. The next step in mastering styling is learning how to control component size effectively.
+
+## Known Issues
+
+- **react-native#29308**: React Native sometimes deviates from web CSS behavior. For instance, the touch area does not extend beyond parent view bounds, and negative margins are unsupported on Android.

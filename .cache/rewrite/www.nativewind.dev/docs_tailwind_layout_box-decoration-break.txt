@@ -1,0 +1,12 @@
+# Box Decoration Break
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| `box-decoration-clone`       | 🌐 Web only |
+| `box-decoration-slice`       | 🌐 Web only |

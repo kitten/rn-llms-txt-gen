@@ -1,0 +1,11 @@
+# Content
+
+## Usage
+
+For usage instructions, please consult the official Tailwind CSS documentation.
+
+## Compatibility
+
+| Class            | Support      |
+|------------------|--------------|
+| `content-none`   | 🌐 Web only  |

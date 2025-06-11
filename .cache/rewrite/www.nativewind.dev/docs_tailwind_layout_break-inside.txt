@@ -1,0 +1,14 @@
+# Break Inside
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                             | Support     |
+|-----------------------------------|-------------|
+| `break-inside-auto`               | 🌐 Web only |
+| `break-inside-avoid`              | 🌐 Web only |
+| `break-inside-avoid-page`         | 🌐 Web only |
+| `break-inside-avoid-column`       | 🌐 Web only |

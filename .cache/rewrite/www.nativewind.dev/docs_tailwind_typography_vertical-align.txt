@@ -1,0 +1,18 @@
+# Vertical Align
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                     | Support     |
+|---------------------------|-------------|
+| `align-baseline`          | 🌐 Web only |
+| `align-top`               | 🌐 Web only |
+| `align-middle`            | 🌐 Web only |
+| `align-bottom`            | 🌐 Web only |
+| `align-text-top`          | 🌐 Web only |
+| `align-text-bottom`       | 🌐 Web only |
+| `align-sub`               | 🌐 Web only |
+| `align-super`             | 🌐 Web only |

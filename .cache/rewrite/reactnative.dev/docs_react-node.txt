@@ -1,0 +1,28 @@
+# React Node Object Type
+
+A React Node can be one of several types:
+
+- **Boolean**: This type is ignored.
+- `null` or `undefined`: These are also ignored.
+- **Number**
+- **String**
+- A **React element**, which results from JSX.
+- An array containing any of the above types, potentially nested.
+
+---
+
+## Related Object Types
+
+- BoxShadowValue Object Type
+- DropShadowValue Object Type
+- LayoutEvent Object Type
+- PressEvent Object Type
+- Rect Object Type
+- ViewToken Object Type
+
+---
+
+### Navigation
+
+- [Previous: PressEvent Object Type](#)
+- [Next: Rect Object Type](#)

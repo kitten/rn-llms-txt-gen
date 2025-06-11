@@ -1,0 +1,105 @@
+# React Native Reanimated
+
+## Create Smooth Animations with an Excellent Developer Experience
+
+### Why Choose Reanimated?
+
+#### Declarative API
+
+Reanimated offers a declarative approach to creating animations, simplifying complexity from numerous methods down to just a few. Define the desired animation outcome and let Reanimated handle the style and property animations for you.
+
+#### High Performance
+
+With Reanimated, define animations in plain JavaScript that run natively on the UI thread by default. This ensures smooth interactions up to 120 fps or more, delivering a native experience users expect.
+
+#### Rich Features
+
+Reanimated's capabilities extend beyond animating simple views or images. Integrate your animations with device sensors or keyboards, utilize Layout Animations, and effortlessly animate elements between navigation screens.
+
+- **Learn More**: Discover the features of Reanimated 3 in our latest article.
+  
+  - [See blog post](#)
+
+#### Animation Capabilities
+
+Animate every React Native prop on iOS, Android, and the Web up to 120 fps.
+
+```typescript
+function App() {
+  const width = useSharedValue(100);
+  const handlePress = () => {
+    width.value = withSpring(width.value + 50);
+  };
+  return <Animated.View style={{ ...styles.box, width }} />;
+}
+```
+
+#### Gesture Integration
+
+Experience smooth gestures through Reanimated's integration with React Native Gesture Handler.
+
+```typescript
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+
+function App() {
+  const pan = Gesture.Pan();
+
+  return (
+    <GestureDetector gesture={pan}>
+      <Animated.View />
+    </GestureDetector>
+  );
+}
+```
+
+#### Layout Animations
+
+Automatically animate views when they are added or removed from the view hierarchy.
+
+```typescript
+function App() {
+  return <Animated.View entering={FadeIn} exiting={FadeOut} />;
+}
+```
+
+#### Sensor-Based Animations
+
+Easily connect your animations to a gyroscope or accelerometer with just one hook.
+
+```typescript
+const gyroscope = useAnimatedSensor(SensorType.GYROSCOPE);
+
+useDerivedValue(() => {
+  const { x, y, z } = gyroscope.sensor.value;
+});
+```
+
+#### Keyboard-Based Animations
+
+Create animations based on the device keyboard state and position.
+
+```typescript
+function App() {
+  const keyboard = useAnimatedKeyboard();
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: -keyboard.height.value }],
+  }));
+  //...
+}
+```
+
+#### Shared Element Transitions
+
+Seamlessly animate elements between navigation screens with a single line of code.
+
+```typescript
+function App() {
+  return <Animated.View sharedTransitionTag="hero-element" />;
+}
+```
+
+### Sponsors
+
+## We are Software Mansion
+
+React Native Core Contributors and experts in addressing all types of React Native issues. Whether you need assistance with gestures, animations, or general React Native development, we're here to help.

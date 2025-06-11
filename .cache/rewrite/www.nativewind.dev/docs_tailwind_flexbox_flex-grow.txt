@@ -1,0 +1,12 @@
+# Flex Grow
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class          | Support        |
+| -------------- | -------------- |
+| `grow`         | ✅ Full Support |
+| `grow-0`       | ✅ Full Support |

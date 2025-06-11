@@ -1,0 +1,40 @@
+# createAnimatedComponent
+
+The `createAnimatedComponent` function enables the creation of an Animated version of any React Native component. By wrapping a component with `createAnimatedComponent`, Reanimated can animate any prop or style associated with that component.
+
+Reanimated includes five built-in Animated components:
+
+- `Animated.FlatList`
+- `Animated.Image`
+- `Animated.View`
+- `Animated.ScrollView`
+- `Animated.Text`
+
+To animate other React Native components, they must be wrapped using the `createAnimatedComponent` function.
+
+## Reference
+
+```typescript
+import Animated from 'react-native-reanimated';
+import { TextInput } from 'react-native';
+
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+```
+
+### Arguments
+
+#### `component`
+
+The component you wish to make animatable. Function components must be wrapped with `React.forwardRef()`.
+
+### Returns
+
+`createAnimatedComponent` returns a component that Reanimated can animate.
+
+## Example
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

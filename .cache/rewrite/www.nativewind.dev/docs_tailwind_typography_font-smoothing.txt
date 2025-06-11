@@ -1,0 +1,12 @@
+# Font Smoothing
+
+## Usage
+
+For detailed instructions, consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                        | Support        |
+| ---------------------------- | -------------- |
+| `antialiased`                | ✅ Full Support |
+| `subpixel-antialiased`       | ✅ Full Support |

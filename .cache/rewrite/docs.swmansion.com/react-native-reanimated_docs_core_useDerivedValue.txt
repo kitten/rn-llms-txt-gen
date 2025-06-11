@@ -1,0 +1,44 @@
+# useDerivedValue
+
+The `useDerivedValue` function allows for the creation of new reactive shared values derived from existing ones. This ensures that any changes in the original shared values automatically update the derived value.
+
+## Reference
+
+```typescript
+import { useDerivedValue } from 'react-native-reanimated';
+
+function App() {
+  const derivedValue = useDerivedValue(() => {
+    return sv.value * 50;
+  });
+}
+```
+
+### Arguments
+
+#### `updater`
+
+A function that returns a new value constructed using shared values, React state, or other JavaScript values. This function is invoked whenever any of the shared values or states it depends on change.
+
+#### `dependencies` (Optional)
+
+An optional array specifying dependencies. This parameter is only relevant when Reanimated is used without its Babel plugin in web environments.
+
+### Returns
+
+The `useDerivedValue` function returns a new, readonly shared value that reflects changes based on the output of the `updater` function.
+
+## Example
+
+## Remarks
+
+- The callback provided to the first argument is automatically workletized and executed on the UI thread.
+  
+- You can use `useDerivedValue` without returning a value in the `updater` function to respond to changes in a shared value. For accessing previous values stored in a shared value, consider using `useAnimatedReaction`.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+

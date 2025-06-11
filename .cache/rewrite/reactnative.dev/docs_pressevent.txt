@@ -1,0 +1,115 @@
+# PressEvent Object Type
+
+The `PressEvent` object is returned in the callback as a result of user press interactions, such as those triggered by the `onPress` event in Button components.
+
+## Example
+
+```typescript
+{
+    changedTouches: Array<PressEvent>,
+    identifier: number,
+    locationX: number,
+    locationY: number,
+    pageX: number,
+    pageY: number,
+    target: number | null | undefined,
+    timestamp: number,
+    touches: Array<PressEvent>
+}
+```
+
+## Keys and Values
+
+### `changedTouches`
+
+An array containing all `PressEvents` that have changed since the last event.
+
+| Type                 | Optional |
+| -------------------- | -------- |
+| Array of PressEvents | No       |
+
+### `force` (iOS)
+
+The amount of force used during a 3D Touch press, represented as a float value ranging from `0.0` to `1.0`.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | Yes      |
+
+### `identifier`
+
+A unique numeric identifier assigned to the event.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `locationX`
+
+The X coordinate of the touch origin within the touchable area, relative to the element.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `locationY`
+
+The Y coordinate of the touch origin within the touchable area, relative to the element.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `pageX`
+
+The X coordinate of the touch origin on the screen, relative to the root view.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `pageY`
+
+The Y coordinate of the touch origin on the screen, relative to the root view.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `target`
+
+The node ID of the element receiving the `PressEvent`. It can be a number or `null`/`undefined`.
+
+| Type                        | Optional |
+| --------------------------- | -------- |
+| number, null, undefined     | No       |
+
+### `timestamp`
+
+A timestamp value indicating when the `PressEvent` occurred, represented in milliseconds.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `touches`
+
+An array containing all current `PressEvents` on the screen.
+
+| Type                 | Optional |
+| -------------------- | -------- |
+| Array of PressEvents | No       |
+
+## Used By
+
+- Button
+- PanResponder
+- Pressable
+- ScrollView
+- Text
+- TextInput
+- TouchableHighlight
+- TouchableOpacity
+- TouchableNativeFeedback
+- TouchableWithoutFeedback
+- View

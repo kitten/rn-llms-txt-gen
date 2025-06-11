@@ -1,0 +1,68 @@
+# Appearance Module
+
+The `Appearance` module provides information about the user's appearance preferences, such as their preferred color scheme (light or dark).
+
+## Developer Notes
+
+- **Android**: On Android 10 (API level 29) and higher, the color scheme preference corresponds to the user's Light or Dark theme setting.
+  
+- **iOS**: On iOS 13 and above, it maps to the user's Light or Dark Mode preference. Note that screenshots may flicker between light and dark modes due to asynchronous updates.
+
+## Example Usage
+
+To determine if a user prefers a dark color scheme:
+
+```typescript
+import { Appearance } from 'react-native';
+
+const colorScheme = Appearance.getColorScheme();
+if (colorScheme === 'dark') {
+  // Implement logic for dark color scheme
+}
+```
+
+Since the color scheme can change (e.g., due to scheduled changes at sunrise or sunset), it's recommended to call this function on every render. You might use the `useColorScheme` React hook, which subscribes to updates, or inline styles instead of a static `StyleSheet`.
+
+## Reference
+
+### Methods
+
+#### `getColorScheme()`
+
+```typescript
+static getColorScheme(): 'light' | 'dark' | null;
+```
+
+Returns the current user's preferred color scheme. This value can change due to direct user actions (e.g., theme selection) or scheduled changes.
+
+Supported values:
+- `'light'`: User prefers a light theme.
+- `'dark'`: User prefers a dark theme.
+- `null`: No preference indicated.
+
+*Note*: When debugging with Chrome, this method always returns `'light'`.
+
+#### `setColorScheme()`
+
+```typescript
+static setColorScheme('light' | 'dark' | null): void;
+```
+
+Forces the application to use a specified interface style. The default is `null`, which follows the system's style.
+
+Supported values:
+- `'light'`: Apply light user interface.
+- `'dark'`: Apply dark user interface.
+- `null`: Follow the system's interface style.
+
+*Note*: This change does not affect other applications or the system's overall settings.
+
+#### `addChangeListener()`
+
+```typescript
+static addChangeListener(
+  listener: (preferences: { colorScheme: 'light' | 'dark' | null }) => void,
+): NativeEventSubscription;
+```
+
+Adds an event handler that triggers when appearance preferences change.

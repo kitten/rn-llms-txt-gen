@@ -1,0 +1,25 @@
+# Touch Events
+
+## Touch Event Attributes
+
+- **eventType**: Indicates the type of event, such as finger placement on the screen, movement, lifting, or cancellation.
+
+- **changedTouches**: An array containing objects for each touch affected by the event (placed down, moved, lifted, or cancelled).
+
+- **allTouches**: An array with objects representing all active touches.
+
+- **numberOfTouches**: A count of currently active touches.
+
+> **Caution**: Do not rely on the order of items in `touches` as it may change during a gesture. Use the `id` attribute to track individual touches across events.
+
+## PointerData Attributes
+
+- **id**: A unique number representing the touch's ID, used for tracking the touch between events since the ID remains constant while being tracked.
+
+- **x**: The X coordinate of the current position of the touch relative to the view attached to the `GestureDetector`, expressed in point units.
+
+- **y**: The Y coordinate of the current position of the touch relative to the view attached to the `GestureDetector`, expressed in point units.
+
+- **absoluteX**: The X coordinate of the current position of the touch relative to the window, expressed in point units. Recommended for use when the original view can be transformed due to a gesture.
+
+- **absoluteY**: The Y coordinate of the current position of the touch relative to the window, expressed in point units. Recommended for use when the original view can be transformed due to a gesture.

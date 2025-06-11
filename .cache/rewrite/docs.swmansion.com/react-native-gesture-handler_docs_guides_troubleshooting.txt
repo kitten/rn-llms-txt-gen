@@ -1,0 +1,77 @@
+# Troubleshooting Guide
+
+## Seeking Help with Issues
+
+Thank you for trying out this library! If you encounter any issues, here's how to get assistance:
+
+1. **Check GitHub Issues**: Look through existing issues on GitHub; someone might have already resolved a similar problem.
+2. **Report New Issues**: Follow our guidelines if your issue is new or unresolved by previous solutions.
+3. **Join Expo Developers Discord**: Engage with the community for support and discussions.
+4. **Read Source Code**: For in-depth understanding, reviewing the source code can provide insights into potential bugs.
+5. **Contribute Solutions**: If you find a fix, consider contributing to improve documentation or library functionality.
+
+## Reporting Issues
+
+This library is maintained by a small team. Here’s how you can help us address issues efficiently:
+
+- Provide complete issue descriptions, including environment details (library version, RN version, device OS).
+- Share an example app that reproduces the issue via gist, snack, or GitHub.
+- Describe steps to reproduce the issue in your repro app.
+- Minimize dependencies and isolate the problem in a minimal repro app.
+- Note any findings about the root cause of the issue.
+
+**Note**: Avoid commenting on closed issues. If a solution doesn't work for you, open a new issue with all necessary details and reference previous solutions.
+
+## Feature Clarifications
+
+- **Gesture Prop Changes**: The `enabled` prop only affects gestures at their start (when a finger touches the screen).
+- **Native Gesture Behavior**: May differ from standard due to platform-specific integrations.
+- **Touchables Styling**: Requires separate styling for `style` and `containerStyle` props.
+- **Gesture Composition**: All composed gestures must be attached to the same `GestureHandlerRootView`.
+
+### Multiple Instances of Gesture Handler
+
+This error occurs when multiple instances of Gesture Handler are detected, often due to dependencies installing it in their own `node_modules`. To resolve:
+
+1. Identify libraries using Gesture Handler:
+   - Use `npm ls react-native-gesture-handler` or `yarn why react-native-gesture-handler`.
+2. Ensure a single version is used by adding resolutions (Yarn) or overrides (NPM):
+
+   **For Yarn:**
+   ```json
+   "resolutions": {
+     "react-native-gesture-handler": "<Gesture Handler version>"
+   }
+   ```
+
+   **For NPM:**
+   ```json
+   "overrides": {
+     "react-native-gesture-handler": "<Gesture Handler version>"
+   }
+   ```
+
+3. Reinstall dependencies:
+   - Run `yarn` or `npm install`.
+
+### Automatic Workletization of Gesture Callbacks
+
+Reanimated's Babel plugin automatically marks gesture callbacks as worklets if defined in a single chain, eliminating the need for `'worklet';` directives:
+
+```typescript
+const gesture = Gesture.Tap().onBegin(() => {
+  console.log(_WORKLET);
+});
+```
+
+For callbacks not in a single chain, add `'worklet';` at the start:
+
+```typescript
+const callback = () => {
+  "worklet";
+  console.log(_WORKLET);
+};
+const gesture = Gesture.Tap().onBegin(callback);
+```
+
+This ensures proper workletization for asynchronous operations within gestures.

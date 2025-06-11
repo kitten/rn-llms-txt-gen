@@ -1,0 +1,94 @@
+# Animations
+
+Animations enhance user experience by simulating physically believable motion in interfaces. React Native offers two animation systems: `Animated` for detailed control and `LayoutAnimation` for global layout transitions.
+
+## `Animated` API
+
+The `Animated` API allows expressive, performant animations through declarative relationships between inputs and outputs. It includes six animatable components: `View`, `Text`, `Image`, `ScrollView`, `FlatList`, and `SectionList`. Custom animated components can be created using `Animated.createAnimatedComponent()`.
+
+### Example
+
+A container view that fades in on mount:
+
+```typescript
+import React, { useRef } from 'react';
+import { Animated, View } from 'react-native';
+
+const FadeInView = (props) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  React.useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  return (
+    <Animated.View
+      style={{
+        ...props.style,
+        opacity: fadeAnim,
+      }}
+    >
+      {props.children}
+    </Animated.View>
+  );
+};
+```
+
+### Key Features
+
+- **Native Driver**: Use `useNativeDriver: true` for better performance by offloading animations to the native thread.
+  
+- **Gesture Mapping**: Map gestures directly to animated values using `Animated.event`.
+
+- **Responding to Values**: Use `addListener` or `stopAnimation` to respond to animation states.
+
+### Caveats
+
+Not all properties are supported with the native driver. Only non-layout properties like `transform` and `opacity` can be animated natively.
+
+## `LayoutAnimation` API
+
+`LayoutAnimation` configures global animations for layout changes, useful for Flexbox updates without manual calculations. It requires enabling experimental features on Android:
+
+```typescript
+import { UIManager } from 'react-native';
+
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+```
+
+### Usage Example
+
+```typescript
+import React, { useState } from 'react';
+import { View, Button, LayoutAnimation, Platform } from 'react-native';
+
+const ExpandableComponent = () => {
+  const [expanded, setExpanded] = useState(false);
+
+  if (Platform.OS === 'android') {
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
+  return (
+    <View>
+      <Button title="Toggle" onPress={() => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setExpanded(!expanded);
+      }} />
+      {expanded && <View style={{ height: 100, backgroundColor: 'lightblue' }} />}
+    </View>
+  );
+};
+```
+
+## Additional Notes
+
+- **`requestAnimationFrame`**: A polyfill for managing frame updates in animations.
+  
+- **`setNativeProps`**: Directly modify native component properties without re-rendering.
+
+Optimize animations by using `shouldComponentUpdate`, `useNativeDriver`, or deferring work with `InteractionManager`. Monitor performance with the FPS Monitor tool.

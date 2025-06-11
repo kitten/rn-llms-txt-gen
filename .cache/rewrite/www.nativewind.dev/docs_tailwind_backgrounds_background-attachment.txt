@@ -1,0 +1,11 @@
+# Background Attachment
+
+The following table outlines the support for various background attachment classes in web development:
+
+| Class             | Support     |
+| ----------------- | ----------- |
+| `bg-fixed`        | Web only    |
+| `bg-local`        | Web only    |
+| `bg-scroll`       | Web only    |
+
+These classes are used to control how a background image is positioned relative to the viewport or its containing element.

@@ -1,0 +1,13 @@
+# Text Overflow
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                 | Support     |
+| --------------------- | ----------- |
+| `truncate`            | 🌐 Web only |
+| `text-ellipsis`       | 🌐 Web only |
+| `text-clip`           | 🌐 Web only |

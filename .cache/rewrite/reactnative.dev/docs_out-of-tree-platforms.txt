@@ -1,0 +1,44 @@
+# Out-of-Tree Platforms
+
+React Native extends beyond Android and iOS devices. Various partners and community projects have developed React Native for additional platforms:
+
+**From Partners**
+
+- **React Native macOS**: Supports macOS and Cocoa applications.
+- **React Native Windows**: Targets Microsoft's Universal Windows Platform (UWP).
+- **React Native visionOS**: Designed for Apple's visionOS.
+
+**From Community**
+
+- **React Native tvOS**: Compatible with Apple TV and Android TV devices.
+- **React Native Web**: Enables React Native on the web using React DOM.
+- **React Native Skia**: Utilizes Skia as a renderer, supporting Linux and macOS.
+
+## Creating Your Own React Native Platform
+
+Currently, creating a new React Native platform from scratch lacks comprehensive documentation. The upcoming re-architecture (Fabric) aims to simplify this process.
+
+### Bundling
+
+Starting with React Native 0.57, you can register your custom platform with the JavaScript bundler, Metro. This allows using `--platform example` with `npx react-native bundle`, which will search for JavaScript files ending in `.example.js`.
+
+To integrate your module with RNPM, its name should follow these patterns:
+
+- **`react-native-example`**: Searches all top-level modules starting with `react-native-`.
+- **`@org/react-native-example`**: Looks for modules under any scope that start with `react-native-`.
+- **`@react-native-example/module`**: Searches within scopes beginning with `@react-native-`.
+
+Your `package.json` must include an entry like this:
+
+```json
+{
+  "rnpm": {
+    "haste": {
+      "providesModuleNodeModules": ["react-native-example"],
+      "platforms": ["example"]
+    }
+  }
+}
+```
+
+Here, `"providesModuleNodeModules"` is a list of modules added to the Haste module search path, and `"platforms"` specifies valid platform suffixes.

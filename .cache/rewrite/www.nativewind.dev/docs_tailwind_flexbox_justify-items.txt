@@ -1,0 +1,14 @@
+# Justify Items
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                         | Support     |
+| ----------------------------- | ----------- |
+| `justify-items-start`         | 🌐 Web only |
+| `justify-items-end`           | 🌐 Web only |
+| `justify-items-center`        | 🌐 Web only |
+| `justify-items-stretch`       | 🌐 Web only |

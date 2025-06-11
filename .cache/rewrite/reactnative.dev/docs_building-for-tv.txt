@@ -1,0 +1,5 @@
+# Building For TV Devices
+
+Support for TV devices, specifically Apple TV and Android TV, was integrated into React Native applications with the goal of enabling these apps to function on such platforms with minimal modifications required in their JavaScript code.
+
+> **Deprecated Notice:** The support for TV devices has been transitioned to a separate repository named "React Native for TV." For detailed guidance on projects targeting Apple TV or Android TV, please refer to the *README* file within that repository.

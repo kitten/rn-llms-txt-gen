@@ -1,0 +1,45 @@
+# Platform Differences
+
+Nativewind integrates CSS and React Native into a unified language framework. Despite this integration, there are notable differences between their style engines that developers may encounter.
+
+## Styling per Platform
+
+Styles can be selectively applied to different platforms using platform variants. The `native` variant is available for targeting all platforms except the web.
+
+Supported platform modifiers include: `ios:`, `android:`, `web:`, `windows:`, `osx:`, and `native:`.
+
+## Explicit Styles
+
+React Native often encounters issues when styles are applied conditionally. To avoid these problems, it's recommended to declare all styles explicitly.
+
+For instance, instead of applying a text color only for dark mode, provide both light and dark mode text colors:
+
+```typescript
+// ❌ Avoid this approach
+<Text className="dark:text-white-500" />
+
+// ✅ Prefer this approach
+<Text className="text-black dark:text-red-500" />
+```
+
+## dp vs px
+
+React Native uses density-independent pixels (dp) as its default unit, whereas the web defaults to pixels (px). Although these units differ, Nativewind treats them equivalently. This can lead to confusion in your theme regarding whether to use `10` or `10px`. The general rule is to use `10px`, and Nativewind will adjust it accordingly.
+
+## Flex
+
+React Native's base flex definition differs from that of the web. Typically, this discrepancy can be resolved by adding `flex-1` to your classes, but more complex layouts might require custom styles.
+
+## Flex Direction
+
+The default `flex-direction` in React Native is different from that on the web. This issue can be addressed by explicitly setting a `flex-direction`.
+
+## rem Sizing
+
+React Native's `<Text />` component defaults to a `fontSize: 14`, while the web uses `16px`. For consistency, Nativewind sets an `rem` value of `16` for the web and `14` for native platforms.
+
+## Color Opacity
+
+For performance reasons, Nativewind disables certain core plugins: `textOpacity`, `borderOpacity`, `divideOpacity`, and `backgroundOpacity`. These plugins allow colors to be dynamically changed via CSS variables. Instead, opacity is set as a static value in the `color` property.
+
+If you need this functionality, you can enable these disabled plugins in your `tailwind.config.js` file.

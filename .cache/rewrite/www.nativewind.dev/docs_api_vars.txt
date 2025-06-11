@@ -1,0 +1,18 @@
+# `vars()` Function Overview
+
+This page is currently under development.
+
+## Overview
+
+The `vars` function accepts a dictionary of CSS variables and generates a style object suitable for use in React Native components. This allows dynamic styling based on the provided CSS variable values.
+
+### Example Usage
+
+```typescript
+<View style={vars({ '--brand-color': 'red' })}>
+  {/* The resulting style will be: { color: 'red' } */}
+  <Text className="text-[--brand-color]" />
+</View>
+```
+
+In this example, `vars` converts the CSS variable `--brand-color` into a React Native style object where the text color is set to red.

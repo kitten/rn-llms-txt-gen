@@ -1,0 +1,186 @@
+# Native Gesture
+
+A gesture that integrates with other touch handling components within RNGH's gesture system. This integration facilitates interactions between gestures and native components, allowing them to establish relationships with other gestures.
+
+When utilized, the native component should be a direct child of a `GestureDetector`.
+
+## Example
+
+This example demonstrates rendering a `ScrollView` containing multiple colored rectangles. Each rectangle includes a black section that, when touched, disables the `ScrollView` for the duration of the `Pan` gesture.
+
+```typescript
+import { View, ScrollView } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+
+const COLORS = ['red', 'green', 'blue', 'purple', 'orange', 'cyan'];
+
+export default function App() {
+  const native = Gesture.Native();
+
+  return (
+    <GestureDetector gesture={native}>
+      <ScrollView style={{ flex: 1 }}>
+        <ScrollableContent scrollGesture={native} />
+      </ScrollView>
+    </GestureDetector>
+  );
+}
+
+function ScrollableContent({ scrollGesture }) {
+  return (
+    <View>
+      {COLORS.map((color) => (
+        <Rectangle key={color} color={color} scrollGesture={scrollGesture} />
+      ))}
+    </View>
+  );
+}
+
+function Rectangle({ color, scrollGesture }) {
+  const pan = Gesture.Pan().blocksExternalGesture(scrollGesture);
+
+  return (
+    <View
+      key={color}
+      style={{ width: '100%', height: 250, backgroundColor: color }}>
+      <GestureDetector gesture={pan}>
+        <View style={{ width: '100%', height: 50, backgroundColor: 'black' }} />
+      </GestureDetector>
+    </View>
+  );
+}
+```
+
+## Remarks
+
+- The `Native` gesture can be used in gesture composition and cross-component interactions like any other gesture. This allows you to block a native component during the gesture or make it work alongside another gesture.
+
+**Warning**: Do not use the `Native` gesture with components exported by React Native Gesture Handler, as they already have a native gesture handler applied. Attaching a native gesture twice may cause the components to malfunction.
+
+## Configuration
+
+### Properties Specific to `NativeGesture`
+
+#### `shouldActivateOnStart(value: boolean)` (**Android only**)
+
+When set to `true`, the underlying handler will activate unconditionally upon receiving any touches in the `BEGAN` or `UNDETERMINED` state.
+
+#### `disallowInterruption(value: boolean)`
+
+When set to `true`, cancels all other gesture handlers when this `NativeViewGestureHandler` changes its state to `ACTIVE`.
+
+### Properties Common to All Gestures
+
+#### `enabled(value: boolean)`
+
+Indicates whether the handler should analyze touch events. When set to `false`, the handler's state will **never** become `ACTIVE`. If updated during gesture recognition, it will immediately change to `FAILED` or `CANCELLED`. Default is `true`.
+
+#### `shouldCancelWhenOutside(value: boolean)`
+
+When `true`, the handler cancels or fails recognition if a finger leaves the connected view area. The default varies by handler type; most handlers default to `false`, except for `LongPressGesture` and `TapGesture`, which default to `true`.
+
+#### `hitSlop(settings)`
+
+Controls the part of the connected view where gesture recognition can begin. Negative numbers reduce the view bounds evenly on all sides. Alternatively, specify reductions for each side (`left`, `right`, `top`, `bottom`) or use `horizontal`/`vertical`. You can also set `width` and `height` to restrict activation to edges.
+
+**Important**: This parameter primarily reduces gesture activation areas. It supports non-positive values (0 or lower) on all sides, with positive values supported only on Android for expanding beyond view bounds but not past parent view bounds. For cross-platform support, use React Native's View hitSlop property.
+
+#### `withRef(ref)`
+
+Sets a ref to the gesture object for interoperability with the old API.
+
+#### `withTestId(testID)`
+
+Assigns a `testID` to the gesture object for querying in tests.
+
+#### `cancelsTouchesInView(value)` (**iOS only**)
+
+Accepts a boolean. When `true`, cancels touches for native UI components (`UIButton`, `UISwitch`, etc.) when active. Default is `true`.
+
+#### `runOnJS(value: boolean)`
+
+When `react-native-reanimated` is installed, gesture callbacks are workletized and run on the UI thread by default. This option allows running all callbacks on the JS thread instead, regardless of whether they are worklets or not. Defaults to `false`.
+
+#### `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)`
+
+Marks a gesture for simultaneous recognition with this one.
+
+**Important**: This method only marks relations between gestures without composing them. The `otherGestures` need to be added to another detector for recognition by `GestureDetector`.
+
+#### `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)`
+
+Requires another gesture to fail before this one can activate.
+
+#### `blocksExternalGesture(otherGesture1, otherGesture2, ...)`
+
+Makes other gestures wait until this gesture fails or doesn't start. 
+
+**Important**: This method only marks relations between gestures without composing them. The `otherGestures` need to be added to another detector for recognition by `GestureDetector`.
+
+#### `activeCursor(value)` (Web only)
+
+Specifies the cursor used when the gesture activates, supporting all CSS cursor values (e.g., `"grab"`, `"zoom-in"`). Default is `"auto"`.
+
+## Callbacks
+
+### Common to All Gestures
+
+#### `onBegin(callback)`
+
+Sets a callback called when the gesture handler starts receiving touches. At this point, it's not yet active or recognized.
+
+#### `onStart(callback)`
+
+Sets a callback called when the gesture is recognized and transitions to an active state.
+
+#### `onEnd(callback)`
+
+Sets a callback called when a recognized gesture finishes, only if previously active.
+
+#### `onFinalize(callback)`
+
+Sets a callback called when the handler finalizes handling a gesture—either recognized and finished or failed.
+
+#### `onTouchesDown(callback)`
+
+Sets a callback for each finger placed on the screen.
+
+#### `onTouchesMove(callback)`
+
+Sets a callback for each finger movement on the screen.
+
+#### `onTouchesUp(callback)`
+
+Sets a callback for each finger lifted from the screen.
+
+#### `onTouchesCancelled(callback)`
+
+Sets a callback for when a finger stops being tracked, such as when a gesture finishes.
+
+## Event Data
+
+### Specific to `NativeGesture`
+
+#### `pointerInside`
+
+Indicates if the gesture was performed inside the containing view (`true`) or outside (`false`).
+
+### Common to All Gestures
+
+#### `state`
+
+Represents the current state of the handler, expressed as one of the constants in the `State` object exported by the library.
+
+#### `numberOfPointers`
+
+The number of pointers (fingers) currently on the screen.
+
+#### `pointerType`
+
+Indicates the type of pointer device used. Represented by the `PointerType` enum:
+
+- `TOUCH`: Represents a finger.
+- `STYLUS`: Represents a stylus or digital pen.
+- `MOUSE`: Represents a computer mouse.
+- `KEY`: Represents a keyboard.
+- `OTHER`: Represents an unknown device type that is not relevant.

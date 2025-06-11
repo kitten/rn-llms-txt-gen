@@ -1,0 +1,15 @@
+# Transition Timing Function
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+**CAUTION:**  
+Animation support is currently experimental. Your feedback will help us enhance its implementation.
+
+## Compatibility
+
+| Class            | Support                 |
+| ---------------- | ----------------------- |
+| `ease-{n}`       | 🧪 Experimental Support |
+| `ease-[n]`       | 🧪 Experimental Support |

@@ -1,0 +1,24 @@
+# Custom Swipeable Components in ScrollView (Web)
+
+When developing custom swipeable components within a `ScrollView` on the web, you might opt for more control over their behavior by creating your own version instead of using pre-built solutions like ReanimatedSwipeable. However, one common issue encountered is that scrolling functionality may not work as expected after implementing a custom swipeable component.
+
+To address this problem, consider setting the `touchAction` property to `"pan-y"`. This adjustment can help ensure that vertical panning and scrolling are handled correctly within your component.
+
+Here's an example of how you might implement this in TypeScript:
+
+```typescript
+import React from 'react';
+import { View } from 'react-native';
+
+const CustomSwipeableComponent: React.FC = () => {
+  return (
+    <View style={{ touchAction: 'pan-y' }}>
+      {/* Your swipeable component implementation */}
+    </View>
+  );
+};
+
+export default CustomSwipeableComponent;
+```
+
+By setting `touchAction` to `"pan-y"`, you allow the browser to handle vertical panning, which can resolve issues with scrolling when using custom swipeable components inside a `ScrollView`.

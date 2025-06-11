@@ -1,0 +1,13 @@
+# useColorScheme Hook
+
+The `useColorScheme` hook from 'react-native' is designed to provide and subscribe to updates regarding color schemes via the `Appearance` module. It returns the current user's preferred color scheme, which can change based on direct actions like theme selection in device settings or automatically according to a schedule (e.g., switching between light and dark themes with day/night cycles).
+
+## Supported Color Schemes
+
+- `"light"`: Indicates that the user prefers a light color theme.
+- `"dark"`: Indicates that the user prefers a dark color theme.
+- `null`: No preferred color scheme has been indicated by the user.
+
+## Example Usage
+
+A comprehensive example demonstrating how to use this hook, along with React context for supporting both light and dark themes in an application, can be found in `AppearanceExample.js`.

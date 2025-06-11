@@ -1,0 +1,15 @@
+# Aspect Ratio
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                 | Support        |
+|-----------------------|----------------|
+| `aspect-auto`         | ✅ Full Support |
+| `aspect-video`        | ✅ Full Support |
+| `aspect-square`       | ✅ Full Support |
+| `aspect-[n]`          | ✅ Full Support |
+| `aspect-{n}`          | ✅ Full Support |

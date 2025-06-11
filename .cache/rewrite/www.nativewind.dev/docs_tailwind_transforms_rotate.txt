@@ -1,0 +1,16 @@
+# Rotate
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `rotate-{n}`       | ✅ Full Support |
+| `rotate-[n]`       | ✅ Full Support |
+
+When using arbitrary styles or defining rotation values in your theme, always specify the `deg` unit. For example: `rotate-[90deg]`.
+
+Note that React Native exclusively supports the `deg` unit for rotations.

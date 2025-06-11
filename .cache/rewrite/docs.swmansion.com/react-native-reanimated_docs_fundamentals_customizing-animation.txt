@@ -1,0 +1,62 @@
+# Customizing Animations
+
+The previous section introduced shared values in practice using `withSpring` and `withTiming` functions for creating animations. Now, you're ready to explore customizing these animations further!
+
+Reanimated provides three built-in animation functions: `withTiming`, `withSpring`, and `withDecay`. This discussion will focus on the first two, with `withDecay` covered later in the Handling Gestures section.
+
+Customizing animation behavior in Reanimated is straightforward. You can achieve this by passing a `config` object to the second parameter of either the `withTiming` or `withSpring` function.
+
+## Configuring `withTiming`
+
+The `config` parameter for `withTiming` includes two properties: `duration` and `easing`.
+
+```typescript
+import { withTiming, Easing } from 'react-native-reanimated';
+
+withTiming(sv.value, {
+  duration: 300,
+  easing: Easing.inOut(Easing.quad),
+});
+```
+
+The `duration` parameter specifies the time in milliseconds for the animation to reach its target value (`toValue`). By default, this is set to `300` milliseconds.
+
+The `easing` parameter allows you to refine how the animation progresses over time. For instance, it can start slowly, accelerate, and then slow down again towards the end. The default easing function is `Easing.inOut(Easing.quad)`.
+
+To understand its impact, compare a `linear` easing with the default easing. Reanimated offers several predefined easing functions that you can experiment with in an interactive playground or refer to the full `withTiming` API documentation.
+
+## Configuring `withSpring`
+
+Unlike `withTiming`, `withSpring` is physics-based and simulates real-world spring dynamics, making animations appear more realistic.
+
+When adjusting springs, focus on these three properties: `mass`, `stiffness` (also known as *tension*), and `damping` (also known as *friction*).
+
+```typescript
+import { withSpring } from 'react-native-reanimated';
+
+withSpring(sv.value, {
+  mass: 1,
+  stiffness: 100,
+  damping: 10,
+});
+```
+
+The `mass` of a spring affects how difficult it is to move an object and bring it to a stop. It adds inertia to the movement. A higher mass results in a more sluggish motion compared to the default.
+
+`Stiffness` determines the bounciness of the spring, akin to comparing a steel spring (high stiffness) with one made from soft plastic (low stiffness).
+
+`Damping` describes how quickly the animation concludes. Higher damping means the spring will settle faster. For example, consider a spring bouncing in air versus underwater; a vacuum would have zero friction and thus no damping.
+
+Reanimated includes additional properties for customizing spring animations, which you can explore in an interactive playground or through the full `withSpring` API documentation.
+
+## Summary
+
+This section covered how to customize `withTiming` and `withSpring` animation functions:
+
+- Both functions accept a `config` object as their second parameter.
+- You can modify `withTiming` using `duration` and `easing`. Reanimated provides an `Easing` module for convenience.
+- Key properties for adjusting `withSpring` include `mass`, `stiffness`, and `damping`.
+
+## What's Next?
+
+In the next section, you'll learn about animation modifiers like `withSequence` and `withRepeat`, enabling more complex and engaging animations.

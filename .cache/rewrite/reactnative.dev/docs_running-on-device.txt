@@ -1,0 +1,125 @@
+# Enabling USB Debugging on Android Devices
+
+Most Android devices restrict app installations to those downloaded from Google Play by default. To install apps during development, enable USB Debugging on your device.
+
+## Steps to Enable USB Debugging:
+
+1. **Access Developer Options:**
+   - Navigate to **Settings** → **About phone** → **Software information**.
+   - Tap the `Build number` row seven times to unlock "Developer options".
+
+2. **Enable USB Debugging:**
+   - Go back to **Settings** → **Developer options**.
+   - Turn on "USB debugging".
+
+# Setting Up an Android Device for React Native Development
+
+## 1. Connect Your Device via USB
+
+- Plug your device into your development machine using a USB cable.
+
+### Verify Connection with ADB:
+
+Run the following command to ensure your device is connected:
+
+```shell
+$ adb devices
+```
+
+Output example:
+```
+List of devices attached
+emulator-5554 offline   # Google emulator
+14ed2fcc device         # Physical device
+```
+
+A `device` status indicates a successful connection. Ensure only one device is connected at a time.
+
+### Troubleshooting:
+
+If you see `unauthorized`, execute the following command and allow USB debugging on your device:
+
+```shell
+adb reverse tcp:8081 tcp:8081
+```
+
+## 2. Running Your App
+
+From your project's root directory, use either npm or Yarn to install and launch your app:
+
+### Using npm:
+```shell
+npm run android
+```
+
+### Using Yarn:
+```shell
+yarn android
+```
+
+> **Note:** For a release build, use: `yarn android --mode release`.
+
+# Connecting to the Development Server
+
+Iterate quickly on a device by connecting it to your development server. Choose between USB or Wi-Fi methods.
+
+## Method 1: Using adb reverse (Recommended)
+
+This method is suitable for devices running Android 5.0 (Lollipop) or newer with USB debugging enabled and connected via USB.
+
+Execute the following command:
+
+```shell
+$ adb -s <device name> reverse tcp:8081 tcp:8081
+```
+
+To find your device name, run:
+
+```shell
+$ adb devices
+```
+
+Enable Fast Refresh from the Dev Menu to reload your app upon JavaScript code changes.
+
+## Method 2: Connect via Wi-Fi
+
+Connect over Wi-Fi after initially installing the app with a USB cable. Ensure both your laptop and phone are on the same network.
+
+### Steps:
+
+1. Open your React Native app; expect an initial error screen.
+2. Access the in-app Dev Menu.
+3. Navigate to **Dev Settings** → **Debug server host & port for device**.
+4. Enter your machine's IP address and local dev server port (e.g., `10.0.1.1:8081`).
+5. Select **Reload JS** from the Dev Menu.
+
+Enable Fast Refresh to automatically reload your app when JavaScript code changes.
+
+# Building Your App for Production
+
+To release your React Native app on the Play Store, follow standard native Android app production processes with additional considerations. Refer to the guide for generating a signed APK for detailed instructions.
+
+## Additional Setup for Linux Users:
+
+### Identify USB Device ID:
+
+1. Use `lsusb` to list connected USB devices:
+   ```bash
+   $ lsusb
+   ```
+
+2. Identify your phone's line and extract the first four digits of its device ID (e.g., `22b8`).
+
+3. Update udev rules with the following command, replacing `22b8` with your device ID:
+
+   ```shell
+   echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", MODE="0666", GROUP="plugdev"' | sudo tee /etc/udev/rules.d/51-android-usb.rules
+   ```
+
+### Verify ADB Connection Again:
+
+Run `adb devices` to confirm your device is connected.
+
+# Summary
+
+This guide covers enabling USB debugging, setting up an Android device for React Native development, connecting to the development server via USB or Wi-Fi, and preparing your app for production release. Follow these steps to streamline your development workflow.

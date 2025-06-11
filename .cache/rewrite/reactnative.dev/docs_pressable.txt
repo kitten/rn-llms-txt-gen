@@ -1,0 +1,131 @@
+# Pressable
+
+Pressable is a Core Component wrapper designed to detect various stages of press interactions on any defined children elements.
+
+```typescript
+<Pressable onPress={onPressFunction}>
+  <Text>I'm pressable!</Text>
+</Pressable>
+```
+
+## How it Works
+
+When an element is wrapped by `Pressable`:
+
+- `onPressIn` is triggered when a press interaction begins.
+- `onPressOut` occurs when the press gesture ends.
+
+Following `onPressIn`, one of two scenarios may unfold:
+
+1. The user lifts their finger, triggering `onPressOut` followed by `onPress`.
+2. If the finger remains for more than 500 milliseconds before lifting, `onLongPress` is activated. `onPressOut` will still occur upon finger removal.
+
+To accommodate imprecise touch interactions and accidental activations, `Pressable` offers an optional `HitRect`. This defines how far a touch can register from the wrapped element, allowing presses to start anywhere within this area.
+
+Additionally, `PressRect` is set using `pressRetentionOffset`, enabling touches to move beyond the element and its `HitRect` while still maintaining activation. This feature allows for actions like sliding a finger away from a button that's being pressed.
+
+> Note: The touch area does not extend past parent view bounds, and sibling views with higher Z-index take precedence if a touch hits overlapping views.
+
+For more details on the state machine flow of Pressability, refer to React Native's `Pressability` API documentation.
+
+## Example
+
+## Props
+
+### `android_disableSound`
+
+- **Type**: boolean
+- **Default**: `false`
+- If true, prevents Android system sound from playing on press.
+
+### `android_ripple`
+
+- **Type**: RippleConfig
+- Enables the Android ripple effect and configures its properties.
+
+### `children`
+
+- **Type**: React Node
+- Accepts children or a function that receives a boolean indicating if the component is currently pressed.
+
+### `unstable_pressDelay`
+
+- **Type**: number
+- Duration (in milliseconds) to wait after press down before calling `onPressIn`.
+
+### `delayLongPress`
+
+- **Type**: number
+- **Default**: `500`
+- Duration (in milliseconds) from `onPressIn` before `onLongPress` is triggered.
+
+### `disabled`
+
+- **Type**: boolean
+- **Default**: `false`
+- Determines if the press behavior is disabled.
+
+### `hitSlop`
+
+- **Type**: Rect or number
+- Sets additional distance outside of the element where a press can be detected.
+
+### `onHoverIn`
+
+- **Type**: `({ nativeEvent: MouseEvent }) => void`
+- Called when hover is activated to provide visual feedback.
+
+### `onHoverOut`
+
+- **Type**: `({ nativeEvent: MouseEvent }) => void`
+- Called when hover is deactivated to remove visual feedback.
+
+### `onLongPress`
+
+- **Type**: `({nativeEvent: PressEvent}) => void`
+- Triggered if the time after `onPressIn` exceeds 500 milliseconds. This duration can be customized with `delayLongPress`.
+
+### `onPress`
+
+- **Type**: `({nativeEvent: PressEvent}) => void`
+- Called after `onPressOut`.
+
+### `onPressIn`
+
+- **Type**: `({nativeEvent: PressEvent}) => void`
+- Triggered immediately when a touch is engaged, before `onPressOut` and `onPress`.
+
+### `onPressOut`
+
+- **Type**: `({nativeEvent: PressEvent}) => void`
+- Called when a touch is released.
+
+### `pressRetentionOffset`
+
+- **Type**: Rect or number
+- **Default**: `{bottom: 30, left: 20, right: 20, top: 20}`
+- Sets additional distance outside of this view where a touch is considered a press before triggering `onPressOut`.
+
+### `style`
+
+- **Type**: View Style or `({ pressed: boolean }) => View Style`
+- Accepts view styles or a function that receives a boolean indicating if the component is currently pressed and returns view styles.
+
+### `testOnly_pressed`
+
+- **Type**: boolean
+- **Default**: `false`
+- Used only for documentation or testing purposes (e.g., snapshot testing).
+
+## Type Definitions
+
+### RippleConfig
+
+Configuration object for the `android_ripple` property.
+
+| Name       | Type    | Required | Description                                                                                                                                                                                                                                                  |
+| ---------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| color      | color   | No       | Defines the color of the ripple effect.                                                                                                                                                                                                                      |
+| borderless | boolean | No       | Determines if the ripple effect should exclude borders.                                                                                                                                                                                                      |
+| radius     | number  | No       | Sets the radius of the ripple effect.                                                                                                                                                                                                                        |
+| foreground | boolean | No       | If true, adds the ripple effect to the view's foreground instead of the background. Useful when child views have their own backgrounds or images are displayed, preventing the ripple from being obscured.                                                   |

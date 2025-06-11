@@ -1,0 +1,51 @@
+# AppState Overview
+
+The `AppState` module provides information about whether an application is in the foreground or background and notifies you of any state changes. It's particularly useful for determining how to handle push notifications based on the app's current state.
+
+## App States
+
+- **active**: The app is running in the foreground.
+- **background**: The app is running in the background, with the user either:
+  - In another application
+  - On the home screen
+  - \[Android\] Engaged in a different `Activity`, even if initiated by your app
+- \[iOS\] **inactive**: This state occurs during transitions between foreground and background or when the device is inactive, such as entering multitasking view, opening Notification Center, or receiving an incoming call.
+
+For more details, refer to Apple's documentation.
+
+## Basic Usage
+
+To check the current state of the app, use `AppState.currentState`, which remains updated. Note that `currentState` will be null at launch while `AppState` retrieves it over the bridge. This example typically displays "Current state is: active" because the app is visible only in the `active` state, and the null state occurs briefly. For experimentation, using your own device instead of an embedded preview is recommended.
+
+## Reference
+
+### Events
+
+- **change**: Triggered when the app state changes. The listener receives one of the current app state values.
+  
+- **memoryWarning**: Used to handle memory warnings or release resources as needed.
+  
+- **focus** \[Android\]: Fired when the app gains focus, indicating user interaction with the app.
+  
+- **blur** \[Android\]: Triggered when the user is not actively interacting with the app. Useful for detecting actions like pulling down the notification drawer. The `AppState` state remains unchanged, but the `blur` event is fired.
+
+### Methods
+
+#### `addEventListener()`
+
+```typescript
+static addEventListener(
+  type: AppStateEvent,
+  listener: (state: AppStateStatus) => void,
+): NativeEventSubscription;
+```
+
+Sets up a function to be called whenever the specified event type on `AppState` occurs. Valid values for `type` are listed above. Returns an `EventSubscription`.
+
+### Properties
+
+#### `currentState`
+
+```typescript
+static currentState: AppStateStatus;
+```

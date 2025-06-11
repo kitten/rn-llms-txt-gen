@@ -1,0 +1,22 @@
+# Touch Action
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+The following table outlines the support for various touch action classes:
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| `touch-auto`                | 🌐 Web only |
+| `touch-none`                | 🌐 Web only |
+| `touch-pan-x`               | 🌐 Web only |
+| `touch-pan-left`            | 🌐 Web only |
+| `touch-pan-right`           | 🌐 Web only |
+| `touch-pan-y`               | 🌐 Web only |
+| `touch-pan-up`              | 🌐 Web only |
+| `touch-pan-down`            | 🌐 Web only |
+| `touch-pinch-zoom`          | 🌐 Web only |
+| `touch-manipulation`        | 🌐 Web only |

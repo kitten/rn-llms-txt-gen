@@ -1,0 +1,71 @@
+# Writing Custom Components
+
+This guide focuses on creating your own components. For guidance on using Nativewind with third-party components, refer to the dedicated third-party components guide.
+
+When developing custom components, you typically won't need `cssInterop` or `remapProps`, as these are primarily for third-party component integration.
+
+## Creating Your First Component
+
+Nativewind operates by passing class names to components, similar to how Tailwind CSS uses utility classes. To define a component with default styles, merge the className string:
+
+```typescript
+function MyComponent({ className }: { className: string }) {
+  const defaultStyles = "text-black dark:text-white";
+  return <Text className={`${defaultStyles} ${className}`} />;
+}
+
+<MyComponent className="font-bold" />;
+```
+
+This pattern can be extended to build more intricate components, such as a `Button` with various variants:
+
+```typescript
+const variantStyles: Record<string, string> = {
+  default: "rounded",
+  primary: "bg-blue-500 text-white",
+  secondary: "bg-gray-200 text-black",
+};
+
+function MyComponent({ variant = 'default', className = '', ...props }: { variant?: keyof typeof variantStyles; className?: string; [key: string]: any }) {
+  return (
+    <Text
+      className={`
+        ${variantStyles.default}
+        ${variantStyles[variant]}
+        ${className}
+      `}
+      {...props }
+    />
+  );
+}
+```
+
+As you create more variants, the complexity can increase. Consider using a class name management library to streamline this process:
+
+- tailwind-variants
+- cva
+- tw-classed
+- clsx
+- classnames
+
+## Merging with Inline Styles
+
+Nativewind seamlessly merges inline styles with class names. For details on style specificity, refer to the relevant documentation.
+
+```typescript
+<Text className="text-white" style={{ color: "black" }} /> // The text will be black
+```
+
+## Handling Components with Multiple Style Props
+
+Custom components can accommodate multiple style props. For instance, a `Button` component might include both an `outerClassName` and an `innerClassName`.
+
+```typescript
+function MyComponent({ className = '', textClassName = '' }: { className?: string; textClassName?: string }) {
+  return (
+    <View className={className}>
+      <Text className={textClassName}>Hello, Nativewind!</Text>
+    </View>
+  );
+}
+```

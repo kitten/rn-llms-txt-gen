@@ -1,0 +1,17 @@
+# Built on Tailwind CSS
+
+Nativewind is developed using the Tailwind CSS framework. Consequently, the fundamental principles of Tailwind CSS are applicable to Nativewind as well. It's advisable to review their documentation on:
+
+- Utility-First Fundamentals
+- Reusing Styles
+- Adding Custom Styles
+
+Understanding that CSS styles in Nativewind are generated through the Tailwind CLI is crucial, which means all features and compiler options of Tailwind CSS for web development are accessible.
+
+This guide focuses on universally compatible features. However, platform-specific prefixes can be used to apply styles exclusive to web platforms.
+
+## Supporting React Native
+
+Nativewind functions similarly to traditional CSS by accepting all class names but only applying the supported styles. For instance, using `grid` will work in a web environment but not natively. 
+
+For more details on minor differences between Nativewind and Tailwind CSS, refer to the differences guide.

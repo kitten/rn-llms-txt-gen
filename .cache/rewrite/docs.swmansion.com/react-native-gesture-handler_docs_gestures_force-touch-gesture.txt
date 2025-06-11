@@ -1,0 +1,93 @@
+# Force Touch Gesture
+
+A continuous gesture that recognizes the force of a touch, allowing for tracking pressure on some iOS devices. The gesture activates when the touch force is greater than or equal to `minForce` and fails if it exceeds `maxForce`. A callback can be used for continuous tracking of touch pressure, providing information for one finger (the first one).
+
+At the beginning of the gesture, the pressure factor is 0.0, increasing proportionally with pressure up to a maximum of 1.0.
+
+There's no implementation on Android; it simply renders children without any wrappers. Since this behavior is only available on some iOS devices, this gesture should not be used for defining crucial behaviors. Use it as an additional improvement and ensure all features are accessible without this gesture.
+
+## Reference
+
+```typescript
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+
+function App() {
+  const forceTouch = Gesture.ForceTouch();
+
+  return (
+    <GestureDetector gesture={forceTouch}>
+      <View />
+    </GestureDetector>
+  );
+}
+```
+
+## Configuration
+
+### Properties Specific to `ForceTouchGesture`:
+
+| Property          | Description                                                                                   |
+|-------------------|-----------------------------------------------------------------------------------------------|
+| `minForce(value: number)` | Minimal pressure required for activation. Range `[0.0, 1.0]`. Default is `0.2`.               |
+| `maxForce(value: number)` | Maximal pressure before gesture fails. Range `[0.0, 1.0]`.                                    |
+| `feedbackOnActivation(value: boolean)` | Defines if haptic feedback occurs on activation.                                             |
+
+### Properties Common to All Gestures:
+
+| Property                          | Description                                                                                   |
+|-----------------------------------|-----------------------------------------------------------------------------------------------|
+| `enabled(value: boolean)`         | Indicates whether the handler analyzes touch events. Default is `true`.                       |
+| `shouldCancelWhenOutside(value: boolean)` | Cancels recognition if finger leaves view area. Defaults vary by handler type.                |
+| `hitSlop(settings)`               | Controls gesture activation area within the view. Supports negative values for reduction.     |
+| `withRef(ref)`                    | Sets a ref to the gesture object for interoperability with old API.                           |
+| `withTestId(testID)`              | Sets a `testID` property for querying in tests.                                               |
+| `cancelsTouchesInView(value)` (**iOS only**) | Cancels touches for native UI components when active. Default is `true`.                     |
+| `runOnJS(value: boolean)`         | Runs callbacks on JS thread if true, otherwise on the UI thread. Defaults to `false`.         |
+| `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)` | Marks relation for simultaneous recognition with other gestures.                             |
+| `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)` | Requires another gesture to fail before activation.                                          |
+| `blocksExternalGesture(otherGesture1, otherGesture2, ...)` | Makes other gestures wait until this one fails or doesn't start.                              |
+| `activeCursor(value)` (**Web only**) | Specifies cursor when gesture activates. Supports CSS cursor values. Default is `"auto"`.    |
+
+### Properties Common to All Continuous Gestures:
+
+| Property          | Description                                                                                   |
+|-------------------|-----------------------------------------------------------------------------------------------|
+| `manualActivation(value: boolean)` | When true, the handler does not activate automatically; state must be manipulated manually.  |
+
+## Callbacks
+
+### Callbacks Common to All Gestures:
+
+| Callback         | Description                                                                                   |
+|------------------|-----------------------------------------------------------------------------------------------|
+| `onBegin(callback)` | Called when gesture handling starts receiving touches.                                         |
+| `onStart(callback)` | Called when the gesture is recognized and transitions to active state.                        |
+| `onEnd(callback)`   | Called when a recognized gesture finishes, if previously in active state.                     |
+| `onFinalize(callback)` | Called when gesture handling finalizes (recognized or failed).                                |
+| `onTouchesDown(callback)` | Called every time a finger is placed on the screen.                                          |
+| `onTouchesMove(callback)` | Called every time a finger moves on the screen.                                              |
+| `onTouchesUp(callback)`   | Called every time a finger is lifted from the screen.                                        |
+| `onTouchesCancelled(callback)` | Called when a finger stops being tracked, e.g., gesture finishes.                            |
+
+### Callbacks Common to All Continuous Gestures:
+
+| Callback         | Description                                                                                   |
+|------------------|-----------------------------------------------------------------------------------------------|
+| `onUpdate(callback)` | Called every time the gesture receives an update while active.                                |
+| `onChange(callback)`  | Called with information about changes in value relative to the last event.                    |
+
+## Event Data
+
+### Attributes Specific to `ForceTouchGesture`:
+
+| Attribute | Description                                                                                   |
+|-----------|-----------------------------------------------------------------------------------------------|
+| `force`   | The pressure of a touch.                                                                      |
+
+### Attributes Common to All Gestures:
+
+| Attribute       | Description                                                                                   |
+|-----------------|-----------------------------------------------------------------------------------------------|
+| `state`         | Current state of the handler, expressed as one of the constants in the `State` object.        |
+| `numberOfPointers` | Number of pointers (fingers) currently on the screen.                                        |
+| `pointerType`   | Type of pointer device in use, represented by the `PointerType` enum (`TOUCH`, `STYLUS`, etc.). |

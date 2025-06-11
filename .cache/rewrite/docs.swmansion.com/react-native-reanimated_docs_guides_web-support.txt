@@ -1,0 +1,178 @@
+# Web Support
+
+Reanimated can be launched in a web browser, with all functionalities implemented purely in JavaScript. This may result in lower animation efficiency compared to native implementations.
+
+## Step 1: Install the Package
+
+Install `@babel/plugin-proposal-export-namespace-from` using one of the following package managers:
+
+- **EXPO**
+  ```bash
+  npx expo install @babel/plugin-proposal-export-namespace-from
+  ```
+
+- **NPM**
+  ```bash
+  npm install @babel/plugin-proposal-export-namespace-from
+  ```
+
+- **YARN**
+  ```bash
+  yarn add @babel/plugin-proposal-export-namespace-from
+  ```
+
+## Step 2: Add Plugins to Config File
+
+Update your `babel.config.js` by adding the following plugins:
+
+```javascript
+module.exports = {
+    presets: [
+        // Existing presets...
+    ],
+    plugins: [
+        ...,
+        '@babel/plugin-proposal-export-namespace-from',
+        'react-native-reanimated/plugin',  // Ensure this is listed last
+    ],
+};
+```
+
+**Caution:** Make sure `react-native-reanimated/plugin` is the last plugin in the list.
+
+## Step 3: Launch Your App
+
+To start a playground app in the browser, use:
+
+```bash
+yarn web
+```
+
+For example applications from the Reanimated repository, execute these commands at the root of the repository:
+
+```bash
+yarn && yarn build
+```
+
+Then navigate to `apps/web-example` and run:
+
+```bash
+yarn start
+```
+
+## Webpack Support
+
+To use Reanimated in a Webpack app, adjust your configuration as follows:
+
+Example Webpack config with Reanimated support:
+
+```javascript
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+
+module.exports = {
+  entry: ['babel-polyfill', './index.js'],
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './index.html',
+    }),
+    new webpack.EnvironmentPlugin({ JEST_WORKER_ID: null }),
+    new webpack.DefinePlugin({ process: { env: {} } }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-react',
+              { plugins: ['@babel/plugin-proposal-class-properties'] },
+            ],
+          },
+        },
+      },
+    ],
+  },
+  resolve: {
+    alias: { 'react-native$': 'react-native-web' },
+    extensions: ['.web.js', '.js'],
+  },
+};
+```
+
+## Web Without the Babel Plugin
+
+Reanimated can be used without its Babel plugin by manually passing dependency arrays to hooks. This approach is valid for both web and native platforms.
+
+Ensure these hooks include a dependency array as their last argument:
+
+- `useDerivedValue`
+- `useAnimatedStyle`
+- `useAnimatedProps`
+- `useAnimatedReaction`
+
+Example usage:
+
+```javascript
+const sv = useSharedValue(0);
+const dv = useDerivedValue(
+  () => sv.value + 1,
+  [sv] // dependency array here
+);
+```
+
+**Caution:** Pass the root dependency (`sv`) rather than `sv.value`.
+
+Babel users must still install the `@babel/plugin-proposal-class-properties` plugin.
+
+### ESLint Support
+
+To add ESLint support for Reanimated hooks, update your ESLint configuration:
+
+```json
+{
+  "rules": {
+    "react-hooks/exhaustive-deps": [
+      "error",
+      {
+        "additionalHooks": "(useAnimatedStyle|useDerivedValue|useAnimatedProps)"
+      }
+    ]
+  }
+}
+```
+
+**Info:** This assumes the `react-hooks` ESLint plugin is installed.
+
+If using ESLint autofix, manually correct any `.value` additions to dependency arrays:
+
+```javascript
+const sv = useSharedValue(0);
+
+// 🚨 bad: sv.value in array
+const dv = useDerivedValue(() => sv.value, [sv.value]);
+
+// ✅ good: sv in array
+const dv = useDerivedValue(() => sv.value, [sv]);
+```
+
+## Solito / Next.js Compatibility
+
+An experimental SWC plugin is being developed. Until then, follow the "Web without a Babel Plugin" instructions.
+
+### Next.js Polyfill
+
+To use Reanimated with Next.js/Solito, add the `raf` polyfill for `requestAnimationFrame`:
+
+```bash
+yarn add raf
+```
+
+Include this at the top of your `_app.tsx`:
+
+```javascript
+import 'raf/polyfill';
+```

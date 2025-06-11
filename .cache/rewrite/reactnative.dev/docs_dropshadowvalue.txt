@@ -1,0 +1,52 @@
+# DropShadowValue Object Type
+
+The `DropShadowValue` object is utilized by the `filter` style property for implementing the `dropShadow` function. It consists of two or three length values and an optional color, which together define the drop shadow's characteristics such as its color, position, and blurriness.
+
+## Example
+
+```typescript
+{
+  offsetX: 10,
+  offsetY: -3,
+  standardDeviation: '15px',
+  color: 'blue',
+}
+```
+
+## Keys and Values
+
+### `offsetX`
+
+The offset on the x-axis. This value can be either positive or negative, where a positive value indicates a rightward shift and a negative value indicates a leftward shift.
+
+| Type             | Optional |
+| ---------------- | -------- |
+| number \| string | No       |
+
+### `offsetY`
+
+The offset on the y-axis. Similar to `offsetX`, this value can be either positive or negative, with a positive value indicating an upward shift and a negative value indicating a downward shift.
+
+| Type             | Optional |
+| ---------------- | -------- |
+| number \| string | No       |
+
+### `standardDeviation`
+
+This represents the standard deviation used in the Gaussian blur algorithm. A larger value results in a blurrier shadow. Only non-negative values are valid, with the default being 0.
+
+| Type            | Optional |
+| --------------- | -------- |
+| number \| string | Yes      |
+
+### `color`
+
+The color of the shadow. By default, this is set to `black`.
+
+| Type  | Optional |
+| ----- | -------- |
+| color | Yes      |
+
+## Used by
+
+* `filter`

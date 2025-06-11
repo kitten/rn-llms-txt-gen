@@ -1,0 +1,27 @@
+# Other Debugging Methods
+
+This section discusses legacy methods for JavaScript debugging in React Native or Expo apps. For new projects, it's recommended to use React Native DevTools.
+
+## Safari Developer Tools (Direct JSC Debugging)
+
+Safari can be used to debug the iOS version of your app when using JavaScriptCore (JSC) as the runtime environment.
+
+1. **Physical Devices Only**: Open the Settings app on your device and navigate to `Safari > Advanced`. Ensure that "Web Inspector" is enabled.
+2. On a Mac, open Safari and enable the Develop menu by going to `Safari > Preferences...`, selecting the `Advanced` tab, and checking "Show develop menu in menu bar".
+3. Under the Develop menu, select your device and choose the "JSContext" option from the submenu. This action opens Safari's Web Inspector, which includes Console and Sources panels similar to Chrome DevTools.
+
+> **Tip**: Source maps might not be enabled by default. You can follow a guide or video to enable them and set breakpoints in the source code.
+
+> **Tip**: Each app reload creates a new JSContext. Enabling "Automatically Show Web Inspectors for JSContexts" eliminates the need to manually select the latest JSContext.
+
+## Remote JavaScript Debugging (Removed)
+
+*Note: This feature has been removed.*
+
+---
+
+**Previous:** Debugging Release Builds  
+**Next:** Testing
+
+- Safari Developer Tools (Direct JSC Debugging)
+- Remote JavaScript Debugging (Removed)

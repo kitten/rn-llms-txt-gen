@@ -1,0 +1,62 @@
+# Force Touch Gesture Handler
+
+The `ForceTouchGestureHandler` is a continuous gesture handler designed to recognize the force of touch. It tracks the pressure applied during a touch on certain iOS devices. The handler activates when the touch pressure meets or exceeds the specified `minForce`. If the pressure surpasses `maxForce`, the handler fails.
+
+## Key Features
+
+- **Pressure Tracking**: Monitors the pressure of touch, starting from 0.0 and scaling up to 1.0 as pressure increases.
+- **iOS Implementation**: Utilizes a custom `UIGestureRecognizer` on iOS. No implementation is provided for Android; it simply renders children without additional wrappers.
+- **Non-Critical Use**: Due to limited device support, this handler should not be used for critical behaviors but can enhance user experience.
+
+## Properties
+
+### Inherited from Base Handler Class
+Refer to the base handler class for common properties.
+
+### Specific to `ForceTouchGestureHandler`
+
+#### `minForce`
+- **Description**: The minimum pressure required to activate the handler.
+- **Range**: `[0.0, 1.0]`
+- **Default**: `0.2`
+
+#### `maxForce`
+- **Description**: The maximum allowable pressure before the handler fails.
+- **Range**: `[0.0, 1.0]`
+
+#### `feedbackOnActivation`
+- **Type**: Boolean
+- **Description**: Determines if haptic feedback should occur upon activation.
+
+## Event Data
+
+### Inherited from Base Handler Class
+Refer to the base handler class for common event attributes.
+
+### Specific to `ForceTouchGestureHandler`
+
+#### `force`
+- **Description**: Represents the pressure of a touch.
+
+## Static Method
+
+### `forceTouchAvailable`
+- **Usage**: Check if `ForceTouchGestureHandler` is supported using `ForceTouchGestureHandler.forceTouchAvailable`.
+
+## Example Usage
+
+```typescript
+<ForceTouchGestureHandler
+  minForce={0}
+  onGestureEvent={this._onGestureEvent}
+  onHandlerStateChange={this._onHandlerStateChange}>
+  <Animated.View
+    style={[
+      styles.box,
+      { transform: [{ scale: Animated.add(1, this.force) }] },
+    ]}
+  />
+</ForceTouchGestureHandler>
+```
+
+**Note**: For a detailed example, refer to the Gesture Handler Example App.

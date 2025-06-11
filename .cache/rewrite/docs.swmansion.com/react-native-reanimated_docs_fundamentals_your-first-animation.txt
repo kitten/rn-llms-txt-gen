@@ -1,0 +1,138 @@
+# Your First Animation
+
+This section introduces you to the basics of Reanimated. If you're new to this library, you'll find guidance on creating a simple animation that lays the foundation for more advanced skills.
+
+## Using an Animated Component
+
+To start animating components in React Native using Reanimated, import the `Animated` object:
+
+```typescript
+import Animated from 'react-native-reanimated';
+```
+
+The `Animated` object wraps native components like `View`, `ScrollView`, or `FlatList`. Use these components as you would any other JSX component:
+
+```typescript
+import Animated from 'react-native-reanimated';
+
+export default function App() {
+  return (
+    <Animated.View
+      style={{
+        width: 100,
+        height: 100,
+        backgroundColor: 'violet',
+      }}
+    />
+  );
+}
+```
+
+## Defining a Shared Value
+
+Shared values are essential for animations, acting like React state synchronized between JavaScript and the native side. Create shared values using `useSharedValue`:
+
+```typescript
+import { useSharedValue } from 'react-native-reanimated';
+```
+
+Define shared values within your component's body to store any JS value or data structure.
+
+For example, set a default value of `100` for width in an `Animated.View`:
+
+```typescript
+import Animated, { useSharedValue } from 'react-native-reanimated';
+
+export default function App() {
+  const width = useSharedValue(100);
+
+  return (
+    <Animated.View
+      style={{
+        width,
+        height: 100,
+        backgroundColor: 'violet',
+      }}
+    />
+  );
+}
+```
+
+## Using a Shared Value
+
+Create an animation that modifies the `width` of an element by `50px` on each button press. Modify the shared value connected to the `Animated.View`'s width property.
+
+Access and modify values stored in shared values using their `.value` property:
+
+```typescript
+import { Button, View } from 'react-native';
+import Animated, { useSharedValue } from 'react-native-reanimated';
+
+export default function App() {
+  const width = useSharedValue(100);
+
+  const handlePress = () => {
+    width.value = width.value + 50;
+  };
+
+  return (
+    <View style={{ flex: 1, alignItems: 'center' }}>
+      <Animated.View
+        style={{
+          width,
+          height: 100,
+          backgroundColor: 'violet',
+        }}
+      />
+      <Button onPress={handlePress} title="Click me" />
+    </View>
+  );
+}
+```
+
+Avoid directly modifying shared values without using the `.value` property, as in `sv.value = sv.value + 100`.
+
+## Using an Animation Function
+
+To animate smoothly, import and use the `withSpring` function. Wrap it around the new width value to create a spring animation:
+
+```typescript
+import { Button, View } from 'react-native';
+import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
+
+export default function App() {
+  const width = useSharedValue(100);
+
+  const handlePress = () => {
+    width.value = withSpring(width.value + 50);
+  };
+
+  return (
+    <View style={{ flex: 1, alignItems: 'center' }}>
+      <Animated.View
+        style={{
+          width,
+          height: 100,
+          backgroundColor: 'violet',
+        }}
+      />
+      <Button onPress={handlePress} title="Click me" />
+    </View>
+  );
+}
+```
+
+This creates a bouncy spring animation for the element's width.
+
+## Summary
+
+In this section, you learned about:
+
+- `Animated` components to define animatable elements.
+- Shared values as the driving factor of animations using `useSharedValue`.
+- Accessing and modifying shared values via their `.value` property (e.g., `sv.value = 100;`).
+- Creating smooth animations by modifying shared values with functions like `withSpring`.
+
+## What's Next?
+
+In the next section, you'll explore animating styles and props using `useAnimatedStyle` and `useAnimatedProps` hooks.

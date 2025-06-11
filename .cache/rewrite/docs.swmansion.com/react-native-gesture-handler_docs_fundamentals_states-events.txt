@@ -1,0 +1,66 @@
+# Gesture States and Events
+
+Each gesture can be conceptualized as a "state machine." At any given moment, each handler instance is assigned a state that may change due to new touch events or specific conditions imposed by the touch system.
+
+A gesture can exist in one of six possible states:
+
+- **UNDETERMINED**
+  - This is the initial and default state for every gesture recognizer. After recognizing a gesture, it reverts to this state.
+
+- **FAILED**
+  - Occurs when a gesture recognizer receives touches but fails to recognize them due to certain conditions (e.g., exceeding `maxDist`). The state resets to `UNDETERMINED` after failing.
+
+- **BEGAN**
+  - Indicates that the gesture recognizer has started receiving touch input but hasn't gathered enough data to either fail or activate fully.
+
+- **CANCELLED**
+  - Triggered when a continuous gesture is interrupted by new touches or commands from the touch system controller. The state remains `CANCELLED` until it resets to `UNDETERMINED`.
+
+- **ACTIVE**
+  - Represents a recognized gesture that continues until completion (e.g., finger lift) or cancellation. Normally transitions to `END`, but if cancelled, moves to `CANCELLED`.
+
+- **END**
+  - Signifies the end of touch input for a gesture. The state becomes `END` and remains so until it resets to `UNDETERMINED`.
+
+## State Flows
+
+Typically, a gesture progresses from an initial touch event through recognition and acknowledgment of its conclusion before resetting to the initial state.
+
+## Events
+
+RNGH2 defines three types of events: `StateChangeEvent`, `GestureEvent`, and `PointerEvent`. 
+
+- **`StateChangeEvent`**: Triggered whenever a gesture transitions between states, carrying both current and previous state information.
+  
+- **`GestureEvent`**: Occurs with each update to a gesture, including the current state.
+
+- **`PointerEvent`**: Provides raw touch event data (e.g., screen touches or finger movements) handled internally before reaching callbacks.
+
+### Event Callbacks
+
+- **`onBegin`**
+  - Invoked when transitioning to the `BEGAN` state.
+
+- **`onStart`**
+  - Triggered upon entering the `ACTIVE` state.
+
+- **`onEnd`**
+  - Called during transitions from `ACTIVE` to `END`, `FAILED`, or `CANCELLED`. The `success` argument is `true` for `END`, otherwise `false`.
+
+- **`onFinalize`**
+  - Executed when transitioning to `END`, `FAILED`, or `CANCELLED`. Similar to `onEnd`, with the `success` parameter indicating a successful transition. Follows `onEnd` if moving from `ACTIVE`.
+
+- **`onUpdate`**
+  - Triggered during updates while in the `ACTIVE` state.
+
+- **`onPointerDown`**
+  - Occurs when new pointers touch the screen, potentially involving multiple pointers due to event batching.
+
+- **`onPointerMove`**
+  - Activated when pointers move on the screen, possibly including data for multiple pointers.
+
+- **`onPointerUp`**
+  - Triggered when pointers are lifted from the screen, with potential information about multiple pointers.
+
+- **`onPointerCancelled`**
+  - Called when no further pointer information is available due to gesture completion or interruption. May involve multiple pointers due to event batching.

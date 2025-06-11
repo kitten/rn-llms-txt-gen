@@ -1,0 +1,57 @@
+# Systrace
+
+`Systrace` is a standard Android marker-based profiling tool included with the installation of the Android platform-tools package. It visualizes profiled code blocks, which are surrounded by start/end markers, in a colorful chart format. Both the Android SDK and React Native framework provide standard markers that can be visualized using `Systrace`.
+
+## Example
+
+`Systrace` enables marking JavaScript (JS) events with a tag and an integer value. Non-Timed JS events can be captured using EasyProfiler.
+
+## Reference
+
+## Methods
+
+### `isEnabled()`
+
+```typescript
+static isEnabled(): boolean;
+```
+
+### `beginEvent()`
+
+```typescript
+static beginEvent(eventName: string | (() => string), args?: EventArgs);
+```
+Use `beginEvent`/`endEvent` to start and end a profile within the same call stack frame.
+
+### `endEvent()`
+
+```typescript
+static endEvent(args?: EventArgs);
+```
+
+### `beginAsyncEvent()`
+
+```typescript
+static beginAsyncEvent(
+  eventName: string | (() => string),
+  args?: EventArgs,
+): number;
+```
+Use `beginAsyncEvent`/`endAsyncEvent` to start and then end a profile where the end can occur on another thread or outside of the current stack frame. The returned cookie variable should be used as input into the `endAsyncEvent` call.
+
+### `endAsyncEvent()`
+
+```typescript
+static endAsyncEvent(
+  eventName: EventName,
+  cookie: number,
+  args?: EventArgs,
+);
+```
+
+### `counterEvent()`
+
+```typescript
+static counterEvent(eventName: string | (() => string), value: number);
+```
+Register the value to the profile name on the systrace timeline.

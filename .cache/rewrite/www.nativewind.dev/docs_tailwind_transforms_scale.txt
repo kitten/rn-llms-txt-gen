@@ -1,0 +1,16 @@
+# Scale
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support        |
+|---------------------|----------------|
+| `scale-{n}`         | ✅ Full Support |
+| `scale-[n]`         | ✅ Full Support |
+| `scale-x-{n}`       | ✅ Full Support |
+| `scale-x-[n]`       | ✅ Full Support |
+| `scale-y-{n}`       | ✅ Full Support |
+| `scale-y-[n]`       | ✅ Full Support |

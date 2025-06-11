@@ -1,0 +1,84 @@
+# ActionSheetIOS
+
+Displays native to iOS Action Sheet component.
+
+## Example
+
+## Reference
+
+## Methods
+
+### `showActionSheetWithOptions()`
+
+```typescript
+static showActionSheetWithOptions: (
+  options: ActionSheetIOSOptions,
+  callback: (buttonIndex: number) => void,
+);
+```
+
+Display an iOS action sheet. The `options` object must contain one or more of:
+
+- `options`: Array of strings - a list of button titles (required)
+- `cancelButtonIndex`: Integer - index of cancel button in `options`
+- `cancelButtonTintColor`: String - the color used for changing the text color of the cancel button
+- `destructiveButtonIndex`: Integer or array of integers - indices of destructive buttons in `options`
+- `title`: String - a title to show above the action sheet
+- `message`: String - a message to show below the title
+- `anchor`: Number - the node to which the action sheet should be anchored (used for iPad)
+- `tintColor`: String - the color used for non-destructive button titles
+- `disabledButtonIndices`: Array of numbers - a list of button indices which should be disabled
+- `userInterfaceStyle`: String - the interface style used for the action sheet, can be set to `light` or `dark`, otherwise the default system style will be used
+
+The 'callback' function takes one parameter, the zero-based index of the selected item.
+
+Minimal example:
+
+```typescript
+ActionSheetIOS.showActionSheetWithOptions(
+  {
+    options: ['Cancel', 'Remove'],
+    destructiveButtonIndex: 1,
+    cancelButtonIndex: 0,
+  },
+  buttonIndex => {
+    if (buttonIndex === 1) {
+      /* destructive action */
+    }
+  },
+);
+```
+
+### `dismissActionSheet()`
+
+```typescript
+static dismissActionSheet();
+```
+
+Dismisses the most upper iOS action sheet presented. If no action sheet is present, a warning is displayed.
+
+### `showShareActionSheetWithOptions()`
+
+```typescript
+static showShareActionSheetWithOptions: (
+  options: ShareActionSheetIOSOptions,
+  failureCallback: (error: Error) => void,
+  successCallback: (success: boolean, method: string) => void,
+);
+```
+
+Display the iOS share sheet. The `options` object should contain one or both of `message` and `url`, and can additionally have a `subject` or `excludedActivityTypes`:
+
+- `url`: String - a URL to share
+- `message`: String - a message to share
+- `subject`: String - a subject for the message
+- `excludedActivityTypes`: Array - the activities to exclude from the ActionSheet
+
+> **Note:** If `url` points to a local file, or is a base64-encoded URI, the file it points to will be loaded and shared directly. In this way, you can share images, videos, PDF files, etc. If `url` points to a remote file or address, it must conform to URL format as described in RFC 2396. For example, a web URL without a proper protocol (HTTP/HTTPS) will not be shared.
+
+The 'failureCallback' function takes one parameter, an error object. The only property defined on this object is an optional `stack` property of type `string`.
+
+The 'successCallback' function takes two parameters:
+
+- A boolean value signifying success or failure
+- A string that, in the case of success, indicates the method of sharing

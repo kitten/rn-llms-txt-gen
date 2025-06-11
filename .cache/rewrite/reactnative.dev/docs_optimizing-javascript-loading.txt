@@ -1,0 +1,206 @@
+# Optimizing JavaScript Loading
+
+Parsing and executing JavaScript code requires both memory and time. As applications grow, it becomes beneficial to delay loading code until it's needed for the first time. React Native includes standard optimizations by default, but additional techniques can further enhance app efficiency. For very large apps, advanced automatic optimizations are available, though they come with tradeoffs.
+
+## Recommended: Use Hermes
+
+Hermes is the default engine for new React Native applications and is optimized for efficient code loading. In release builds, JavaScript code is precompiled to bytecode ahead of time. This bytecode is loaded into memory on-demand, eliminating the need for parsing plain JavaScript.
+
+**Info:** Learn more about using Hermes in React Native [here](#).
+
+## Recommended: Lazy-load Large Components
+
+If a component with substantial code or dependencies isn't needed during initial app rendering, use React's `lazy` API to defer its loading until it is rendered for the first time. Typically, consider lazy-loading screen-level components to prevent new screens from increasing startup time.
+
+**Info:** 
+
+### Tip: Avoid Module Side Effects
+
+Lazy-loading can alter app behavior if component modules or their dependencies have side effects, such as modifying global variables or subscribing to external events. Most React app modules should be free of side effects.
+
+#### Example: SideEffects.tsx
+
+```tsx
+import Logger from './utils/Logger';
+
+// 🚩🚩🚩 Side effect! This must execute before React can render the SplashScreen component.
+global.logger = new Logger();
+
+export function SplashScreen() {
+  // ...
+}
+```
+
+## Advanced: Call `require` Inline
+
+To defer loading code without using `lazy` or asynchronous `import()`, use the `require()` function where you would typically use a static `import`.
+
+#### Example: VeryExpensive.tsx
+
+```tsx
+import { Component } from 'react';
+import { Text } from 'react-native';
+
+// ... import some very expensive modules
+
+export default function VeryExpensive() {
+  // ... lots and lots of rendering logic
+  return <Text>Very Expensive Component</Text>;
+}
+```
+
+#### Example: Optimized.tsx
+
+```tsx
+import { useCallback, useState } from 'react';
+import { TouchableOpacity, View, Text } from 'react-native';
+
+let VeryExpensive = null;
+
+export default function Optimize() {
+  const [needsExpensive, setNeedsExpensive] = useState(false);
+  
+  const didPress = useCallback(() => {
+    if (VeryExpensive == null) {
+      VeryExpensive = require('./VeryExpensive').default;
+    }
+    setNeedsExpensive(true);
+  }, []);
+
+  return (
+    <View style={{ marginTop: 20 }}>
+      <TouchableOpacity onPress={didPress}>
+        <Text>Load</Text>
+      </TouchableOpacity>
+      {needsExpensive ? <VeryExpensive /> : null}
+    </View>
+  );
+}
+```
+
+## Advanced: Automatically Inline `require` Calls
+
+When using the React Native CLI to build your app, `require` calls (but not `import`s) are automatically inlined for you and any third-party packages (`node_modules`) used.
+
+```tsx
+import { useCallback, useState } from 'react';
+import { TouchableOpacity, View, Text } from 'react-native';
+
+// This top-level require call will be evaluated lazily as part of the component below.
+const VeryExpensive = require('./VeryExpensive').default;
+
+export default function Optimize() {
+  const [needsExpensive, setNeedsExpensive] = useState(false);
+  
+  const didPress = useCallback(() => {
+    setNeedsExpensive(true);
+  }, []);
+
+  return (
+    <View style={{ marginTop: 20 }}>
+      <TouchableOpacity onPress={didPress}>
+        <Text>Load</Text>
+      </TouchableOpacity>
+      {needsExpensive ? <VeryExpensive /> : null}
+    </View>
+  );
+}
+```
+
+**Info:** Some React Native frameworks, like Expo projects, do not inline `require` calls by default. Enable this optimization in your project's Metro config by setting `inlineRequires: true` in `getTransformOptions`.
+
+### Pitfalls of Inline `require`s
+
+Inlining `require` calls alters the order in which modules are evaluated and can prevent some from being evaluated at all. This is generally safe as JavaScript modules are often side-effect-free.
+
+If a module has side effects, such as initializing logging or patching global APIs, unexpected behavior or crashes may occur. In these cases, exclude certain modules from this optimization or disable it entirely.
+
+To **disable automatic inlining of `require` calls**:
+
+Update your `metro.config.js` to set the `inlineRequires` transformer option to `false`:
+
+```js
+module.exports = {
+  transformer: {
+    async getTransformOptions() {
+      return {
+        transform: {
+          inlineRequires: false,
+        },
+      };
+    },
+  },
+};
+```
+
+To **exclude certain modules from `require` inlining**:
+
+Use the transformer options `inlineRequires.blockList` and `nonInlinedRequires`. See the code snippet for examples of how to use each one.
+
+```js
+module.exports = {
+  transformer: {
+    async getTransformOptions() {
+      return {
+        transform: {
+          inlineRequires: {
+            blockList: {
+              // require() calls in `DoNotInlineHere.js` will not be inlined.
+              [require.resolve('./src/DoNotInlineHere.js')]: true,
+              
+              // require() calls elsewhere will be inlined unless they match any entry nonInlinedRequires (see below).
+            },
+          },
+          nonInlinedRequires: [
+            // require('react') calls will not be inlined anywhere
+            'react',
+          ],
+        },
+      };
+    },
+  },
+};
+```
+
+See the documentation for `getTransformOptions` in Metro for more details on setting up and fine-tuning your inline `require`s.
+
+## Advanced: Use Random Access Module Bundles (Non-Hermes)
+
+**Not supported when using Hermes.** Hermes bytecode is incompatible with RAM bundle format, offering similar or better performance across all use cases.
+
+Random access module bundles (RAM bundles) work alongside the techniques mentioned above to limit JavaScript code parsing and memory loading. Each module is stored as a separate string or file, parsed only when needed for execution.
+
+RAM bundles may be physically split into files or use an indexed format with a lookup table of multiple modules in one file.
+
+### Android
+
+Enable RAM format by editing your `android/app/build.gradle` file. Before the line `apply from: "../../node_modules/react-native/react.gradle"`, add or amend the `project.ext.react` block:
+
+```gradle
+project.ext.react = [
+  bundleCommand: "ram-bundle",
+]
+```
+
+For a single indexed file on Android, use:
+
+```gradle
+project.ext.react = [
+  bundleCommand: "ram-bundle",
+  extraPackagerArgs: ["--indexed-ram-bundle"]
+]
+```
+
+### iOS
+
+RAM bundles are always indexed (single file) on iOS.
+
+Enable RAM format in Xcode by editing the build phase "Bundle React Native code and images". Before `../node_modules/react-native/scripts/react-native-xcode.sh`, add:
+
+```sh
+export BUNDLE_COMMAND="ram-bundle"
+export NODE_BINARY=node
+../node_modules/react-native/scripts/react-native-xcode.sh
+```
+
+See the documentation for `getTransformOptions` in Metro for more details on setting up and fine-tuning your RAM bundle build.

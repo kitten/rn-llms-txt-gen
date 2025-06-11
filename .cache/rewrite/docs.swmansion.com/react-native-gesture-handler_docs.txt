@@ -1,0 +1,56 @@
+# Introduction
+
+Gesture Handler offers a declarative API that taps into the native platform's touch and gesture systems, providing an alternative to React Native's built-in Gesture Responder System. By leveraging native touch handling, it addresses performance limitations inherent in the Gesture Responder System while offering enhanced control over native components capable of managing gestures independently. For further insights, consider watching a talk by Krzysztof Magiera that delves into issues with the responder system.
+
+The primary advantages of using React Native Gesture Handler include:
+
+- Utilizing the platform's native touch handling for gesture recognition (e.g., pinch, rotation, pan).
+- Defining relationships between gestures to prevent conflicts among gestures and native components.
+- Mechanisms for employing touchable components that operate on a native thread while adhering to default platform behaviors; for instance, delaying the pressed state in scrollable components to avoid highlighting during flinging.
+- Seamless integration with `react-native-reanimated` for processing touch events on the UI thread.
+- Support for various input devices such as touch screens, pens, and mice.
+- Capability to incorporate any native component into Gesture Handler's touch system, allowing it to function alongside custom gestures.
+
+**Info:** It is recommended to use Reanimated for implementing gesture-driven animations with Gesture Handler. Its advanced features heavily depend on worklets and the UI runtime provided by Reanimated.
+
+## Learning Resources
+
+### Apps
+
+- **Gesture Handler Example App**: The official showcase app for Gesture Handler.
+
+### Talks and Workshops
+
+- **Declarative Future of Gestures and Animations in React Native** by Krzysztof Magiera: This talk explains the motivation behind creating the gesture handler library, along with an introduction to react-native-reanimated and its use cases with Gesture Handler.
+  
+- **React Native Workshop with Expo Team @ReactEurope 2018** by Brent Vatne: A comprehensive workshop detailing Gesture Handler and offering exercises for beginners.
+
+- **Living in an Async World of React Native** by Krzysztof Magiera: This talk highlights issues with React Native's touch system that Gesture Handler aims to resolve, explaining the motivation behind its development.
+
+- **React Native Touch & Gesture** by Krzysztof Magiera: A presentation on the limitations of the JS responder system and core features of Gesture Handler.
+
+## Contributing
+
+If you're interested in contributing or supporting this project, feel free to reach out to any team member via Twitter or Bluesky (links below). All pull requests are welcome; however, please discuss with us before embarking on significant projects.
+
+To start contributing code:
+
+- Review open issues and tackle one that seems manageable.
+- Update documentation when you find information unclear, missing, or outdated.
+
+Contributions aren't limited to code. Consider responding to issues if you can offer assistance.
+
+## Community
+
+We are proud of the community built around this package and appreciate all forms of help, whether it's a pull request, issue report, comments on existing issues, or sharing demos and tutorials on social media. If you've created something with this library that you'd like to share, please contact us—we're eager to promote your work.
+
+### Gesture Handler Team 🚀
+
+- Jakub Piasecki
+- Michał Bert
+- Ignacy Łątka
+- Krzysztof Magiera
+
+### Sponsors
+
+We are grateful for our sponsors who enable the development of this library and contribute to enhancing the React Native ecosystem. Special thanks to all our supporters!

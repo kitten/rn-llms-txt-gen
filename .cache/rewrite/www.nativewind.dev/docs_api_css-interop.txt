@@ -1,0 +1,56 @@
+# CSS Interop
+
+The `cssInterop` function is designed to tag components so that when they are rendered, the runtime can resolve className strings into styles. This should be used in specific scenarios:
+
+- When dealing with a custom native component.
+- When using a third-party component that requires its style prop to be resolved.
+- When using a third-party component that does not pass all its props to its children.
+
+## Usage
+
+```typescript
+import { cssInterop } from 'nativewind';
+
+// Create a new prop and map it to an existing prop
+cssInterop(component, { "new-prop": "existing-prop" });
+
+// Override an existing prop.
+cssInterop(component, { "new-prop": true });
+
+// Override an existing prop with detailed configuration.
+cssInterop(component, {
+  "new-prop": {
+    target: "existing-prop", // string or boolean
+    nativeStyleToProp: {
+      "style-attribute": "existing-prop",
+    }
+  }
+});
+```
+
+## Examples
+
+Below is an example of mapping using the core component `<TextInput />`:
+
+```typescript
+cssInterop(TextInput, {
+  className: {
+    target: "style", // map className to style
+    nativeStyleToProp: {
+      textAlign: true, // extract `textAlign` styles and pass them to the `textAlign` prop
+    },
+  },
+  placeholderClassName: {
+    target: false, // Do not pass this as a prop
+    nativeStyleToProp: {
+      color: "placeholderTextColor", // extract `color` and pass it to the `placeholderTextColor` prop
+    },
+  },
+  selectionClassName: {
+    target: false, // Do not pass this as a prop
+    nativeStyleToProp: {
+      color: "selectionColor", // extract `color` and pass it to the `selectionColor` prop
+    },
+  },
+});
+```

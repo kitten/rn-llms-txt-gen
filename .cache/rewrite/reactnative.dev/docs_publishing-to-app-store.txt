@@ -1,0 +1,77 @@
+# Publishing Process for iOS Apps
+
+## Overview
+
+Publishing an iOS app involves a process similar to any native iOS application, with additional considerations specific to React Native apps using Expo.
+
+### Using Expo
+
+For those utilizing Expo, refer to the [Expo guide on Deploying to App Stores](https://docs.expo.dev/distribution/app-stores/) for instructions on building and submitting your app to the Apple App Store. This guide is applicable to any React Native application and helps automate the deployment process.
+
+## Steps to Publish
+
+### 1. Configure Release Scheme
+
+To prepare an app for distribution in the App Store, use the `Release` scheme in Xcode:
+
+- **Disable In-app Dev Menu**: Apps built with the `Release` scheme automatically disable the in-app development menu.
+- **Local JavaScript Bundling**: This allows testing on a device without needing to be connected to a computer.
+
+**Configuration Steps:**
+
+1. Navigate to **Product** → **Scheme** → **Edit Scheme**.
+2. Select the **Run** tab and set the Build Configuration dropdown to `Release`.
+
+#### Pro Tips
+
+- **Splash Screen Transition**: To prevent a blank screen flash between your splash screen and app view, add this code to `AppDelegate.m`:
+
+  ```objective-c
+  // Place this code after "[self.window makeKeyAndVisible]" and before "return YES;"
+  UIStoryboard *sb = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
+  UIViewController *vc = [sb instantiateInitialViewController];
+  rootView.loadingView = vc.view;
+  ```
+
+- **Optimize Debug Build Time**: Disable local JavaScript bundling in the Debug configuration by adding this to your Xcode Build Phase `Bundle React Native code and images`:
+
+  ```shell
+  if [ "${CONFIGURATION}" == "Debug" ]; then
+    export SKIP_BUNDLING=true
+  fi
+  ```
+
+### 2. Build App for Release
+
+Build your app for release using the following methods:
+
+- **Xcode**: Tap `Cmd ⌘ + B` or select **Product** → **Build**.
+- **React Native CLI**: Use `npm run ios -- --mode="Release"` or `yarn ios --mode Release`.
+
+Once built, you can distribute it to beta testers and submit it to the App Store.
+
+### 3. Archive and Distribute
+
+1. Open your terminal, navigate to the iOS folder of your app, and type `open .`.
+2. Double-click on YOUR_APP_NAME.xcworkspace to launch Xcode.
+3. Click **Product** → **Archive**, ensuring the device is set to "Any iOS Device (arm64)".
+
+#### Note
+
+Ensure that the Bundle Identifier matches exactly with what you have created in the Apple Developer Dashboard.
+
+4. After archiving, click on `Distribute App`.
+5. Select `App Store Connect` and then `Upload`, making sure all checkboxes are selected.
+6. Choose between **Automatically manage signing** or **Manually manage signing** based on your needs.
+7. Click `Upload`.
+
+Your app will now appear in App Store Connect under TestFlight.
+
+### 4. Submit for Review
+
+- Fill out the necessary information and select the build of the app in the Build Section.
+- Click on `Save` → `Submit For Review`.
+
+## Screenshots Requirement
+
+The Apple Store requires screenshots for the latest devices. Refer to the [Apple's device reference](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/) for guidance. Note that not all display sizes require separate screenshots if they are provided for other sizes.

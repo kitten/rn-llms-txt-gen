@@ -1,0 +1,24 @@
+# Will Change
+
+## Usage
+
+For usage instructions, please consult the Tailwind CSS documentation on their official website.
+
+## Compatibility
+
+| Class                         | Support     |
+| ----------------------------- | ----------- |
+| `will-change-auto`            | 🌐 Web only |
+| `will-change-scroll`          | 🌐 Web only |
+| `will-change-contents`        | 🌐 Web only |
+| `will-change-transform`       | 🌐 Web only |
+
+## Contributors
+
+We are seeking contributors for the following task:
+
+### Add `will-change-transform`
+
+In scenarios where a component includes transition or animation class names, it utilizes `react-native-reanimated`'s `Animated.createAnimatedComponent()` to enable animations. If these class names are conditional, this can lead to the component unmounting because Nativewind may conditionally render two distinct components.
+
+A suggested solution is to implement `will-change-transform`, ensuring that the component remains animated even when not strictly necessary.

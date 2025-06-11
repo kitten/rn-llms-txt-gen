@@ -1,0 +1,66 @@
+# LongPressGestureHandler
+
+> **Warning:**  
+> The old API will be deprecated in future versions of Gesture Handler. It is recommended to migrate to the gestures API. Refer to our upgrading guide for more information.
+
+The `LongPressGestureHandler` is a discrete gesture handler that activates when a view is pressed for a sufficient duration. Once the finger is released, the handler's state transitions to END immediately. The handler will not recognize a touch event if the finger is lifted before reaching the minimum required time or if it moves beyond an allowable distance.
+
+This handler utilizes `UILongPressGestureRecognizer` on iOS and `LongPressGestureHandler` on Android.
+
+## Properties
+
+The properties specific to the `LongPressGestureHandler` component are listed below. For additional inherited properties, refer to the base handler class documentation:
+
+### `minDurationMs`
+
+- **Description:** Minimum duration in milliseconds that a finger must remain pressed on the view.
+- **Default Value:** 500 ms.
+
+### `maxDist`
+
+- **Description:** Maximum allowable distance in points that defines how far the finger can travel during a long press gesture. If exceeded before activation, the gesture is not recognized.
+- **Default Value:** 10 points.
+
+## Event Data
+
+The event attributes specific to the `LongPressGestureHandler` component are detailed below. For more attributes from the base handler class, refer to its documentation:
+
+### `x`
+
+- **Description:** X coordinate in points of the current pointer position (finger or leading pointer) relative to the view attached to the handler.
+
+### `y`
+
+- **Description:** Y coordinate in points of the current pointer position (finger or leading pointer) relative to the view attached to the handler.
+
+### `absoluteX`
+
+- **Description:** X coordinate in points of the current pointer position (finger or leading pointer) relative to the window. Use `absoluteX` instead of `x` if the view can be transformed due to gestures.
+
+### `absoluteY`
+
+- **Description:** Y coordinate in points of the current pointer position (finger or leading pointer) relative to the window. Use `absoluteY` instead of `y` if the view can be transformed due to gestures.
+
+### `duration`
+
+- **Description:** Duration of the long press gesture, measured from the start of the event, expressed in milliseconds.
+
+## Example
+
+Below is an example demonstrating how to use the `LongPressGestureHandler`:
+
+```typescript
+const LongPressButton = () => (
+  <LongPressGestureHandler
+    onHandlerStateChange={({ nativeEvent }) => {
+      if (nativeEvent.state === State.ACTIVE) {
+        Alert.alert("I'm being pressed for so long");
+      }
+    }}
+    minDurationMs={800}>
+    <View style={styles.box} />
+  </LongPressGestureHandler>
+);
+```
+
+This example sets up a button that triggers an alert when held down for more than 800 milliseconds.

@@ -1,0 +1,108 @@
+# Debugging Worklets
+
+## Overview
+
+This document provides guidance on debugging Reanimated v2 worklets within React Native applications. Due to Reanimated's unique architecture and use of a secondary JavaScript runtime, traditional debugging methods may not function as expected. This article outlines compatible tools and their limitations.
+
+### React Native Debugging Tools
+
+The following tools have been evaluated for compatibility with React Native apps using the Reanimated library:
+
+- **Chrome Debugger (React Native Debugger):** Utilizes a web worker in your browser to execute app JavaScript code, supporting all available runtimes in React Native.
+  
+- **Chrome DevTools:** Connects to a remote JavaScript runtime, allowing code execution on the device. Note: Not compatible with JSC.
+
+- **Flipper (Hermes debugger):** Facilitates using Chrome DevTools and offers additional UI inspection tools. 
+
+- **Safari DevTools:** Available only for iOS devices running JSC, similar in functionality to Chrome DevTools by connecting to a remote runtime.
+
+- **React Developer Tools:** A standalone app for debugging UI through an inspector, monitoring performance, and profiling the application.
+
+### JS Context vs. UI Context
+
+Understanding the distinction between the JavaScript (JS) context and the User Interface (UI) context is crucial. Debugging the regular JS context remains unchanged with Reanimated; however, debugging the UI context specific to Reanimated can be challenging.
+
+### Debugging Web Apps
+
+For web applications, standard browser tools or any preferred debugging tools can be used without issues when employing Reanimated on the web.
+
+## Compatibility Summary
+
+| Tool | Platform | JSC | Hermes | V8 |
+|------|----------|-----|--------|----|
+| Chrome Debugger | Android | ⚛️ ✅¹ | ⚛️ ✅¹ | ⚛️ ✅¹ |
+|  | iOS | ⚛️ ✅¹ | ⚛️ ✅¹ | N/A |
+| Chrome DevTools | Android | N/A | ⚛️ ✅² | ⚛️ |
+|  | iOS | N/A | ⚛️ ✅² | N/A |
+| Flipper (Hermes debugger) | Android | N/A | ⚛️ ✅² | ⚛️ |
+|  | iOS | N/A | ⚛️ ✅² | N/A |
+| Safari DevTools | Android | N/A | N/A | N/A |
+|  | iOS | ⚛️ ✅ | N/A | N/A |
+| React Developer Tools | Android | ⚛️ | ⚛️ | ⚛️ |
+|  | iOS | ⚛️ | ⚛️ | N/A |
+
+¹ - Functions use web implementations, running worklets on the JS thread. Measure and Layout Animations are unavailable.
+² - Experimental feature.
+
+### Legend
+
+- ⚛️ ✅: Special features for React Native apps using Reanimated
+- ⚛️: Standard functionality with no worklet debugging available
+- N/A: Not applicable in React Native apps
+
+**Note:** Console logs will always appear in the primary JS runtime as `console.log` on the UI runtime is a wrapper around the JS runtime's function.
+
+## Tool-Specific Details
+
+### Chrome Debugger
+
+| Platform | JSC | Hermes | V8 |
+|----------|-----|--------|----|
+| Android  | ⚛️ ✅ | ⚛️ ✅ | ⚛️ ✅ |
+| iOS      | ⚛️ ✅ | ⚛️ ✅ | N/A |
+
+**Summary:** Functions use web implementations, running on the JS thread. Measure and Layout Animations are unavailable.
+
+### Chrome DevTools
+
+| Platform | JSC | Hermes | V8 |
+|----------|-----|--------|----|
+| Android  | N/A | ⚛️ ✅² | ⚛️ |
+| iOS      | N/A | ⚛️ ✅² | N/A |
+
+**Summary:** Both contexts can be debugged. This is an experimental feature.
+
+### Flipper (Hermes Debugger)
+
+| Platform | JSC | Hermes | V8 |
+|----------|-----|--------|----|
+| Android  | N/A | ⚛️ ✅² | ⚛️ |
+| iOS      | N/A | ⚛️ ✅² | N/A |
+
+**Summary:** Both contexts can be debugged. This is an experimental feature.
+
+### Safari DevTools
+
+| Platform | JSC | Hermes | V8 |
+|----------|-----|--------|----|
+| Android  | N/A | N/A    | N/A |
+| iOS      | ⚛️ ✅ | N/A    | N/A |
+
+**Summary:** Available only on iOS devices with the JSC engine. Worklet debugging is supported.
+
+### React Developer Tools
+
+| Platform | JSC | Hermes | V8 |
+|----------|-----|--------|----|
+| Android  | ⚛️ | ⚛️ | ⚛️ |
+| iOS      | ⚛️ | ⚛️ | N/A |
+
+**Summary:** Functions as expected, with profiler and layout inspector available.
+
+### Additional Notes
+
+- **Console Logs:** Always appear in the primary JS runtime.
+  
+- **Known Issues:** Include reload failures, breakpoint issues on iOS, unresponsive consoles without animations, and more. These do not affect release builds or debug builds where the debugger is disconnected during a reload.
+
+*Efforts are ongoing to enhance debugging experiences with Chrome DevTools and Flipper on Hermes.*

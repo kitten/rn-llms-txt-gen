@@ -1,0 +1,69 @@
+# TouchableHighlight Component
+
+> For a more robust and future-proof approach to handling touch-based input, consider using the Pressable API.
+
+TouchableHighlight is designed to make views respond appropriately to touch interactions. When pressed, it reduces the opacity of the wrapped view, allowing an underlay color to become visible, which can darken or tint the view.
+
+The underlay effect is achieved by wrapping the child component in a new View. This can impact layout and may introduce visual artifacts if not used correctly, such as when the `backgroundColor` of the wrapped view isn't set to an opaque color explicitly.
+
+TouchableHighlight requires exactly one child element. If multiple child components are needed, they should be enclosed within a single View.
+
+### Example Usage
+
+```typescript
+function MyComponent(props: MyComponentProps) {
+  return (
+    <View {...props} style={{flex: 1, backgroundColor: '#fff'}}>
+      <Text>My Component</Text>
+    </View>
+  );
+}
+
+<TouchableHighlight
+  activeOpacity={0.6}
+  underlayColor="#DDDDDD"
+  onPress={() => alert('Pressed!')}>
+  <MyComponent />
+</TouchableHighlight>;
+```
+
+## Reference
+
+### Props
+
+#### Inherited from TouchableWithoutFeedback
+
+- Inherits all props from `TouchableWithoutFeedback`.
+
+#### Specific to TouchableHighlight
+
+| Prop Name            | Description                                                                                   | Type    |
+|----------------------|-----------------------------------------------------------------------------------------------|---------|
+| `activeOpacity`      | Sets the opacity of the wrapped view during touch interaction. Must be between 0 and 1. Defaults to 0.85. Requires `underlayColor`. | number  |
+| `onHideUnderlay`     | Called immediately after the underlay is hidden.                                               | function|
+| `onShowUnderlay`     | Called immediately after the underlay is shown.                                                | function|
+| `style`              | Style properties for the view.                                                                | View.style |
+| `underlayColor`      | The color of the underlay that appears when touch is active.                                  | color   |
+
+#### iOS Specific Props
+
+- **hasTVPreferredFocus**: *(Apple TV only)* Indicates TV preferred focus (refer to the View component documentation).  
+  - Type: bool
+
+#### Android Specific Props
+
+- **nextFocusDown**: TV next focus down (see View component documentation).  
+  - Type: number
+- **nextFocusForward**: TV next focus forward (see View component documentation).  
+  - Type: number
+- **nextFocusLeft**: TV next focus left (see View component documentation).  
+  - Type: number
+- **nextFocusRight**: TV next focus right (see View component documentation).  
+  - Type: number
+- **nextFocusUp**: TV next focus up (see View component documentation).  
+  - Type: number
+
+#### Testing Prop
+
+- **testOnly_pressed**: Useful for snapshot tests.  
+  - Type: bool

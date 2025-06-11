@@ -1,0 +1,205 @@
+# Working with Third-Party Components in Nativewind
+
+A third-party component is a dependency of your application that isn't part of the core React Native components. Nativewind operates by passing the `className` prop to these core components, but it's not always clear if third-party components support this behavior without examining their source code.
+
+## Example: Prop Handling in Third-Party Components
+
+Consider the following example where a third-party component does not pass down the `className` prop:
+
+```typescript
+// ❌ This component will not work with Nativewind
+function ThirdPartyComponent({ style }) {
+  return <View style={style} />;
+}
+
+// ✅ This component will work with Nativewind
+function ThirdPartyComponent({ style, ...props }) {
+  return <View style={style} {...props} />;
+}
+```
+
+### Improving Prop Handling
+
+If a third-party component restricts its props, consider submitting a pull request to modify it so that all props are passed down. This is beneficial not only for Nativewind but also for utilizing new React Native APIs.
+
+```typescript
+function ThirdPartyComponent({ style }) {
+  return <View style={style} />;
+}
+
+// New API usage example: aria-label added in version 0.71
+<ThirdPartyComponent aria-label="My Label" />;
+```
+
+## Handling Components with Multiple Style Props
+
+Some components accept multiple style-related props, such as React Native's `<FlatList />`, which has both `style` and `contentContainerStyle`. Use the `remapProps` function to map these styles for Nativewind compatibility.
+
+```typescript
+function ThirdPartyComponent({ style, contentContainerStyle, ...props }) {
+  return (
+    <FlatList
+      style={style}
+      contentContainerStyle={contentContainerStyle}
+      {...props}
+    />
+  );
+}
+
+// Initialize remapProps at the app's entry point
+remapProps(ThirdPartyComponent, {
+  className: "style",
+  contentContainerClassName: "contentContainerStyle",
+});
+
+<ThirdPartyComponent className="p-5" contentContainerClassName="p-2" />;
+```
+
+Nativewind's style objects are more complex than those created with `StyleSheet.create`. To avoid breaking third-party components, `remapProps` passes a special object to the target prop, appearing as an empty object.
+
+## Handling Components with Style Attribute Props
+
+Some components require styles to be passed directly as props. For instance, React Native's `<StatusBar />` component uses a `backgroundColor` prop.
+
+```typescript
+function ThirdPartyComponent({ borderColor, style, ...props }) {
+  const backgroundColor = style.color === "white" ? "black" : "white";
+  return (
+    <View
+      style={{
+        ...style,
+        borderColor,
+        backgroundColor,
+      }}
+    />
+  );
+}
+```
+
+To support these components, use the `cssInterop` function. This acts as a marker for Nativewind to convert `className` props into style objects.
+
+**CAUTION:** Enabling `cssInterop` incurs a performance cost due to additional processing required by Nativewind.
+
+## Handling Multiple Props with Similar Properties
+
+When dealing with components that have multiple similar properties, managing each prop individually can be cumbersome. Instead, use the dynamic mapping modifier for efficient management.
+
+```typescript
+function ThirdPartyComponent({ labelColor, inputColor, ...props }) {
+  return (
+    <>
+      <Text style={{ color: labelColor }}>Label</Text>
+      <TextInput style={{ color: labelColor }} />
+    </>
+  );
+}
+
+// Possible but cumbersome approach
+cssInterop(ThirdPartyComponent, {
+  labelColorClassName: {
+    target: false,
+    nativeStyleToProps: { color: 'labelColor' }
+  },
+  inputColorClassName: {
+    target: false,
+    nativeStyleToProps: { color: 'inputColor' }
+  }
+});
+
+function Wrapper() {
+  const labelStyle = cva('color-black');
+  const inputStyle = cva('color-black');
+
+  return (
+    <ThirdPartyComponent
+      labelColorClassName={labelStyle}
+      inputColorClassName={inputStyle}
+    />
+  );
+}
+
+// Efficient approach using dynamic mapping modifier
+cssInterop(ThirdPartyComponent, {
+  className: "style",
+});
+
+function Wrapper() {
+  const style = cva("{}-[inputColor]:color-black {}-[labelColor]:color-black");
+
+  return <ThirdPartyComponent className={style} />;
+}
+```
+
+## Dynamic Mapping Modifier
+
+The dynamic mapping modifier allows moving props between different properties. It is useful for managing multiple similar props or consolidating styles into a single prop.
+
+### Usage:
+
+- `{}-[<propName>]`: Moves the value to the specified `propName` prop.
+- `{}-[<propName>]:style-property`: Moves the `propName` prop to the specified `style-property`.
+
+Both `propName` and `style-property` can use dot notation for nested properties.
+
+```typescript
+// Example class
+{}-[screenOptions.tabBarTintColor]/color:color-red-500
+
+// Output
+{ screenOptions: { tabBarTintColor: 'color-red-500' } }
+```
+
+## TypeScript Integration
+
+Both `remapProps` and `cssInterop` return a typed version of your component. You can globally define types in a new declaration file.
+
+```typescript
+declare module "<3rd party package>" {
+  interface 3rdPartyComponentProps {
+    customClassName?: string;
+  }
+}
+```
+
+**Example:**
+
+Setting global types requires detailed TypeScript knowledge. Your interface must match the third-party declaration exactly, including `extends` and generics.
+
+For instance, Nativewind uses specific types for React Native's `<FlatList />`, which involves multiple interfaces across packages:
+
+```typescript
+import {
+  ScrollViewProps,
+  ScrollViewPropsAndroid,
+  ScrollViewPropsIOS,
+  Touchable,
+  VirtualizedListProps,
+} from "react-native";
+
+declare module "@react-native/virtualized-lists" {
+  export interface VirtualizedListWithoutRenderItemProps<ItemT>
+    extends ScrollViewProps {
+    ListFooterComponentClassName?: string;
+    ListHeaderComponentClassName?: string;
+  }
+}
+
+declare module "react-native" {
+  interface ScrollViewProps
+    extends ViewProps,
+      ScrollViewPropsIOS,
+      ScrollViewPropsAndroid,
+      Touchable {
+    contentContainerClassName?: string;
+    indicatorClassName?: string;
+  }
+
+  interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
+    columnWrapperClassName?: string;
+  }
+
+  interface ViewProps {
+    className?: string;
+  }
+}
+```

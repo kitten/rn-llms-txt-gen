@@ -1,0 +1,143 @@
+# Applying Modifiers in Reanimated
+
+Reanimated provides built-in modifiers for customizing animations: `withRepeat`, `withSequence`, and `withDelay`. This guide demonstrates how to use these modifiers by creating a shake animation.
+
+## Starting Point
+
+We'll create an animated box that shakes on button press after a delay. The setup involves using `useAnimatedStyle` and the `withTiming` function to move the box 40px to the right smoothly.
+
+```typescript
+export default function App() {
+  const offset = useSharedValue<number>(0);
+
+  const style = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }],
+  }));
+
+  const OFFSET = 40;
+
+  const handlePress = () => {
+    offset.value = withTiming(OFFSET);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Animated.View style={[styles.box, style]} />
+      <Button title="shake" onPress={handlePress} />
+    </View>
+  );
+}
+```
+
+## Repeating an Animation
+
+To create a shake effect, use the `withRepeat` modifier. This allows you to repeat an animation multiple times or indefinitely.
+
+```typescript
+import { withRepeat } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withRepeat(withTiming(50), 5);
+}
+```
+
+Pass a number for repetitions or a non-positive value for infinite repetition. Use `true` as the third argument to reverse the animation direction.
+
+Updated example:
+
+```typescript
+export default function App() {
+  const offset = useSharedValue<number>(0);
+
+  const style = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }],
+  }));
+
+  const OFFSET = 40;
+
+  const handlePress = () => {
+    offset.value = withRepeat(withTiming(OFFSET), 5, true);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Animated.View style={[styles.box, style]} />
+      <Button title="shake" onPress={handlePress} />
+    </View>
+  );
+}
+```
+
+## Running Animations in a Sequence
+
+To enhance the animation, use `withSequence` to chain animations. This modifier starts the next animation when the previous one ends.
+
+```typescript
+import { withSequence } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withSequence(withTiming(50), withTiming(0));
+}
+```
+
+Improved example:
+
+```typescript
+const TIME = 250;
+
+const handlePress = () => {
+  offset.value = withSequence(
+    // start from -OFFSET
+    withTiming(-OFFSET, { duration: TIME / 2 }),
+    // shake between -OFFSET and OFFSET 5 times
+    withRepeat(withTiming(OFFSET, { duration: TIME }), 5, true),
+    // go back to 0 at the end
+    withTiming(0, { duration: TIME / 2 })
+  );
+};
+```
+
+## Starting the Animation with Delay
+
+Add suspense by delaying the animation start using `withDelay`.
+
+```typescript
+import { withDelay } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withDelay(500, withTiming(0));
+}
+```
+
+Final example:
+
+```typescript
+const OFFSET = 40;
+const TIME = 250;
+const DELAY = 400;
+
+const handlePress = () => {
+  offset.value = withDelay(
+    DELAY,
+    withSequence(
+      // start from -OFFSET
+      withTiming(-OFFSET, { duration: TIME / 2 }),
+      // shake between -OFFSET and OFFSET 5 times
+      withRepeat(withTiming(OFFSET, { duration: TIME }), 5, true),
+      // go back to 0 at the end
+      withTiming(0, { duration: TIME / 2 })
+    )
+  );
+};
+```
+
+## Summary
+
+- **Modifiers**: `withRepeat`, `withSequence`, and `withDelay`.
+- **`withRepeat`**: Repeats an animation a specified number of times or indefinitely.
+- **`withSequence`**: Chains animations to run sequentially.
+- **`withDelay`**: Delays the start of an animation.
+
+## What's Next?
+
+Explore handling `Tap` and `Pan` gestures, and learn about the `withDecay` animation function.

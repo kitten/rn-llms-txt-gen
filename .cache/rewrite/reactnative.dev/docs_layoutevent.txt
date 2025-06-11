@@ -1,0 +1,69 @@
+# LayoutEvent Object Type
+
+The `LayoutEvent` object is provided in the callback following a layout change of a component, such as when using the `onLayout` event in a View component.
+
+## Example
+
+```typescript
+{
+    layout: {
+        width: 520,
+        height: 70.5,
+        x: 0,
+        y: 42.5
+    },
+    target: 1127
+}
+```
+
+## Keys and Values
+
+### `height`
+
+Represents the component's height after a layout change.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `width`
+
+Indicates the component's width following a layout change.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `x`
+
+Specifies the X coordinate of the component within its parent component.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `y`
+
+Denotes the Y coordinate of the component inside its parent component.
+
+| Type   | Optional |
+| ------ | -------- |
+| number | No       |
+
+### `target`
+
+Identifies the node ID of the element that receives the PressEvent. It can be a number, or it may be `null` or `undefined`.
+
+| Type                        | Optional |
+| --------------------------- | -------- |
+| number, `null`, `undefined` | No       |
+
+## Components Utilizing LayoutEvent
+
+- Image
+- Pressable
+- ScrollView
+- Text
+- TextInput
+- TouchableWithoutFeedback
+- View

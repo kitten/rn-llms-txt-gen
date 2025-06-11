@@ -1,0 +1,14 @@
+# Pointer Events
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                           | Support        |
+| ------------------------------- | -------------- |
+| `pointer-events-none`          | ✅ Full Support |
+| `pointer-events-auto`          | ✅ Full Support |
+| `pointer-events-box-none`      | 📱 Native only |
+| `pointer-events-box-only`      | 📱 Native only |

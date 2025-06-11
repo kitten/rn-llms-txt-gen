@@ -1,0 +1,21 @@
+# Space Between
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+**CAUTION:**  
+The `space-{n}` utility was temporarily removed in version 4. Instead, use `gap-*` utilities to add space between elements. It will be reintroduced once React Native supports `display: 'block'`.
+
+## Compatibility
+
+| Class                   | Support     |
+|-------------------------|-------------|
+| `space-{n}`             | 🌐 Web only |
+| `space-[n]`             | 🌐 Web only |
+| `space-x-{n}`           | 🌐 Web only |
+| `space-x-[n]`           | 🌐 Web only |
+| `space-y-{n}`           | 🌐 Web only |
+| `space-y-[n]`           | 🌐 Web only |
+| `space-x-reverse`       | 🌐 Web only |
+| `space-y-reverse`       | 🌐 Web only |

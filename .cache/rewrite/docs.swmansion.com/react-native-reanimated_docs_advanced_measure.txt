@@ -1,0 +1,92 @@
+# Measure Functionality in React Native Reanimated
+
+The `measure` function allows you to synchronously obtain the dimensions and position of a view on the screen, executed on the UI thread.
+
+## Reference
+
+```typescript
+import { measure } from 'react-native-reanimated';
+
+function App() {
+  const animatedRef = useAnimatedRef();
+
+  const handlePress = () => {
+    runOnUI(() => {
+      const measurement = measure(animatedRef);
+      if (measurement === null) {
+        return;
+      }
+      // Additional logic can be added here
+    })();
+  };
+
+  return <Animated.View ref={animatedRef} />;
+}
+```
+
+### Arguments
+
+- **`animatedRef`**: An animated reference linked to the component whose measurements are desired. This reference must be associated with either an Animated component or a React Native built-in component.
+
+### Returns
+
+The `measure` function returns an object containing:
+
+| Field   | Description                                                                 |
+|---------|-----------------------------------------------------------------------------|
+| `x`     | A number representing the X coordinate relative to the parent component.    |
+| `y`     | A number representing the Y coordinate relative to the parent component.    |
+| `width` | A number representing the width of the component.                           |
+| `height`| A number representing the height of the component.                          |
+| `pageX` | A number representing the X coordinate relative to the screen.              |
+| `pageY` | A number representing the Y coordinate relative to the screen.              |
+
+Alternatively, it returns `null` if the measurement could not be performed.
+
+## Remarks
+
+- **UI Thread Execution**: The `measure` function operates exclusively on the UI thread. When used within event handlers, it must be wrapped with the `runOnUI` function.
+  
+- **Use in `useAnimatedStyle`**: Since `useAnimatedStyle` is initially evaluated on the JavaScript thread before views are attached to the native side, a condition like the following should be included:
+
+  ```typescript
+  function App() {
+    const animatedStyles = useAnimatedStyle(() => {
+      if (_WORKLET) {
+        // Safely use measure here
+        const measurement = measure(animatedRef);
+      }
+    });
+  }
+  ```
+
+- **Consecutive Runs**: Subsequent executions of `useAnimatedStyle` occur on the UI thread.
+
+- **Alternative for Static Dimensions**: If only static dimensions are needed and measurements aren't used during animations, consider using the `onLayout` property instead.
+
+- **Null Check**: It's advisable to check if the measurement result is `null`, as it may happen when the reference hasn't yet attached to a view:
+
+  ```typescript
+  const animatedRef = useAnimatedRef();
+
+  const handlePress = () => {
+    runOnUI(() => {
+      const measurement = measure(animatedRef);
+
+      if (measurement === null) {
+        return;
+      }
+      // Additional logic can be added here
+    })();
+  };
+  ```
+
+- **Rendered Components Only**: `measure` is applicable only to rendered components. For example, measuring off-screen items in a `FlatList` will yield `null`.
+
+- **Debugger Compatibility**: The `measure` function isn't available with the Remote JS Debugger. It's recommended to use Chrome DevTools (`chrome://inspect`) for debugging React Native applications.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

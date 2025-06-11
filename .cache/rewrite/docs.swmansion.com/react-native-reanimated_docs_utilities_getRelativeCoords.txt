@@ -1,0 +1,52 @@
+# getRelativeCoords Functionality
+
+The `getRelativeCoords` function is used to determine the screen location relative to a specified view.
+
+## Reference Code
+
+```typescript
+import { getRelativeCoords } from 'react-native-reanimated';
+
+const Comp = () => {
+  const animatedRef = useAnimatedRef();
+  
+  const gestureHandler = useAnimatedGestureHandler({
+    onEnd: (event) => {
+      const coords = getRelativeCoords(
+        animatedRef,
+        event.absoluteX,
+        event.absoluteY
+      );
+    },
+  });
+
+  return (
+    <View ref={animatedRef}>
+      <PanGestureHandler onGestureEvent={gestureHandler}>
+        <Animated.View style={[styles.box]} />
+      </PanGestureHandler>
+    </View>
+  );
+};
+```
+
+## Arguments
+
+- **`animatedRef`**: This is the result of `useAnimatedRef`, which extends a standard React ref to deliver the view tag on the UI thread. It should be passed as a prop to the view relative to which coordinates are needed.
+
+- **`absoluteX`**: A number representing the absolute x-coordinate.
+
+- **`absoluteY`**: A number representing the absolute y-coordinate.
+
+## Returns
+
+An object containing:
+
+- `x`: The relative x-coordinate.
+- `y`: The relative y-coordinate.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

@@ -1,0 +1,5 @@
+```markdown
+# Handler State
+
+Gesture handlers are conceptualized as "state machines" according to the description provided in "About Gesture Handlers". This means they operate through a series of states, transitioning between them based on specific inputs or events.
+```

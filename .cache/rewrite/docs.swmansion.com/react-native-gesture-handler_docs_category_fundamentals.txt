@@ -1,0 +1,13 @@
+# Gesture Composition & Interactions
+
+In RNGH2, composing gestures has been simplified compared to previous versions. There is no longer a need to create a reference for each gesture that depends on another one. Instead, you can utilize the Race, Simultaneous, and Exclusive methods provided by the Gesture object.
+
+## Methods for Composing Gestures
+
+- **Race**: This method allows multiple gestures to compete against each other. The first gesture to complete will be recognized.
+  
+- **Simultaneous**: With this method, multiple gestures are required to occur at the same time in order to trigger an action.
+  
+- **Exclusive**: This method ensures that only one specific gesture can be recognized at a time, preventing overlap with others.
+
+These methods facilitate more intuitive and flexible gesture interactions within your application.

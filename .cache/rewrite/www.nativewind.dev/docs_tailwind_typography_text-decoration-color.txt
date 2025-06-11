@@ -1,0 +1,14 @@
+# Text Decoration Color
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                      | Support        |
+| -------------------------- | -------------- |
+| `decoration-{n}`           | ✅ Full Support |
+| `decoration-[n]`           | ✅ Full Support |
+| `decoration-inherit`       | 🌐 Web only    |
+| `decoration-current`       | 🌐 Web only    |

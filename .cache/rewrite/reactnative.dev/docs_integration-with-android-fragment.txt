@@ -1,0 +1,169 @@
+# Integration with Existing Apps
+
+This guide details how to integrate a full-screen React Native app into an existing Android app as an **Activity**. To use React Native components within **Fragments** in an existing app, additional setup is required.
+
+## 1. Add React Native to Your App
+
+Follow the guide for Integration with Existing Apps until the end to ensure your React Native app can run safely in a full-screen Activity.
+
+## 2. Add a FrameLayout for the React Native Fragment
+
+To integrate a React Native Fragment into an Activity, use a `FrameLayout`. This method is adaptable for other layouts like Bottom Sheets or Tab Layouts.
+
+Add a `<FrameLayout>` with an id, width, and height to your Activity's layout (e.g., `main_activity.xml` in the `res/layouts` folder). This layout will render your React Native Fragment.
+
+```xml
+<FrameLayout
+    android:id="@+id/react_native_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+```
+
+## 3. Implement `DefaultHardwareBackBtnHandler`
+
+Since the host activity is not a `ReactActivity`, implement the `DefaultHardwareBackBtnHandler` interface to handle back button press events, as required by React Native.
+
+Ensure your host activity implements this interface:
+
+### Java
+
+```java
+package <your-package-here>;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+
+public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity);
+
+        findViewById(R.id.sample_button).setOnClickListener(button -> {
+            // Handle button click
+        });
+    }
+
+    @Override
+    public void invokeDefaultOnBackPressed() {
+        super.onBackPressed();
+    }
+}
+```
+
+### Kotlin
+
+```kotlin
+package <your-package-here>
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
+
+class MainActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_activity)
+
+        findViewById<Button>(R.id.sample_button).setOnClickListener {
+            // Handle button click
+        }
+    }
+
+    override fun invokeDefaultOnBackPressed() {
+        super.onBackPressed()
+    }
+}
+```
+
+## 4. Add a React Native Fragment to the FrameLayout
+
+Update your Activity to add a React Native Fragment to the `FrameLayout`. Assume your Activity has a button with id `sample_button` that, when clicked, renders a React Native Fragment into the `FrameLayout`.
+
+### Java
+
+```java
+package <your-package-here>;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.facebook.react.ReactFragment;
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+
+public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity);
+
+        findViewById(R.id.sample_button).setOnClickListener(button -> {
+            Bundle launchOptions = new Bundle();
+            launchOptions.putString("message", "my value");
+
+            ReactFragment fragment = new ReactFragment.Builder()
+                    .setComponentName("HelloWorld")
+                    .setLaunchOptions(launchOptions)
+                    .build();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.react_native_fragment, fragment)
+                    .commit();
+        });
+    }
+
+    @Override
+    public void invokeDefaultOnBackPressed() {
+        super.onBackPressed();
+    }
+}
+```
+
+### Kotlin
+
+```kotlin
+package <your-package-here>
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.facebook.react.ReactFragment
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
+
+class MainActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_activity)
+
+        findViewById<Button>(R.id.sample_button).setOnClickListener {
+            val reactNativeFragment = ReactFragment.Builder()
+                .setComponentName("HelloWorld")
+                .setLaunchOptions(Bundle().apply { putString("message", "my value") })
+                .build()
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.react_native_fragment, reactNativeFragment)
+                .commit()
+        }
+    }
+
+    override fun invokeDefaultOnBackPressed() {
+        super.onBackPressed()
+    }
+}
+```
+
+### Explanation
+
+- Use `ReactFragment.Builder()` to create a new `ReactFragment`.
+- Add the Fragment to the `FrameLayout` using `supportFragmentManager`.
+- Customize the fragment creation with:
+  - `setComponentName`: Name of the component to render, specified in your `index.js` inside the `registerComponent` method.
+  - `setLaunchOptions`: Optional method to pass initial props to your component.
+
+## 5. Test Your Integration
+
+Run `yarn start` to launch the bundler and then run your Android app in Android Studio. The app should load JavaScript/TypeScript code from the development server and display it in your React Native Fragment within the Activity.

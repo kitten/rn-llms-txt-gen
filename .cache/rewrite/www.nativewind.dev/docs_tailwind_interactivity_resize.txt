@@ -1,0 +1,14 @@
+# Resize
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| `resize-none`       | 🌐 Web only |
+| `resize-y`          | 🌐 Web only |
+| `resize-x`          | 🌐 Web only |
+| `resize`            | 🌐 Web only |

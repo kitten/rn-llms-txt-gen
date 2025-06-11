@@ -1,0 +1,46 @@
+# Debugging Native Code
+
+## Projects with Native Code Only
+
+This section is relevant for projects that expose native code. If you are using the managed Expo workflow, refer to the prebuild guide for API usage.
+
+### Accessing Logs
+
+To view native logs for iOS or Android apps while they are running, use these terminal commands:
+
+- **Android:**
+  ```shell
+  npx react-native log-android
+  ```
+
+- **iOS:**
+  ```shell
+  npx react-native log-ios
+  ```
+
+Alternatively, you can access these logs through the following methods:
+- For iOS Simulator: Navigate to `Debug > Open System Log…`.
+- For Android devices or emulators: Run the command in a terminal:
+  ```shell
+  adb logcat "*:S" ReactNative:V ReactNativeJS:V
+  ```
+
+### Debugging in a Native IDE
+
+When working with native code, such as writing native modules, you can launch the app from Android Studio or Xcode to utilize native debugging features like setting breakpoints.
+
+You can also run your application using the React Native CLI and attach the native debugger of the IDE (Android Studio or Xcode) to the process.
+
+#### Android Studio
+
+To attach a debugger in Android Studio:
+1. Go to the "Run" option on the menu bar.
+2. Click on "Attach to Process..."
+3. Select the running React Native app from the list.
+
+#### Xcode
+
+To attach a debugger in Xcode:
+1. Click on "Debug" in the top menu bar.
+2. Select the "Attach to process" option.
+3. Choose your application from the list of "Likely Targets".

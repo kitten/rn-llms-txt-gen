@@ -1,0 +1,15 @@
+# Word Break
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                      | Support     |
+| -------------------------- | ----------- |
+| `break-normal`             | 🌐 Web only |
+| `word-break: normal`       | 🌐 Web only |
+| `break-words`              | 🌐 Web only |
+| `break-all`                | 🌐 Web only |
+| `break-keep`               | 🌐 Web only |

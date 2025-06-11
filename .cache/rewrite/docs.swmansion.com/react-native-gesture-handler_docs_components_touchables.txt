@@ -1,0 +1,48 @@
+# Touchables
+
+**Warning:**  
+Touchables will be deprecated in future versions of Gesture Handler. It is recommended to use `Pressable` instead.
+
+The Gesture Handler library offers an implementation of React Native's (RN) touchable components that are based on native buttons, avoiding reliance on the JavaScript responder system used by RN. This touchable implementation follows the same API and aims to be a direct replacement for the touchables available in React Native.
+
+React Native's touchables API includes:
+
+- Touchable Native Feedback
+- Touchable Highlight
+- Touchable Opacity
+- Touchable Without Feedback
+
+All major properties of these touchables (except `pressRetentionOffset`) have been adopted, ensuring similar behavior to RN's touchables.
+
+The motivation for using RNGH touchables as a replacement is to more closely follow native behavior by utilizing the platform's native touch system instead of relying on the JS responder system. These touchables and their feedback behaviors are deeply integrated with the native gesture ecosystem, allowing easy connection with other native components (e.g., `ScrollView`) and Gesture Handlers in a predictable manner that aligns with native apps' behavior.
+
+The intention was to make switching to these touchables as straightforward as possible. To use RNGH's touchables, you only need to change the library from which you import the touchable components.
+
+**Info:**  
+Gesture Handler's `TouchableOpacity` uses a native driver for animations by default. If this causes issues, you can set the `useNativeAnimations` prop to false.
+
+### Example:
+
+Replace imports like so:
+
+```typescript
+import {
+  TouchableNativeFeedback,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
+```
+
+with:
+
+```typescript
+import {
+  TouchableNativeFeedback,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
+```
+
+For a comparison of both touchable implementations, refer to our touchables example.

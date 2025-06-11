@@ -1,0 +1,12 @@
+# Text Indent
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| `indent-[n]`       | 🌐 Web only |
+| `indent-{n}`       | 🌐 Web only |

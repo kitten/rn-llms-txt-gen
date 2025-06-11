@@ -1,0 +1,134 @@
+# Networking
+
+Many mobile applications require loading resources from remote URLs. This can involve making POST requests to REST APIs or fetching static content from other servers.
+
+## Using Fetch
+
+React Native provides the Fetch API for networking needs, which is similar to `XMLHttpRequest` and other networking APIs. For more details, refer to MDN's guide on Using Fetch.
+
+### Making Requests
+
+To fetch content from a URL, pass it to the `fetch` function:
+
+```typescript
+fetch('https://mywebsite.com/mydata.json');
+```
+
+Fetch also accepts an optional second argument for customizing HTTP requests, such as specifying headers or making POST requests:
+
+```typescript
+fetch('https://mywebsite.com/endpoint/', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    firstParam: 'yourValue',
+    secondParam: 'yourOtherValue',
+  }),
+});
+```
+
+Refer to the Fetch Request documentation for a complete list of properties.
+
+### Handling Responses
+
+To handle responses, use asynchronous operations with Promises or `async`/`await`. Here's an example using Promises:
+
+```typescript
+const getMoviesFromApi = () => {
+  return fetch('https://reactnative.dev/movies.json')
+    .then(response => response.json())
+    .then(json => json.movies)
+    .catch(error => console.error(error));
+};
+```
+
+Alternatively, use `async`/`await` for a cleaner syntax:
+
+```typescript
+const getMoviesFromApiAsync = async () => {
+  try {
+    const response = await fetch('https://reactnative.dev/movies.json');
+    const json = await response.json();
+    return json.movies;
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+Always handle errors to avoid silent failures.
+
+> **Note:** iOS enforces App Transport Security (ATS) by default, requiring HTTPS connections. To fetch from a cleartext URL (`http`), add an ATS exception or disable ATS with justification. On Android, clear text traffic is blocked by default as of API Level 28, but this can be overridden in the app manifest.
+
+## Using Other Networking Libraries
+
+React Native includes the XMLHttpRequest API, allowing use of libraries like frisbee or axios, or direct usage:
+
+```typescript
+const request = new XMLHttpRequest();
+request.onreadystatechange = e => {
+  if (request.readyState !== 4) return;
+  if (request.status === 200) console.log('success', request.responseText);
+  else console.warn('error');
+};
+
+request.open('GET', 'https://mywebsite.com/endpoint/');
+request.send();
+```
+
+> Note: XMLHttpRequest's security model differs from web due to the absence of CORS in native apps.
+
+## WebSocket Support
+
+React Native supports WebSockets for full-duplex communication over a single TCP connection:
+
+```typescript
+const ws = new WebSocket('ws://host.com/path');
+
+ws.onopen = () => {
+  ws.send('something');
+};
+
+ws.onmessage = e => console.log(e.data);
+
+ws.onerror = e => console.log(e.message);
+
+ws.onclose = e => console.log(e.code, e.reason);
+```
+
+## Known Issues with `fetch` and Cookie-Based Authentication
+
+Certain options are not supported with `fetch`:
+
+- `redirect:manual`
+- `credentials:omit`
+
+Issues include:
+- Duplicate headers on Android result in only the latest being present.
+- Cookie-based authentication is unstable. See related issues for more details.
+- On iOS, redirects via a `302` may fail to set cookies properly, potentially causing infinite requests if due to an expired session.
+
+## Configuring NSURLSession on iOS
+
+Customize `NSURLSessionConfiguration` for network requests in React Native apps on iOS using `RCTSetCustomNSURLSessionConfigurationProvider`. This is useful for setting custom user agent strings or ephemeral configurations. Ensure the following import:
+
+```objective-c
+#import <React/RCTHTTPRequestHandler.h>
+```
+
+Call `RCTSetCustomNSURLSessionConfigurationProvider` early in the app lifecycle:
+
+```objective-c
+-(void)application:(__unused UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  RCTSetCustomNSURLSessionConfigurationProvider(^NSURLSessionConfiguration *{
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    // configure the session
+    return configuration;
+  });
+
+  _bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+}
+```

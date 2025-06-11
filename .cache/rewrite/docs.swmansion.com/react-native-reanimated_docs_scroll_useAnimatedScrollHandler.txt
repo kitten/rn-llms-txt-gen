@@ -1,0 +1,63 @@
+# useAnimatedScrollHandler
+
+The `useAnimatedScrollHandler` hook provides an event handler reference that can be utilized with React Native's scrollable components. This hook is part of the `react-native-reanimated` library.
+
+## Reference
+
+```typescript
+import { useAnimatedScrollHandler } from 'react-native-reanimated';
+
+function App() {
+  const offsetY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    offsetY.value = event.contentOffset.y;
+  });
+
+  // ...
+
+  return <Animated.ScrollView onScroll={scrollHandler} />;
+}
+```
+
+### Arguments
+
+#### `handlers`
+
+An object containing custom keys that correspond to native event names. Available keys include:
+
+- `onScroll`
+- `onBeginDrag`
+- `onEndDrag`
+- `onMomentumBegin`
+- `onMomentumEnd`
+
+Each key should map to an individual worklet function. These functions are triggered when the associated events occur on a connected Scrollable component.
+
+The event worklets receive two parameters:
+
+- `event`: An object containing information about the scroll. The structure of this payload varies based on the event type. Refer to React Native's ScrollView documentation for details.
+  
+- `context`: A plain JavaScript object used for storing state that persists between scroll events. This allows communication between multiple event handlers when provided as an object of worklets.
+
+#### `dependencies` (Optional)
+
+An optional array of dependencies, relevant only when using Reanimated without the Babel plugin on the Web.
+
+### Returns
+
+The hook returns a handler object suitable for integration with a scrollable container. The returned handler should be assigned to the `onScroll` parameter, regardless of whether it is configured to handle scroll, momentum, or drag events. For proper functionality, use containers wrapped with `Animated`, such as `Animated.ScrollView`.
+
+## Example
+
+## Remarks
+
+- The returned handler can be passed to multiple components. It will invoke for the specified events whenever any component dispatches them.
+- If a single worklet function of type `(event) => void` is provided instead of an object mapping functions to event keys, it is treated as a handler for the `onScroll` event.
+- Only the `onScroll` event is supported on Web.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

@@ -1,0 +1,31 @@
+# Introduction
+
+## Overview
+
+This guide covers how to integrate native platform features into your React Native application, which may not be directly accessible through React Native or third-party libraries. It also addresses the reuse of existing code written in Objective-C, Swift, Java, Kotlin, or C++ from within the JavaScript runtime.
+
+### Key Concepts
+
+- **Native Modules:** These are native libraries without a user interface (UI). They include functionalities like persistent storage, notifications, and network events, accessible as JavaScript functions and objects.
+  
+- **Native Components:** These refer to platform-specific views, widgets, and controllers that can be utilized in your application's JavaScript code through React components.
+
+> **Note:** Legacy Native Modules and Native Components are deprecated. However, they can still function with the New Architecture via interop layers. Consider:
+  - Using alternative libraries.
+  - Upgrading to newer library versions supporting the New Architecture.
+  - Porting these libraries to Turbo Native Modules or Fabric Native Components.
+
+## Sections
+
+1. **Native Modules**
+   - Android & iOS
+   - Cross-Platform with C++
+   - Advanced: Custom C++ Types
+
+2. **Fabric Native Components**
+   - Android & iOS
+
+---
+
+**Previous:** The Codegen CLI  
+**Next:** Android and iOS

@@ -1,0 +1,31 @@
+# Transform Origin
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| `origin-center`             | 🌐 Web only |
+| `origin-top`                | 🌐 Web only |
+| `origin-top-right`          | 🌐 Web only |
+| `origin-right`              | 🌐 Web only |
+| `origin-bottom-right`       | 🌐 Web only |
+| `origin-bottom`             | 🌐 Web only |
+| `origin-bottom-left`        | 🌐 Web only |
+| `origin-left`               | 🌐 Web only |
+| `origin-top-left`           | 🌐 Web only |
+
+## Contributors
+
+We are seeking contributors for the following areas:
+
+### feat: transform-origin
+
+Please support this React Native Pull Request.
+
+### originX / originY
+
+While `react-native-reanimated` supports `originX`/`originY`, we could incorporate these properties until React Native provides full support.

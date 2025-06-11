@@ -1,0 +1,12 @@
+# Background Clip
+
+The following table outlines various CSS classes related to background clipping, along with their support status:
+
+| Class                   | Support     |
+| ----------------------- | ----------- |
+| `bg-clip-border`        | 🌐 Web only |
+| `bg-clip-padding`       | 🌐 Web only |
+| `bg-clip-content`       | 🌐 Web only |
+| `bg-clip-text`          | 🌐 Web only |
+
+These classes are used to define how the background of an element is clipped, with support limited to web browsers.

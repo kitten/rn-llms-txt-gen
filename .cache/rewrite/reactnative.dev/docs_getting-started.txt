@@ -1,0 +1,45 @@
+# Introduction
+
+Welcome to your initial steps into React Native! If you're seeking instructions on getting started, they have been relocated to a dedicated section. Continue reading for an introduction covering documentation, Native Components, React, and more.
+
+React Native is utilized by a diverse group of individuals, ranging from seasoned iOS developers to those new to React, as well as newcomers to programming in their careers. These documents are crafted to cater to learners at all levels of experience and backgrounds.
+
+## How to Use These Docs
+
+You have the flexibility to read through these documents sequentially like a book or focus on specific sections that interest you. If you're already familiar with React, feel free to skip that section—or revisit it for a quick refresher.
+
+## Prerequisites
+
+To work effectively with React Native, an understanding of JavaScript fundamentals is essential. For those new to JavaScript or in need of a refresher, the Mozilla Developer Network offers comprehensive resources.
+
+> While we strive to assume no prior knowledge of React, Android, or iOS development, these areas are beneficial for aspiring React Native developers. Where appropriate, we have included links to additional resources and articles that delve deeper into these topics.
+
+## Interactive Examples
+
+This introduction allows you to begin immediately in your browser with interactive examples like the following:
+
+The above example is a Snack Player—a tool developed by Expo designed to embed and run React Native projects, showcasing their rendering on platforms such as Android and iOS. The code is live and editable, enabling direct interaction within your browser. Feel free to modify the "Try editing me!" text above to "Hello, world!"
+
+> Optionally, if you prefer setting up a local development environment, follow our guide for configuring it on your machine and integrate the code examples into your project. (Web developers might already have a local setup suitable for mobile browser testing!)
+
+## Developer Notes
+
+React Native attracts learners from various development backgrounds, including web, Android, and iOS technologies. We aim to address developers across these diverse fields. Occasionally, we provide platform-specific explanations as follows:
+
+- **Android**
+- **iOS**
+- **Web**
+
+> Android developers might recognize this concept.
+
+> iOS developers might recognize this concept.
+
+> Web developers might recognize this concept.
+
+## Formatting
+
+Menu paths are presented in bold and utilize carets for navigating submenus. Example: **Android Studio > Preferences**
+
+***
+
+With an understanding of how to navigate these guides, it's time to explore the foundation of React Native: Native Components.

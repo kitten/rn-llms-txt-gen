@@ -1,0 +1,247 @@
+# SectionList
+
+A performant interface for rendering sectioned lists with features such as:
+
+- Cross-platform compatibility.
+- Configurable viewability callbacks.
+- Support for list headers and footers.
+- Item and section separator support.
+- Heterogeneous data and item rendering.
+- Pull to Refresh functionality.
+- Scroll loading.
+
+For simpler interfaces without section support, consider using `<FlatList>`.
+
+## Example
+
+`<SectionList>` is a convenience wrapper around `<VirtualizedList>`, inheriting its props (and those of `<ScrollView>`) that aren't explicitly listed here. Note the following:
+
+* Internal state isn't preserved when content scrolls out of view. Ensure all data is captured in item data or external stores like Flux, Redux, or Relay.
+* As a `PureComponent`, it won't re-render if `props` remain shallow-equal. Pass everything your `renderItem` function depends on as props (e.g., `extraData`) that change after updates to ensure UI updates correctly.
+* Content is rendered asynchronously offscreen for memory constraints and smooth scrolling, which may result in blank content during fast scrolls. This tradeoff can be adjusted per application needs.
+* By default, the list uses a `key` prop on each item as the React key or allows a custom `keyExtractor`.
+
+## Reference
+
+### Props
+
+#### VirtualizedList Props
+
+Inherits props from `VirtualizedList`.
+
+#### Required: `renderItem`
+
+Default renderer for every item in every section. Can be overridden per-section. Should return a React element.
+
+| Type     |
+| -------- |
+| function |
+
+The render function receives an object with:
+
+- 'item' (object) - the item as specified in this section's `data` key.
+- 'index' (number) - Item's index within the section.
+- 'section' (object) - The full section object as specified in `sections`.
+- 'separators' (object) with:
+  - 'highlight' (function) - `() => void`
+  - 'unhighlight' (function) - `() => void`
+  - 'updateProps' (function) - `(select, newProps) => void` where:
+    - 'select' (enum) - possible values are 'leading', 'trailing'
+    - 'newProps' (object)
+
+#### Required: `sections`
+
+The data to render, similar to the `data` prop in `FlatList`.
+
+| Type              |
+| ----------------- |
+| array of Sections |
+
+#### `extraData`
+
+A marker property for re-rendering since it implements `PureComponent`. Use this if your `renderItem`, Header, Footer, etc., depend on anything outside the `data` prop. Treat it immutably.
+
+| Type |
+| ---- |
+| any  |
+
+#### `initialNumToRender`
+
+Number of items to render initially. Should fill the screen but not much more. These items won't be unmounted for improved scroll-to-top performance.
+
+| Type   | Default |
+| ------ | ------- |
+| number | `10`    |
+
+#### `inverted`
+
+Reverses the direction of scroll using scale transforms of -1.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | `false` |
+
+#### `ItemSeparatorComponent`
+
+Rendered between each item, excluding top and bottom. By default, provides `highlighted`, `section`, and `[leading/trailing][Item/Section]` props. `renderItem` offers `separators.highlight`/`unhighlight` to update the `highlighted` prop, with custom props via `separators.updateProps`. Can be a React Component or element.
+
+| Type                         |
+| ---------------------------- |
+| component, function, element |
+
+#### `keyExtractor`
+
+Extracts a unique key for an item at a specified index. Used for caching and tracking item re-ordering. Defaults to checking `item.key`, then `item.id`, and falls back to the index.
+
+| Type                                    |
+| --------------------------------------- |
+| (item: object, index: number) => string |
+
+#### `ListEmptyComponent`
+
+Rendered when the list is empty. Can be a React Component or element.
+
+| Type               |
+| ------------------ |
+| component, element |
+
+#### `ListFooterComponent`
+
+Rendered at the end of the list. Can be a React Component or element.
+
+| Type               |
+| ------------------ |
+| component, element |
+
+#### `ListHeaderComponent`
+
+Rendered at the beginning of the list. Can be a React Component or element.
+
+| Type               |
+| ------------------ |
+| component, element |
+
+#### `onRefresh`
+
+Adds "Pull to Refresh" functionality if provided. Ensure the `refreshing` prop is set correctly. Use `progressViewOffset={100}` to offset from the top.
+
+| Type     |
+| -------- |
+| function |
+
+#### `onViewableItemsChanged`
+
+Called when viewability of rows changes, as defined by the `viewabilityConfig` prop.
+
+| Type                                                                     |
+| ------------------------------------------------------------------------ |
+| `(callback: {changed: ViewToken[], viewableItems: ViewToken[]}) => void` |
+
+#### `refreshing`
+
+Set to true while waiting for new data from a refresh.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | `false` |
+
+#### `removeClippedSubviews`
+
+> Note: May have bugs (missing content) in some circumstances - use at your own risk.
+This may improve scroll performance for large lists.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | `false` |
+
+#### `renderSectionFooter`
+
+Rendered at the bottom of each section.
+
+| Type                                           |
+| ---------------------------------------------- |
+| `(info: {section: Section}) => element ｜ null` |
+
+#### `renderSectionHeader`
+
+Rendered at the top of each section. Sticks to the top by default on iOS unless `stickySectionHeadersEnabled` is set otherwise.
+
+| Type                                           |
+| ---------------------------------------------- |
+| `(info: {section: Section}) => element ｜ null` |
+
+#### `SectionSeparatorComponent`
+
+Rendered at the top and bottom of each section, different from `ItemSeparatorComponent`. Receives `highlighted`, `[leading/trailing][Item/Section]`, and custom props via `separators.updateProps`.
+
+| Type               |
+| ------------------ |
+| component, element |
+
+#### `stickySectionHeadersEnabled`
+
+Makes section headers stick to the top of the screen until pushed off by the next one. Enabled by default on iOS.
+
+| Type    | Default                    |
+| ------- | -------------------------- |
+| boolean | `false`Android***`true`iOS |
+
+## Methods
+
+### `flashScrollIndicators()` (iOS)
+
+```typescript
+flashScrollIndicators();
+```
+
+Displays scroll indicators momentarily.
+
+### `recordInteraction()`
+
+```typescript
+recordInteraction();
+```
+
+Informs the list of an interaction, triggering viewability calculations if `waitForInteractions` is true and the user hasn't scrolled. Typically called by taps on items or navigation actions.
+
+### `scrollToLocation()`
+
+```typescript
+scrollToLocation(params: SectionListScrollParams);
+```
+
+Scrolls to the item at the specified `sectionIndex` and `itemIndex`, positioning it in the viewable area based on `viewPosition`. Note: Cannot scroll outside the render window without `getItemLayout` or `onScrollToIndexFailed`.
+
+**Parameters:**
+
+| Name           | Type   |
+| -------------- | ------ |
+| paramsRequired | object |
+
+Valid `params` keys:
+
+- 'animated' (boolean) - Whether to animate while scrolling. Defaults to `true`.
+- 'itemIndex' (number) - Index within section for the item to scroll to. Required.
+- 'sectionIndex' (number) - Section index containing the item to scroll to. Required.
+- 'viewOffset' (number) - Fixed pixel offset for final target position, e.g., for sticky headers.
+- 'viewPosition' (number) - `0` places the item at the top, `1` at the bottom, and `0.5` centered.
+
+## Type Definitions
+
+### Section
+
+An object identifying data to be rendered for a given section.
+
+| Type |
+| ---- |
+| any  |
+
+**Properties:**
+
+| Name                   | Type               | Description                                                                                                                            |
+| ---------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| dataRequired           | array              | Data for rendering items in this section. Array of objects, similar to `FlatList`'s data prop.                                         |
+| key                    | string             | Optional key for tracking section re-ordering. Defaults to array index if not specified.                                               |
+| renderItem             | function           | Optionally define an arbitrary item renderer for this section, overriding the default `renderItem`.                                     |
+| ItemSeparatorComponent | component, element | Optionally define an arbitrary item separator for this section, overriding the default `ItemSeparatorComponent`.                        |
+| keyExtractor           | function           | Optionally define a custom key extractor for this section, overriding the default `keyExtractor`.                                       |

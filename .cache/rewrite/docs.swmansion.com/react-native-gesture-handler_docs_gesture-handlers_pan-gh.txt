@@ -1,0 +1,107 @@
+# PanGestureHandler
+
+> **Warning:** The old API will be removed in a future version of Gesture Handler. Please migrate to the gestures API instead. Refer to our upgrading guide for more information.
+
+The `PanGestureHandler` is a continuous gesture handler designed to recognize and track panning (dragging) gestures. It activates when a finger touches the screen and moves beyond an initial distance.
+
+## Custom Activation Criteria
+
+The `PanGestureHandler` component offers several properties to customize activation criteria:
+
+- **Multiple Properties:** When multiple properties are set, all must be met for successful recognition, and at least one can be exceeded to fail recognition.
+  - Example: Setting both `minDeltaX` and `minDeltaY` to 20 requires movement of 20 points in both axes. Conversely, setting `maxDeltaX`, `maxDeltaY` to 20, and `minDist` to 23 will cause failure if the finger moves 20 points along X-axis but not Y-axis.
+
+## Multi-Touch Pan Handling
+
+### Platform Differences:
+
+- **iOS:** Treats multiple fingers as a single pointer at their center of mass.
+- **Android:** Defaults to using the latest placed finger for translation properties, similar to native components like scroll views.
+
+### Customization:
+- On Android, use `avgTouches` to switch to iOS-like behavior (center of mass).
+
+Note: Translation properties remain unaffected by additional fingers unless tracking the "center of mass" is required. Use relative or absolute positions (`x`, `y`, `absoluteX`, `absoluteY`) for such cases.
+
+## Properties
+
+Inherits from base handler class with specific properties:
+
+- **`minDist`:** Minimum distance to activate (in points).
+- **`minPointers`:** Required number of fingers before activation.
+- **`maxPointers`:** Maximum number of fingers allowed; exceeding this fails recognition.
+- **`activeOffsetX/Y`:** Range along X or Y axis without activating the handler. Can be an array `[lower, upper]` or a single value `p`.
+- **`failOffsetX/Y`:** Range beyond which gesture recognition fails if not yet activated.
+- **Deprecated Methods:**
+  - Use `failOffsetX={[-N, N]}` instead of `maxDeltaX={N}`.
+  - Use `failOffsetY={[-N, N]}` instead of `maxDeltaY={N}`.
+
+## Event Data
+
+Includes attributes specific to `PanGestureHandler`:
+
+- **`translationX/Y`:** Accumulated translation along X or Y axis (in points).
+- **`velocityX/Y`:** Current velocity along X or Y axis (points per second).
+- **`x/y`:** Relative position of the pointer to the view.
+- **`absoluteX/Y`:** Position relative to the window, recommended for transformed views.
+
+## Example
+
+```typescript
+import React, { Component } from 'react';
+import { Animated, Dimensions } from 'react-native';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
+
+const { width } = Dimensions.get('screen');
+const circleRadius = 30;
+
+class Circle extends Component {
+  _touchX = new Animated.Value(width / 2 - circleRadius);
+
+  _onPanGestureEvent = Animated.event([{ nativeEvent: { x: this._touchX } }], {
+    useNativeDriver: true,
+  });
+
+  render() {
+    return (
+      <GestureHandlerRootView>
+        <PanGestureHandler onGestureEvent={this._onPanGestureEvent}>
+          <Animated.View
+            style={{
+              height: 150,
+              justifyContent: 'center',
+            }}>
+            <Animated.View
+              style={[
+                {
+                  backgroundColor: '#42a5f5',
+                  borderRadius: circleRadius,
+                  height: circleRadius * 2,
+                  width: circleRadius * 2,
+                },
+                {
+                  transform: [
+                    {
+                      translateX: Animated.add(
+                        this._touchX,
+                        new Animated.Value(-circleRadius)
+                      ),
+                    },
+                  ],
+                },
+              ]}
+            />
+          </Animated.View>
+        </PanGestureHandler>
+      </GestureHandlerRootView>
+    );
+  }
+}
+
+export default function App() {
+  return <Circle />;
+}
+```

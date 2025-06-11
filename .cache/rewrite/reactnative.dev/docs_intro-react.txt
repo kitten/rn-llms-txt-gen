@@ -1,0 +1,173 @@
+# React Fundamentals
+
+React Native is built upon React, a widely-used open-source library for creating user interfaces with JavaScript. Understanding React can enhance your experience with React Native. This section introduces the fundamental concepts of React:
+
+- Components
+- JSX
+- Props
+- State
+
+For more in-depth knowledge, consider exploring React’s official documentation.
+
+## Your First Component
+
+This introduction to React uses cats as examples: friendly creatures that need names and a cafe to work in. Here's how you create your first `Cat` component:
+
+Start by importing React and the `Text` Core Component from React Native using JavaScript’s `import` statement:
+
+```typescript
+import React from 'react';
+import { Text } from 'react-native';
+```
+
+Define your `Cat` component as a function:
+
+```typescript
+const Cat = () => {};
+```
+
+Components act like blueprints, and what a function component returns is rendered as a **React element**. These elements describe the desired screen output.
+
+The `Cat` component will render a `<Text>` element:
+
+```typescript
+const Cat = () => {
+  return <Text>Hello, I am your cat!</Text>;
+};
+```
+
+Export your function component using JavaScript’s `export default` for use throughout your app:
+
+```typescript
+const Cat = () => {
+  return <Text>Hello, I am your cat!</Text>;
+};
+
+export default Cat;
+```
+
+> This is one of several ways to export a component. Depending on your app's file structure, you might need a different convention. A cheatsheet on JavaScript imports and exports can be helpful.
+
+The `return` statement uses JSX syntax: `<Text>Hello, I am your cat!</Text>`.
+
+## JSX
+
+React and React Native utilize **JSX**, allowing elements to be written inside JavaScript like so: `<Text>Hello, I am your cat!</Text>`. The React docs provide a comprehensive guide on JSX. Since JSX is JavaScript, variables can be embedded within it using curly braces `{}`.
+
+Any JavaScript expression works between curly braces, including function calls like `{getFullName("Rum", "Tum", "Tugger")}`:
+
+- TypeScript
+- JavaScript
+
+Curly braces act as portals into JS functionality in your JSX!
+
+> Ensure `import React from 'react'` is at the top of your file for JSX to work.
+
+## Custom Components
+
+React Native’s Core Components can be nested within each other to create new components. These nestable, reusable components are central to React's approach.
+
+For instance, you can nest `Text` and `TextInput` inside a `View`, and React Native will render them together:
+
+#### Developer Notes
+
+- Android
+- Web
+
+> If familiar with web development, `<View>` and `<Text>` might resemble HTML tags like `<div>` and `<p>`. On Android, views are typically placed within layouts such as `LinearLayout`, `FrameLayout`, or `RelativeLayout` to define children arrangement. React Native uses Flexbox for layout in `View`.
+
+Render the component multiple times using `<Cat>` without repeating code:
+
+Any component rendering other components is a **parent component**. Here, `Cafe` is the parent, and each `Cat` is a **child component**.
+
+You can customize each `<Cat>` with different props like `name`:
+
+- TypeScript
+- JavaScript
+
+Most React Native Core Components are customizable via props. For example, `Image` uses a `source` prop to define its displayed image.
+
+Props such as `style`, which accepts a JS object of design properties, allow customization:
+
+> Notice the double curly braces `{{ }}` around `style`'s width and height in JSX. Curly braces `{}` reference JavaScript values in JSX, useful for passing non-string props like arrays or numbers: `<Cat food={["fish", "kibble"]} age={2} />`. JS objects also use curly braces: `{width: 200, height: 200}`, so pass a JS object in JSX with another pair of curly braces: `{{width: 200, height: 200}}`.
+
+Props and Core Components like `Text`, `Image`, and `View` enable many customizations. For interactivity, state is necessary.
+
+## State
+
+While props configure component rendering, **state** serves as a component’s personal data storage, useful for handling dynamic or user-interactive data. State provides components with memory!
+
+> Generally, use props to configure a component during render and state to track data expected to change over time.
+
+Consider a cat cafe scenario where two hungry cats await feeding. Their hunger status, stored as state, changes over time (unlike their names). Feeding the cats involves pressing buttons that update their state.
+
+Add state using React’s `useState` Hook, which allows adding state to function components:
+
+- TypeScript
+- JavaScript
+
+Import `useState` from React:
+
+```typescript
+import React, { useState } from 'react';
+```
+
+Declare the component’s state by calling `useState` inside its function. Here, `useState` creates an `isHungry` state variable:
+
+```typescript
+const Cat = (props: CatProps) => {
+  const [isHungry, setIsHungry] = useState(true);
+  // ...
+};
+```
+
+> `useState` can track various data types: strings, numbers, Booleans, arrays, objects. For instance, track how many times a cat has been petted with `const [timesPetted, setTimesPetted] = useState(0)`!
+
+Calling `useState` does two things:
+
+- Creates a “state variable” with an initial value (e.g., `isHungry` initialized to `true`)
+- Provides a function to update that state variable (`setIsHungry`)
+
+The pattern is `[<getter>, <setter>] = useState(<initialValue>)`.
+
+Add the `Button` Core Component with an `onPress` prop:
+
+```typescript
+<Button
+  onPress={() => {
+    setIsHungry(false);
+  }}
+  //..
+/>
+```
+
+When pressed, `onPress` triggers `setIsHungry(false)`, updating `isHungry` to `false`. This change affects the `Button`’s `disabled` and `title` props:
+
+```typescript
+<Button
+  //..
+  disabled={!isHungry}
+  title={isHungry ? 'Give me some food, please!' : 'Thank you!'}
+/>
+```
+
+> Although `isHungry` is a const, it appears reassignable. When a state-setting function like `setIsHungry` is called, the component re-renders, and `useState` provides the updated value of `isHungry`.
+
+Finally, place your cats inside a `Cafe` component:
+
+```typescript
+const Cafe = () => {
+  return (
+    <>
+      <Cat name="Munkustrap" />
+      <Cat name="Spot" />
+    </>
+  );
+};
+```
+
+> The `<>` and `</>` are JSX fragments. Adjacent JSX elements must be wrapped in an enclosing tag, which fragments allow without adding unnecessary wrapping elements like `View`.
+
+***
+
+Having covered React and React Native’s Core Components, let's explore handling `<TextInput>` further.

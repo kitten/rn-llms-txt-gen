@@ -1,0 +1,151 @@
+# Animating Styles and Props
+
+In this section, we explore different methods for passing animation styles to components. We will differentiate between animating styles and props using `useAnimatedStyle` and `useAnimatedProps`.
+
+## Animating Styles
+
+Previously, we learned about simple animations and shared values. While inline styling works well in basic cases, it has limitations, such as not allowing access to the value stored in a shared value for complex operations.
+
+```typescript
+import Animated, { useSharedValue } from 'react-native-reanimated';
+
+function App() {
+  const width = useSharedValue(100);
+
+  return <Animated.View style={{ width }} />;
+}
+```
+
+For example, multiplying a shared value before assigning it to the `style` prop is not possible:
+
+```typescript
+<Animated.View style={{ width: width * 5 }} /> // This won't work
+```
+
+Consider an example where a box moves right on button press:
+
+```typescript
+import { View, Button } from 'react-native';
+import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
+
+function App() {
+  const translateX = useSharedValue(0);
+
+  const handlePress = () => {
+    translateX.value = withSpring(translateX.value + 50);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Animated.View style={[styles.box, { transform: [{ translateX }] }]} />
+      <Button onPress={handlePress} title="Click me" />
+    </View>
+  );
+}
+```
+
+To customize shared value changes based on user input, `useAnimatedStyle` is used for more control and flexibility:
+
+```typescript
+export default function App() {
+  const translateX = useSharedValue<number>(0);
+
+  const handlePress = () => {
+    translateX.value += 50;
+  };
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ translateX: withSpring(translateX.value * 2) }],
+  }));
+
+  return (
+    <>
+      <Animated.View style={[styles.box, animatedStyles]} />
+      <View style={styles.container}>
+        <Button onPress={handlePress} title="Click me" />
+      </View>
+    </>
+  );
+}
+```
+
+`useAnimatedStyle` allows access to the shared value's `.value`, enabling operations like multiplication before assigning it to `style`. It also centralizes animation logic.
+
+## Animating Props
+
+While many values are animated via the `style` property, sometimes props need animating. For example, SVG elements use props instead of styles:
+
+```typescript
+<Circle cx="50" cy="50" r="10" fill="blue" />
+```
+
+To animate non-Reanimated components' props, wrap them with `createAnimatedComponent`:
+
+```typescript
+import Animated from 'react-native-reanimated';
+import { Circle } from 'react-native-svg';
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+```
+
+Animating the radius of an SVG circle can be done by passing a shared value as a prop:
+
+```typescript
+import { useSharedValue } from 'react-native-reanimated';
+import { Svg } from 'react-native-svg';
+
+function App() {
+  const r = useSharedValue(10);
+
+  return (
+    <Svg>
+      <AnimatedCircle cx="50" cy="50" r={r} fill="blue" />
+    </Svg>
+  );
+}
+```
+
+For encapsulating animation logic and accessing `.value`, `useAnimatedProps` is used:
+
+```typescript
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
+export default function App() {
+  const r = useSharedValue<number>(20);
+
+  const handlePress = () => {
+    r.value += 10;
+  };
+
+  const animatedProps = useAnimatedProps(() => ({
+    r: withTiming(r.value),
+  }));
+
+  return (
+    <View style={styles.container}>
+      <Svg style={styles.svg}>
+        <AnimatedCircle
+          cx="50%"
+          cy="50%"
+          fill="#b58df1"
+          animatedProps={animatedProps}
+        />
+      </Svg>
+      <Button onPress={handlePress} title="Click me" />
+    </View>
+  );
+}
+```
+
+In `useAnimatedProps`, return an object with animatable props, then pass it to the `animatedProps` prop of an Animated component.
+
+## Summary
+
+- Inline styles are simple but limited for complex animations.
+- Props differ from styles as they aren't passed via the `style` object.
+- `useAnimatedStyle` and `useAnimatedProps` provide access to shared values' `.value`, enhancing animation control.
+- Custom animatable components can be created with `Animated.createAnimatedComponent`.
+
+## What's Next?
+
+In the next section, we'll delve into animation functions and customizing their behavior.

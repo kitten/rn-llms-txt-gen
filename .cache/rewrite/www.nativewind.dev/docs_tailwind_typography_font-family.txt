@@ -1,0 +1,42 @@
+# Font Family
+
+## Usage
+
+For guidance on using fonts, please consult the Tailwind CSS documentation. React Native handles font loading differently across iOS and Android platforms. To ensure consistent font usage across all platforms while utilizing Tailwind CSS effectively, it is recommended to follow the instructions provided at [react-native-font-demo](https://github.com/jsamr/react-native-font-demo).
+
+### Differences on Native
+
+React Native does not support fallback fonts. If an array of fonts is specified, Nativewind will only utilize the first font in the list.
+
+### Adding Fonts to Your Theme
+
+Nativewind does not automatically load or link fonts into your application. Should you encounter issues with font families or weights not displaying correctly, it's advisable to first confirm that they work as expected when applied using inline styles.
+
+```typescript
+import { platformSelect } from "nativewind/theme";
+
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        example: ["ExampleFontFamily"],
+        system: platformSelect({
+          ios: "Georgia",
+          android: "sans-serif",
+          default: "ui-sans-serif",
+        }),
+      },
+    },
+  },
+};
+```
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `font-sans`        | ✅ Full Support |
+| `font-serif`       | ✅ Full Support |
+| `font-mono`        | ✅ Full Support |
+| `font-[n]`         | ✅ Full Support |
+| `font-{n}`         | ✅ Full Support |

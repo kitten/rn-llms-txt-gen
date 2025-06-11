@@ -1,0 +1,14 @@
+# Translate
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                   | Support        |
+|-------------------------|----------------|
+| `translate-x-{n}`       | ✅ Full Support |
+| `translate-x-[n]`       | ✅ Full Support |
+| `translate-y-{n}`       | ✅ Full Support |
+| `translate-y-[n]`       | ✅ Full Support |

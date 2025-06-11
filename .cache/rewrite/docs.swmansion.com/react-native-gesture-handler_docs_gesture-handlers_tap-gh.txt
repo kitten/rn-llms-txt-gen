@@ -1,0 +1,84 @@
+# TapGestureHandler
+
+**Warning:**  
+The old API will be deprecated in future versions of Gesture Handler. It is recommended to migrate to the gestures API. Refer to our upgrading guide for more details.
+
+A discrete gesture handler that recognizes one or multiple taps.
+
+Tap gestures detect brief contact by one or more fingers on the screen, with minimal movement from their initial touch positions. You can configure the number of required taps and the allowed distance from the starting position. For instance, tap gesture recognizers can be set up to detect single, double, or triple taps.
+
+For a handler to activate, specific gesture requirements such as `minPointers`, `numberOfTaps`, `maxDist`, `maxDurationMs`, and `maxDelayMs` must be satisfied. Once activated, the handler will immediately END.
+
+## Properties
+
+In addition to properties inherited from the base handler class, the `TapGestureHandler` component has specific properties:
+
+### `minPointers`
+
+The minimum number of pointers (fingers) required before activation. This should be a positive integer with a default value of 1.
+
+### `maxDurationMs`
+
+Defines the maximum time in milliseconds for how quickly a finger must be released after touching. The default is set to 500 ms.
+
+### `maxDelayMs`
+
+Specifies the maximum allowable time in milliseconds between taps when multiple taps are required. The default is 500 ms.
+
+### `numberOfTaps`
+
+The number of tap gestures needed to activate the handler, with a default value of 1.
+
+### `maxDeltaX`
+
+Defines the maximum distance in points that a finger can travel along the X-axis during a tap gesture. If exceeded before activation, the gesture will not be recognized.
+
+### `maxDeltaY`
+
+Specifies the maximum distance in points for movement along the Y-axis during a tap gesture. Exceeding this distance before activation results in failure to recognize the gesture.
+
+### `maxDist`
+
+The maximum allowable distance in points that a finger can travel during a tap gesture. If exceeded, the handler will not recognize the gesture.
+
+## Event Data
+
+In addition to event attributes from the base handler class, the `TapGestureHandler` component has specific gesture event attributes:
+
+### `x`
+
+X coordinate of the current pointer position (finger or leading pointer) relative to the view attached to the handler, expressed in points.
+
+### `y`
+
+Y coordinate of the current pointer position (finger or leading pointer) relative to the view attached to the handler, expressed in points.
+
+### `absoluteX`
+
+X coordinate of the current pointer position (finger or leading pointer) relative to the window. Use `absoluteX` instead of `x` when the view can be transformed due to gestures.
+
+### `absoluteY`
+
+Y coordinate of the current pointer position (finger or leading pointer) relative to the window. Use `absoluteY` instead of `y` in cases where the view attached to the handler may transform as a result of gestures.
+
+## Example
+
+Refer to the multitap example from the GestureHandler Example App for implementation details.
+
+```typescript
+export class PressBox extends Component {
+  doubleTapRef = React.createRef();
+
+  render() {
+    return (
+      <TapGestureHandler
+        onHandlerStateChange={this._onSingleTap}
+        waitFor={this.doubleTapRef}>
+        <TapGestureHandler ref={this.doubleTapRef} numberOfTaps={2}>
+          <View style={styles.box} />
+        </TapGestureHandler>
+      </TapGestureHandler>
+    );
+  }
+}
+```

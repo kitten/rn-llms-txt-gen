@@ -1,0 +1,15 @@
+# List Style Image
+
+## Usage
+
+For detailed instructions, please consult the official Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support       |
+|------------------------|---------------|
+| `list-image-none`      | ✅ Full Support |
+
+--- 
+
+This reformatted content maintains the original structure and information while ensuring clarity and consistency in presentation.

@@ -1,0 +1,27 @@
+# Min-Height
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `min-h-0`          | ✅ Full Support |
+| `min-h-[n]`        | ✅ Full Support |
+| `min-h-full`       | ✅ Full Support |
+| `min-h-min`        | 🌐 Web only    |
+| `min-h-max`        | 🌐 Web only    |
+| `min-h-fit`        | 🌐 Web only    |
+
+```typescript
+type MinHeightClasses = {
+  'min-h-0': string;
+  'min-h-[n]': string;
+  'min-h-full': string;
+  'min-h-min': string;
+  'min-h-max': string;
+  'min-h-fit': string;
+};
+```

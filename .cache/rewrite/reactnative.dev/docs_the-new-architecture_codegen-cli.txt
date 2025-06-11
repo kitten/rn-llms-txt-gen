@@ -1,0 +1,68 @@
+# Codegen CLI Overview
+
+The **Codegen** CLI simplifies running tasks by eliminating the need to remember complex commands or manually execute scripts. It facilitates executing `@react-native/codegen` for React Native projects with ease.
+
+## Usage
+
+To view available options, use:
+
+```sh
+npx @react-native-community/cli codegen --help
+```
+
+### Options
+
+- **--verbose**: Increases logging verbosity.
+- **--path <path>**: Specifies the path to the React Native project root. Default is `/Users/MyUsername/projects/my-app`.
+- **--platform <string>**: Targets a specific platform. Supported values: `android`, `ios`, `all`. Default is `all`.
+- **--outputPath <path>**: Defines where generated artifacts will be output.
+- **-h, --help**: Displays help for the command.
+
+## Examples
+
+1. Generate code based on `package.json` in the current directory:
+
+    ```sh
+    npx @react-native-community/cli codegen
+    ```
+
+2. Generate iOS-specific code using the configuration from `package.json`:
+
+    ```sh
+    npx @react-native-community/cli codegen --platform ios
+    ```
+
+3. Generate Android code for a library located in `third-party/some-library`, outputting to `third-party/some-library/android/generated`:
+
+    ```sh
+    npx @react-native-community/cli codegen \
+        --path third-party/some-library \
+        --platform android \
+        --outputPath third-party/some-library/android/generated
+    ```
+
+## Including Generated Code in Libraries
+
+The **Codegen** CLI is particularly useful for library developers. It allows previewing generated code to determine necessary interfaces.
+
+### Benefits of `includesGeneratedCode = true`
+
+- Eliminates dependency on the app to run **Codegen**.
+- Ensures consistency between implementation files and generated interfaces, enhancing resilience against API changes.
+- Reduces redundancy by supporting only one architecture set for Android, ensuring backward compatibility.
+- Enables shipping native code as a prebuild.
+
+### Drawbacks
+
+- Generated code will use the React Native version specified in your library. This may lead to compatibility issues with apps using older React Native versions.
+
+## Enabling `includesGeneratedCode`
+
+To incorporate generated code into your library:
+
+1. Add `includesGeneratedCode: true` to the `codegenConfig` field in your `package.json`.
+2. Execute **Codegen** locally using the CLI.
+3. Update `package.json`, `podspec`, and `build.gradle` files to include the generated code.
+4. Modify `cmakeListsPath` in `react-native.config.js` to direct Gradle to the correct output directory instead of the build directory.
+
+By following these steps, you can streamline your development process and ensure that your library remains compatible with various React Native versions.

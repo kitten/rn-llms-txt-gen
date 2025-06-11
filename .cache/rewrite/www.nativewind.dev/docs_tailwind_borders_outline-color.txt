@@ -1,0 +1,17 @@
+# Outline Color
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                       | Support     |
+| --------------------------- | ----------- |
+| `outline-inherit`           | 🌐 Web only |
+| `outline-current`           | 🌐 Web only |
+| `outline-transparent`       | 🌐 Web only |
+| `outline-black`             | 🌐 Web only |
+| `outline-white`             | 🌐 Web only |
+| `outline-{n}`               | 🌐 Web only |
+| `outline-[n]`               | 🌐 Web only |

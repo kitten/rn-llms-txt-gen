@@ -1,0 +1,52 @@
+# withDecay
+
+The `withDecay` function allows you to create animations that simulate objects moving under friction. These animations begin at a specified velocity and gradually slow down according to the provided deceleration rate until they come to a stop.
+
+## Reference
+
+```typescript
+import { withDecay } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withDecay({ velocity: 1 });
+  // ...
+}
+```
+
+### Arguments
+
+#### `config`
+
+Configuration for the decay animation. The following properties are available:
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `velocity` (optional) | `number` | 0 | Initial velocity of the animation. |
+| `deceleration` (optional) | `number` | 0.998 | Rate at which the velocity decreases over time. |
+| `clamp` (optional)\* | `[number, number]` | \[] | Array specifying bounds to restrict the animation's range. The animation stops when either bound is reached unless `rubberBandEffect` is set to `true`. \*Required if `rubberBandEffect` is enabled. |
+| `velocityFactor` (optional) | `number` | 1 | Multiplier for velocity. |
+| `rubberBandEffect` (optional) | `boolean` | false | Enables bouncing over the limit specified in `clamp`. |
+| `rubberBandFactor` (optional) | `number` | 0.6 | Determines the strength of the rubber band effect. |
+| `reduceMotion` (optional) | `ReduceMotion` | `ReduceMotion.System` | Controls how the animation responds to the device's reduced motion accessibility setting. |
+
+#### `callback` (Optional)
+
+A function executed upon animation completion. If the animation is canceled, the callback receives `false`; otherwise, it receives `true`.
+
+### Returns
+
+The `withDecay` function returns an animation object representing the current state of the animation. This object can be directly assigned to a shared value or used as a style object returned from `useAnimatedStyle`.
+
+## Example
+
+*Note: An example section is mentioned but not provided in the original content.*
+
+## Remarks
+
+- The callback passed as the second argument is automatically workletized and executed on the UI thread.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

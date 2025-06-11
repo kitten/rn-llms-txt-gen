@@ -1,0 +1,16 @@
+# Align Content
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| `content-center`        | ✅ Full Support |
+| `content-start`         | ✅ Full Support |
+| `content-end`           | ✅ Full Support |
+| `content-between`       | ✅ Full Support |
+| `content-around`        | ✅ Full Support |
+| `content-evenly`        | ✅ Full Support |

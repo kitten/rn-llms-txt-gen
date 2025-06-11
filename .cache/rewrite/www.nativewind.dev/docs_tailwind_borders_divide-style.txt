@@ -1,0 +1,19 @@
+# Divide Style
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+**CAUTION:**  
+The `Divide Style` feature was temporarily removed in version 4. Efforts are underway to reintroduce it in a future update.
+
+## Compatibility
+
+| Class                 | Support     |
+|-----------------------|-------------|
+| `divide-solid`        | 🌐 Web only |
+| `divide-dashed`       | 🌐 Web only |
+| `divide-dotted`       | 🌐 Web only |
+| `divide-none`         | 🌐 Web only |
+| `divide-double`       | 🌐 Web only |
+| `divide-hidden`       | 🌐 Web only |

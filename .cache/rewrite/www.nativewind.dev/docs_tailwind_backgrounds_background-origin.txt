@@ -1,0 +1,17 @@
+# Background Origin
+
+The following table outlines the support for different background origin classes in web development:
+
+| Class                     | Support     |
+| ------------------------- | ----------- |
+| `bg-origin-border`        | Web only    |
+| `bg-origin-padding`       | Web only    |
+| `bg-origin-content`       | Web only    |
+
+These classes are used to specify the positioning area of a background image within an element. Each class targets a different part of the element's box model:
+
+- **`bg-origin-border`**: Positions the background relative to the border box.
+- **`bg-origin-padding`**: Positions the background relative to the padding box.
+- **`bg-origin-content`**: Positions the background relative to the content box.
+
+These properties are supported exclusively in web environments.

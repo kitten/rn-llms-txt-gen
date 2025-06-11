@@ -1,0 +1,71 @@
+# React Native Reanimated: LayoutAnimationConfig (Version 3.x)
+
+## Overview
+
+`LayoutAnimationConfig` is a component designed to control the entering and exiting animations of its child components.
+
+### Reference Code
+
+```typescript
+import { LayoutAnimationConfig } from 'react-native-reanimated';
+import * as React from 'react';
+
+function App() {
+  const [show, setShow] = React.useState(true);
+
+  return (
+    <LayoutAnimationConfig skipEntering>
+      <View>
+        {show && <Animated.View entering={PinwheelIn} exiting={PinwheelOut} />}
+      </View>
+    </LayoutAnimationConfig>
+  );
+}
+```
+
+### Arguments
+
+- **`skipEntering` (Optional)**: A boolean that determines if the entering animations of child components should be skipped when `LayoutAnimationConfig` is mounted.
+
+- **`skipExiting` (Optional)**: A boolean that determines if the exiting animations of child components should be skipped when `LayoutAnimationConfig` is unmounted.
+
+## Example Usage
+
+```typescript
+<LayoutAnimationConfig skipEntering>
+  {outer && (
+    <Animated.View
+      entering={PinwheelIn}
+      exiting={PinwheelOut}
+      style={styles.outerBox}>
+      <LayoutAnimationConfig skipEntering skipExiting>
+        {inner && (
+          <Animated.View
+            style={styles.box}
+            entering={PinwheelIn}
+            exiting={PinwheelOut}
+          />
+        )}
+      </LayoutAnimationConfig>
+    </Animated.View>
+  )}
+</LayoutAnimationConfig>
+```
+
+## Remarks
+
+- **Nesting**: The `LayoutAnimationConfig` component can be nested to disable animations for a specific subset of components.
+
+- **FlatList Compatibility**: For `FlatList`, use the `skipEnteringExitingAnimations` prop. This automatically wraps your `FlatList` with `<LayoutAnimationConfig skipEntering skipExiting>` to manage animations when the list is mounted or unmounted.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ❌  |
+
+- **Reference**
+  - Arguments
+- **Example**
+- **Remarks**
+- **Platform Compatibility**

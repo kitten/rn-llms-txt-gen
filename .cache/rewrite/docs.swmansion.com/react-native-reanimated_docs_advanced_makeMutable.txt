@@ -1,0 +1,102 @@
+# makeMutable
+
+**Caution:** The use of `makeMutable` is generally discouraged. It's recommended to opt for the `useSharedValue` hook unless you are fully aware of its implications (refer to the Remarks section).
+
+Internally, `makeMutable` is utilized by the `useSharedValue` hook to generate a shared value. This function allows the creation of mutable values without relying on the hook, which can be beneficial in specific scenarios such as within the global scope or when managing an array of mutable values.
+
+The object produced by `makeMutable` mirrors that returned by the `useSharedValue` hook, ensuring consistent usage thereafter.
+
+## Reference
+
+```typescript
+import { makeMutable } from 'react-native-reanimated';
+
+const mv = makeMutable(100);
+```
+
+### Arguments
+
+#### `initial`
+
+This argument specifies the initial value to be stored in the mutable. It can encompass any JavaScript data type such as `number`, `string`, or `boolean`, and also includes complex structures like arrays and objects.
+
+### Returns
+
+`makeMutable` yields a mutable value initialized with the provided `initial`. Access to the stored data is possible through its `value` property or via `get` and `set` methods.
+
+## Example
+
+## Remarks
+
+**Info:** The term *mutable value* refers to an object created by `makeMutable`, distinguishing it from a *shared value*, which is essentially a mutable value with automatic cleanup.
+
+- All remarks applicable to the `useSharedValue` hook are relevant to `makeMutable`.
+- Avoid invoking `makeMutable` directly within component scope. Component re-renders will generate a new object, potentially resetting the initial value and losing previous state.
+
+```typescript
+function App() {
+  const [counter, setCounter] = useState(0);
+  const mv = makeMutable(counter); // 🚨 creates a new mutable value on each render
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prev) => prev + 1); // updates the counter stored in component state
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [mv]);
+
+  useAnimatedReaction(
+    () => mv.value,
+    (value) => {
+      console.log(value); // prints 0, 1, 2, ...
+    }
+  );
+}
+```
+
+- Utilize `cancelAnimation` to halt all ongoing animations on a mutable value if it becomes unnecessary and animations are still active. Exercise caution with infinite animations as they require manual cancellation.
+
+```typescript
+function App() {
+  const mv = useMemo(() => makeMutable(0), []);
+
+  useEffect(() => {
+    mv.value = withRepeat(withSpring(100), -1, true); // creates an infinite animation
+
+    return () => {
+      cancelAnimation(mv); // ✅ stops the infinite animation on component unmount
+    };
+  }, []);
+}
+```
+
+- `cancelAnimation` is not needed for non-animated values as they are automatically garbage collected when no references remain.
+
+```typescript
+const someFlag = makeMutable(false);
+
+function App() {
+  someFlag.value = true; // ✅ no need to cancel the animation later on
+}
+```
+
+- When opting for `makeMutable`, adhere to React's rules and avoid common pitfalls associated with `useRef`, such as modifying references during rendering (see the **Pitfall** section in the useRef documentation).
+
+### Comparison with `useSharedValue`
+
+| Feature | `makeMutable` | `useSharedValue` |
+|---------|---------------|------------------|
+| Object Creation | Creates a new object on each call | Reuses the same object on each call |
+| Initial Value Change | A new object is created if `initial` changes | The initially created object remains unchanged if `initialValue` changes |
+| Scope Usage | Can be used outside of component scope | Limited to use within component scope |
+| Loop Usage | Usable in loops with variable iterations | Usable in loops only if the number of hooks (`useSharedValue` calls) is constant |
+| Animation Cancellation | Does not automatically cancel animations on unmount | Automatically cancels animations when the component unmounts |
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

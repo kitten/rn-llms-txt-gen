@@ -1,0 +1,16 @@
+# Transition Duration
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+**CAUTION**
+
+Animation support is currently experimental. Your feedback is crucial for enhancing its implementation.
+
+## Compatibility
+
+| Class                | Support                 |
+| -------------------- | ----------------------- |
+| `duration-{n}`       | 🧪 Experimental Support |
+| `duration-[n]`       | 🧪 Experimental Support |

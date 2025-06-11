@@ -1,0 +1,129 @@
+# Pan Gesture
+
+A pan gesture recognizes and tracks a continuous dragging motion. It activates when a finger touches the screen and moves beyond an initial distance.
+
+Configurations include setting a minimum starting distance, specifying vertical or horizontal detection, and defining the number of fingers required for activation (supporting multifinger swipes). A callback function can be used to continuously track the gesture's movement, providing details such as XY translation from the start point and instantaneous velocity.
+
+## Example
+
+```typescript
+import { StyleSheet } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+
+const END_POSITION = 200;
+
+export default function App() {
+  const onLeft = useSharedValue(true);
+  const position = useSharedValue(0);
+
+  const panGesture = Gesture.Pan()
+    .onUpdate((e) => {
+      if (onLeft.value) {
+        position.value = e.translationX;
+      } else {
+        position.value = END_POSITION + e.translationX;
+      }
+    })
+    .onEnd((e) => {
+      if (position.value < END_POSITION / 2) {
+        withTiming(0, { duration: 200 }, () => {
+          onLeft.value = true;
+        });
+      } else {
+        withTiming(END_POSITION, { duration: 200 }, () => {
+          onLeft.value = false;
+        });
+      }
+    });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: position.value }],
+  }));
+
+  return (
+    <GestureDetector gesture={panGesture}>
+      <Animated.View style={[styles.box, animatedStyle]} />
+    </GestureDetector>
+  );
+}
+
+const styles = StyleSheet.create({
+  box: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'blue',
+  },
+});
+```
+
+## Multifinger Pan Gestures
+
+Multifinger pan gestures can be configured by setting the `minPointers` and `maxPointers` properties. This allows for specifying the minimum and maximum number of fingers required to activate the gesture.
+
+```typescript
+const multiFingerPanGesture = Gesture.Pan()
+  .minPointers(2)
+  .maxPointers(3);
+```
+
+## Event Data
+
+### Pan Gesture Specific Attributes
+
+- `translationX`: Accumulated translation along the X-axis, in points.
+- `translationY`: Accumulated translation along the Y-axis, in points.
+- `velocityX`: Current velocity along the X-axis, in points per second.
+- `velocityY`: Current velocity along the Y-axis, in points per second.
+- `x`: X-coordinate of the pointer relative to the view, in points.
+- `y`: Y-coordinate of the pointer relative to the view, in points.
+- `absoluteX`: X-coordinate of the pointer relative to the window, in points.
+- `absoluteY`: Y-coordinate of the pointer relative to the window, in points.
+- `stylusData`: Additional stylus information including tilt angles and pressure.
+
+### Common Attributes for All Gestures
+
+- `state`: Current state of the handler (e.g., active, failed).
+- `numberOfPointers`: Number of fingers currently on the screen.
+- `pointerType`: Type of pointer device (e.g., touch, stylus).
+
+## Callbacks
+
+### Common to All Gestures
+
+- `onBegin(callback)`: Called when touches begin but before activation.
+- `onStart(callback)`: Called when the gesture is recognized and becomes active.
+- `onEnd(callback)`: Called when an active gesture ends.
+- `onFinalize(callback)`: Called after a gesture is finalized (recognized or failed).
+- `onTouchesDown(callback)`: Triggered when a finger touches down.
+- `onTouchesMove(callback)`: Triggered when a finger moves on the screen.
+- `onTouchesUp(callback)`: Triggered when a finger lifts off the screen.
+- `onTouchesCancelled(callback)`: Triggered when tracking stops (e.g., gesture ends).
+
+### Common to Continuous Gestures
+
+- `onUpdate(callback)`: Called with each update during an active gesture.
+- `onChange(callback)`: Called with changes in value relative to the last event.
+
+## Configuration Properties
+
+### Pan Gesture Specific
+
+- `minPointers(min: number)`: Minimum fingers required for activation.
+- `maxPointers(max: number)`: Maximum fingers allowed for activation.
+
+### Common to All Gestures
+
+- `manualActivation(value: boolean)`: If true, manual state management is needed.
+- `simultaneousWithExternalGesture(otherGestures...)`: Recognizes gestures simultaneously with others.
+- `requireExternalGestureToFail(otherGestures...)`: Requires other gestures to fail before activation.
+- `blocksExternalGesture(otherGestures...)`: Blocks other gestures until this one fails or doesn't start.
+
+### Platform-Specific
+
+- **iOS**: `cancelsTouchesInView(value: boolean)`: Cancels touches for native UI components when active.
+- **Web**: `activeCursor(cursorStyle: string)`: Sets the cursor style during activation.

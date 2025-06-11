@@ -1,0 +1,69 @@
+# Gesture
+
+`Gesture` is an object that facilitates the creation and composition of gestures.
+
+## Reference
+
+```typescript
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+
+function App() {
+  const tap = Gesture.Tap();
+
+  return (
+    <GestureDetector gesture={tap}>
+      <Animated.View />
+    </GestureDetector>
+  );
+}
+```
+
+### Gesture Methods
+
+- **`Gesture.Tap()`**: Creates a `TapGesture` instance with default configuration and no callbacks.
+
+- **`Gesture.Pan()`**: Generates a `PanGesture` instance with default settings and no callbacks.
+
+- **`Gesture.LongPress()`**: Produces a `LongPressGesture` instance with default configuration and no callbacks.
+
+- **`Gesture.Fling()`**: Forms a `FlingGesture` instance with default setup and no callbacks.
+
+- **`Gesture.Pinch()`**: Constructs a `PinchGesture` instance with default parameters and no callbacks.
+
+- **`Gesture.Rotation()`**: Establishes a `RotationGesture` instance with default configuration and no callbacks.
+
+- **`Gesture.Hover()`**: Creates a `HoverGesture` instance with default settings and no callbacks.
+
+- **`Gesture.ForceTouch()`**: Generates a `ForceTouchGesture` instance with default configuration and no callbacks.
+
+- **`Gesture.Manual()`**: Forms a `ManualGesture` instance with default setup and no callbacks.
+
+- **`Gesture.Native()`**: Produces a `NativeGesture` instance with default parameters and no callbacks.
+
+### Gesture Composition
+
+- **`Gesture.Race(gesture1, gesture2, gesture3, ...)`**: Composes gestures such that only one can be active at any time. The first to activate cancels the others.
+
+- **`Gesture.Simultaneous(gesture1, gesture2, gesture3, ...)`**: Allows all provided gestures to become active simultaneously without cancelling each other.
+
+- **`Gesture.Exclusive(gesture1, gesture2, gesture3, ...)`**: Composes gestures where only one can be active at a time. The first has the highest priority, followed by subsequent ones in order. Useful for composing similar activation criteria gestures (e.g., single and double tap).
+
+## Remarks
+
+- To optimize performance, consider using `useMemo` to wrap gesture configurations. This reduces the workload for Gesture Handler during updates.
+
+```typescript
+import React from 'react';
+
+function App() {
+  const gesture = React.useMemo(
+    () =>
+      Gesture.Tap().onStart(() => {
+        console.log('Number of taps:', tapNumber + 1);
+        setTapNumber((value) => value + 1);
+      }),
+    [tapNumber, setTapNumber]
+  );
+  // ...
+}
+```

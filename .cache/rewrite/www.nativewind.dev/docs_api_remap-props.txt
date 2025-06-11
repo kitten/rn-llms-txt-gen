@@ -1,0 +1,36 @@
+# remapProps Utility in Nativewind
+
+Nativewind offers a utility called `remapProps` to streamline the integration of third-party components that have multiple "style" props. This tool allows developers to map Tailwind CSS class names to these style props, enhancing ease of use and consistency.
+
+## Example Usage
+
+Here's how you can utilize `remapProps`:
+
+```typescript
+import { remapProps } from "nativewind";
+
+/**
+ * ThirdPartyButton is a component with two "style" props: buttonStyle & labelStyle.
+ * Using remapProps, we create new props that accept Tailwind CSS class names.
+ */
+const CustomizedButton = remapProps(ThirdPartyButton, {
+  buttonClass: "buttonStyle",
+  labelClass: "labelStyle",
+});
+
+<CustomizedButton buttonClass="bg-blue-500" labelClass="text-white" />;
+```
+
+## Options for `remapProps`
+
+`remapProps` can be configured with the following options:
+
+```typescript
+// Map a new prop to an existing prop.
+remapProps(component, { "new-prop": "existing-prop" });
+
+// Override an existing prop by setting it to true.
+remapProps(component, { prop: true });
+```
+
+This utility simplifies working with components that require multiple style configurations, allowing for more intuitive and maintainable code.

@@ -1,0 +1,76 @@
+# useAnimatedKeyboard in React Native Reanimated (Version: 3.x)
+
+## Overview
+
+The `useAnimatedKeyboard` hook allows developers to create animations that respond to the state and height of the virtual keyboard.
+
+> **Caution:**  
+> The Android implementation of `useAnimatedKeyboard` has limitations on devices running Android SDK versions below 30. For more details, refer to the remarks section.
+
+## Reference
+
+```typescript
+import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
+
+export default function App() {
+  const keyboard = useAnimatedKeyboard();
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ translateY: -keyboard.height.value }],
+  }));
+}
+```
+
+### Arguments
+
+#### `options` (Optional)
+
+An optional configuration object that includes:
+
+- **isStatusBarTranslucentAndroid**:  
+  Removes the top inset on Android when set to `true`, allowing for a translucent status bar. Defaults to `false`. This option is ignored on iOS.
+
+### Returns
+
+The `useAnimatedKeyboard` hook returns an object with the following fields:
+
+| Name     | Type                          | Description                                                                 |
+|----------|-------------------------------|-----------------------------------------------------------------------------|
+| height   | `SharedValue<number>`         | A shared value representing the current height of the keyboard.             |
+| state    | `SharedValue<KeyboardState>`  | A shared value indicating the current state of the keyboard. Possible states: `{ CLOSED, OPEN, CLOSING, OPENING }` |
+
+## Remarks
+
+- **Android Specifics**:  
+  Ensure that `android:windowSoftInputMode` is set to `adjustResize` in your `AndroidManifest.xml`. This setting disables the default Android behavior (resizing the view for keyboard accommodation) across the app. By using values from the `useAnimatedKeyboard` hook, you can manage the keyboard manually. Unmounting all components that use this hook will revert to the default Android behavior.
+
+- **Root View Management**:  
+  On Android, employing the `useAnimatedKeyboard` hook expands the root view to full screen (immersive mode) and manages insets:
+
+  - With `isStatusBarTranslucentAndroid` set to `false`, it applies a top margin based on the insets.
+  - When `true`, it sets the top margin to `0`.
+  - Similarly, with `isNavigationBarTranslucentAndroid`:
+    - `false`: Applies bottom margin according to the insets.
+    - `true`: Sets bottom margin to `0`.
+
+- **Native Header Navigation**:  
+  On Android, using native header navigation means that `isStatusBarTranslucentAndroid` does not affect the top inset.
+
+- **SDK Limitations**:  
+  For devices running Android SDK versions below 30, if the status bar is hidden, the keyboard reverts to default Android behavior.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ❌  |
+
+- **Reference**
+  - Arguments
+  - Returns
+
+- **Example**
+
+- **Remarks**
+
+- **Platform Compatibility**

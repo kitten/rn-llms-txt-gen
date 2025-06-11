@@ -1,0 +1,57 @@
+# useEvent Hook Overview
+
+The `useEvent` hook is a foundational tool in React Native Reanimated that provides an event handler for native events. It's particularly useful for creating custom hooks like `useScrollViewOffset` or `useAnimatedScrollHandler`.
+
+## Reference Usage
+
+```typescript
+import { useEvent } from 'react-native-reanimated';
+
+function useAnimatedPagerScrollHandler(handlers, dependencies) {
+  const { context, doDependenciesDiffer } = useHandler(handlers, dependencies);
+
+  return useEvent(
+    (event) => {
+      'worklet';
+      const { onPageScroll } = handlers;
+
+      if (onPageScroll && event.eventName.endsWith('onPageScroll')) {
+        onPageScroll(event, context);
+      }
+    },
+    ['onPageScroll'],
+    doDependenciesDiffer
+  );
+}
+
+return <Animated.View onScroll={useAnimatedPagerScrollHandler} />;
+```
+
+### Arguments
+
+- **`handler`**: A function that receives an event object containing the native payload. This can be utilized within custom handler hooks' worklets.
+  - `event`: The event object, whose payload varies based on the event type.
+
+- **`eventNames` (Optional)**: An array specifying which event names should trigger the handler.
+
+- **`rebuild` (Optional)**: A boolean indicating if the handler needs to be rebuilt.
+
+### Returns
+
+The hook returns an event handler that is invoked when a native event occurs. This handler can be connected to multiple components, triggering for each component's specific events.
+
+## Example
+
+For simpler implementations, consider using `useScrollViewOffset`.
+
+## Remarks
+
+- Note that not all scroll events are supported on the web; only `onScroll` is consistently available across browsers.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+This overview provides a concise guide to using the `useEvent` hook effectively within React Native Reanimated projects.

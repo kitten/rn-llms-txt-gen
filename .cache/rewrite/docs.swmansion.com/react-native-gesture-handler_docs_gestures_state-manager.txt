@@ -1,0 +1,25 @@
+# Gesture State Manager
+
+The `GestureStateManager` provides manual control over gesture states, requiring `react-native-reanimated` for synchronous execution of methods within worklets.
+
+## Methods Overview
+
+### `begin()`
+
+- **Purpose**: Transition the gesture to the `BEGAN` state.
+- **Effectiveness**: Ineffective if the gesture is already active or has finished.
+
+### `activate()`
+
+- **Purpose**: Transition the gesture to the `ACTIVE` state.
+- **Effectiveness**: Ineffective if the handler is currently active or has finished. Activation may be delayed for gestures marked as `exclusive` until a higher-priority gesture fails.
+
+### `end()`
+
+- **Purpose**: Transition the gesture to the `END` state.
+- **Effectiveness**: Ineffective if the handler has already completed its process.
+
+### `fail()`
+
+- **Purpose**: Transition the gesture to the `FAILED` state.
+- **Effectiveness**: Ineffective if the handler has already finished.

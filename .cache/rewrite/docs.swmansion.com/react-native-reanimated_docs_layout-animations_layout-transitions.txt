@@ -1,0 +1,253 @@
+# Layout Transitions
+
+Layout transitions enable smooth animations during layout changes, which may involve alterations in size and position. Both aspects can be animated for a seamless experience.
+
+## Predefined Transitions
+
+This section outlines the available predefined layout transitions along with their animation modifiers.
+
+### Linear Transition
+
+The linear transition animates both position and dimension uniformly.
+
+#### Reference
+
+```typescript
+import { LinearTransition } from 'react-native-reanimated';
+
+function App() {
+  return <Animated.View layout={LinearTransition} />;
+}
+```
+
+#### Modifiers
+
+##### Easing (Optional)
+
+Easing modifiers utilize the `withTiming` function to adjust animation curves over time.
+
+```typescript
+LinearTransition.easing(Easing.ease);
+```
+- `.easing(easingFunction: EasingFunction)`: Defines the animation curve. Defaults to `Easing.inOut(Easing.quad)`.
+
+> Note: The `.easing(...)` modifiers are ineffective when `.springify()` is used.
+
+##### Spring-based (Optional)
+
+Spring-based modifiers use the `withSpring` function, allowing for physics-based (`mass`, `damping`) or duration-based (`duration`, `dampingRatio`) configurations. These properties cannot be mixed; if both sets are provided, `duration` and `dampingRatio` take precedence.
+
+```typescript
+LinearTransition.springify()
+  .damping(30)
+  .mass(5)
+  .rotate(20)
+  .stiffness(10)
+  .overshootClamping(false)
+  .restDisplacementThreshold(0.1)
+  .restSpeedThreshold(5);
+```
+- `.springify()`: Enables spring-based animation configuration.
+- `.damping(value: number)`: Controls how quickly the spring stops moving. Defaults to `10`.
+- `.dampingRatio(value: number)`: Determines the damping level of the spring. A value of `1` is critically damped, and values greater than `1` are overdamped. Defaults to `0.5`.
+- `.mass(value: number)`: Represents the weight of the spring. Lower values result in faster animations. Defaults to `1`.
+- `.rotate(degree: string)`: Allows rotation of the element.
+- `.stiffness(value: number)`: Defines how bouncy the spring is; higher values mean less bounce. Defaults to `100`.
+- `.overshootClamping(value: boolean)`: Determines if a spring can overshoot its target position. Defaults to `false`.
+- `.restDisplacementThreshold(value: number)`: Sets the displacement below which the spring will settle without oscillations. Defaults to `0.001`.
+- `.restSpeedThreshold(value: number)`: Sets the speed threshold for settling without further movement. Defaults to `2`.
+
+##### Common (Optional)
+
+```typescript
+LinearTransition.delay(500)
+  .reduceMotion(ReduceMotion.Never)
+  .withInitialValues({ transform: [{ translateY: 420 }] })
+  .withCallback((finished) => {
+    console.log(`finished without interruptions: ${finished}`);
+  });
+```
+- `.duration(duration: number)`: Sets the animation length in milliseconds. Defaults to `300`.
+- `.delay(duration: number)`: Specifies a delay before starting the animation (in milliseconds). Defaults to `0`.
+- `.reduceMotion(reduceMotion: ReduceMotion)`: Adjusts animation based on reduced motion settings.
+- `.withInitialValues(values: StyleProps)`: Overrides initial animation configuration.
+- `.withCallback(callback: (finished: boolean) => void)`: Executes a callback after the animation ends, indicating if it finished without interruptions.
+
+#### Remarks
+
+The animation concludes when both the speed is below `restSpeedThreshold` and the distance to its end is less than `restDisplacementThreshold`. If thresholds are not set, defaults apply.
+
+### Sequenced Transition
+
+This transition animates x-position and width first, followed by y-position and height.
+
+#### Reference
+
+```typescript
+import { SequencedTransition } from 'react-native-reanimated';
+
+function App() {
+  return <Animated.View layout={SequencedTransition} />;
+}
+```
+
+#### Modifiers
+
+```typescript
+SequencedTransition.duration(1000)
+  .delay(500)
+  .reverse()
+  .reduceMotion(ReduceMotion.Never)
+  .withCallback((finished) => {
+    console.log(`finished without interruptions: ${finished}`);
+  });
+```
+- `.duration(duration: number)`: Sets the animation length in milliseconds. Defaults to `500`.
+- `.delay(duration: number)`: Specifies a delay before starting (in milliseconds). Defaults to `0`.
+- `.reverse()`: Determines if the animation should run backward. Defaults to `false`.
+- `.reduceMotion(reduceMotion: ReduceMotion)`: Adjusts based on reduced motion settings.
+- `.withCallback(callback: (finished: boolean) => void)`: Executes a callback after the animation ends, indicating if it finished without interruptions.
+
+### Fading Transition
+
+The fading transition animates opacity changes while maintaining previous position and dimensions during disappearance and appearance with new ones.
+
+#### Reference
+
+```typescript
+import { FadingTransition } from 'react-native-reanimated';
+
+function App() {
+  return <Animated.View layout={FadingTransition} />;
+}
+```
+
+#### Modifiers
+
+```typescript
+FadingTransition.duration(1000)
+  .delay(500)
+  .reduceMotion(ReduceMotion.Never)
+  .withCallback((finished) => {
+    console.log(`finished without interruptions: ${finished}`);
+  });
+```
+- `.duration(duration: number)`: Sets the animation length in milliseconds. Defaults to `500`.
+- `.delay(duration: number)`: Specifies a delay before starting (in milliseconds). Defaults to `0`.
+- `.reduceMotion(reduceMotion: ReduceMotion)`: Adjusts based on reduced motion settings.
+- `.withCallback(callback: (finished: boolean) => void)`: Executes a callback after the animation ends, indicating if it finished without interruptions.
+
+### Jumping Transition
+
+The jumping transition makes components "jump" to their new positions.
+
+#### Reference
+
+```typescript
+import { JumpingTransition } from 'react-native-reanimated';
+
+function App() {
+  return <Animated.View layout={JumpingTransition} />;
+}
+```
+
+#### Modifiers
+
+```typescript
+JumpingTransition.duration(1000)
+  .delay(500)
+  .reduceMotion(ReduceMotion.Never)
+  .withCallback((finished) => {
+    console.log(`finished without interruptions: ${finished}`);
+  });
+```
+- `.duration(duration: number)`: Sets the animation length in milliseconds. Defaults to `300`.
+- `.delay(duration: number)`: Specifies a delay before starting (in milliseconds). Defaults to `0`.
+- `.reduceMotion(reduceMotion: ReduceMotion)`: Adjusts based on reduced motion settings.
+- `.withCallback(callback: (finished: boolean) => void)`: Executes a callback after the animation ends, indicating if it finished without interruptions.
+
+### Curved Transition
+
+The curved transition animates all parameters (`X`, `Y`, `width`, `height`) with distinct easing functions, creating a non-linear path.
+
+#### Reference
+
+```typescript
+import { CurvedTransition } from 'react-native-reanimated';
+
+function App() {
+  return <Animated.View layout={CurvedTransition} />;
+}
+```
+
+#### Modifiers
+
+```typescript
+CurvedTransition.duration(1000)
+  .delay(500)
+  .easingX(Easing.inOut(Easing.ease))
+  .easingY(Easing.inOut(Easing.ease))
+  .easingWidth(Easing.inOut(Easing.ease))
+  .easingHeight(Easing.inOut(Easing.ease))
+  .reduceMotion(ReduceMotion.Never)
+  .withCallback((finished) => {
+    console.log(`finished without interruptions: ${finished}`);
+  });
+```
+- `.duration(duration: number)`: Sets the animation length in milliseconds. Defaults to `300`.
+- `.delay(duration: number)`: Specifies a delay before starting (in milliseconds). Defaults to `0`.
+- `.easingX(easing: EasingFunction)`: Defines easing for x-position.
+- `.easingY(easing: EasingFunction)`: Defines easing for y-position.
+- `.easingWidth(easing: EasingFunction)`: Defines easing for width.
+- `.easingHeight(easing: EasingFunction)): Defines easing for height.
+- `.reduceMotion(reduceMotion: ReduceMotion)`: Adjusts based on reduced motion settings.
+- `.withCallback(callback: (finished: boolean) => void)`: Executes a callback after the animation ends, indicating if it finished without interruptions.
+
+#### Remarks
+
+The duration is shared across all easings.
+
+### Entry/Exit Transition
+
+This transition allows for custom animations during entry and exit by combining both into one layout. Users can define their own animations instead of using predefined ones.
+
+#### Reference
+
+```typescript
+import { EntryExitTransition } from 'react-native-reanimated';
+
+function App() {
+  return <Animated.View layout={EntryExitTransition} />;
+}
+```
+
+#### Modifiers
+
+```typescript
+EntryExitTransition.duration(1000)
+  .delay(500)
+  .entering(CustomEnterAnimation)
+  .exiting(CustomExitAnimation)
+  .reduceMotion(ReduceMotion.Never)
+  .withCallback((finished) => {
+    console.log(`finished without interruptions: ${finished}`);
+  });
+```
+- `.duration(duration: number)`: Sets the animation length in milliseconds. Default depends on entry/exit animations.
+- `.delay(duration: number)`: Specifies a delay before starting (in milliseconds). Defaults to `0`.
+- `.exiting(animation)`: Defines the exit animation. Defaults to `FadeOut`.
+- `.entering(animation)`: Defines the entry animation. Defaults to `FadeIn`.
+- `.reduceMotion(reduceMotion: ReduceMotion)`: Adjusts based on reduced motion settings.
+- `.withCallback(callback: (finished: boolean) => void)`: Executes a callback after the animation ends, indicating if it finished without interruptions.
+
+#### Remarks
+
+The duration is the sum of entering and exiting durations.
+
+### Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+This table indicates that all predefined transitions are compatible across Android, iOS, and web platforms.

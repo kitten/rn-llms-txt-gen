@@ -1,0 +1,38 @@
+```markdown
+# withSequence
+
+`withSequence` is an animation modifier that allows animations to be executed in a sequential order.
+
+## Reference
+
+```typescript
+import { withSequence } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withSequence(withTiming(50), withTiming(0));
+  // ...
+}
+```
+
+### Arguments
+
+#### `reduceMotion` (Optional)
+
+A parameter that specifies how the animation should respond to the device's reduced motion accessibility setting.
+
+#### `...animations`
+
+Any number of animation objects that will be executed in sequence.
+
+### Returns
+
+The `withSequence` function returns an animation object representing the current state of the animation. This object can either be directly assigned to a shared value or used as a value for a style object returned from `useAnimatedStyle`.
+
+## Example
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+```

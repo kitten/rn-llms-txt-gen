@@ -1,0 +1,142 @@
+# Contributing Guide for Reanimated
+
+Thank you for considering contributing to Reanimated. Contributions can range from triaging issues and enhancing documentation to reviewing Pull Requests and submitting code changes.
+
+## Ways to Contribute
+
+1. **Handling Open Issues**: Assist by providing detailed descriptions and reproducible examples for existing issues, which helps other contributors understand and address them more efficiently.
+
+2. **Documentation Assistance**: Improve the documentation by correcting spelling and grammar or expanding explanations. You can also help update outdated pages from Reanimated v2 to the current version. For significant changes, edit locally using Docusaurus and GitHub Pages.
+
+3. **Reviewing Pull Requests**: Review submitted Pull Requests to identify potential issues or bugs that may have been overlooked, ensuring high-quality contributions.
+
+4. **Code Contributions**: Submit code through Pull Requests to address issues, fix bugs, or introduce new features. Beginners can start with "good first issue" tasks on GitHub.
+
+### Repository Structure
+
+The Reanimated repository is organized as follows:
+
+```
+├── apps
+│   ├── common-app // Shared source for example apps
+│   ├── paper-example // React Native app using Old Architecture
+│   ├── fabric-example // React Native app using New Architecture
+│   ├── macos-example // React Native for MacOS wrapper
+│   ├── next-example // Next.js wrapper
+│   ├── tvos-example // React Native for TVOS wrapper
+│   └── web-example // React Native for Web wrapper
+└── packages
+    ├── docs-reanimated // Documentation source
+    ├── eslint-plugin-reanimated // ESLint plugin source
+    └── react-native-reanimated
+        ├── android // Android native code
+        ├── apple // iOS native code
+        ├── Common // Shared C++ code
+        ├── scripts // CI pipeline scripts
+        ├── src // Reanimated JS source
+        └── plugin // Babel plugin source
+```
+
+## Handling Open Issues
+
+Providing detailed descriptions and reproducible examples for issues can significantly aid other contributors. Ensure that issues include:
+
+- A cloneable repository.
+- Clear reproduction steps.
+- Comprehensive descriptions.
+- Relevant stack traces.
+
+If these details are missing, consider asking the issue owner or providing them yourself to facilitate quicker resolutions.
+
+## Documentation Assistance
+
+Improving documentation is a straightforward way to contribute. The Reanimated docs use Docusaurus and GitHub Pages. For minor edits, click **Edit this page** at the bottom of most pages. For more complex changes:
+
+1. Clone `react-native-reanimated`.
+2. Navigate to `packages/docs-reanimated`.
+3. Run `yarn && yarn start` to preview changes locally.
+
+### Documentation Structure
+
+Maintain a consistent structure for clarity and ease of navigation:
+
+1. **Introduction**: Briefly describe the feature.
+2. **Reference**: Provide simple usage examples with type definitions.
+3. **Arguments**: Detail accepted arguments.
+4. **Returns**: Explain returned values.
+5. **Example**: Include videos, GIFs, or interactive demos in both light and dark modes.
+6. **Remarks**: Highlight non-obvious details like platform-specific quirks.
+7. **Platform Compatibility**: Specify supported platforms.
+
+### Writing Style Guide
+
+- Use active voice for clarity (e.g., "The function receives the arguments").
+- Write short, clear sentences to aid comprehension.
+- Organize information into lists for better readability.
+- Avoid acronyms unless globally recognized (e.g., UI, API).
+- Use contractions for a conversational tone.
+
+### Embedding Interactive Examples
+
+Use the `InteractiveExample` component with `src` and `component` props to create engaging examples. For videos:
+
+```typescript
+import AnimatedKeyboardSrc from '!!raw-loader!@site/src/examples/AnimatedKeyboard';
+
+<InteractiveExample
+  src={AnimatedKeyboardSrc}
+  component={
+    <ThemedVideo
+      center
+      width={300}
+      sources={{
+        light: '/recordings/useAnimatedKeyboard_light.mov',
+        dark: '/recordings/useAnimatedKeyboard_dark.mov',
+      }}
+    />
+  }
+/>;
+```
+
+For interactive components:
+
+```typescript
+import DecayTrain from '@site/src/examples/DecayTrain';
+import DecayTrainSrc from '!!raw-loader!@site/src/examples/DecayTrain';
+
+<InteractiveExample
+  src={DecayTrainSrc}
+  component={<DecayTrain />}
+  label="Grab and drag the train"
+/>;
+```
+
+## Contributing Code
+
+Submit Pull Requests to address issues or introduce new features. Start with "good first issue" tasks if you're new to open-source contributions.
+
+### Working with Android
+
+1. Install dependencies: `yarn && yarn build`.
+2. Navigate to `apps/paper-example` and run `yarn start`.
+3. Open the project in Android Studio at `react-native-reanimated/apps/paper-example/android`.
+
+### Working with iOS
+
+1. Install dependencies: `yarn && yarn build`.
+2. Run `cd apps/paper-example/ios && bundle install && bundle exec pod install`.
+3. Start Metro bundler: `cd apps/paper-example && yarn start`.
+4. Open the project in Xcode at `react-native-reanimated/apps/paper-example/ios/ReanimatedExample.xcworkspace`.
+
+### Preparing a Pull Request
+
+When ready, open a Pull Request using the provided template:
+
+1. **Summary**: Link relevant issues and describe your changes.
+2. **Test Plan**: Provide instructions for testing, including code from `EmptyExample` if applicable.
+
+### Testing Changes Locally
+
+To test changes in your project, create a patch with `git diff` or point to a specific commit in `package.json`.
+
+Thank you for contributing! 🎉

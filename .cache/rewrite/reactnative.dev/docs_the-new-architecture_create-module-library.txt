@@ -1,0 +1,151 @@
+# Guide: Extracting and Distributing a React Native Module as a Library
+
+React Native offers an extensive ecosystem of libraries to address common challenges. The [reactnative.directory](https://reactnative.directory) is a valuable resource for developers, providing a collection of these libraries.
+
+If you're working on a module that could be beneficial across multiple apps or the broader community, consider extracting it into a separate library. This guide will walk you through:
+
+- Extracting a module into a library
+- Distributing the library using NPM
+
+## Extracting the Module into a Library
+
+To extract a module into its own library, use the `create-react-native-library` tool. It sets up all necessary boilerplate code and configuration files for various platforms.
+
+### Steps to Create a Library
+
+1. **Create the New Library**
+
+   Start by running:
+
+   ```sh
+   npx create-react-native-library@latest <Name of Your Library>
+   ```
+
+2. Provide details such as:
+   - A valid npm name (all lowercase, using `-` for word separation)
+   - A description for your package
+
+3. Follow the interactive menu until you reach the question: *"What type of library do you want to develop?"*
+
+4. Select *Turbo module* for this guide. You can create libraries for both New and Legacy Architectures.
+
+5. Choose whether your library will access platform-specific code (Kotlin & Objective-C) or use a shared C++ library.
+
+6. Opt for the `Test App` option, which sets up a separate app within the library folder.
+
+After completing these steps, you'll have a structured project in Visual Studio Code:
+
+- **Android**: Contains Android-specific code.
+- **CPP**: Houses C++ code.
+- **iOS**: Includes iOS-specific code.
+- **Src**: Holds JavaScript code.
+
+The `package.json` is pre-configured with necessary details and includes a setup for running Codegen:
+
+```json
+"codegenConfig": {
+  "name": "RN<your module name>Spec",
+  "type": "all",
+  "jsSrcsDir": "src",
+  "outputDir": {
+    "ios": "ios/generated",
+    "android": "android/generated"
+  },
+  "android": {
+    "javaPackageName": "com.<name-of-the-module>"
+  }
+}
+```
+
+The library is ready to be linked with iOS and Android.
+
+### Copy the Code from Your App
+
+Assuming you have a local Turbo Native Module in your app, follow these steps:
+
+1. **\[Not required for legacy architecture modules]** Move code from the `specs` folder in your app to the `src` folder of the new library.
+
+2. Update the `index.ts` file to export the Turbo Native Module spec:
+
+   ```typescript
+   import NativeSampleModule from './NativeSampleModule';
+
+   export default NativeSampleModule;
+   ```
+
+3. Copy native module code:
+   - Replace content in `android/src/main/java/com/<name-of-the-module>` with your app's native module code.
+   - Update the `ios` folder with your iOS native module code.
+   - Modify the `cpp` folder with your C++ native module code.
+
+4. **\[Not required for legacy architecture modules]** Update references from the old spec name to the new one defined in `codegenConfig.name`.
+
+## Testing Your Library
+
+The tool provides an example application configured to work with your library, ideal for testing:
+
+1. Navigate to the `example` folder.
+2. Run `yarn install`.
+3. For iOS, run `cd ios && pod install`.
+4. Build and run Android with `yarn android`.
+5. Build and run iOS with `yarn ios`.
+
+## Using Your Library as a Local Module
+
+To reuse your library locally without publishing:
+
+1. Add the library to your app by running `yarn add ../Library` in the `App` folder.
+2. For iOS, navigate to `App/ios` and run `bundle exec pod install`.
+3. Update `App.tsx` to import from your library:
+
+   ```typescript
+   import NativeSampleModule from '../Library/src/index';
+   ```
+
+4. Modify `metro.config.js` to include the library's path:
+
+   ```diff
+   const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+   const path = require('path');
+
+   const config = {
+     watchFolders: [
+       path.resolve(__dirname, '../Library'),
+     ],
+     resolver: {
+       extraNodeModules: {
+         'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+       },
+     },
+   };
+
+   module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+   ```
+
+5. Build and run your app:
+   - Android: `yarn android`
+   - iOS: `yarn ios`
+
+## Publishing the Library on NPM
+
+The setup for publishing is ready:
+
+1. Install dependencies with `yarn install`.
+2. Build the library using `yarn prepare`.
+3. Release it via `yarn release`.
+
+Verify your library's presence on NPM:
+
+```bash
+npm view <package.name>
+```
+
+Install in your application with:
+
+```bash
+yarn add <package.name>
+```
+
+**Note**: For iOS, reinstall CocoaPods after adding a new module by running `bundle exec pod install` or `pod install`.
+
+Congratulations! You've published your first React Native library.

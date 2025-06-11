@@ -1,0 +1,18 @@
+# Border Style
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+When working with native environments, use `border-0` instead of `border-none` to eliminate borders. Below is a table indicating support levels for various border classes:
+
+| Class                 | Support        |
+| --------------------- | -------------- |
+| `border-solid`        | ✅ Full Support |
+| `border-dashed`       | ✅ Full Support |
+| `border-dotted`       | ✅ Full Support |
+| `border-none`         | 🌐 Web only    |
+| `border-double`       | 🌐 Web only    |
+| `border-hidden`       | 🌐 Web only    |

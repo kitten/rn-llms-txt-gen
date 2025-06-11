@@ -1,0 +1,157 @@
+# Getting Started
+
+The *Fundamentals* section aims to establish a solid understanding of the core concepts of Reanimated, empowering you to explore more complex scenarios independently. This section includes interactive examples, code snippets, and detailed explanations.
+
+## What is React Native Reanimated?
+
+React Native Reanimated is an advanced animation library developed by Software Mansion. It enables developers to create smooth animations and interactions that run on the UI thread with ease.
+
+## Quick Start
+
+To begin a new project using Expo:
+
+- **NPM**:  
+  ```bash
+  npx create-expo-app@latest my-app -e with-reanimated
+  ```
+
+- **YARN**:  
+  ```bash
+  yarn create expo-app my-app -e with-reanimated
+  ```
+
+Alternatively, explore examples available on GitHub.
+
+## Installation
+
+Adding Reanimated to your project involves three main steps:
+
+### Step 1: Install the Package
+
+Install the `react-native-reanimated` package from npm:
+
+- **EXPO**:  
+  ```bash
+  npx expo install react-native-reanimated
+  ```
+
+- **NPM**:  
+  ```bash
+  npm install react-native-reanimated
+  ```
+
+- **YARN**:  
+  ```bash
+  yarn add react-native-reanimated
+  ```
+
+### Step 2: Add Reanimated's Babel Plugin
+
+Include the `react-native-reanimated/plugin` in your `babel.config.js`:
+
+```javascript
+module.exports = {
+  presets: [
+    // existing presets
+  ],
+  plugins: [
+    // other plugins,
+    'react-native-reanimated/plugin',
+  ],
+};
+```
+
+**Caution**: Ensure that `react-native-reanimated/plugin` is the last plugin listed.
+
+### Step 3: Wrap Metro Config with Reanimated Wrapper (Recommended)
+
+Modify your `metro.config.js` to wrap the existing configuration using `wrapWithReanimatedMetroConfig`:
+
+```javascript
+// metro.config.js
+const {
+  wrapWithReanimatedMetroConfig,
+} = require('react-native-reanimated/metro-config');
+
+const config = {
+  // Your existing Metro configuration options
+};
+
+module.exports = wrapWithReanimatedMetroConfig(config);
+```
+
+### Step 4: Clear Metro Bundler Cache (Recommended)
+
+- **EXPO**:  
+  ```bash
+  npx expo start -c
+  ```
+
+- **NPM**:  
+  ```bash
+  npm start -- --reset-cache
+  ```
+
+- **YARN**:  
+  ```bash
+  yarn start --reset-cache
+  ```
+
+### Expo Development Build
+
+For an Expo development build, update the native code in `ios` and `android` directories by running:
+
+```bash
+npx expo prebuild
+```
+
+### Platform-Specific Setup
+
+#### Android
+
+No additional setup is required.
+
+#### iOS
+
+Before running your app on iOS, install pods with:
+
+```bash
+cd ios && pod install && cd ..
+```
+
+#### Web
+
+For web-targeted apps using react-native-web, it's recommended to use Expo. Install and add `@babel/plugin-proposal-export-namespace-from` Babel plugin in your `babel.config.js`:
+
+- **EXPO**:  
+  ```bash
+  npx expo install @babel/plugin-proposal-export-namespace-from
+  ```
+
+- **NPM**:  
+  ```bash
+  npm install @babel/plugin-proposal-export-namespace-from
+  ```
+
+- **YARN**:  
+  ```bash
+  yarn add @babel/plugin-proposal-export-namespace-from
+  ```
+
+Ensure your `babel.config.js` includes:
+
+```javascript
+module.exports = {
+  presets: [
+    // existing presets
+  ],
+  plugins: [
+    '@babel/plugin-proposal-export-namespace-from',
+    'react-native-reanimated/plugin',
+  ],
+};
+```
+
+**Note**: The `react-native-reanimated/plugin` should be listed last.
+
+For more advanced scenarios, such as using Reanimated with `webpack` or `Next.js`, refer to the separate Web Support guide.

@@ -1,0 +1,115 @@
+# useAnimatedSensor
+
+`useAnimatedSensor` allows you to create animations based on device sensor data. It provides access to:
+
+- **Accelerometer**: Measures device acceleration (excluding gravity) along the x, y, and z axes.
+- **Gyroscope**: Captures the rotation rate of the device along the x, y, and z axes.
+- **Gravity**: Provides the current gravity vector along the x, y, and z axes.
+- **Magnetic Field**: Measures the Earth's magnetic field strength and direction in microtesla (μT).
+- **Rotation**: Represents the device orientation using Euler angles and a quaternion.
+
+For comprehensive documentation, refer to the Sensors guide on Android Developers and Device Motion in Apple Developer documentation.
+
+## Reference
+
+```typescript
+import { useAnimatedSensor, SensorType } from 'react-native-reanimated';
+
+function App() {
+  const gyroscope = useAnimatedSensor(SensorType.GYROSCOPE);
+
+  useDerivedValue(() => {
+    const { x, y, z } = gyroscope.sensor.value;
+  });
+}
+```
+
+### Arguments
+
+#### `sensorType`
+
+Specifies the sensor type using a `SensorType` enum:
+
+- `ACCELEROMETER`: Measures device acceleration in m/s².
+- `GYROSCOPE`: Captures rotation rate in radians per second.
+- `GRAVITY`: Provides gravity vector in m/s².
+- `MAGNETIC_FIELD`: Measures magnetic field strength in microtesla (μT).
+- `ROTATION`: Represents orientation using Euler angles and a quaternion.
+
+#### `config` (Optional)
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| interval | `number \| "auto"` | `"auto"` | Time between sensor readings in milliseconds. `"auto"` matches the device's screen refresh rate. |
+| adjustToInterfaceOrientation | `boolean` | `true` | Adjusts measurements to the current interface orientation. |
+| iosReferenceFrame | `IOSReferenceFrame` | `IOSReferenceFrame.Auto` | Frame of reference for iOS sensors. |
+
+Available `IOSReferenceFrame` options:
+
+- `xArbitraryZVertical`: Z axis is vertical, X axis arbitrary in horizontal plane.
+- `xArbitraryCorrectedZVertical`: Improved rotation accuracy with Z vertical and X arbitrary.
+- `XMagneticNorthZVertical`: Z axis vertical, X points to magnetic north.
+- `XTrueNorthZVertical`: Z axis vertical, X points to geographic north.
+- `Auto`: Defaults based on device capabilities.
+
+### Returns
+
+`useAnimatedSensor` returns an object:
+
+| Name | Type | Description |
+|------|------|-------------|
+| sensor | `SharedValue<Value3D \| ValueRotation>` | Shared value with sensor measurements. |
+| unregister | `() => void` | Stops listening to sensor updates when called. |
+| isAvailable | `boolean` | Indicates if the sensor is available for use. |
+| config | `SensorConfig` | Contains sensor configuration details. |
+
+The shared value from the **rotation sensor** includes:
+
+- Euler angles: `roll`, `pitch`, `yaw`.
+- Quaternion components: `qw`, `qx`, `qy`, `qz`.
+- Interface orientation.
+
+Other sensors return measurements on x, y, z axes and interface orientation.
+
+`InterfaceOrientation` enum values:
+
+- `ROTATION_0`: Default rotation on Android, portrait on iOS.
+- `ROTATION_90`: 90 degrees on Android, landscape right on iOS.
+- `ROTATION_180`: 180 degrees on Android, upside down on iOS.
+- `ROTATION_270`: 270 degrees on Android, landscape left on iOS.
+
+## Example
+
+```typescript
+export default function App() {
+  const gravity = useAnimatedSensor(SensorType.GRAVITY);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: withSpring(gravity.sensor.value.x * 20) },
+        { translateY: withSpring(gravity.sensor.value.y * 20) },
+      ],
+    };
+  });
+
+  return (
+    <View style={styles.container}>
+      <Animated.View style={[styles.box, animatedStyle]} />
+    </View>
+  );
+}
+```
+
+## Remarks
+
+- On iOS, enable location services (`Settings > Privacy > Location Services`) to read sensor data.
+- On Web, ensure the device supports sensors and the application is served over HTTPS.
+- Most sensors operate at resolutions up to 100Hz.
+- Sensor data can be accessed on both UI and JavaScript threads.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

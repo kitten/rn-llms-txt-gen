@@ -1,0 +1,13 @@
+# What is Codegen?
+
+**Codegen** is designed to minimize repetitive coding tasks by generating scaffolding code automatically. While not mandatory—allowing manual writing of generated code—it can significantly save time.
+
+React Native triggers **Codegen** during the build process for both iOS and Android apps. Developers may also run **Codegen** scripts manually, especially when working on Turbo Native Modules and Fabric Native Components, to review the types and files produced.
+
+## How Codegen Works
+
+**Codegen** is an integral part of a React Native app's development process. The scripts reside within the `react-native` NPM package and are executed during the build phase.
+
+The **Codegen** process begins by scanning directories specified in your `package.json`, searching for JavaScript files that define specifications (specs) for custom modules and components. These spec files use a typed dialect, with React Native supporting both Flow and TypeScript.
+
+Upon identifying a spec file, **Codegen** generates the necessary boilerplate code. This includes C++ glue-code and platform-specific implementations: Java for Android and Objective-C++ for iOS.

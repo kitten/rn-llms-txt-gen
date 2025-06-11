@@ -1,0 +1,173 @@
+# Reanimated Drawer Layout
+
+A cross-platform alternative to React Native's `DrawerLayoutAndroid`. For standard parameter usage, refer to the React Native documentation.
+
+## Usage:
+
+Import as follows:
+
+```typescript
+import ReanimatedDrawerLayout from 'react-native-gesture-handler/ReanimatedDrawerLayout';
+```
+
+## Properties:
+
+### `drawerType`
+
+Defines how the drawer is displayed. Accepts values from the `DrawerPosition` enum. Defaults to `FRONT`.
+
+- **`FRONT`**: Drawer appears above the content view.
+- **`BACK`**: Drawer appears below the content view, revealed by sliding away the content view.
+- **`SLIDE`**: Drawer slides with the content view.
+
+| `FRONT` | `BACK` | `SLIDE` |
+| ------- | ------ | ------- |
+
+### `edgeWidth`
+
+Specifies the width of the invisible, draggable area on the edge of the content view to open the drawer.
+
+### `hideStatusBar`
+
+A boolean value. When set to `true`, hides the OS status bar when the drawer is dragged or idle in the `open` position using the StatusBar API.
+
+### `statusBarAnimation`
+
+Defines the animation for hiding the status bar, with possible values: `slide`, `none`, or `fade`. Defaults to `slide`. Used with `hideStatusBar`.
+
+### `overlayColor`
+
+Sets the background overlay color on top of the content window when the drawer is open. The opacity animates from 0% to 100% as the drawer transitions from closed to open. Defaults to `rgba(0, 0, 0, 0.7)`.
+
+### `renderNavigationView`
+
+A function renderer for the drawer component, provided with a `progress` parameter:
+
+- **`progress`**: A `SharedValue` indicating the progress of the drawer's opening/closing animation (0 when closed, 1 when open).
+
+### `onDrawerClose`
+
+Function called when the drawer is closed.
+
+### `onDrawerOpen`
+
+Function called when the drawer is opened.
+
+### `onDrawerSlide`
+
+Function called during drawer movement or animation, provided with a `progress` parameter:
+
+- **`progress`**: A `SharedValue` indicating the progress of the drawer's opening/closing animation (0 when closed, 1 when open).
+
+### `onDrawerStateChanged`
+
+Function called when the drawer's status changes. Takes two arguments:
+
+- **`newState`**: Interaction state of the drawer (`DrawerState.IDLE`, `DrawerState.DRAGGING`, or `DrawerState.SETTLING`).
+- **`drawerWillShow`**: `true` if the drawer is animating to open, otherwise `false`.
+
+### `enableTrackpadTwoFingerGesture` (iOS only)
+
+Enables two-finger gestures on supported devices. Without this, a click + drag gesture is required.
+
+### `children`
+
+Either a component rendered in the content view or a function provided with a `progress` parameter:
+
+- **`progress`**: A `SharedValue` indicating the progress of the drawer's opening/closing animation (0 when closed, 1 when open).
+
+### `mouseButton(value: MouseButton)` (Web & Android only)
+
+Allows selection of mouse button for gesture handling. The enum `MouseButton` includes:
+
+- `LEFT`
+- `RIGHT`
+- `MIDDLE`
+- `BUTTON_4`
+- `BUTTON_5`
+- `ALL`
+
+Values can be combined using the `|` operator, defaulting to `MouseButton.LEFT`.
+
+### `enableContextMenu(value: boolean)` (Web only)
+
+Specifies if a context menu should appear after right-clicking on the underlying view. Defaults to `false`.
+
+## Methods:
+
+### `openDrawer(options)`
+
+Opens the drawer with optional parameters:
+
+- **`initialVelocity`**: Initial velocity of the spring object, default is `0`.
+- **`animationSpeed`**: Controls animation speed, default is `1`.
+
+### `closeDrawer(options)`
+
+Closes the drawer with optional parameters:
+
+- **`initialVelocity`**: Initial velocity of the spring object, default is `0`.
+- **`animationSpeed`**: Controls animation speed, default is `1`.
+
+## Example:
+
+```typescript
+import React, { useRef } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+
+import ReanimatedDrawerLayout, {
+  DrawerType,
+  DrawerPosition,
+  DrawerLayoutMethods,
+} from 'react-native-gesture-handler/ReanimatedDrawerLayout';
+
+const DrawerPage = () => (
+  <View style={styles.drawerContainer}>
+    <Text>Lorem ipsum</Text>
+  </View>
+);
+
+export default function ReanimatedDrawerExample() {
+  const drawerRef = useRef<DrawerLayoutMethods>(null);
+  const tapGesture = Gesture.Tap()
+    .runOnJS(true)
+    .onStart(() => drawerRef.current?.openDrawer());
+
+  return (
+    <ReanimatedDrawerLayout
+      ref={drawerRef}
+      renderNavigationView={() => <DrawerPage />}
+      drawerPosition={DrawerPosition.LEFT}
+      drawerType={DrawerType.FRONT}>
+      <View style={styles.innerContainer}>
+        <GestureDetector gesture={tapGesture}>
+          <View style={styles.box}>
+            <Text>Open drawer</Text>
+          </View>
+        </GestureDetector>
+      </View>
+    </ReanimatedDrawerLayout>
+  );
+}
+
+const styles = StyleSheet.create({
+  drawerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+  },
+  innerContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20,
+  },
+  box: {
+    padding: 20,
+    backgroundColor: 'pink',
+  },
+});
+```

@@ -1,0 +1,46 @@
+```markdown
+# Legacy Gesture Handlers
+
+## Overview
+
+The legacy gesture handler API is scheduled for removal in upcoming versions of Gesture Handler. Users are encouraged to transition to the new gestures API. For detailed migration instructions, refer to the provided upgrading guide.
+
+## Cross-Handler Interactions
+
+The previous cross-handler interaction capabilities will be deprecated in future releases. Transitioning to the updated gestures API is recommended. Consult the upgrading guide for further details.
+
+## Common Handler Properties
+
+Properties common across handlers in the old API are slated for removal. Users should adopt the new gestures API and refer to the upgrading guide for assistance.
+
+## Specific Gesture Handlers
+
+### Pan
+The pan gesture handler from the legacy API will be deprecated. Transitioning to the gestures API is advised. See the upgrading guide for more information.
+
+### Tap
+The tap gesture handler in the old API will no longer be supported. Users should migrate to the new gestures API. Refer to the upgrading guide for guidance.
+
+### Long Press
+Long press functionality from the legacy API will be removed. Transitioning to the gestures API is recommended. Consult the upgrading guide for more details.
+
+### Rotation
+The rotation gesture handler in the old API will be deprecated. Migrating to the gestures API is advised. See the upgrading guide for further information.
+
+### Fling
+Fling gesture handling from the legacy API will be removed. Users should transition to the new gestures API. Refer to the upgrading guide for assistance.
+
+### Pinch
+The pinch gesture handler in the old API will no longer be supported. Transitioning to the gestures API is recommended. Consult the upgrading guide for more details.
+
+### Force Touch
+Force touch functionality from the legacy API will be deprecated. Migrating to the gestures API is advised. See the upgrading guide for further information.
+
+## NativeView
+
+The `NativeView` component in the old API will be removed. Users should adopt the new gestures API and refer to the upgrading guide for assistance.
+
+## createNativeWrapper()
+
+The `createNativeWrapper()` function from the legacy API will no longer be supported. Transitioning to the gestures API is recommended. Consult the upgrading guide for more details.
+```

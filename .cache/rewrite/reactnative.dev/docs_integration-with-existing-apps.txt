@@ -1,0 +1,145 @@
+To integrate React Native into an existing iOS application, follow these steps carefully. This guide assumes you have a basic understanding of both iOS development using Xcode and JavaScript/React Native.
+
+### Prerequisites
+
+1. **Node.js**: Ensure Node.js is installed on your machine. You can download it from [nodejs.org](https://nodejs.org/).
+2. **Xcode**: Make sure you have the latest version of Xcode installed.
+3. **CocoaPods**: Install CocoaPods if not already installed, using `sudo gem install cocoapods`.
+
+### Step-by-Step Integration
+
+#### 1. Set Up React Native Environment
+
+First, initialize a new React Native project in your existing iOS app directory:
+
+```bash
+npx react-native init MyReactNativeApp --template react-native-template-typescript
+```
+
+This command creates a new React Native project using TypeScript.
+
+#### 2. Configure CocoaPods
+
+Navigate to the `ios` directory of your React Native project and open the `Podfile`. Add the following lines:
+
+```ruby
+platform :ios, '11.0'
+
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+```
+
+Then run:
+
+```bash
+pod install
+```
+
+This installs necessary dependencies for React Native.
+
+#### 3. Modify Xcode Project
+
+Open your `.xcworkspace` file in Xcode. Ensure that the `User Script Sandboxing` is set to `NO` under Build Settings > Scripting.
+
+Add a new Run Script Phase in Xcode:
+
+1. Select your application target.
+2. Go to `Build Phases`.
+3. Click on the `+` button and select `New Run Script Phase`.
+4. Rename it to `Bundle React Native code and images`.
+5. Add the following script:
+
+```bash
+set -e
+
+WITH_ENVIRONMENT="$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh"
+REACT_NATIVE_XCODE="$REACT_NATIVE_PATH/scripts/react-native-xcode.sh"
+
+/bin/sh -c "$WITH_ENVIRONMENT $REACT_NATIVE_XCODE"
+```
+
+Drag this script above `[CP] Embed Pods Frameworks`.
+
+#### 4. Create Metro Configuration
+
+In the root of your project, create a `metro.config.js` file:
+
+```javascript
+const { getDefaultConfig } = require('@react-native/metro-config');
+module.exports = getDefaultConfig(__dirname);
+```
+
+Create a `.watchmanconfig` file with an empty JSON object:
+
+```bash
+echo {} > .watchmanconfig
+```
+
+#### 5. Start Metro Bundler
+
+Run the following command in your project root to start the Metro bundler:
+
+```bash
+npx react-native start
+```
+
+#### 6. Build and Run Your iOS App
+
+In Xcode, build and run your app as usual. Ensure that you have a button or some mechanism to present the React Native view.
+
+#### 7. Passing Initial Props
+
+To pass initial properties from native code to JavaScript:
+
+**Objective-C:**
+
+Modify `ReactViewController.mm`:
+
+```objective-c
+self.view = [_factory.rootViewFactory viewWithModuleName:@"HelloWorld" initialProperties:@{
+    @"userID": @"12345678",
+    @"token": @"secretToken"
+}];
+```
+
+**Swift:**
+
+Modify `ReactViewController.swift`:
+
+```swift
+view = reactNativeFactory!.rootViewFactory.view(withModuleName: "HelloWorld", initialProperties: [
+    "userID": "12345678",
+    "token": "secretToken"
+])
+```
+
+Update your `App.tsx` to read these properties:
+
+```tsx
+function App(props): React.JSX.Element {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  return (
+    <SafeAreaView style={{ backgroundColor: isDarkMode ? Colors.darker : Colors.lighter }}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <Header />
+        <View>
+          <Text style={styles.title}>UserID: {props.userID}</Text>
+          <Text style={styles.title}>Token: {props.token}</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+```
+
+### Testing and Debugging
+
+- Ensure your app is running in development mode to see changes reflected immediately.
+- Use React Native Debugger or Chrome DevTools for debugging JavaScript code.
+
+### Deployment
+
+For release builds, ensure the script phase for bundling JS and images is correctly configured. Test thoroughly on both simulators and real devices.
+
+By following these steps, you should be able to integrate React Native into your existing iOS application successfully. Continue developing using React Native's extensive documentation for further guidance.

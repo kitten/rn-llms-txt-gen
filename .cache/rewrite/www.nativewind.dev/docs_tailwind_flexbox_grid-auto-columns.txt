@@ -1,0 +1,14 @@
+# Grid Auto Columns
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support     |
+|------------------------|-------------|
+| `auto-cols-auto`       | 🌐 Web only |
+| `auto-cols-min`        | 🌐 Web only |
+| `auto-cols-max`        | 🌐 Web only |
+| `auto-cols-fr`         | 🌐 Web only |

@@ -1,0 +1,13 @@
+# Flex Basis
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `basis-{n}`        | ✅ Full Support |
+| `basis-[n]`        | ✅ Full Support |
+| `basis-auto`       | 🌐 Web only    |

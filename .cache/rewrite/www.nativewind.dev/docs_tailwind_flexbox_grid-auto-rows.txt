@@ -1,0 +1,14 @@
+# Grid Auto Rows
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support     |
+|------------------------|-------------|
+| `auto-rows-auto`       | 🌐 Web only |
+| `auto-rows-min`        | 🌐 Web only |
+| `auto-rows-max`        | 🌐 Web only |
+| `auto-rows-fr`         | 🌐 Web only |

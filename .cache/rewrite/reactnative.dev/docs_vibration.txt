@@ -1,0 +1,49 @@
+# Vibration
+
+This section describes how to make a device vibrate.
+
+## Example
+
+For Android applications, it is necessary to request the `android.permission.VIBRATE` permission. This can be done by adding `<uses-permission android:name="android.permission.VIBRATE"/>` in the `AndroidManifest.xml`.
+
+On iOS devices, vibration functionality is achieved using the `AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)` method.
+
+***
+
+## Reference
+
+### Methods
+
+#### `cancel()`
+
+```typescript
+static cancel(): void;
+```
+
+This method stops any ongoing vibrations that were initiated with a repeating pattern by calling `vibrate()`.
+
+***
+
+#### `vibrate()`
+
+```typescript
+static vibrate(
+  pattern?: number | number[],
+  repeat?: boolean
+): void;
+```
+
+Initiates a vibration for a specified duration. By default, the vibration lasts for 400 milliseconds on Android. On iOS, this duration is fixed at approximately 400 milliseconds.
+
+The `vibrate()` method can accept a `pattern` argument, which is an array of numbers representing time in milliseconds. If `repeat` is set to true, the vibration pattern will continue looping until `cancel()` is invoked.
+
+- **On Android:** The odd indices in the `pattern` array specify the duration of each vibration, while even indices indicate the pause between vibrations.
+- **On iOS:** All numbers in the `pattern` array represent the pause durations since the vibration length remains constant.
+
+**Parameters:**
+
+| Name    | Type                             | Default | Description                                                                                     |
+| ------- | -------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| pattern | number \| number[]               | `400`   | Specifies either a single duration for vibration in milliseconds or an array of times.          |
+| repeat  | boolean                          | `false` | If true, the vibration pattern will continue until `cancel()` is called.                        |
+

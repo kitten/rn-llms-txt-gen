@@ -1,0 +1,18 @@
+# Divide Width
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+**CAUTION**
+
+The `Divide Width` feature was temporarily removed in version 4. Efforts are underway to reintroduce it in a future update.
+
+## Compatibility
+
+| Class                | Support     |
+| -------------------- | ----------- |
+| `divide-x-{n}`       | 🌐 Web only |
+| `divide-x-[n]`       | 🌐 Web only |
+| `divide-y-{n}`       | 🌐 Web only |
+| `divide-y-[n]`       | 🌐 Web only |

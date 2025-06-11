@@ -1,0 +1,70 @@
+# PixelRatio
+
+`PixelRatio` provides access to the device's pixel density and font scale.
+
+## Fetching a Correctly Sized Image
+
+To ensure optimal image quality on high pixel density devices, it is advisable to adjust the image size by multiplying it with the pixel ratio. Here’s how you can achieve this:
+
+```typescript
+const image = getImage({
+  width: PixelRatio.getPixelSizeForLayoutSize(200),
+  height: PixelRatio.getPixelSizeForLayoutSize(100),
+});
+<Image source={image} style={{width: 200, height: 100}} />;
+```
+
+## Pixel Grid Snapping
+
+On iOS devices, you can specify element positions and dimensions with high precision. However, due to the fixed number of pixels on displays (e.g., 640×1136 for iPhone SE or 828×1792 for iPhone 11), iOS attempts to maintain user-defined values by spreading a single pixel across multiple ones, which may result in blurriness.
+
+Developers often prefer manual rounding to avoid this blurriness. React Native handles automatic rounding of pixels to prevent such issues. It's crucial to ensure that rounded and unrounded values are not mixed to prevent cumulative rounding errors, as even minor discrepancies can significantly affect element borders.
+
+In React Native, calculations in JavaScript and the layout engine use arbitrary precision numbers. Rounding occurs only when setting native element positions and dimensions on the main thread, relative to the root rather than the parent, to minimize rounding errors.
+
+## Reference
+
+### Methods
+
+#### `get()`
+
+```typescript
+static get(): number;
+```
+
+Returns the device pixel density with examples:
+
+- `PixelRatio.get() === 1`: mdpi Android devices
+- `PixelRatio.get() === 1.5`: hdpi Android devices
+- `PixelRatio.get() === 2`: iPhone SE, 6S, 7, 8; iPhone XR; iPhone 11; xhdpi Android devices
+- `PixelRatio.get() === 3`: iPhone 6S Plus, 7 Plus, 8 Plus; iPhone X, XS, XS Max; iPhone 11 Pro, 11 Pro Max; Pixel, Pixel 2; xxhdpi Android devices
+- `PixelRatio.get() === 3.5`: Nexus 6; Pixel XL, Pixel 2 XL; xxxhdpi Android devices
+
+#### `getFontScale()`
+
+```typescript
+static getFontScale(): number;
+```
+
+Returns the scaling factor for font sizes based on user preferences:
+
+- On Android: Reflects settings in **Settings > Display > Font size**
+- On iOS: Reflects settings in **Settings > Display & Brightness > Text Size** or **Settings > Accessibility > Display & Text Size > Larger Text**
+
+If no font scale is set, it returns the device pixel ratio.
+
+#### `getPixelSizeForLayoutSize()`
+
+```typescript
+static getPixelSizeForLayoutSize(layoutSize: number): number;
+```
+
+Converts a layout size (dp) to pixel size (px), ensuring an integer return value.
+
+#### `roundToNearestPixel()`
+
+```typescript
+static roundToNearestPixel(layoutSize: number): number;
+```
+
+Rounds a layout size (dp) to the nearest size that corresponds to an integer number of pixels. For instance, on a device with a PixelRatio of 3, `PixelRatio.roundToNearestPixel(8.4)` results in 8.33, which equals exactly 25 pixels when multiplied by 3.

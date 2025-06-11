@@ -1,0 +1,137 @@
+# Optimizing Flatlist Configuration
+
+## Key Concepts
+
+- **VirtualizedList:** The underlying component for `FlatList` in React Native, implementing the virtual list concept.
+  
+- **Memory Consumption:** Refers to how much data about your list is stored in memory, potentially leading to app crashes.
+
+- **Responsiveness:** Describes an application's ability to promptly respond to user interactions. Poor responsiveness can manifest as delays when interacting with components.
+
+- **Blank Areas:** Occur when `VirtualizedList` cannot render items quickly enough, resulting in non-rendered components appearing as blank spaces.
+
+- **Viewport:** The visible portion of content that is rendered on the screen.
+
+- **Window:** The area where items are mounted, typically larger than the viewport.
+
+## Properties for Performance Improvement
+
+### removeClippedSubviews
+
+| Type    | Default |
+| ------- | ------- |
+| Boolean | False   |
+
+**Description:** When set to `true`, views outside of the viewport are detached from the native view hierarchy.
+
+- **Pros:** Reduces time on the main thread, minimizing dropped frames by excluding off-screen views from rendering and drawing.
+  
+- **Cons:** Potential bugs such as missing content (notably on iOS) if complex transforms or absolute positioning are used. Views remain in memory but are only detached.
+
+### maxToRenderPerBatch
+
+| Type   | Default |
+| ------ | ------- |
+| Number | 10      |
+
+**Description:** Controls the number of items rendered per batch during scrolling.
+
+- **Pros:** A higher value reduces visual blank areas by increasing the fill rate.
+  
+- **Cons:** More items per batch can lead to longer JavaScript execution times, potentially blocking other events and affecting responsiveness.
+
+### updateCellsBatchingPeriod
+
+| Type   | Default |
+| ------ | ------- |
+| Number | 50      |
+
+**Description:** Sets the delay in milliseconds between batch renders for `VirtualizedList`.
+
+- **Pros:** Allows control over rendering frequency and quantity of items per batch.
+  
+- **Cons:** Less frequent batches may cause blank areas, while more frequent batches can impact responsiveness.
+
+### initialNumToRender
+
+| Type   | Default |
+| ------ | ------- |
+| Number | 10      |
+
+**Description:** Specifies the number of items to render initially.
+
+- **Pros:** Precisely setting this value for different devices can significantly boost initial rendering performance.
+  
+- **Cons:** A low `initialNumToRender` may result in blank areas if it doesn't cover the viewport on initial load.
+
+### windowSize
+
+| Type   | Default |
+| ------ | ------- |
+| Number | 21      |
+
+**Description:** Measured in units where 1 equals the viewport height. The default is 21 (10 viewports above, 10 below, and one in between).
+
+- **Pros:** A larger `windowSize` reduces blank space during scrolling but increases memory usage.
+  
+- **Cons:** A smaller `windowSize` saves memory but may increase the likelihood of encountering blank areas.
+
+## Tips for List Item Components
+
+### Use Basic Components
+
+Complex components render more slowly. Minimize logic and nesting in list items, especially if they are reused frequently across your app.
+
+### Use Light Components
+
+Heavier components take longer to render. Avoid large images by using cropped versions or thumbnails. Collaborate with the design team to minimize effects and interactions within list items.
+
+### Use `memo()`
+
+`React.memo()` creates a memoized component that re-renders only when its props change, optimizing performance for FlatList components.
+
+```typescript
+import React, { memo } from 'react';
+import { View, Text } from 'react-native';
+
+const MyListItem = memo(
+  ({ title }: { title: string }) => (
+    <View>
+      <Text>{title}</Text>
+    </View>
+  ),
+  (prevProps, nextProps) => prevProps.title === nextProps.title
+);
+
+export default MyListItem;
+```
+
+### Use Cached Optimized Images
+
+Utilize community packages like `react-native-fast-image` for more efficient image handling. Faster loading images free up the JavaScript thread sooner.
+
+### Use getItemLayout
+
+For list items with consistent height (or width in horizontal lists), use `getItemLayout` to avoid asynchronous layout calculations, enhancing performance.
+
+### Use keyExtractor or key
+
+Set the `keyExtractor` prop on your `FlatList` for caching and React's `key` tracking. Alternatively, use a `key` prop within item components.
+
+### Avoid Anonymous Functions in renderItem
+
+For functional components, define `renderItem` outside of JSX and wrap it with `useCallback`. For class components, place `renderItem` outside the render method to prevent recreation on each call.
+
+```typescript
+const renderItem = useCallback(({ item }) => (
+  <View key={item.key}>
+    <Text>{item.title}</Text>
+  </View>
+), []);
+
+return (
+  // ...
+  <FlatList data={items} renderItem={renderItem} />
+  // ...
+);
+```

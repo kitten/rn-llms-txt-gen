@@ -1,0 +1,247 @@
+To implement a cross-platform `localStorage` solution using React Native's TurboModule system, you need to set up both Android and iOS platforms. Below is a step-by-step guide based on the provided instructions:
+
+### Android Setup
+
+1. **Define the JavaScript Interface:**
+
+   Create a TypeScript file for your module interface.
+
+   ```typescript
+   // specs/NativeLocalStorageSpec.ts
+   import { TurboModule, TurboModuleRegistry } from 'react-native';
+
+   export interface Spec extends TurboModule {
+     getItem(key: string): Promise<string | null>;
+     setItem(value: string, key: string): Promise<void>;
+     removeItem(key: string): Promise<void>;
+     clear(): Promise<void>;
+   }
+
+   export default NativeLocalStorage as unknown as typeof TurboModuleRegistry.get<Spec>('NativeLocalStorage');
+   ```
+
+2. **Implement the Android Module:**
+
+   Create a Java class that implements the `NativeLocalStorageSpec`.
+
+   ```java
+   // android/src/main/java/com/nativelocalstorage/NativeLocalStoragePackage.java
+   package com.nativelocalstorage;
+
+   import androidx.annotation.NonNull;
+   import com.facebook.react.ReactPackage;
+   import com.facebook.react.bridge.NativeModule;
+   import com.facebook.react.bridge.ReactApplicationContext;
+   import com.facebook.react.uimanager.ViewManager;
+   import java.util.ArrayList;
+   import java.util.Collections;
+   import java.util.List;
+
+   public class NativeLocalStoragePackage implements ReactPackage {
+     @NonNull
+     @Override
+     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
+       List<NativeModule> modules = new ArrayList<>();
+       modules.add(new NativeLocalStorage(reactContext));
+       return modules;
+     }
+
+     @Override
+     public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
+       return Collections.emptyList();
+     }
+   }
+   ```
+
+   ```java
+   // android/src/main/java/com/nativelocalstorage/NativeLocalStorage.java
+   package com.nativelocalstorage;
+
+   import androidx.annotation.NonNull;
+   import com.facebook.react.bridge.Promise;
+   import com.facebook.react.bridge.ReactApplicationContext;
+   import com.facebook.react.bridge.ReactContextBaseJavaModule;
+   import com.facebook.react.module.annotations.ReactModule;
+   import java.util.HashMap;
+   import java.util.Map;
+
+   @ReactModule(name = NativeLocalStorage.NAME)
+   public class NativeLocalStorage extends ReactContextBaseJavaModule {
+     public static final String NAME = "NativeLocalStorage";
+
+     private final Map<String, String> storage = new HashMap<>();
+
+     public NativeLocalStorage(@NonNull ReactApplicationContext reactContext) {
+       super(reactContext);
+     }
+
+     @Override
+     @NonNull
+     public String getName() {
+       return NAME;
+     }
+
+     @ReactMethod
+     public void getItem(String key, Promise promise) {
+       promise.resolve(storage.get(key));
+     }
+
+     @ReactMethod
+     public void setItem(String value, String key, Promise promise) {
+       storage.put(key, value);
+       promise.resolve(null);
+     }
+
+     @ReactMethod
+     public void removeItem(String key, Promise promise) {
+       storage.remove(key);
+       promise.resolve(null);
+     }
+
+     @ReactMethod
+     public void clear(Promise promise) {
+       storage.clear();
+       promise.resolve(null);
+     }
+   }
+   ```
+
+3. **Register the Package:**
+
+   Update your `MainApplication.java` to include the new package.
+
+   ```java
+   // android/app/src/main/java/com/yourapp/MainApplication.java
+   import com.nativelocalstorage.NativeLocalStoragePackage;
+
+   @Override
+   protected List<ReactPackage> getPackages() {
+     return Arrays.<ReactPackage>asList(
+       new MainReactPackage(),
+       new NativeLocalStoragePackage()
+     );
+   }
+   ```
+
+### iOS Setup
+
+1. **Prepare the Xcode Project:**
+
+   - Open `TurboModuleExample.xcworkspace`.
+   - Create a group named `NativeLocalStorage`.
+   - Add a new Objective-C++ file `RCTNativeLocalStorage.mm`.
+
+2. **Implement the Module Interface:**
+
+   Update `RCTNativeLocalStorage.h` and `RCTNativeLocalStorage.mm`.
+
+   ```objc
+   // NativeLocalStorage/RCTNativeLocalStorage.h
+   #import <Foundation/Foundation.h>
+   #import <NativeLocalStorageSpec/NativeLocalStorageSpec.h>
+
+   NS_ASSUME_NONNULL_BEGIN
+
+   @interface RCTNativeLocalStorage : NSObject <NativeLocalStorageSpec>
+   @end
+
+   NS_ASSUME_NONNULL_END
+   ```
+
+   ```objc
+   // NativeLocalStorage/RCTNativeLocalStorage.mm
+   #import "RCTNativeLocalStorage.h"
+
+   static NSString *const RCTNativeLocalStorageKey = @"local-storage";
+
+   @interface RCTNativeLocalStorage()
+   @property (strong, nonatomic) NSUserDefaults *localStorage;
+   @end
+
+  @implementation RCTNativeLocalStorage
+
+   - (instancetype)init {
+     if (self = [super init]) {
+       _localStorage = [[NSUserDefaults alloc] initWithSuiteName:RCTNativeLocalStorageKey];
+     }
+     return self;
+   }
+
+   - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params {
+     return std::make_shared<facebook::react::NativeLocalStorageSpecJSI>(params);
+   }
+
+   - (NSString * _Nullable)getItem:(NSString *)key {
+     return [self.localStorage stringForKey:key];
+   }
+
+   - (void)setItem:(NSString *)value key:(NSString *)key {
+     [self.localStorage setObject:value forKey:key];
+   }
+
+   - (void)removeItem:(NSString *)key {
+     [self.localStorage removeObjectForKey:key];
+   }
+
+   - (void)clear {
+     NSDictionary *keys = [self.localStorage dictionaryRepresentation];
+     for (NSString *key in keys) {
+       [self removeItem:key];
+     }
+   }
+
+   + (NSString *)moduleName {
+     return @"NativeLocalStorage";
+   }
+
+   @end
+   ```
+
+3. **Register the Module:**
+
+   Update `package.json` to link the JS interface with the native implementation.
+
+   ```json
+   "codegenConfig": {
+     "name": "AppSpecs",
+     "type": "modules",
+     "jsSrcsDir": "specs",
+     "android": {
+       "javaPackageName": "com.sampleapp.specs"
+     },
+     "ios": {
+       "modulesProvider": {
+         "NativeLocalStorage": "RCTNativeLocalStorage"
+       }
+     }
+   }
+   ```
+
+4. **Reinstall Pods:**
+
+   Run the following commands to ensure everything is set up correctly.
+
+   ```bash
+   bundle exec pod install
+   open TurboModuleExample.xcworkspace
+   ```
+
+### Build and Run
+
+- For Android:
+
+  ```bash
+  npm run android
+  # or
+  yarn run android
+  ```
+
+- For iOS:
+
+  ```bash
+  npm run ios
+  # or
+  yarn run ios
+  ```
+
+This setup provides a consistent `localStorage` API across both platforms using React Native's TurboModule system.

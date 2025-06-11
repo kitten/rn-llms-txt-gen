@@ -1,0 +1,15 @@
+# Appearance
+
+## Usage
+
+For detailed information, please consult the official Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support      |
+|------------------------|--------------|
+| `appearance-none`      | 🌐 Web only  |
+
+--- 
+
+This reformatted content maintains the original structure and intent while ensuring clarity and adherence to markdown formatting standards.

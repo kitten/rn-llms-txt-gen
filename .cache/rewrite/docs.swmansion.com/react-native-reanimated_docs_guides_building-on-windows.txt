@@ -1,0 +1,80 @@
+# Troubleshooting React Native Reanimated Build Issues on Windows
+
+This guide outlines basic troubleshooting steps for resolving issues encountered when building React Native apps with Reanimated for Android devices on a Windows host machine. Common errors include:
+
+- `Execution failed for task ':react-native-reanimated:buildCMakeDebug[x86_64]'`
+- `Execution failed for task ':react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a]'`
+- `Task :react-native-reanimated:buildCMakeDebug[x86_64] FAILED`
+- `C/C++: ninja: error: mkdir(...): No such file or directory`
+- `C++ build system [build] failed while executing`
+- `Picked up _JAVA_OPTIONS`
+
+## What Not to Do
+
+If you encounter any of the above errors, avoid these actions:
+
+### ❌ Avoid Disabling New Architecture
+Starting from React Native 0.76, New Architecture is enabled by default. Manually disabling it in `gradle.properties` does not resolve issues and merely delays them since legacy architecture will be phased out.
+
+### ❌ Avoid Downgrading Android Gradle Plugin (AGP)
+Do not modify the AGP version in `gradle.properties`. Use the version specified in the official app template to prevent version conflicts and unsupported features.
+
+### ❌ Avoid Downgrading Reanimated or Other Dependencies
+Downgrading increases technical debt. Newer versions of Reanimated include bug fixes and stability improvements. Always use the latest supported version, and consider upgrading all dependencies rather than downgrading them.
+
+### ❌ Avoid Posting Duplicate "Same Issue" Comments
+Before reporting an error, search for similar issues on platforms like GitHub or Stack Overflow. Instead of posting duplicate comments, add a reaction to the original issue to indicate its impact.
+
+## Recommended Actions
+
+### ✅ Ensure Correct Environment Setup
+Follow all instructions in Set Up Your Environment. Run `npx react-native doctor` to identify any problems. Restart your terminal, IDE, or computer if changes have been made.
+
+### ✅ Use Compatible Reanimated Version
+Use the latest supported version of Reanimated based on your app setup:
+
+- **Expo SDK**: Match major and minor versions with Expo SDK.
+  - Example: Expo SDK 52 supports `~3.16.x`. Update to the latest patch, e.g., `3.16.7`.
+
+| Expo SDK Version | Reanimated Version |
+|------------------|--------------------|
+| `52`             | `~3.16.1`          |
+| `51`             | `~3.10.1`          |
+| `50`             | `~3.6.2`           |
+
+- **Expo Prebuild or React Native without Framework**: Use a version compatible with your React Native version according to the Compatibility table.
+
+### ✅ Use Appropriate CMake Version
+Ensure you use CMake `3.22.1` or newer. Customize the version using the `CMAKE_VERSION` environment variable, e.g., `set CMAKE_VERSION=3.31.1`. If unset, default is `3.22.1`.
+
+### ✅ Use Appropriate Ninja Version
+Use Ninja `1.12.0` or newer (latest is `1.12.1`) as older versions may not handle long paths correctly.
+
+### ✅ Use Compatible Android NDK Version
+Match the NDK version with that used in the official app template. It should be installed automatically during app build.
+
+### ✅ Unset `_JAVA_OPTIONS`
+Unsetting this environment variable can resolve certain errors and allow builds to pass.
+
+### ✅ Enable Long Paths Support in Windows Registry
+Follow instructions to enable long paths support on Windows.
+
+### ✅ Avoid Whitespace in Project Path
+Paths with spaces may cause issues. Move projects to directories without whitespace, e.g., `D:\Mobile Apps\MyAwesomeProject`.
+
+### ✅ Ensure Short Project Path
+Avoid paths longer than 240 characters. Move or clone the project to a shorter path, e.g., `D:\AwesomeProject`.
+
+### ✅ Remove or Invalidate Caches
+Clear compilation artifacts in directories like:
+
+- `android\build`
+- `android\.cxx`
+- `android\.gradle`
+- `node_modules\react-native-reanimated\android\build`
+
+Invalidate Android Studio caches (File → Invalidate Caches…).
+
+### ⚠️ Persistent Issues
+
+If problems persist after following these steps, submit an issue in the repository with full build logs and a minimal reproducible example.

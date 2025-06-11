@@ -1,0 +1,121 @@
+# Cross-Language Communication in React Native
+
+React Native allows for seamless integration with native components. This guide explores techniques to facilitate communication between React Native and native code.
+
+## Introduction
+
+Inspired by React, React Native follows a unidirectional data flow where components depend on their parent's properties or internal state. When integrating native components, specific mechanisms are required to enable cross-language communication.
+
+### Properties
+
+Properties serve as the primary method for passing information between native and React Native components.
+
+#### Passing Properties from Native to React Native
+
+To embed a React Native view within a native component, use `RCTRootView`, which acts as an interface. You can pass properties using its initializer:
+
+```objective-c
+NSArray *imageList = @[@"https://dummyimage.com/600x400/ffffff/000000.png",
+                       @"https://dummyimage.com/600x400/000000/ffffff.png"];
+
+NSDictionary *props = @{@"images" : imageList};
+
+RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                 moduleName:@"ImageBrowserApp"
+                                          initialProperties:props];
+```
+
+In React Native, these properties can be accessed as follows:
+
+```typescript
+import React from 'react';
+import { View, Image } from 'react-native';
+
+export default class ImageBrowserApp extends React.Component {
+  renderImage(imgURI) {
+    return <Image source={{ uri: imgURI }} />;
+  }
+
+  render() {
+    return (
+      <View>
+        {this.props.images.map(this.renderImage)}
+      </View>
+    );
+  }
+}
+```
+
+`RCTRootView` also supports updating properties via `appProperties`, which triggers a re-render when changes occur. Ensure updates are performed on the main thread.
+
+#### Passing Properties from React Native to Native
+
+Expose native component properties using the `RCT_CUSTOM_VIEW_PROPERTY` macro, allowing them to be used in React Native as standard components.
+
+### Limits of Properties
+
+Properties lack support for callbacks, limiting bottom-up data binding. For instance, removing a React Native view based on JS actions requires alternative mechanisms.
+
+## Other Ways of Cross-Language Interaction (Events and Native Modules)
+
+For more complex interactions, consider using events or native modules:
+
+### Calling React Native Functions from Native (Events)
+
+Events allow triggering JavaScript functions without direct references to components. However, they can introduce dependencies and potential name collisions. Use the `reactTag` as an identifier for distinguishing between multiple instances.
+
+### Calling Native Functions from React Native (Native Modules)
+
+Native modules expose Objective-C classes in JavaScript, allowing function calls across languages. They are singletons per JS bridge, requiring identifiers to manage multiple native views.
+
+## Layout Computation Flow
+
+Integrating different layout systems requires careful management:
+
+### Layout of a Native Component Embedded in React Native
+
+Most style and size attributes work as expected since native react views subclass `UIView`.
+
+### Layout of a React Native Component Embedded in Native
+
+#### Fixed Size Content
+
+For fixed-size content, set the frame explicitly. Use Flexbox to ensure content fits within bounds.
+
+```objective-c
+- (void)viewDidLoad {
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:appName
+                                            initialProperties:props];
+  rootView.frame = CGRectMake(0, 0, self.view.width, 200);
+  [self.view addSubview:rootView];
+}
+```
+
+#### Flexible Size Content
+
+For dynamic sizes, use `ScrollView` or `RCTRootView`'s flexibility modes to adjust layout based on content size.
+
+```objective-c
+- (instancetype)initWithFrame:(CGRect)frame {
+  _rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                      moduleName:@"FlexibilityExampleApp"
+                               initialProperties:@{}];
+  _rootView.delegate = self;
+  _rootView.sizeFlexibility = RCTRootViewSizeFlexibilityHeight;
+  _rootView.frame = CGRectMake(0, 0, self.frame.size.width, 0);
+}
+
+#pragma mark - RCTRootViewDelegate
+- (void)rootViewDidChangeIntrinsicSize:(RCTRootView *)rootView {
+  CGRect newFrame = rootView.frame;
+  newFrame.size = rootView.intrinsicContentSize;
+  rootView.frame = newFrame;
+}
+```
+
+### Notes
+
+React Native's layout calculations occur on a separate thread, potentially causing temporary UI inconsistencies. Synchronize updates to maintain consistency.
+
+By understanding these techniques, you can effectively manage communication and layout between React Native and native components.

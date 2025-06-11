@@ -1,0 +1,78 @@
+# Profiling
+
+Profiling involves analyzing an app's performance, resource usage, and behavior to identify potential bottlenecks or inefficiencies. Utilizing profiling tools ensures your app runs smoothly across various devices and conditions.
+
+For iOS, Instruments is a valuable tool, while on Android, the Android Studio Profiler should be used.
+
+**Important:** Ensure Development Mode is OFF! Your application logs should indicate `__DEV__ === false`, meaning development-level warnings are off and performance optimizations are enabled.
+
+## Profiling Android UI Performance with System Tracing
+
+Android supports over 10,000 different phones and generalizes to support software rendering. This means you might not get as much optimization out-of-the-box compared to iOS. However, there are often areas for improvement that aren't related to native code.
+
+The first step in debugging performance issues is determining where time is spent during each 16ms frame using the built-in System Tracing profiler in Android Studio.
+
+### 1. Collecting a Trace
+
+- Connect your device exhibiting stuttering via USB.
+- Open your project's `android` folder in Android Studio, select your device, and run your project as profileable.
+- With your app running on the device, navigate to the point just before the animation or interaction you want to profile.
+- Start "Capture System Activities" in the Android Studio Profiler pane.
+- Perform the desired action, then press "Stop recording."
+- Inspect the trace directly in Android Studio or export it for analysis with tools like Perfetto.
+
+### 2. Reading the Trace
+
+After opening the trace in Android Studio or Perfetto:
+
+- Use WASD keys to navigate and zoom within the tool.
+- Enable VSync highlighting at the top right of the screen to see frame boundaries as zebra stripes. If not visible, try profiling on a different device (e.g., Nexus series).
+
+### 3. Find Your Process
+
+Scroll to find your package name in the trace. For example, `com.facebook.adsmanager` might appear as `book.adsmanager`.
+
+Identify key threads:
+
+- **UI Thread:** Handles standard Android measure/layout/draw operations. Look for events related to `Choreographer`, `traversals`, and `DispatchUI`.
+- **JS Thread:** Executes JavaScript code. Identify it by looking for `JSCall` or `Bridge.executeJSCall`.
+- **Native Modules Thread:** Manages native module calls (e.g., `UIManager`). Look for `NativeCall` or `callJavaModuleMethod`.
+- **Render Thread (Android 5+):** Generates OpenGL commands. Identify it by looking for `DrawFrame` and `queueBuffer`.
+
+## Identifying a Culprit
+
+A smooth animation should show no thread working near frame boundaries, indicating 60 FPS rendering.
+
+If choppy performance is observed:
+
+- **JS Issues:** If the JS thread works continuously across frames, the problem lies in JavaScript execution.
+- **Native UI Issues:** If the UI or Render threads work across frame boundaries, the issue is with native views being rendered.
+
+## Resolving JavaScript Issues
+
+For JS problems:
+
+- Investigate specific JS code. Look for frequent calls like `RCTEventEmitter`.
+- Consider optimizing component updates using methods like `shouldComponentUpdate`.
+
+## Resolving Native UI Issues
+
+Native UI issues can arise from:
+
+1. **Excessive GPU Work:** Long durations in `DrawFrame` indicate heavy GPU load.
+   - Use `renderToHardwareTextureAndroid` for complex animations.
+   - Avoid `needsOffscreenAlphaCompositing`, which increases GPU load.
+
+2. **Creating New Views on the UI Thread:**
+   - Postpone creating new UI until after interactions or simplify the UI being created.
+   - The React Native team is developing solutions to create and configure UI off the main thread.
+
+## Finding Native CPU Hotspots
+
+For native-side issues:
+
+- Use the Android Studio Profiler's "Find CPU Hotspots (Java/Kotlin Method Recording)" feature.
+- Select Java/Kotlin recording, perform interactions, and stop recording after a short interaction.
+- Analyze the trace in Android Studio or export it for further analysis with tools like Firefox Profiler.
+
+CPU hotspot profiling is resource-intensive and may not provide precise measurements but can highlight native methods consuming time during each frame.

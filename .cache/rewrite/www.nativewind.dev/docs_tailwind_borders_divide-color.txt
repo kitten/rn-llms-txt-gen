@@ -1,0 +1,32 @@
+# Divide Color
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+**CAUTION:**  
+The `Divide Color` feature was temporarily removed in version 4. Efforts are underway to reintroduce it in future updates.
+
+## Compatibility
+
+| Class                  | Support     |
+|------------------------|-------------|
+| `divide-{n}`           | 🌐 Web only |
+| `divide-[n]`           | 🌐 Web only |
+| `divide-inherit`       | 🌐 Web only |
+| `divide-current`       | 🌐 Web only |
+
+### divideOpacity (native only)
+
+Due to performance considerations, Nativewind renders with the `corePlugin` `divideOpacity` disabled by default. This plugin enables dynamic adjustment of the divide color's opacity using the `--tw-divide-opacity` variable. Instead, opacity is set as a static value in the `color` property.
+
+To enable this feature, add the following configuration to your `tailwind.config.js` file:
+
+```typescript
+module.exports = {
+  /* ... */
+  corePlugin: {
+    divideOpacity: true,
+  },
+};
+```

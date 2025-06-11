@@ -1,0 +1,9 @@
+# Buttons
+
+The Gesture Handler library offers native components designed to function as buttons. These components serve as alternatives to `TouchableHighlight` or `TouchableOpacity` from React Native's core library. The key advantages of using Gesture Handler's buttons include:
+
+- **Native Touch Recognition**: They recognize touches natively, ensuring a deterministic process.
+- **High Performance on Android**: Enables rendering ripples efficiently with `TouchableNativeFeedback`, avoiding the lag caused by touch events needing to return to JavaScript before updating ripple effects—a common issue on older devices.
+- **Optimized Interaction in Scrollable Containers**: Provides native and platform-specific default interactions for buttons within scrollable containers, where interaction is slightly delayed. This delay prevents premature button highlighting during flinging actions.
+
+These features enhance the user experience by ensuring smooth and responsive button interactions across different platforms and device capabilities.

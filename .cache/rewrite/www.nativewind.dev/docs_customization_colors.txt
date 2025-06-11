@@ -1,0 +1,30 @@
+# Colors
+
+Customize your colors similarly to Tailwind CSS. For more details, refer to the Tailwind CSS documentation.
+
+## Platform-Specific Colors
+
+Native platforms have unique system colors accessible through `PlatformColor`, unlike the web's common color palette.
+
+Nativewind provides access to these platform-specific colors using the `platformColor()` utility.
+
+```typescript
+// tailwind.config.js
+
+const { platformSelect, platformColor } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        error: platformSelect({
+          // Provide platform-specific values here
+          ios: platformColor("systemRed"),
+          android: platformColor("?android:colorError"),
+          default: "red",
+        }),
+      },
+    },
+  },
+};
+```

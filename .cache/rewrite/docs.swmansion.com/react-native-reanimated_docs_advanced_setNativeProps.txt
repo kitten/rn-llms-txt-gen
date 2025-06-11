@@ -1,0 +1,48 @@
+# setNativeProps
+
+The `setNativeProps` function allows for the imperative updating of component properties in React Native. It serves as an escape hatch intended for specific edge cases.
+
+> **Caution:**  
+> Prefer using `useAnimatedStyle` and `useAnimatedProps` when animating styles or properties, reserving `setNativeProps` for exceptional situations.
+
+## Reference
+
+```typescript
+import { setNativeProps } from 'react-native-reanimated';
+
+function App() {
+  const animatedRef = useAnimatedRef();
+
+  const tap = Gesture.Tap().onEnd(() => {
+    setNativeProps(animatedRef, { text: '' });
+  });
+
+  return <TextInput ref={animatedRef} />;
+}
+```
+
+### Arguments
+
+- **`animatedRef`:**  
+  An animated reference linked to the component you wish to update. This animated reference must be passed either to an Animated component or a React Native built-in component.
+
+- **`updates`:**  
+  An object containing properties that need updating, which can include both style properties (e.g., `width`, `backgroundColor`) and regular properties (e.g., `text`).
+
+### Returns
+
+The function returns `undefined`.
+
+## Remarks
+
+- Prioritize using `useAnimatedStyle` and `useAnimatedProps` for animating styles or properties.
+- Ensure that `setNativeProps` is used exclusively on the UI thread.
+- The `setNativeProps` function was designed to facilitate the imperative updating of props from gesture handlers. In other scenarios, it may require an additional `runOnUI` call, making React Native's built-in `setNativeProps` more efficient with fewer runtime transitions.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+---

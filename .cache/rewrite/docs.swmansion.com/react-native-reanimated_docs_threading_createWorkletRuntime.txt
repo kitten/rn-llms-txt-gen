@@ -1,0 +1,53 @@
+# createWorkletRuntime
+
+The `createWorkletRuntime` function allows for the creation of a new JavaScript runtime that can execute worklets on threads separate from the main JavaScript or UI thread. This functionality is intended primarily for use by third-party libraries integrating with worklets. The returned value represents this runtime and should be communicated to the C++ side via JSI (JavaScript Interface) for further operations.
+
+## Reference
+
+### Usage in JavaScript
+
+```typescript
+import { createWorkletRuntime } from 'react-native-reanimated';
+
+function App() {
+  const runtime = createWorkletRuntime('background');
+}
+```
+
+### Usage in C++
+
+```cpp
+auto runtime = reanimated::extractWorkletRuntime(rt, runtimeValue);
+
+jsi::Runtime &rt = runtime->getJSIRuntime();
+
+auto worklet = reanimated::extractShareableOrThrow<reanimated::ShareableWorklet>(rt, workletValue);
+
+runtime->runGuarded(worklet, ...args);
+```
+
+### Arguments
+
+- **`name`**: A string identifier for the runtime that will appear in device lists within Chrome DevTools.
+
+- **`initializer`** (optional): A worklet executed synchronously on the same thread immediately after the runtime's creation. This can be used to inject global variables or functions into the runtime.
+
+### Returns
+
+The `createWorkletRuntime` function returns a `WorkletRuntime`, which is represented as a `jsi::HostObject<reanimated::WorkletRuntime>`.
+
+## Remarks
+
+- Worklet runtimes include built-in support for `performance.now` and `console.*` methods. Other APIs are not available by default and must be injected or captured via worklet closures.
+
+- In development mode, unhandled errors thrown within the runtime (excluding those in the `initializer`) will be caught, logged to the console, and displayed in a LogBox.
+
+- Chrome DevTools can be used for debugging the runtime when using Hermes. The runtime appears in the devices list as specified by the `name` argument passed to `createWorkletRuntime`.
+
+- Shared values have limited support within worklet runtimes. To write to a shared value from the React Native (RN) runtime and read it on the worklet runtime, use `runOnRuntime`. Otherwise, updates will only reflect in the RN and UI runtimes.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ❌  |

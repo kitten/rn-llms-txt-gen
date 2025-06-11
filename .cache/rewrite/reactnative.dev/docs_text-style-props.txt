@@ -1,0 +1,173 @@
+# Text Style Properties
+
+## Example
+
+- TypeScript
+- JavaScript
+
+## Reference
+
+## Properties
+
+### `color`
+
+- **Type**: color
+
+### `fontFamily`
+
+- **Type**: string
+
+### `fontSize`
+
+- **Type**: number
+
+### `fontStyle`
+
+- **Type**: enum  
+  - `'normal'`
+  - `'italic'`
+
+### `fontWeight`
+
+Specifies the font weight. The values `'normal'` and `'bold'` are supported for most fonts. If a font does not have variants for all numeric values, the closest available variant is used.
+
+- **Type**: enum or number  
+  - `'normal'`
+  - `'bold'`
+  - `'100'`
+  - `'200'`
+  - `'300'`
+  - `'400'`
+  - `'500'`
+  - `'600'`
+  - `'700'`
+  - `'800'`
+  - `'900'`
+- **Default**: `'normal'`
+
+### `includeFontPadding` (Android)
+
+Set to `false` to remove extra font padding, which is intended for certain ascenders and descenders. This can help align text better when centered vertically. For optimal results, also set `textAlignVertical` to `center`.
+
+- **Type**: bool
+- **Default**: `true`
+
+### `fontVariant`
+
+Allows setting all font variants using an array of enums or a space-separated string (e.g., `'small-caps common-ligatures'`).
+
+- **Type**: array of enum or string  
+  - `'small-caps'`
+  - `'oldstyle-nums'`
+  - `'lining-nums'`
+  - `'tabular-nums'`
+  - `'proportional-nums'`
+- **Default**: `[]`
+
+### `letterSpacing`
+
+Adjusts the spacing between characters. By default, there is no extra letter spacing.
+
+- **Type**: number
+
+### `lineHeight`
+
+Controls vertical spacing between lines of text within a text element by specifying the distance between baselines of consecutive lines.
+
+- **Type**: number
+
+### `textAlign`
+
+Specifies text alignment. On Android, `'justify'` is supported only on Oreo (8.0) or above (API level >= 26). It falls back to `left` on lower versions.
+
+- **Type**: enum  
+  - `'auto'`
+  - `'left'`
+  - `'right'`
+  - `'center'`
+  - `'justify'`
+- **Default**: `'auto'`
+
+### `textAlignVertical` (Android)
+
+- **Type**: enum  
+  - `'auto'`
+  - `'top'`
+  - `'bottom'`
+  - `'center'`
+- **Default**: `'auto'`
+
+### `textDecorationColor` (iOS)
+
+- **Type**: color
+
+### `textDecorationLine`
+
+- **Type**: enum  
+  - `'none'`
+  - `'underline'`
+  - `'line-through'`
+  - `'underline line-through'`
+- **Default**: `'none'`
+
+### `textDecorationStyle` (iOS)
+
+- **Type**: enum  
+  - `'solid'`
+  - `'double'`
+  - `'dotted'`
+  - `'dashed'`
+- **Default**: `'solid'`
+
+### `textShadowColor`
+
+- **Type**: color
+
+### `textShadowOffset`
+
+- **Type**: object  
+  ```typescript
+  { width?: number; height?: number }
+  ```
+
+### `textShadowRadius`
+
+- **Type**: number
+
+### `textTransform`
+
+- **Type**: enum  
+  - `'none'`
+  - `'uppercase'`
+  - `'lowercase'`
+  - `'capitalize'`
+- **Default**: `'none'`
+
+### `verticalAlign` (Android)
+
+- **Type**: enum  
+  - `'auto'`
+  - `'top'`
+  - `'bottom'`
+  - `'middle'`
+- **Default**: `'auto'`
+
+### `writingDirection` (iOS)
+
+- **Type**: enum  
+  - `'auto'`
+  - `'ltr'`
+  - `'rtl'`
+- **Default**: `'auto'`
+
+### `userSelect`
+
+Allows text selection and native copy-paste functionality, taking precedence over the `selectable` prop.
+
+- **Type**: enum  
+  - `'auto'`
+  - `'text'`
+  - `'none'`
+  - `'contain'`
+  - `'all'`
+- **Default**: `none`

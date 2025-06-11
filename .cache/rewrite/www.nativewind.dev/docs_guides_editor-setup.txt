@@ -1,0 +1,23 @@
+# Editor Setup
+
+For detailed information on setting up your editor with Tailwind CSS, please consult the official documentation available on the Tailwind CSS website.
+
+## Custom ClassName Props
+
+The `cssInterop`/`remapProps` functionality enables you to define custom className props. To implement this feature, refer to the specific plugin's documentation for guidance on adding these attributes to the list of checked classAttributes.
+
+### Example Setup with VS Code
+
+Below is an example demonstrating how to use a custom component with `cssInterop(Component, { headerClassName: 'headerStyle' })` in Visual Studio Code:
+
+```json
+{
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "headerClassName"
+  ]
+}
+```
+
+This configuration allows you to specify additional class attributes that Tailwind CSS will recognize and apply.

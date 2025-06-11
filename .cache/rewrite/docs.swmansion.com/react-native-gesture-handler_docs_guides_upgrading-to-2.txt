@@ -1,0 +1,112 @@
+# Migrating from `RNGestureHandlerEnabledRootView` (Android Only)
+
+The `RNGestureHandlerEnabledRootView`, required in Gesture Handler 1 for overriding `createRootView`, was deprecated in version 2.0 and removed by version 2.4 due to its association with difficult-to-debug crashes. If you're still using it, refer to the guide on migrating off RNGHEnabledRootView.
+
+## Upgrading to the New API
+
+Gesture Handler 2 introduces a new Gesture API along with the `GestureDetector` component, simplifying gesture declaration by reducing boilerplate code. Instead of separate components for each gesture type, `GestureDetector` attaches gestures based on configuration objects created using the `Gesture` object. Here's an example:
+
+```typescript
+const tapGesture = Gesture.Tap().onStart(() => {
+  console.log('Tap!');
+});
+
+return (
+  <GestureDetector gesture={tapGesture}>
+    <View />
+  </GestureDetector>
+);
+```
+
+The new API eliminates `onGestureEvent` and `onHandlerStateChange`, handling state transitions internally. Key callbacks include:
+
+- **`onBegin`**: Triggered when the gesture enters the `BEGAN` state.
+- **`onStart`**: Activated when the gesture moves from `BEGAN` to `ACTIVE`.
+- **`onUpdate`**: Called during each event in the `ACTIVE` state, replacing `onGestureEvent`.
+- **`onChange`**: Follows `onUpdate`, providing change values since the last event.
+- **`onEnd`**: Triggered when transitioning from `ACTIVE` to `END`, `FAILED`, or `CANCELLED`. The reason for ending is determined by a second argument.
+- **`onFinalize`**: Called upon entering `END`, `FAILED`, or `CANCELLED`, regardless of whether the gesture was `ACTIVE`.
+
+The distinction between `onEnd` and `onFinalize` lies in their activation: `onEnd` triggers only if the gesture was `ACTIVE`, while `onFinalize` activates if it reached `BEGAN`. Use `onEnd` for cleanup post-`onStart`, and `onFinalize` after `onBegin`.
+
+### Configuring Gestures
+
+Gestures are configured using a builder-like pattern, where methods replace properties. For instance:
+
+```typescript
+return (
+  <TapGestureHandler
+    numberOfTaps={2}
+    maxDurationMs={500}
+    maxDelayMs={500}
+    maxDist={10}
+    onHandlerStateChange={({ nativeEvent }) => {
+      if (nativeEvent.state === State.ACTIVE) {
+        console.log('Tap!');
+      }
+    }}>
+    <View />
+  </TapGestureHandler>
+);
+```
+
+This can be equivalently configured as:
+
+```typescript
+const tapGesture = Gesture.Tap()
+  .numberOfTaps(2)
+  .maxDuration(500)
+  .maxDelay(500)
+  .maxDistance(10)
+  .onStart(() => {
+    console.log('Tap!');
+  });
+
+return (
+  <GestureDetector gesture={tapGesture}>
+    <View />
+  </GestureDetector>
+);
+```
+
+Refer to the API Reference under Gestures for available modifiers.
+
+### Using Multiple Gestures on a Single View
+
+Previously, stacking multiple gestures required deep component trees with `Animated.View` layers. For example:
+
+```typescript
+return (
+  <TapGestureHandler ... >
+    <Animated.View>
+      <PanGestureHandler ... >
+        <Animated.View>
+          <PinchGestureHandler ... >
+            <YourView />
+          </PinchGestureHandler>
+        </Animated.View>
+      </PanGestureHandler>
+    </Animated.View>
+  </TapGestureHandler>
+);
+```
+
+With `GestureDetector`, use the Gesture Composition API to stack gestures:
+
+```typescript
+const tapGesture = Gesture.Tap();
+const panGesture = Gesture.Pan();
+const pinchGesture = Gesture.Pinch();
+
+return (
+  <GestureDetector gesture={Gesture.Race(tapGesture, panGesture, pinchGesture)}>
+    <YourView />
+  </GestureDetector>
+);
+```
+
+Use `Gesture.Simultaneous` for simultaneous recognition and `Gesture.Exclusive` for exclusive gestures.
+
+### Replacing `waitFor` and `simultaneousHandlers`
+
+For relations between gestures on the same view, use the Gesture Composition API. For different views or old gesture handlers, replace `simultaneousHandlers` with `simultaneousWithExternalGesture`, and `waitFor` with `requireExternalGestureToFail`. Use `.withRef(refObject)` to pass a ref object to an old handler.

@@ -1,0 +1,15 @@
+# Text Decoration Style
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                     | Support        |
+| ------------------------- | -------------- |
+| `decoration-solid`        | ✅ Full Support |
+| `decoration-double`       | ✅ Full Support |
+| `decoration-dotted`       | ✅ Full Support |
+| `decoration-dashed`       | ✅ Full Support |
+| `decoration-wavy`         | 🌐 Web only    |

@@ -1,0 +1,39 @@
+```markdown
+# Advanced APIs - Version 3.x
+
+## measure
+
+`measure` allows synchronous retrieval of a view's dimensions and position on the screen, executed on the UI thread.
+
+## useAnimatedReaction
+
+`useAnimatedReaction` enables response to changes in a shared value. It is particularly useful for comparing previous values stored in the shared value with their current counterparts.
+
+## useFrameCallback
+
+`useFrameCallback` facilitates running a function during each frame update.
+
+## useEvent
+
+`useEvent` is a foundational hook that returns an event handler triggered by native events. This can be utilized to create custom event handler hooks, such as `useScrollViewOffset` or `useAnimatedScrollHandler`.
+
+## useHandler
+
+`useHandler` is another fundamental hook providing a context object and a value indicating if the worklet requires rebuilding. It aids in creating custom event handler hooks like `useScrollViewOffset` or `useAnimatedScrollHandler`.
+
+## useComposedEventHandler
+
+This hook allows for the composition of `useEvent`-based event handlers (e.g., `useAnimatedScrollHandler` or custom ones) into a single, unified event handler.
+
+## dispatchCommand
+
+`dispatchCommand` enables execution of commands on a native component directly from the UI thread.
+
+## setNativeProps
+
+`setNativeProps` allows for imperative updates to component properties.
+
+## makeMutable
+
+The use of `makeMutable` is generally discouraged. It's advised to opt for the `useSharedValue` hook unless you are fully aware of its implications and consequences (refer to the Remarks section).
+```

@@ -1,0 +1,71 @@
+# Using Hermes
+
+Hermes is an open-source JavaScript engine optimized for React Native. Many applications experience improved start-up time, reduced memory usage, and smaller app size when using Hermes compared to JavaScriptCore. By default, React Native uses Hermes without requiring additional configuration.
+
+## Bundled Hermes
+
+React Native includes a **bundled version** of Hermes. Each new release of React Native comes with a compatible version of Hermes, ensuring seamless integration. This change is transparent for React Native users, who can still disable Hermes if needed. Further technical details are available on the official documentation page.
+
+## Confirming Hermes Usage
+
+For newly created apps, check if Hermes is enabled in the welcome view:
+
+A `HermesInternal` global variable will be present in JavaScript to verify Hermes usage:
+
+```typescript
+const isHermes = () => !!global.HermesInternal;
+```
+
+> **Caution:** If you use a non-standard method for loading the JS bundle, the `HermesInternal` variable might exist without utilizing the optimized pre-compiled bytecode. Ensure that you are using the `.hbc` file and benchmark performance as described below.
+
+To observe Hermes' benefits, create a release build of your app:
+
+### Android
+
+```shell
+npm run android -- --mode="release"
+```
+
+```shell
+yarn android --mode release
+```
+
+### iOS
+
+```shell
+npm run ios -- --mode="Release"
+```
+
+```shell
+yarn ios --mode Release
+```
+
+This process compiles JavaScript to Hermes Bytecode during build time, enhancing your app's startup speed on devices.
+
+## Switching Back to JavaScriptCore
+
+React Native also supports using JavaScriptCore as the JavaScript engine. Follow these steps to opt-out of Hermes:
+
+### Android
+
+Edit `android/gradle.properties` and set `hermesEnabled` to false:
+
+```diff
+# Use this property to enable or disable the Hermes JS engine.
+# If set to false, you will be using JSC instead.
+- hermesEnabled=true
++ hermesEnabled=false
+```
+
+### iOS
+
+Edit `ios/Podfile` as shown below:
+
+```diff
+   use_react_native!(
+     :path => config[:reactNativePath],
++    :hermes_enabled => false,
+     # An absolute path to your application root.
+     :app_path => "#{Pod::Config.instance.installation_root}/.."
+   )
+```

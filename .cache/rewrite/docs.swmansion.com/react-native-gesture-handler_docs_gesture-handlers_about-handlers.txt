@@ -1,0 +1,118 @@
+# About Gesture Handlers
+
+> **Warning:** The old API will be removed in a future version of Gesture Handler. Please migrate to the gestures API instead. Refer to our upgrading guide for more information.
+
+## Overview
+
+Gesture handlers are fundamental components of this library, representing elements of the native touch system that can be instantiated and controlled from JavaScript using React's Component interface. Each handler type is designed to recognize specific gestures (such as pan or pinch) and provides gesture-specific data through events (like translation or scale).
+
+Handlers process the touch stream synchronously on the UI thread, ensuring smooth interactions even if the JavaScript thread is blocked.
+
+Each handler functions as an isolated state machine, transitioning between states based on input from the touch stream. When a gesture begins, handlers potentially interested in recognizing it are selected based on the initial finger position. All subsequent touch events (touch down, move, up, or when other fingers are placed or lifted) are delivered to these initially selected handlers. Once one gesture becomes active, it cancels all others (see "Cross handler interactions" for more details).
+
+Gesture handler components do not create native views in the view hierarchy; instead, they exist within the library's registry and connect to native views. When using any gesture handler component, ensure a native view is rendered as its child since these handlers lack corresponding views in the hierarchy.
+
+## Available Gesture Handlers
+
+The library currently supports the following gestures, with detailed documentation available for each:
+
+- `PanGestureHandler`
+- `TapGestureHandler`
+- `LongPressGestureHandler`
+- `RotationGestureHandler`
+- `FlingGestureHandler`
+- `PinchGestureHandler`
+- `ForceTouchGestureHandler`
+
+## Discrete vs Continuous Gestures
+
+Gestures are categorized as either discrete or continuous:
+
+- **Continuous Gesture Handlers**: Remain active for extended periods, generating a stream of gesture events until the gesture concludes. For example, `PanGestureHandler` provides updates on translation and other properties while active.
+
+- **Discrete Gesture Handlers**: Activate briefly and end immediately. An example is `LongPressGestureHandler`, which detects if a finger remains placed for a sufficient duration without tracking movements (handled by `PanGestureHandler`).
+
+Note: The `onGestureEvent` callback is only applicable to continuous gesture handlers and should not be used with discrete handlers like `TapGestureHandler`.
+
+## Nesting Handlers
+
+Handler components can be nested, but it's recommended that the innermost handler renders a native view component. Some limitations apply when using the `useNativeDriver` flag. Here’s an example of nested handlers:
+
+```typescript
+class Multitap extends Component {
+  render() {
+    return (
+      <LongPressGestureHandler
+        onHandlerStateChange={this._onLongpress}
+        minDurationMs={800}>
+        <TapGestureHandler
+          onHandlerStateChange={this._onSingleTap}
+          waitFor={this.doubleTapRef}>
+          <TapGestureHandler
+            ref={this.doubleTapRef}
+            onHandlerStateChange={this._onDoubleTap}
+            numberOfTaps={2}>
+            <View style={styles.box} />
+          </TapGestureHandler>
+        </TapGestureHandler>
+      </LongPressGestureHandler>
+    );
+  }
+}
+```
+
+## Using Native Components
+
+The gesture handler library provides components typically available in React Native, wrapped in `NativeViewGestureHandler`. These include:
+
+- `ScrollView`
+- `FlatList`
+- `Switch`
+- `TextInput`
+- `DrawerLayoutAndroid` (**Android only**)
+
+For using other handlers or buttons within a `ScrollView`, utilize the `waitFor` property to define interactions between a handler and `ScrollView`.
+
+## Events with `useNativeDriver`
+
+Since gesture handlers hook into their child views rather than creating native views, directly nesting two gesture handlers with `Animated.event` is not supported. To address this limitation, place an `<Animated.View>` component between the handlers.
+
+Instead of:
+
+```typescript
+const PanAndRotate = () => (
+  <PanGestureHandler onGestureEvent={Animated.event({ ... }, { useNativeDriver: true })}>
+    <RotationGestureHandler onGestureEvent={Animated.event({ ... }, { useNativeDriver: true })}>
+      <Animated.View style={animatedStyles}/>
+    </RotationGestureHandler>
+  </PanGestureHandler>
+);
+```
+
+Use:
+
+```typescript
+const PanAndRotate = () => (
+  <PanGestureHandler onGestureEvent={Animated.event({ ... }, { useNativeDriver: true })}>
+    <Animated.View>
+      <RotationGestureHandler onGestureEvent={Animated.event({ ... }, { useNativeDriver: true })}>
+        <Animated.View style={animatedStyles}/>
+      </RotationGestureHandler>
+    </Animated.View>
+  </PanGestureHandler>
+);
+```
+
+Additionally, when using the `useNativeDriver` flag with an `Animated.event`, ensure the child component is wrapped by an `Animated.API` (e.g., `<Animated.View>`) instead of a regular `<View>`:
+
+```typescript
+class Draggable extends Component {
+  render() {
+    return (
+      <PanGestureHandler onGestureEvent={Animated.event({ ... }, { useNativeDriver: true })}>
+        <Animated.View style={animatedStyles} /> {/* <-- NEEDS TO BE Animated.View */}
+      </PanGestureHandler>
+    );
+  }
+}
+```

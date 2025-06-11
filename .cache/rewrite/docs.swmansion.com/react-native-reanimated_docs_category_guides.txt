@@ -1,0 +1,47 @@
+```markdown
+# Guides
+
+## Worklets
+
+Worklets are brief JavaScript functions executed on the UI thread. Reanimated utilizes worklets to compute view styles and respond to events directly on the UI thread.
+
+## Accessibility
+
+This section delves into how Reanimated enhances accessibility in animations, particularly through its reduced motion feature. This functionality ensures a more comfortable experience for users with motion sensitivities or those who prefer minimal movement.
+
+## Building for Android on Windows
+
+This article outlines basic troubleshooting steps for issues encountered when building React Native apps with Reanimated for Android devices from a Windows host machine.
+
+## Compatibility
+
+Currently supported React Native versions (Paper)
+
+## Contributing
+
+Thank you for your interest in contributing to Reanimated! Contributions, whether through triaging and commenting on issues, extending documentation, or reviewing and submitting Pull Requests, are greatly appreciated.
+
+## Debugging Worklets
+
+Due to Reanimated's unique architecture and its use of a secondary JS runtime, debugging worklets can be challenging.
+
+## Migration from 1.x
+
+We aimed to facilitate incremental migration from Reanimated 1 to Reanimated 2.
+
+## Migration from 2.x
+
+Reanimated 3.x introduces no breaking changes in terms of API between versions 2.x and 3.x. All code written using the Reanimated v2 API will function in 3.x without modifications. However, Reanimated 3.x completely removes support for the Reanimated v1 API. For migration guidance from 1.x to 2.x, please refer to the Migration from 1.x to 2.x guide.
+
+## Testing with Jest
+
+Reanimated offers a testing API based on Jest, enabling users to mock web-based animations.
+
+## Troubleshooting
+
+Initialization issues
+
+## Web Support
+
+Reanimated can be launched in a web browser. In this context, all functionalities are implemented purely in JavaScript, which may result in reduced animation efficiency.
+```

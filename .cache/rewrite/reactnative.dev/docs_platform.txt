@@ -1,0 +1,192 @@
+# Platform
+
+## Example
+
+***
+
+## Reference
+
+## Properties
+
+### `constants`
+
+```typescript
+static constants: PlatformConstants;
+```
+
+Returns an object containing all common and specific platform-related constants.
+
+**Properties:**
+
+| Name                   | Type    | Optional | Description                                                                                                                     |
+| ---------------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| isTesting              | boolean | No       |                                                                                                                                 |
+| reactNativeVersion     | object  | No       | Information about React Native version. Keys are `major`, `minor`, `patch` with optional `prerelease` and values are `number`s. |
+| VersionAndroid         | number  | No       | OS version constant specific to Android.                                                                                        |
+| ReleaseAndroid         | string  | No       |                                                                                                                                 |
+| SerialAndroid          | string  | No       | Hardware serial number of an Android device.                                                                                    |
+| FingerprintAndroid     | string  | No       | A unique identifier for the build.                                                                                              |
+| ModelAndroid           | string  | No       | The end-user-visible name for the Android device.                                                                               |
+| BrandAndroid           | string  | No       | The consumer-visible brand associated with the product/hardware.                                                                |
+| ManufacturerAndroid    | string  | No       | The manufacturer of the Android device.                                                                                         |
+| ServerHostAndroid      | string  | Yes      |                                                                                                                                 |
+| uiModeAndroid          | string  | No       | Possible values: `'car'`, `'desk'`, `'normal'`,`'tv'`, `'watch'` and `'unknown'`. Read more about Android ModeType.             |
+| forceTouchAvailableiOS | boolean | No       | Indicates the availability of 3D Touch on a device.                                                                             |
+| interfaceIdiomiOS      | string  | No       | The interface type for the device. Read more about UIUserInterfaceIdiom.                                                        |
+| osVersioniOS           | string  | No       | OS version constant specific to iOS.                                                                                            |
+| systemNameiOS          | string  | No       | OS name constant specific to iOS.                                                                                               |
+
+***
+
+### `isPad`iOS
+
+```typescript
+static isPad: boolean;
+```
+
+Returns a boolean indicating if the device is an iPad.
+
+| Type    |
+| ------- |
+| boolean |
+
+***
+
+### `isTV`
+
+```typescript
+static isTV: boolean;
+```
+
+Returns a boolean indicating if the device is a TV.
+
+| Type    |
+| ------- |
+| boolean |
+
+***
+
+### `isVision`
+
+```typescript
+static isVision: boolean;
+```
+
+Returns a boolean indicating if the device is an Apple Vision. Note that for Apple Vision Pro (Designed for iPad), `isVision` will be `false`, but `isPad` will be `true`.
+
+| Type    |
+| ------- |
+| boolean |
+
+***
+
+### `isTesting`
+
+```typescript
+static isTesting: boolean;
+```
+
+Returns a boolean indicating if the application is running in Developer Mode with the testing flag set.
+
+| Type    |
+| ------- |
+| boolean |
+
+***
+
+### `OS`
+
+```typescript
+static OS: 'android' | 'ios';
+```
+
+Returns a string representing the current operating system.
+
+| Type                       |
+| -------------------------- |
+| enum(`'android'`, `'ios'`) |
+
+***
+
+### `Version`
+
+```typescript
+static Version: 'number' | 'string';
+```
+
+Returns the version of the OS, as either a number for Android or a string for iOS.
+
+| Type                      |
+| ------------------------- |
+| numberAndroid***stringiOS |
+
+## Methods
+
+### `select()`
+
+```typescript
+static select<T>(config: Record<string, T>): T;
+```
+
+Returns the most fitting value for the platform you are currently running on.
+
+#### Parameters:
+
+| Name   | Type    | Required | Description                   |
+| ------ | ------- | -------- | ----------------------------- |
+| config | object  | Yes      | See configuration description below. |
+
+The `select` method returns the most appropriate value based on the current platform. If running on a phone, keys for `android` and `ios` take precedence. If these are not specified, the `native` key is used, followed by the `default` key.
+
+The `config` parameter is an object with the following keys:
+
+- `android`: any
+- `ios`: any
+- `native`: any
+- `default`: any
+
+**Example usage:**
+
+```typescript
+import { Platform, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    ...Platform.select({
+      android: {
+        backgroundColor: 'green',
+      },
+      ios: {
+        backgroundColor: 'red',
+      },
+      default: {
+        // other platforms, web for example
+        backgroundColor: 'blue',
+      },
+    }),
+  },
+});
+```
+
+This results in a container with `flex: 1` on all platforms. It has a green background color on Android, red on iOS, and blue on other platforms.
+
+Since the value of the corresponding platform key can be of type `any`, the `select` method can also return platform-specific components:
+
+```typescript
+const Component = Platform.select({
+  ios: () => require('ComponentIOS'),
+  android: () => require('ComponentAndroid'),
+})();
+
+<Component />;
+```
+
+```typescript
+const Component = Platform.select({
+  native: () => require('ComponentForNative'),
+  default: () => require('ComponentForWeb'),
+})();
+
+<Component />;
+```

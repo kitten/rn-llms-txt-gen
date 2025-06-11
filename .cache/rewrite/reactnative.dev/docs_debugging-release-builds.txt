@@ -1,0 +1,77 @@
+# Debugging Release Builds
+
+## Symbolicating a Stack Trace
+
+When a React Native app encounters an unhandled exception in a release build, the output can be obfuscated and difficult to interpret. For example:
+
+```
+07-15 10:58:25.820 18979 18998 E AndroidRuntime: FATAL EXCEPTION: mqt_native_modules
+07-15 10:58:25.820 18979 18998 E AndroidRuntime: Process: com.awesomeproject, PID: 18979  
+07-15 10:58:25.820 18979 18998 E AndroidRuntime: com.facebook.react.common.JavascriptException: Failed, js engine: hermes, stack:
+07-15 10:58:25.820 18979 18998 E AndroidRuntime: p@1:132161
+07-15 10:58:25.820 18979 18998 E AndroidRuntime: p@1:132084
+07-15 10:58:25.820 18979 18998 E AndroidRuntime: f@1:131854
+07-15 10:58:25.820 18979 18998 E AndroidRuntime: anonymous@1:131119
+```
+
+In this stack trace, entries like `p@1:132161` are minified function names and bytecode offsets. To debug these calls effectively, we need to translate them into file, line, and function name format (e.g., `AwesomeProject/App.js:54:initializeMap`). This process is known as **symbolication**.
+
+To symbolicate minified function names and bytecode, use the stack trace along with a generated source map in `metro-symbolicate`.
+
+### Enabling Source Maps
+
+Source maps are essential for symbolication. Ensure that they are enabled within the build configuration for your target platform:
+
+- **Android**: Source maps are enabled by default.
+  
+  To ensure source map generation, include the following `hermesFlags` in `android/app/build.gradle`:
+  
+  ```groovy
+  react {
+      hermesFlags = ["-O", "-output-source-map"]
+  }
+  ```
+
+  If configured correctly, you should see the source map output location during Metro build output:
+
+  ```
+  Writing bundle output to:, android/app/build/generated/assets/react/release/index.android.bundle
+  Writing sourcemap output to:, android/app/build/intermediates/sourcemaps/react/release/index.android.bundle.packager.map
+  ```
+
+- **iOS**: Source maps are disabled by default. Follow these steps to enable them:
+
+  To generate source maps, open Xcode and edit the build phase "Bundle React Native code and images". Add a `SOURCEMAP_FILE` entry with the desired output path above other exports:
+  
+  ```diff
+  + SOURCEMAP_FILE="$(pwd)/../main.jsbundle.map";
+    WITH_ENVIRONMENT="../node_modules/react-native/scripts/xcode/with-environment.sh"
+  ```
+
+  If configured correctly, you should see the source map output location during Metro build output:
+
+  ```
+  Writing bundle output to:, Build/Intermediates.noindex/ArchiveIntermediates/application/BuildProductsPath/Release-iphoneos/main.jsbundle
+  Writing sourcemap output to:, Build/Intermediates.noindex/ArchiveIntermediates/application/BuildProductsPath/Release-iphoneos/main.jsbundle.map
+  ```
+
+### Using `metro-symbolicate`
+
+With source maps generated, you can now translate stack traces using `metro-symbolicate`:
+
+```shell
+# Print usage instructions
+npx metro-symbolicate
+
+# From a file containing the stack trace
+npx metro-symbolicate android/app/build/generated/sourcemaps/react/release/index.android.bundle.map < stacktrace.txt
+
+# From adb logcat (Android)
+adb logcat -d | npx metro-symbolicate android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
+```
+
+### Notes on Source Maps
+
+- Multiple source maps may be generated during the build process. Ensure you use the one shown in the examples.
+- The source map must correspond to the exact commit of the crashing app, as small changes in source code can lead to significant differences in offsets.
+- If `metro-symbolicate` exits immediately with success, ensure that input is from a pipe or redirection rather than directly from a terminal.

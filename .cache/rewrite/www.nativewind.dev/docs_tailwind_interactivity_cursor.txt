@@ -1,0 +1,12 @@
+# Cursor
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| `cursor-{n}`       | 🌐 Web only |
+| `cursor-[n]`       | 🌐 Web only |

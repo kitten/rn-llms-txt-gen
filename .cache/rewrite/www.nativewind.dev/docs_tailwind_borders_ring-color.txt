@@ -1,0 +1,17 @@
+# Ring Color
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                    | Support     |
+|--------------------------|-------------|
+| `ring-inherit`           | 🌐 Web only |
+| `ring-current`           | 🌐 Web only |
+| `ring-transparent`       | 🌐 Web only |
+| `ring-black`             | 🌐 Web only |
+| `ring-white`             | 🌐 Web only |
+| `ring-{n}`               | 🌐 Web only |
+| `ring-[n]`               | 🌐 Web only |

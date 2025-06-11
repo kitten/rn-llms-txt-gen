@@ -1,0 +1,17 @@
+# Ring Width
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| `ring-0`           | 🌐 Web only |
+| `ring-1`           | 🌐 Web only |
+| `ring-2`           | 🌐 Web only |
+| `ring`             | 🌐 Web only |
+| `ring-4`           | 🌐 Web only |
+| `ring-8`           | 🌐 Web only |
+| `ring-inset`       | 🌐 Web only |

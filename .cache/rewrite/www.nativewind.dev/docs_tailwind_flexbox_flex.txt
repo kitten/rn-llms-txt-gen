@@ -1,0 +1,15 @@
+# Flex
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| `flex-1`             | ✅ Full Support |
+| `basis-[n]`          | ✅ Full Support |
+| `flex-auto`          | 🌐 Web only    |
+| `flex-initial`       | 🌐 Web only    |
+| `flex-none`          | 🌐 Web only    |

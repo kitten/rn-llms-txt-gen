@@ -1,0 +1,122 @@
+# Alert
+
+The `Alert` API is designed to work across both Android and iOS platforms, allowing for the display of static alerts. On iOS, it also supports prompts that request user input.
+
+## Example Usage
+
+### iOS
+
+On iOS, you can define any number of buttons within an alert. Each button may have a specific style or be emphasized using `AlertButtonStyle` enum and the `isPreferred` field on `AlertButton`.
+
+### Android
+
+For Android, up to three buttons are allowed:
+
+- A single button is treated as 'positive' (e.g., 'OK').
+- Two buttons represent 'negative', 'positive' (e.g., 'Cancel', 'OK').
+- Three buttons denote 'neutral', 'negative', 'positive' (e.g., 'Later', 'Cancel', 'OK').
+
+Alerts on Android can be dismissed by tapping outside the alert box, which is disabled by default. This behavior can be enabled with `AlertOptions` using `{cancelable: true}`. The dismissal event can be managed via an `onDismiss` callback within the `options`.
+
+## Reference
+
+### Methods
+
+#### `alert()`
+
+```typescript
+static alert(
+  title: string,
+  message?: string,
+  buttons?: AlertButton[],
+  options?: AlertOptions
+);
+```
+
+**Parameters:**
+
+| Name          | Type           | Description                                                             |
+| ------------- | -------------- | ----------------------------------------------------------------------- |
+| titleRequired | string         | The dialog's title. Passing `null` or an empty string will hide the title. |
+| message       | string         | An optional message displayed below the title.                          |
+| buttons       | AlertButton[]  | Optional array for button configurations.                               |
+| options       | AlertOptions   | Optional configuration for the alert.                                   |
+
+#### `prompt()` (iOS Only)
+
+```typescript
+static prompt(
+  title: string,
+  message?: string,
+  callbackOrButtons?: ((text: string) => void) | AlertButton[],
+  type?: AlertType,
+  defaultValue?: string,
+  keyboardType?: string
+);
+```
+
+Creates and displays a text input alert.
+
+**Parameters:**
+
+| Name              | Type                      | Description                                                                                                                                                                                     |
+| ----------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| titleRequired     | string                    | The dialog's title.                                                                                                                                                                             |
+| message           | string                    | An optional message displayed above the text input.                                                                                                                                             |
+| callbackOrButtons | function \| AlertButton[] | If a function, it is invoked with the prompt's value `(text: string) => void` when 'OK' is tapped.***If an array, buttons are configured based on its content.                                |
+| type              | AlertType                 | Configures the text input.                                                                                                                                                                     |
+| defaultValue      | string                    | Default text in the input field.                                                                                                                                                               |
+| keyboardType      | string                    | Keyboard type for the first text field (if present). One of `TextInput` keyboard types.                                                                                                        |
+| options           | AlertOptions              | Optional configuration for the alert.                                                                                                                                                          |
+
+### Type Definitions
+
+#### `AlertButtonStyle` (iOS Only)
+
+An enum representing iOS Alert button styles.
+
+**Constants:**
+
+| Value           | Description               |
+| --------------- | ------------------------- |
+| `'default'`     | Default button style.     |
+| `'cancel'`      | Cancel button style.      |
+| `'destructive'` | Destructive button style. |
+
+#### `AlertType` (iOS Only)
+
+An enum representing iOS Alert types.
+
+**Constants:**
+
+| Value              | Description                  |
+| ------------------ | ---------------------------- |
+| `'default'`        | Default alert with no inputs |
+| `'plain-text'`     | Plain text input alert       |
+| `'secure-text'`    | Secure text input alert      |
+| `'login-password'` | Login and password alert     |
+
+#### `AlertButton`
+
+An object describing a button's configuration in an alert.
+
+**Properties:**
+
+| Name           | Type             | Description                                                                    |
+| -------------- | ---------------- | ------------------------------------------------------------------------------ |
+| text           | string           | Button label.                                                                  |
+| onPress        | function         | Callback when the button is pressed.                                           |
+| styleiOS       | AlertButtonStyle | Button style, ignored on Android.                                              |
+| isPreferrediOS | boolean          | Whether to emphasize the button, ignored on Android.                           |
+
+#### `AlertOptions`
+
+An object for optional alert configurations.
+
+**Properties:**
+
+| Name                  | Type     | Description                                                                                                               |
+| --------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| cancelableAndroid     | boolean  | Determines if the alert can be dismissed by tapping outside of it.                                                        |
+| userInterfaceStyleiOS | string   | Interface style for the alert, set to `light` or `dark`, otherwise defaults to system style.                              |
+| onDismissAndroid      | function | Callback fired when the alert is dismissed.                                                                               |

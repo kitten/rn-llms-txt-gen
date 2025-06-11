@@ -1,0 +1,128 @@
+# DrawerLayoutAndroid Component
+
+The `DrawerLayoutAndroid` is a React component specifically designed for Android platforms. It encapsulates the platform's native `DrawerLayout`. This layout typically serves as a navigation drawer, which can be rendered using the `renderNavigationView` prop. The main content of your application resides within its direct children.
+
+By default, the navigation view remains hidden and can be revealed by pulling it from the side of the screen specified by the `drawerPosition` prop. You can also adjust the width of the drawer using the `drawerWidth` prop.
+
+## Example
+
+- TypeScript
+- JavaScript
+
+## Reference
+
+## Props
+
+### View Props
+
+The component inherits all properties available to a standard React `View`.
+
+### `drawerBackgroundColor`
+
+This property sets the background color for the drawer, with the default being white. To adjust opacity, use an RGBA value. For example:
+
+```typescript
+<DrawerLayoutAndroid drawerBackgroundColor="rgba(0,0,0,0.5)" />
+```
+
+- **Type**: `color`
+- **Required**: No
+
+### `drawerLockMode`
+
+This property determines how the drawer responds to user interactions. It can be set to one of three modes:
+
+- `unlocked` (default): The drawer will open or close in response to touch gestures.
+- `locked-closed`: The drawer remains closed and does not respond to gestures.
+- `locked-open`: The drawer stays open but can still be programmatically opened or closed using `openDrawer`/`closeDrawer`.
+
+- **Type**: `enum('unlocked', 'locked-closed', 'locked-open')`
+- **Required**: No
+
+### `drawerPosition`
+
+This property specifies from which side of the screen the drawer will slide in. The default is set to `left`.
+
+- **Type**: `enum('left', 'right')`
+- **Required**: No
+
+### `drawerWidth`
+
+Defines the width of the drawer, specifically the portion that slides in from the edge of the window.
+
+- **Type**: `number`
+- **Required**: No
+
+### `keyboardDismissMode`
+
+Determines if the keyboard should be dismissed when a drag gesture is detected. Options include:
+
+- `'none'` (default): Drags do not dismiss the keyboard.
+- `'on-drag'`: The keyboard is dismissed as soon as a drag begins.
+
+- **Type**: `enum('none', 'on-drag')`
+- **Required**: No
+
+### `onDrawerClose`
+
+A callback function that triggers when the navigation view is closed.
+
+- **Type**: `function`
+- **Required**: No
+
+### `onDrawerOpen`
+
+A callback function that triggers when the navigation view is opened.
+
+- **Type**: `function`
+- **Required**: No
+
+### `onDrawerSlide`
+
+This function is called during any interaction with the navigation view, such as sliding it open or closed.
+
+- **Type**: `function`
+- **Required**: No
+
+### `onDrawerStateChanged`
+
+A callback that fires when the drawer's state changes. The possible states are:
+
+- `idle`: No interaction with the navigation view.
+- `dragging`: An ongoing interaction with the navigation view.
+- `settling`: Interaction has ended, and the navigation view is completing its animation.
+
+- **Type**: `function`
+- **Required**: No
+
+### `renderNavigationView`
+
+This required prop defines the content of the navigation view that appears from the side of the screen.
+
+- **Type**: `function`
+- **Required**: Yes
+
+### `statusBarBackgroundColor`
+
+Allows the drawer to extend over the status bar by setting its background color. This is effective only on API 21 and above.
+
+- **Type**: `color`
+- **Required**: No
+
+## Methods
+
+### `closeDrawer()`
+
+```typescript
+closeDrawer();
+```
+
+Closes the navigation drawer.
+
+### `openDrawer()`
+
+```typescript
+openDrawer();
+```
+
+Opens the navigation drawer.

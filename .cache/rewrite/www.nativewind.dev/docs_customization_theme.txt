@@ -1,0 +1,180 @@
+# Theme
+
+Nativewind leverages the same theme values as Tailwind CSS, allowing you to configure your project using the Tailwind CSS documentation.
+
+In dynamic React Native applications, helper functions like `Platform.select` and `PixelRatio` are commonly used. Nativewind provides similar helpers that can be integrated into your theme configuration.
+
+## platformSelect
+
+The `platformSelect` function is analogous to `Platform.select()` in React Native.
+
+```typescript
+// tailwind.config.js
+
+const { platformSelect } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        error: platformSelect({
+          ios: "red",
+          android: "blue",
+          default: "green",
+        }),
+      },
+    },
+  },
+};
+```
+
+### platformColor()
+
+This function is equivalent to `PlatformColor` and is often used with `platformSelect`.
+
+```typescript
+const { platformColor } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        platformRed: platformSelect({
+          android: platformColor("systemRed"),
+          web: "red",
+        }),
+      },
+    },
+  },
+};
+```
+
+### hairlineWidth()
+
+This function is equivalent to `StyleSheet.hairlineWidth`.
+
+```typescript
+const { hairlineWidth } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      borderWidth: {
+        hairline: hairlineWidth(),
+      },
+    },
+  },
+};
+```
+
+### pixelRatio()
+
+This function is equivalent to `PixelRatio.get()`. If a number is provided, it returns `PixelRatio.get() * <value>`, otherwise, it returns the PixelRatio value.
+
+```typescript
+const { pixelRatio } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      borderWidth: {
+        number: pixelRatio(2),
+      },
+    },
+  },
+};
+```
+
+### pixelRatioSelect()
+
+A helper function to use `PixelRatio.get()` in a conditional statement, similar to `Platform.select`.
+
+```typescript
+const { pixelRatio, hairlineWidth } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      borderWidth: pixelRatioSelect({
+        2: 1,
+        default: hairlineWidth(),
+      }),
+    },
+  },
+};
+```
+
+### fontScale()
+
+This function is equivalent to `PixelRatio.getFontScale()`. If a number is provided, it returns `PixelRatio.getFontScale() * <value>`, otherwise, it returns the `PixelRatio.getFontScale()` value.
+
+```typescript
+const { fontScale } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      fontSize: {
+        custom: fontScale(2),
+      },
+    },
+  },
+};
+```
+
+### fontScaleSelect()
+
+A helper function to use `PixelRatio.getFontScale()` in a conditional statement, similar to `Platform.select`.
+
+```typescript
+const { fontScaleSelect, hairlineWidth } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      fontSize: {
+        custom: fontScaleSelect({
+          2: 14,
+          default: 16,
+        }),
+      },
+    },
+  },
+};
+```
+
+### getPixelSizeForLayoutSize()
+
+This function is equivalent to `PixelRatio.getPixelSizeForLayoutSize()`.
+
+```typescript
+const { getPixelSizeForLayoutSize } = require("nativewind");
+
+module.exports = {
+  theme: {
+    extend: {
+      size: {
+        custom: getPixelSizeForLayoutSize(2),
+      },
+    },
+  },
+};
+```
+
+### roundToNearestPixel()
+
+This function is equivalent to `PixelRatio.roundToNearestPixel()`.
+
+```typescript
+const { roundToNearestPixel } = require("nativewind/theme");
+
+module.exports = {
+  theme: {
+    extend: {
+      size: {
+        custom: roundToNearestPixel(8.4),
+      },
+    },
+  },
+};
+```

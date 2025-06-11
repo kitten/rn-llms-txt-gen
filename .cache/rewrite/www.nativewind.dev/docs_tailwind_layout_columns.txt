@@ -1,0 +1,12 @@
+# Columns
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| `columns-[n]`       | 🌐 Web only |
+| `columns-{n}`       | 🌐 Web only |

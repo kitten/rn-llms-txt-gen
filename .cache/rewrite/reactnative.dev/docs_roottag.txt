@@ -1,0 +1,66 @@
+# RootTag
+
+The `RootTag` serves as an opaque identifier for the native root view in React Native applications. This refers to instances like `ReactRootView` or `RCTRootView` on Android and iOS platforms, respectively. Essentially, it acts as a surface identifier.
+
+## When to Use a RootTag?
+
+For most developers working with React Native, handling `RootTags` might not be necessary. However, they become crucial when an application renders multiple React Native root views, necessitating distinct handling of native API calls for each view. A common scenario is using native navigation where each screen corresponds to a separate React Native root view.
+
+In such setups, every React Native root view is embedded within the platform's navigation component (e.g., `Activity` on Android or `UINavigationViewController` on iOS). This allows developers to utilize platform-specific navigation features like native look and feel and transitions. Interactions with these native navigation APIs can be facilitated through a native module.
+
+For instance, updating a screen’s title bar might involve calling the navigation module's API method `setTitle("Updated Title")`. To specify which screen in the stack should have its title updated, a `RootTag` is required to identify the relevant root view and its container.
+
+Another scenario for using `RootTag` arises when an application needs to attribute JavaScript calls to their native origins based on different root views. A `RootTag` helps differentiate these calls across various surfaces.
+
+## Accessing RootTag
+
+In React Native versions 0.65 and earlier, accessing a `RootTag` was done through a legacy context. With the introduction of Concurrent features in React 18, React Native transitioned to using the latest Context API via `RootTagContext` starting from version 0.66. Version 0.65 supports both the legacy context and the new `RootTagContext`, providing developers time to migrate their code.
+
+### Accessing RootTag with RootTagContext
+
+```typescript
+import { useContext } from 'react';
+import { RootTagContext } from 'react-native';
+import NativeAnalytics from 'native-analytics';
+import NativeNavigation from 'native-navigation';
+
+function ScreenA() {
+  const rootTag = useContext(RootTagContext);
+
+  const updateTitle = (title: string) => {
+    NativeNavigation.setTitle(rootTag, title);
+  };
+
+  const handleOneEvent = () => {
+    NativeAnalytics.logEvent(rootTag, 'one_event');
+  };
+
+  // ...
+}
+
+class ScreenB extends React.Component {
+  static contextType = RootTagContext;
+
+  updateTitle(title: string) {
+    NativeNavigation.setTitle(this.context, title);
+  }
+
+  handleOneEvent() {
+    NativeAnalytics.logEvent(this.context, 'one_event');
+  }
+
+  // ...
+}
+```
+
+For more information on using the Context API with classes and hooks, refer to the React documentation.
+
+### Breaking Changes
+
+- **Version 0.65**: The `RootTagContext` was previously named `unstable_RootTagContext`. It has been renamed to `RootTagContext`, so any references in your codebase should be updated accordingly.
+  
+- **Version 0.66**: Access via the legacy context for `RootTag` will be removed, with `RootTagContext` taking its place. Developers are encouraged to migrate their usage of `RootTag` to `RootTagContext` starting from version 0.65.
+
+## Future Plans
+
+As React Native's architecture evolves, future updates to `RootTag` aim to maintain its opaque nature and prevent unnecessary complexity in codebases. It is important not to rely on the current implementation where `RootTag` aliases to a number. Developers relying on `RootTags` should monitor version change logs for updates.

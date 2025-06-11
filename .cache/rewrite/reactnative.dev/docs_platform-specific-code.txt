@@ -1,0 +1,135 @@
+# Platform-Specific Code
+
+When developing a cross-platform application, maximizing code reuse is ideal. However, there are instances where platform-specific implementations are necessary, such as creating distinct visual components for Android and iOS.
+
+React Native offers two methods to organize and separate your code by platform:
+
+- Using the `Platform` module.
+- Utilizing platform-specific file extensions.
+
+Certain component properties may be exclusive to a specific platform. These props are annotated with `@platform` and displayed with a badge on the website.
+
+## Platform Module
+
+The `Platform` module in React Native detects the current operating system, allowing you to implement platform-specific code. This approach is suitable when only minor parts of a component require differentiation.
+
+```typescript
+import { Platform, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  height: Platform.OS === 'ios' ? 200 : 100,
+});
+```
+
+`Platform.OS` returns `ios` for iOS and `android` for Android.
+
+The `Platform.select` method can be used to choose values based on the platform. It accepts an object with keys like `'ios' | 'android' | 'native' | 'default'`, returning the most appropriate value for the current platform. If running on a phone, it prioritizes `ios` and `android`. If neither is specified, it uses the `native` key, followed by the `default` key.
+
+```typescript
+import { Platform, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    ...Platform.select({
+      ios: {
+        backgroundColor: 'red',
+      },
+      android: {
+        backgroundColor: 'green',
+      },
+      default: {
+        // other platforms, such as web
+        backgroundColor: 'blue',
+      },
+    }),
+  },
+});
+```
+
+This results in a container with `flex: 1` on all platforms, a red background on iOS, green on Android, and blue on others.
+
+Since it accepts any value, you can also use `Platform.select` to return platform-specific components:
+
+```typescript
+const Component = Platform.select({
+  ios: () => require('ComponentIOS'),
+  android: () => require('ComponentAndroid'),
+})();
+
+<Component />;
+```
+
+```typescript
+const Component = Platform.select({
+  native: () => require('ComponentForNative'),
+  default: () => require('ComponentForWeb'),
+})();
+
+<Component />;
+```
+
+### Detecting the Android Version
+
+On Android, `Platform` can detect the API version:
+
+```typescript
+import { Platform } from 'react-native';
+
+if (Platform.Version === 25) {
+  console.log('Running on Nougat!');
+}
+```
+
+**Note**: `Version` refers to the Android API level, not the OS version. Refer to the Android Version History for details.
+
+### Detecting the iOS Version
+
+On iOS, `Version` is derived from `-[UIDevice systemVersion]`, a string like "10.3". To detect the major iOS version:
+
+```typescript
+import { Platform } from 'react-native';
+
+const majorVersionIOS = parseInt(Platform.Version, 10);
+if (majorVersionIOS <= 9) {
+  console.log('Work around a change in behavior');
+}
+```
+
+## Platform-Specific Extensions
+
+For more complex platform-specific code, consider splitting it into separate files. React Native detects `.ios.` or `.android.` extensions and loads the appropriate file based on the running platform.
+
+Example:
+
+```shell
+BigButton.ios.js
+BigButton.android.js
+```
+
+Import as follows:
+
+```typescript
+import BigButton from './BigButton';
+```
+
+React Native automatically selects the correct file for the current platform.
+
+## Native-Specific Extensions
+
+Use `.native.js` extensions when a module is shared between NodeJS/Web and React Native without Android/iOS differences. This is useful for projects sharing code among React Native and ReactJS.
+
+Example:
+
+```shell
+Container.js # picked up by Web bundlers like webpack or Rollup
+Container.native.js # picked up by the React Native bundler (Metro) for both Android and iOS
+```
+
+Import without `.native` extension:
+
+```typescript
+import Container from './Container';
+```
+
+**Pro tip:** Configure your Web bundler to ignore `.native.js` extensions to avoid including unused code in production, reducing bundle size.

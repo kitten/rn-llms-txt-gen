@@ -1,0 +1,44 @@
+# Handling Touches in React Native
+
+Users primarily interact with mobile applications through touch gestures such as tapping buttons, scrolling lists, or zooming maps. React Native offers components to manage common gestures and a comprehensive gesture responder system for advanced recognition. The `Button` component is particularly useful for basic interactions.
+
+## Displaying a Basic Button
+
+The `Button` component in React Native provides an easy way to create buttons that look consistent across platforms. Here's a minimal example:
+
+```typescript
+<Button
+  onPress={() => {
+    console.log('You tapped the button!');
+  }}
+  title="Press Me"
+/>
+```
+
+On iOS, this renders as a blue label, while on Android it appears as a blue rounded rectangle with light text. Pressing the button triggers the `onPress` function, which logs a message to the console in this example. You can customize the button's color using the `color` prop.
+
+Experiment with the `Button` component by adjusting platform settings and previewing changes.
+
+## Touchables
+
+For more customized buttons, React Native offers "Touchable" components that capture tapping gestures and provide feedback. These components require additional styling to fit your app's design.
+
+Choose a "Touchable" component based on desired feedback:
+
+- **TouchableHighlight**: Darkens the background when pressed, suitable for button or link-like interactions.
+  
+- **TouchableNativeFeedback**: On Android, it shows ink surface ripples in response to touch.
+
+- **TouchableOpacity**: Reduces opacity during press, allowing background visibility.
+
+- **TouchableWithoutFeedback**: Detects taps without providing visual feedback.
+
+Long presses can be detected by using the `onLongPress` prop with any "Touchable" component.
+
+## Scrolling and Swiping
+
+For gestures like swipes and pans, which are common on touch devices, consider using the ScrollView Core Component to enable scrolling through lists or content pages.
+
+## Known Issues
+
+- **react-native#29308**: The touch area does not extend beyond parent view bounds, and negative margins are unsupported on Android.

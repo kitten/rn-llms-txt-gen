@@ -1,0 +1,5 @@
+# createWorkletRuntime
+
+The `createWorkletRuntime` function is designed to establish a new JavaScript runtime environment specifically for executing worklets, potentially on threads distinct from those used by standard JavaScript or the UI. This functionality is primarily intended for use by third-party libraries that require integration with worklets.
+
+Upon invocation, `createWorkletRuntime` returns an object representing the newly created runtime. This object must be communicated to the C++ side via the JavaScript Interface (JSI) to facilitate subsequent operations and interactions within the worklet environment.

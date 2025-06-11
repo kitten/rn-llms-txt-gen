@@ -1,0 +1,119 @@
+# Improving React Native Build Times
+
+Building a React Native app can be resource-intensive, often taking several minutes of developer time. This becomes more challenging as projects grow or in larger organizations with multiple developers. To address these performance issues, consider the following advanced techniques to improve build times.
+
+## Build Only One ABI During Development (Android-only)
+
+By default, Android builds include all four Application Binary Interfaces (ABIs): `armeabi-v7a`, `arm64-v8a`, `x86`, and `x86_64`. However, during local development and testing on an emulator or physical device, building only the necessary ABI can reduce native build time by approximately 75%.
+
+### Using React Native CLI
+
+To build a single ABI with the React Native CLI, use the `--active-arch-only` flag:
+
+```bash
+$ yarn react-native run-android --active-arch-only
+
+[ ... ]
+info Running jetifier to migrate libraries to AndroidX. You can disable it using "--no-jetifier" flag.
+Jetifier found 1037 file(s) to forward-jetify. Using 32 workers...
+info JS server already running.
+info Detected architectures arm64-v8a
+info Installing the app...
+```
+
+This approach uses the `reactNativeArchitectures` Gradle property.
+
+### Using Gradle Directly
+
+For builds directly with Gradle, specify the desired ABI:
+
+```bash
+$ ./gradlew :app:assembleDebug -PreactNativeArchitectures=x86,x86_64
+```
+
+You can also override this value locally in `gradle.properties`:
+
+```properties
+# Use this property to specify which architecture you want to build.
+# You can also override it from the CLI using
+# ./gradlew <task> -PreactNativeArchitectures=x86_64
+reactNativeArchitectures=armeabi-v7a,arm64-v8a,x86,x86_64
+```
+
+For release builds, ensure all ABIs are included to support various devices.
+
+## Enable Configuration Caching (Android-only)
+
+Starting with React Native 0.79, Gradle Configuration Caching can be enabled to improve build times by skipping the configuration phase in subsequent builds:
+
+Add this line to `android/gradle.properties`:
+
+```properties
+org.gradle.configuration-cache=true
+```
+
+Refer to the official Gradle documentation for more details on Configuration Caching.
+
+## Use a Compiler Cache
+
+Frequent native builds benefit from using a compiler cache, which can be either local or distributed.
+
+### Local Caches
+
+Ccache is recommended for both Android and iOS. It wraps compilers, stores results, and skips recompilation if cached:
+
+#### Installation
+
+On macOS, install ccache with:
+
+```bash
+brew install ccache
+```
+
+Alternatively, follow the official installation instructions.
+
+#### Usage
+
+Perform two clean builds to observe speed improvements. Verify cache hits/misses with:
+
+```bash
+$ ccache -s
+Summary:
+  Hits:             196 /  3068 (6.39 %)
+    Direct:           0 /  3068 (0.00 %)
+    Preprocessed:   196 /  3068 (6.39 %)
+  Misses:          2872
+    Direct:        3068
+    Preprocessed:  2872
+  Uncacheable:        1
+Primary storage:
+  Hits:             196 /  6136 (3.19 %)
+  Misses:          5940
+  Cache size (GB): 0.60 / 20.00 (3.00 %)
+```
+
+Reset stats with `ccache --zero-stats` and clear cache with `ccache --clear`.
+
+#### XCode Specific Setup
+
+For iOS, enable ccache in `ios/Podfile`:
+
+```ruby
+post_install do |installer|
+  react_native_post_install(
+    installer,
+    config[:reactNativePath],
+    :mac_catalyst_enabled => false,
+    # Uncomment the line below
+    :ccache_enabled => true
+  )
+end
+```
+
+#### CI Considerations
+
+On CI, consider a full clean build to avoid cache issues. Use `compiler_check content` for hashing file contents instead of relying on timestamps.
+
+### Distributed Caches
+
+For larger organizations, distributed caches like sccache can be beneficial. Refer to the sccache quickstart guide for setup instructions.

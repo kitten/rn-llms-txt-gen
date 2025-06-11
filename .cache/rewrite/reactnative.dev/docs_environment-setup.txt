@@ -1,0 +1,31 @@
+# React Native and Frameworks
+
+React Native enables developers familiar with React to build native applications. It also allows native developers to achieve parity across platforms by writing shared features once.
+
+The optimal way to experience React Native is through a **Framework**, which provides all necessary APIs for building production-ready apps.
+
+While it's possible to use React Native without a Framework, many developers find that using one like Expo offers significant benefits. Expo includes features such as file-based routing, high-quality universal libraries, and the ability to write plugins that modify native code without managing native files directly.
+
+## Start a New Project with Expo
+
+### Platform Support
+- Android
+- iOS
+- TV
+- Web
+
+Expo is a production-grade React Native Framework offering developer tooling to simplify app development. This includes file-based routing, a standard library of native modules, and more.
+
+The Expo Framework is free, open-source, and supported by an active community on GitHub and Discord. The Expo team collaborates closely with the React Native team at Meta to integrate the latest features into the Expo SDK.
+
+Additionally, Expo provides Expo Application Services (EAS), which are optional services that enhance the development process alongside the Expo Framework.
+
+### Creating a New Expo Project
+
+To start a new project using Expo, execute the following command in your terminal:
+
+```shell
+npx create-expo-app@latest
+```
+
+After creating your app, refer to Expo’s getting started guide for further development steps.

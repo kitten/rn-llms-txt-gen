@@ -1,0 +1,5 @@
+# Reanimated 3.x Overview
+
+Reanimated 3.x maintains backward compatibility with the Reanimated v2 API, ensuring that all code written for version 2.x functions seamlessly in version 3.x without requiring any modifications. However, it is important to note that Reanimated 3.x completely removes support for the Reanimated v1 API.
+
+For guidance on migrating from Reanimated 1.x to 2.x, please refer to the specific migration guide titled "Migration from 1.x to 2.x."

@@ -1,0 +1,125 @@
+# Rotation Gesture
+
+A continuous gesture capable of recognizing and tracking rotation movements. Activation occurs when fingers are placed on the screen and move in a specific manner.
+
+The gesture callback facilitates ongoing monitoring, providing details such as the degree of rotation, the focal point (anchor), and instantaneous velocity.
+
+## Example
+
+```typescript
+import { StyleSheet } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+
+export default function App() {
+  const rotation = useSharedValue(1);
+  const savedRotation = useSharedValue(1);
+
+  const rotationGesture = Gesture.Rotation()
+    .onUpdate((e) => {
+      rotation.value = savedRotation.value + e.rotation;
+    })
+    .onEnd(() => {
+      savedRotation.value = rotation.value;
+    });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ rotateZ: `${(rotation.value / Math.PI) * 180}deg` }],
+  }));
+
+  return (
+    <GestureDetector gesture={rotationGesture}>
+      <Animated.View style={[styles.box, animatedStyle]} />
+    </GestureDetector>
+  );
+}
+
+const styles = StyleSheet.create({
+  box: {
+    height: 120,
+    width: 120,
+    backgroundColor: '#b58df1',
+    borderRadius: 20,
+    marginBottom: 30,
+  },
+});
+```
+
+## Configuration
+
+### Properties Common to All Gestures:
+
+- **`enabled(value: boolean)`**: Determines if the handler analyzes touch events. Default is `true`. Setting it to `false` ensures the handler never becomes `ACTIVE`.
+
+- **`shouldCancelWhenOutside(value: boolean)`**: Cancels or fails recognition when fingers leave the view area. Defaults vary by gesture type.
+
+- **`hitSlop(settings)`**: Adjusts the active area for gesture recognition. Supports negative values and specific boundary adjustments (`left`, `right`, `top`, `bottom`, `horizontal`, `vertical`, `width`, `height`). Primarily reduces the activation area, with Android supporting positive expansions within parent bounds.
+
+- **`withRef(ref)`**: Sets a ref to the gesture object for interoperability with older APIs.
+
+- **`withTestId(testID)`**: Assigns a `testID` for querying in tests.
+
+- **`cancelsTouchesInView(value)`** (**iOS only**): Cancels touches for native UI components when active. Default is `true`.
+
+- **`runOnJS(value: boolean)`**: Determines if callbacks run on the JS thread instead of the UI thread. Defaults to `false`.
+
+- **`simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)`**: Marks gestures to be recognized simultaneously without composing them.
+
+- **`requireExternalGestureToFail(otherGesture1, otherGesture2, ...)`**: Requires another gesture to fail before activation.
+
+- **`blocksExternalGesture(otherGesture1, otherGesture2, ...)`**: Delays other gestures until this one fails or doesn't start. Marks relations without composing them.
+
+- **`activeCursor(value)`** (Web only): Specifies the cursor style when active. Supports CSS cursor values. Default is `"auto"`.
+
+### Properties Common to All Continuous Gestures:
+
+- **`manualActivation(value: boolean)`**: Disables automatic activation, allowing manual state management.
+
+## Callbacks
+
+### Common to All Gestures:
+
+- **`onBegin(callback)`**: Triggered when the gesture handler starts receiving touches but hasn't yet recognized a gesture.
+
+- **`onStart(callback)`**: Called when the gesture is recognized and transitions to an active state.
+
+- **`onEnd(callback)`**: Invoked when the recognized gesture finishes, provided it was previously active.
+
+- **`onFinalize(callback)`**: Executed upon finalizing gesture handling, whether recognized or failed.
+
+- **`onTouchesDown(callback)`**: Triggered each time a finger touches the screen.
+
+- **`onTouchesMove(callback)`**: Called whenever a finger moves on the screen.
+
+- **`onTouchesUp(callback)`**: Invoked when a finger is lifted from the screen.
+
+- **`onTouchesCancelled(callback)`**: Executed when touch tracking stops, such as gesture completion.
+
+### Common to All Continuous Gestures:
+
+- **`onUpdate(callback)`**: Called with every update during active gesture recognition.
+
+- **`onChange(callback)`**: Triggered with updates, providing change information relative to the last event.
+
+## Event Data
+
+### Specific to `RotationGesture`:
+
+- **`rotation`**: Rotation amount in radians from the focal point (anchor).
+
+- **`velocity`**: Instantaneous velocity in points per second.
+
+- **`anchorX`**: X coordinate of the gesture's central focal point (anchor) in points.
+
+- **`anchorY`**: Y coordinate of the gesture's central focal point (anchor) in points.
+
+### Common to All Gestures:
+
+- **`state`**: Current handler state, expressed as a constant from the `State` object.
+
+- **`numberOfPointers`**: Number of fingers currently on the screen.
+
+- **`pointerType`**: Type of pointer device, represented by the `PointerType` enum (`TOUCH`, `STYLUS`, `MOUSE`, `KEY`, `OTHER`).

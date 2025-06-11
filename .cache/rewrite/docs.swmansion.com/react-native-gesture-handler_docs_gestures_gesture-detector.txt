@@ -1,0 +1,91 @@
+# GestureDetector
+
+The `GestureDetector` is a key component within RNGH2, tasked with creating and updating native gesture handlers based on the configuration of provided gestures. A notable advancement over previous gesture handlers is its ability to recognize multiple gestures simultaneously through gesture composition. It's important to note that `GestureDetector` does not support the Animated API or Reanimated 1.
+
+## Reference
+
+```typescript
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+
+function App() {
+  const tap = Gesture.Tap();
+  return (
+    <GestureDetector gesture={tap}>
+      <Animated.View />
+    </GestureDetector>
+  );
+}
+```
+
+## Properties
+
+### `gesture`
+
+This property accepts a gesture object that includes configuration and callbacks. It can be any of the base gestures (`Tap`, `Pan`, `LongPress`, `Fling`, `Pinch`, `Rotation`, `ForceTouch`) or any composed gesture (`Race`, `Simultaneous`, `Exclusive`).
+
+**Info:**  
+The `GestureDetector` determines whether to use Reanimated for processing provided gestures based on their callbacks. If a callback is a worklet, Reanimated tools are utilized, enabling synchronous gesture handling.
+
+Starting with Reanimated 2.3.0, Gesture Handler provides a StateManager in touch events, facilitating gesture state management.
+
+### `userSelect` (Web only)
+
+This parameter specifies the `userSelect` property for the underlying view. Possible values include `"none"`, `"auto"`, or `"text"`. The default is set to `"none"`.
+
+### `touchAction` (Web only)
+
+This parameter defines the `touchAction` property for the underlying view, supporting all CSS `touch-action` values such as `"none"` and `"pan-y"`. The default value is `"none"`.
+
+### `enableContextMenu(value: boolean)` (Web only)
+
+Determines whether a context menu should be enabled after right-clicking on the underlying view. By default, this is set to `false`.
+
+## Remarks
+
+- **Gesture Recognition:**  
+  Gesture Detector uses the first native view in its subtree for gesture recognition. If this view serves solely as a container for its children, it may be automatically collapsed. Consider the following example:
+
+  ```typescript
+  export default function Example() {
+    const tap = Gesture.Tap().onStart(() => {
+      console.log('tap');
+    });
+
+    return (
+      <GestureDetector gesture={tap}>
+        <FunctionalComponent>
+          <View style={styles.box} />
+        </FunctionalComponent>
+      </GestureDetector>
+    );
+  }
+
+  function FunctionalComponent(props) {
+    return <View collapsable={false}>{props.children}</View>;
+  }
+  ```
+
+  Removing the `collapsable` prop from the View would cause the gesture to malfunction, as it would be attached to a view absent in the hierarchy. Gesture Detector automatically adds this prop to its direct child but cannot do so for more complex view trees.
+
+- **Gesture Instance Usage:**  
+  Using the same instance of a gesture across multiple Gesture Detectors is not feasible. Consider the following code:
+
+  ```typescript
+  export default function Example() {
+    const pan = Gesture.Pan();
+
+    return (
+      <View>
+        <GestureDetector gesture={pan}>
+          <View>
+            <GestureDetector gesture={pan}> {/* Avoid this! */}
+              <View />
+            </GestureDetector>
+          </View>
+        </GestureDetector>
+      </View>
+    );
+  }
+  ```
+
+  This example will result in an error because it attempts to use the same `Pan` instance in two different Gesture Detectors.

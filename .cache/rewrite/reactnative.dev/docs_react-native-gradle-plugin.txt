@@ -1,0 +1,149 @@
+# React Native Gradle Plugin
+
+This guide provides instructions on configuring the **React Native Gradle Plugin** (RNGP) when building your React Native application for Android.
+
+## Using the Plugin
+
+The React Native Gradle Plugin is distributed as a separate NPM package, automatically installed with `react-native`.
+
+For new projects created using `npx react-native init`, the plugin is pre-configured. No additional steps are required to install it if you used this command.
+
+If integrating React Native into an existing project, refer to specific instructions for installing the plugin.
+
+## Configuring the Plugin
+
+The plugin works with sensible defaults and requires customization only when necessary. Configuration can be done in the `react` block within your `android/app/build.gradle` file:
+
+```groovy
+apply plugin: "com.facebook.react"
+
+/**
+ * This is the configuration block to customize your React Native Android app.
+ * By default, no configuration is needed; uncomment lines as required.
+ */
+react {
+  // Custom configuration goes here.
+}
+```
+
+### Configuration Keys
+
+#### `root`
+Specifies the root folder of your React Native project (where `package.json` resides). Default: `..`.
+
+```groovy
+root = file("../")
+```
+
+#### `reactNativeDir`
+Defines the directory for the `react-native` package. Default: `../node_modules/react-native`. Adjust if using a monorepo or different package manager.
+
+```groovy
+reactNativeDir = file("../node_modules/react-native")
+```
+
+#### `codegenDir`
+Specifies the folder for the `react-native-codegen` package. Default: `../node_modules/@react-native/codegen`.
+
+```groovy
+codegenDir = file("../node_modules/@react-native/codegen")
+```
+
+#### `cliFile`
+The entry point for the React Native CLI, needed for bundling and app creation. Default: `../node_modules/react-native/cli.js`.
+
+```groovy
+cliFile = file("../node_modules/react-native/cli.js")
+```
+
+#### `debuggableVariants`
+Lists variants considered debuggable (e.g., `debug`, not `release`). Adjust if using other variants like `staging` or `lite`.
+
+```groovy
+debuggableVariants = ["liteDebug", "prodDebug"]
+```
+
+#### `nodeExecutableAndArgs`
+Specifies the node command and arguments for scripts. Default: `[node]`. Customize to add extra flags.
+
+```groovy
+nodeExecutableAndArgs = ["node"]
+```
+
+#### `bundleCommand`
+Name of the `bundle` command for app bundling, useful with RAM Bundles. Default: `bundle`.
+
+```groovy
+bundleCommand = "ram-bundle"
+```
+
+#### `bundleConfig`
+Path to a configuration file passed to `bundle --config <file>`. Default is empty.
+
+```groovy
+bundleConfig = file("../rn-cli.config.js")
+```
+
+#### `bundleAssetName`
+Name of the generated bundle file. Default: `index.android.bundle`.
+
+```groovy
+bundleAssetName = "MyApplication.android.bundle"
+```
+
+#### `entryFile`
+Entry file for bundle generation, defaulting to `index.android.js` or `index.js`.
+
+```groovy
+entryFile = file("../js/MyApplication.android.js")
+```
+
+#### `extraPackagerArgs`
+Extra flags passed to the `bundle` command. Default is empty.
+
+```groovy
+extraPackagerArgs = []
+```
+
+#### `hermesCommand`
+Path to the `hermesc` command (Hermes Compiler). React Native includes a bundled version, so customization is usually unnecessary.
+
+#### `hermesFlags`
+Flags for `hermesc`. Default: `["-O", "-output-source-map"]`.
+
+```groovy
+hermesFlags = ["-O", "-output-source-map"]
+```
+
+#### `enableBundleCompression`
+Determines if the Bundle Asset should be compressed in `.apk` packaging. Disabled by default to improve startup time at the cost of larger app size on disk.
+
+## Using Flavors & Build Variants
+
+Custom flavors allow different versions of your app from a single project. Refer to the official Android guide for configuring custom build types (e.g., `staging`) or flavors (e.g., `full`, `lite`). New apps default to two build types (`debug` and `release`) with no custom flavors.
+
+Build variants are combinations of all build types and flavors. For example, with `debug`/`staging`/`release` build types and `full`/`lite` flavors, you get 6 variants: `fullDebug`, `fullStaging`, `fullRelease`, etc.
+
+For custom variants beyond `debug` and `release`, specify which are **debuggable** using the `debuggableVariants` configuration:
+
+```diff
+apply plugin: "com.facebook.react"
+
+react {
++ debuggableVariants = ["fullStaging", "fullDebug"]
+}
+```
+
+This is necessary because the plugin skips JS bundling for all `debuggableVariants`, requiring Metro to run them. Listing `fullStaging` in `debuggableVariants` means it won't have a bundle, preventing store publication.
+
+## Plugin Responsibilities
+
+The React Native Gradle Plugin configures your Application build for production and is used by 3rd party libraries for Codegen with the New Architecture. Key responsibilities include:
+
+- Adding a `createBundle<Variant>JsAndAssets` task for non-debuggable variants to invoke `bundle`, `hermesc`, and `compose-source-map`.
+- Setting up dependencies like `com.facebook.react:react-android` and `com.facebook.react:hermes-android` based on React Native version.
+- Configuring Maven repositories (Maven Central, Google Maven Repo, JSC local Maven repo) for necessary dependencies.
+- Setting up the NDK for apps using the New Architecture.
+- Defining `buildConfigFields` to determine runtime if Hermes or the New Architecture are enabled.
+- Configuring the Metro DevServer Port as an Android resource.
+- Invoking React Native Codegen for libraries/apps using it with the New Architecture.

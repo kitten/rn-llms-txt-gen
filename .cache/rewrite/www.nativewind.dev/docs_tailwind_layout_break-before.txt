@@ -1,0 +1,18 @@
+# Break Before
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                           | Support     |
+| ------------------------------- | ----------- |
+| `break-before-auto`             | 🌐 Web only |
+| `break-before-avoid`            | 🌐 Web only |
+| `break-before-all`              | 🌐 Web only |
+| `break-before-avoid-page`       | 🌐 Web only |
+| `break-before-page`             | 🌐 Web only |
+| `break-before-left`             | 🌐 Web only |
+| `break-before-right`            | 🌐 Web only |
+| `break-before-column`           | 🌐 Web only |

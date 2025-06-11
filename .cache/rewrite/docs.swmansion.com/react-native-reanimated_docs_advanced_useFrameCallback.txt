@@ -1,0 +1,64 @@
+# useFrameCallback in React Native Reanimated (Version: 3.x)
+
+## Overview
+
+The `useFrameCallback` hook allows you to execute a function on every frame update within your application.
+
+## Reference
+
+```typescript
+import { useFrameCallback } from 'react-native-reanimated';
+
+function App() {
+  const frameCallback = useFrameCallback((frameInfo) => {
+    // Increment a value with each frame update
+    sv.value += 1;
+  });
+
+  return (
+    <Button
+      title="Start/Stop"
+      onPress={() => frameCallback.setActive(!frameCallback.isActive)}
+    />
+  );
+}
+```
+
+### Arguments
+
+#### `callback`
+
+- A function that runs on every frame update.
+- Receives a `frameInfo` object with the following properties:
+  - `timestamp`: The system time (in milliseconds) when the last frame was rendered.
+  - `timeSincePreviousFrame`: Time (in milliseconds) since the previous frame. This is `null` for the first frame after activation and approximately 16 ms on a 60 Hz display or 8 ms on a 120 Hz display, assuming no frames are dropped.
+  - `timeSinceFirstFrame`: The time (in milliseconds) elapsed since the callback was activated.
+
+#### `autostart` (Optional)
+
+- Determines if the callback should start automatically. Defaults to `true`.
+
+### Returns
+
+The `useFrameCallback` hook returns an object with these properties:
+
+- `setActive`: A function to start or stop the frame callback.
+- `isActive`: A boolean indicating whether the callback is currently running.
+- `callbackId`: A unique identifier for the frame callback.
+
+## Remarks
+
+- The function provided in the `callback` argument is automatically workletized and executed on the UI thread.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+* Reference
+  * Arguments
+  * Returns
+* Example
+* Remarks
+* Platform compatibility

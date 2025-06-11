@@ -1,0 +1,61 @@
+# RefreshControl Component
+
+The `RefreshControl` component is designed to be used within a ScrollView or ListView, providing pull-to-refresh functionality. When the scroll position (`scrollY`) reaches zero and the user swipes down, an `onRefresh` event is triggered.
+
+## Example Usage
+
+> **Note:** The `refreshing` prop is controlled, meaning it must be set to `true` during the `onRefresh` function execution; otherwise, the refresh indicator will cease immediately.
+
+## Reference Guide
+
+### Props Overview
+
+#### Inherited View Props
+- Inherits all properties from the View component.
+
+#### Required Prop: `refreshing`
+- **Type:** boolean  
+  Indicates whether the view is currently showing an active refresh state.
+
+#### Android-Specific Props
+
+- **`colors`:**  
+  - **Type:** array of colors  
+  Specifies the colors used to draw the refresh indicator. At least one color must be provided.
+  
+- **`enabled`:**  
+  - **Type:** boolean  
+  - **Default:** `true`  
+  Determines if pull-to-refresh functionality is enabled.
+
+- **`onRefresh`:**  
+  - **Type:** function  
+  Triggered when the view begins refreshing.
+
+- **`progressBackgroundColor`:**  
+  - **Type:** color  
+  Sets the background color of the refresh indicator.
+
+- **`progressViewOffset`:**  
+  - **Type:** number  
+  - **Default:** `0`  
+  Defines the top offset for the progress view.
+
+- **`size`:**  
+  - **Type:** enum(`'default'`, `'large'`)  
+  - **Default:** `'default'`  
+  Specifies the size of the refresh indicator.
+
+#### iOS-Specific Props
+
+- **`tintColor`:**  
+  - **Type:** color  
+  Sets the color of the refresh indicator.
+
+- **`title`:**  
+  - **Type:** string  
+  The title displayed beneath the refresh indicator.
+
+- **`titleColor`:**  
+  - **Type:** color  
+  Defines the color of the refresh indicator's title.

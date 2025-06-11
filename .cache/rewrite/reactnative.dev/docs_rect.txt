@@ -1,0 +1,47 @@
+# Rect Object Type
+
+The `Rect` object type is designed to accept numeric pixel values, which are used to extend a rectangular area. These values modify the original dimensions of the rectangle.
+
+## Example
+
+```typescript
+{
+    bottom: 20,
+    left: null,
+    right: undefined,
+    top: 50
+}
+```
+
+## Keys and Values
+
+### `bottom`
+
+| Type                        | Required |
+| --------------------------- | -------- |
+| number, `null`, `undefined` | No       |
+
+### `left`
+
+| Type                        | Required |
+| --------------------------- | -------- |
+| number, `null`, `undefined` | No       |
+
+### `right`
+
+| Type                        | Required |
+| --------------------------- | -------- |
+| number, `null`, `undefined` | No       |
+
+### `top`
+
+| Type                        | Required |
+| --------------------------- | -------- |
+| number, `null`, `undefined` | No       |
+
+## Used By
+
+- `Image`
+- `Pressable`
+- `Text`
+- `TouchableWithoutFeedback`

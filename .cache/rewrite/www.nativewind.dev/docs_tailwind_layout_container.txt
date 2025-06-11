@@ -1,0 +1,13 @@
+# Container
+
+Nativewind's default breakpoints are currently based on web defaults and have not been specifically tailored for native devices.
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class             | Support        |
+| ----------------- | -------------- |
+| `container`       | ✅ Full Support |

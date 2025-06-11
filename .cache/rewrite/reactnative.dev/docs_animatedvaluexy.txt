@@ -1,0 +1,131 @@
+# Animated.ValueXY
+
+A 2D value designed for driving 2D animations such as pan gestures. It shares a similar API with the standard `Animated.Value`, but it is multiplexed, containing two regular `Animated.Value` instances internally.
+
+## Example
+
+*Example content not provided.*
+
+## Reference
+
+### Methods
+
+#### `setValue()`
+
+```typescript
+setValue(value: { x: number; y: number }): void;
+```
+Directly sets the value. This action stops any ongoing animations and updates all bound properties.
+
+**Parameters:**
+
+- **value**: `{x: number; y: number}` (Required)  
+  The new value to set, consisting of `x` and `y` coordinates.
+
+#### `setOffset()`
+
+```typescript
+setOffset(offset: { x: number; y: number }): void;
+```
+Applies an offset on top of the current value. This can be useful for compensating initial positions in gestures like panning.
+
+**Parameters:**
+
+- **offset**: `{x: number; y: number}` (Required)  
+  The offset to apply, consisting of `x` and `y` coordinates.
+
+#### `flattenOffset()`
+
+```typescript
+flattenOffset(): void;
+```
+Merges the current offset into the base value and resets the offset to zero. The final output remains unchanged.
+
+#### `extractOffset()`
+
+```typescript
+extractOffset(): void;
+```
+Transfers the current offset value to the base value, resetting the base value to zero. The final output remains unchanged.
+
+#### `addListener()`
+
+```typescript
+addListener(callback: (value: { x: number; y: number }) => void): string;
+```
+Adds an asynchronous listener to observe updates from animations. This is useful as there's no way to synchronously read the value due to potential native driving.
+
+**Returns:**  
+A string identifier for the listener.
+
+**Parameters:**
+
+- **callback**: `function` (Required)  
+  A function that receives an object with a `value` key set to the new value.
+
+#### `removeListener()`
+
+```typescript
+removeListener(id: string): void;
+```
+Unregisters a listener using the identifier returned by `addListener()`.
+
+**Parameters:**
+
+- **id**: `string` (Required)  
+  The identifier of the listener being removed.
+
+#### `removeAllListeners()`
+
+```typescript
+removeAllListeners(): void;
+```
+Removes all registered listeners.
+
+#### `stopAnimation()`
+
+```typescript
+stopAnimation(callback?: (value: { x: number; y: number }) => void): void;
+```
+Stops any running animation or tracking. The optional `callback` is invoked with the final value, useful for updating state to match the animation position.
+
+**Parameters:**
+
+- **callback**: `function` (Optional)  
+  A function that receives the final value after stopping the animation.
+
+#### `resetAnimation()`
+
+```typescript
+resetAnimation(callback?: (value: { x: number; y: number }) => void): void;
+```
+Stops any running animation and resets the value to its original state. The optional `callback` is invoked with the original value.
+
+**Parameters:**
+
+- **callback**: `function` (Optional)  
+  A function that receives the original value after resetting the animation.
+
+#### `getLayout()`
+
+```typescript
+getLayout(): { left: Animated.Value; top: Animated.Value };
+```
+Converts `{x, y}` into `{left, top}` for use in style properties. For example:
+
+```typescript
+style={this.state.anim.getLayout()}
+```
+
+#### `getTranslateTransform()`
+
+```typescript
+getTranslateTransform(): [{ translateX: Animated.Value }, { translateY: Animated.Value }];
+```
+Converts `{x, y}` into a usable translation transform. For example:
+
+```typescript
+style={{
+  transform: this.state.anim.getTranslateTransform()
+}}
+```

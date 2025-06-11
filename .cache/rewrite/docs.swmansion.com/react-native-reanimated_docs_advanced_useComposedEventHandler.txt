@@ -1,0 +1,58 @@
+# useComposedEventHandler Hook
+
+The `useComposedEventHandler` hook allows you to combine multiple event handlers, such as those created with `useAnimatedScrollHandler`, into a single handler.
+
+## Reference Example
+
+```typescript
+import Animated, {
+  useAnimatedScrollHandler,
+  useComposedEventHandler,
+} from 'react-native-reanimated';
+
+function ComposedEventHandlerExample() {
+  const onScrollHandler1 = useAnimatedScrollHandler({
+    onScroll(e) {
+      console.log('Scroll handler 1 onScroll event');
+    },
+  });
+
+  const onScrollHandler2 = useAnimatedScrollHandler({
+    onScroll(e) {
+      console.log('Scroll handler 2 onScroll event');
+    },
+  });
+
+  const composedHandler = useComposedEventHandler([
+    onScrollHandler1,
+    onScrollHandler2,
+  ]);
+
+  return (
+    <View style={styles.container}>
+      <Animated.ScrollView style={styles.scroll} onScroll={composedHandler}>
+        <Content />
+      </Animated.ScrollView>
+    </View>
+  );
+}
+```
+
+### Arguments
+
+- **`handlers`**: An array of event handlers created using the `useEvent` hook. The `useComposedEventHandler` hook updates whenever there are changes in these handlers.
+
+### Returns
+
+The hook returns a handler object that can be used with any `Animated component`. This handler should be assigned to the corresponding `onEvent` prop (e.g., `onScroll` for scroll-related handlers). For better code clarity, it's recommended to use multiple composed handlers if your aggregated handler manages various events.
+
+## Remarks
+
+- The returned handler combines the functionalities of all provided handlers. This allows multiple handlers to respond to a single event and manage different types of events with one object.
+- It functions effectively when used with multiple `Animated components`, triggering event callbacks for each connected component.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

@@ -1,0 +1,12 @@
+# Flex Shrink
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class            | Support        |
+| ---------------- | -------------- |
+| `shrink`         | ✅ Full Support |
+| `shrink-0`       | ✅ Full Support |

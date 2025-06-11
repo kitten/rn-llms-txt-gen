@@ -1,0 +1,220 @@
+# VirtualizedList
+
+The `VirtualizedList` component serves as a foundational implementation for more user-friendly components like `<FlatList>` and `<SectionList>`. It is particularly useful when additional flexibility is required, such as working with immutable data structures instead of plain arrays.
+
+Virtualization significantly enhances memory efficiency and performance in handling large lists by maintaining only a finite number of active items within the render window. Items outside this window are replaced with appropriately sized blank spaces. The size of this window dynamically adjusts based on scrolling behavior, rendering items incrementally at low priority if they are far from the visible area or at high priority otherwise to minimize blank space visibility.
+
+## Example
+
+- TypeScript
+- JavaScript
+
+### Caveats:
+
+- Internal state is not preserved when content scrolls out of the render window. Ensure all data is captured within item data or external stores like Flux, Redux, or Relay.
+- As a `PureComponent`, it will not re-render if props are shallow-equal. Ensure that everything your `renderItem` function depends on is passed as a prop (e.g., `extraData`) and is not strictly equal after updates to ensure UI updates on changes. This includes the `data` prop and parent component state.
+- To maintain memory constraints and enable smooth scrolling, content is rendered asynchronously offscreen. This may result in faster-than-fill-rate scrolling revealing blank content temporarily. This tradeoff can be adjusted per application needs, with ongoing improvements being made behind the scenes.
+- By default, the list looks for a `key` prop on each item to use as the React key. Alternatively, you can provide a custom `keyExtractor` prop.
+
+## Reference
+
+### Props
+
+#### ScrollView Props
+Inherits ScrollView Props.
+
+#### `data`
+Opaque data type passed to `getItem` and `getItemCount` to retrieve items.
+- **Type**: any
+
+#### Require `getItem`
+```typescript
+(data: any, index: number) => any;
+```
+A generic accessor for extracting an item from any sort of data blob.
+- **Type**: function
+
+#### Require `getItemCount`
+```typescript
+(data: any) => number;
+```
+Determines how many items are in the data blob.
+- **Type**: function
+
+#### Require `renderItem`
+```typescript
+(info: any) => ?React.Element<any>
+```
+Takes an item from `data` and renders it into the list.
+- **Type**: function
+
+#### `CellRendererComponent`
+Customizes how cells rendered by `renderItem`/`ListItemComponent` are wrapped within the underlying ScrollView. This component must accept event handlers notifying VirtualizedList of changes within the cell.
+- **Type**: `React.ComponentType<CellRendererProps>`
+
+#### `ItemSeparatorComponent`
+Rendered between each item, excluding the top and bottom. By default, `highlighted` and `leadingItem` props are provided. `renderItem` provides `separators.highlight`/`unhighlight` to update the `highlighted` prop, with custom props added via `separators.updateProps`. Can be a React Component (e.g., `SomeComponent`) or a React element (e.g., `<SomeComponent />`).
+- **Type**: component, function, element
+
+#### `ListEmptyComponent`
+Rendered when the list is empty. Can be a React Component (e.g., `SomeComponent`) or a React element (e.g., `<SomeComponent />`).
+- **Type**: component, element
+
+#### `ListItemComponent`
+Each data item is rendered using this element. Can be a React Component Class or a render function.
+- **Type**: component, function
+
+#### `ListFooterComponent`
+Rendered at the bottom of all items. Can be a React Component (e.g., `SomeComponent`) or a React element (e.g., `<SomeComponent />`).
+- **Type**: component, element
+
+#### `ListFooterComponentStyle`
+Styling for internal View for `ListFooterComponent`.
+- **Type**: ViewStyleProp
+- **Required**: No
+
+#### `ListHeaderComponent`
+Rendered at the top of all items. Can be a React Component (e.g., `SomeComponent`) or a React element (e.g., `<SomeComponent />`).
+- **Type**: component, element
+
+#### `ListHeaderComponentStyle`
+Styling for internal View for `ListHeaderComponent`.
+- **Type**: View Style
+
+#### `debug`
+Enables extra logging and visual overlays to aid debugging of usage and implementation, with a significant performance hit.
+- **Type**: boolean
+
+#### `disableVirtualization`
+> **Deprecated.** Virtualization provides significant performance and memory optimizations by fully unmounting React instances outside the render window. Only disable for debugging purposes.
+- **Type**: boolean
+
+#### `extraData`
+A marker property to trigger re-rendering since it implements `PureComponent`. If your `renderItem`, `ListEmptyComponent`, or other components depend on external data, pass this as a prop and ensure it changes when the data updates.
+
+#### `flashScrollIndicators()`
+```typescript
+flashScrollIndicators();
+```
+
+#### `getScrollableNode()`
+```typescript
+getScrollableNode(): any;
+```
+
+#### `getScrollRef()`
+```typescript
+getScrollRef():
+  | React.ElementRef<typeof ScrollView>
+  | React.ElementRef<typeof View>
+  | null;
+```
+
+#### `getScrollResponder()`
+```typescript
+getScrollResponder () => ScrollResponderMixin | null;
+```
+Provides a handle to the underlying scroll responder. Note that `this._scrollRef` might not be a `ScrollView`, so we need to check that it responds to `getScrollResponder` before calling it.
+
+#### `persistentScrollbar`
+- **Type**: bool
+
+#### `progressViewOffset`
+Set this when an offset is needed for the loading indicator to show correctly.
+- **Type**: number
+
+#### `refreshControl`
+A custom refresh control element. When set, it overrides the default `<RefreshControl>` component built internally. The `onRefresh` and `refreshing` props are also ignored. Only works for vertical VirtualizedList.
+- **Type**: element
+
+#### `refreshing`
+Set this to true while waiting for new data from a refresh.
+- **Type**: boolean
+
+#### `removeClippedSubviews`
+This may improve scroll performance for large lists.
+> Note: May have bugs (missing content) in some circumstances - use at your own risk.
+- **Type**: boolean
+
+#### `renderScrollComponent`
+```typescript
+(props: object) => element;
+```
+Render a custom scroll component, e.g., with a differently styled `RefreshControl`.
+- **Type**: function
+
+#### `scrollToEnd()`
+```typescript
+scrollToEnd(params?: {animated?: boolean});
+```
+
+Scrolls to the end of the content. May be janky without the `getItemLayout` prop.
+
+**Parameters:**
+
+- Name: params
+- Type: object
+
+Valid `params` keys are:
+
+- `'animated'` (boolean) - Whether the list should do an animation while scrolling. Defaults to `true`.
+
+#### `scrollToIndex()`
+```typescript
+scrollToIndex(params: {
+  index: number;
+  animated?: boolean;
+  viewOffset?: number;
+  viewPosition?: number;
+});
+```
+
+Valid `params` consist of:
+
+- `'index'` (number). Required.
+- `'animated'` (boolean). Optional.
+- `'viewOffset'` (number). Optional.
+- `'viewPosition'` (number). Optional.
+
+#### `scrollToItem()`
+```typescript
+scrollToItem(params: {
+  item: ItemT;
+  animated?: boolean;
+  viewOffset?: number;
+  viewPosition?: number;
+});
+```
+
+Valid `params` consist of:
+
+- `'item'` (Item). Required.
+- `'animated'` (boolean). Optional.
+- `'viewOffset'` (number). Optional.
+- `'viewPosition'` (number). Optional.
+
+#### `scrollToOffset()`
+```typescript
+scrollToOffset(params: {
+  offset: number;
+  animated?: boolean;
+});
+```
+
+Scroll to a specific content pixel offset in the list. Param `offset` expects the offset to scroll to. In case of `horizontal` is true, the offset is the x-value; otherwise, it's the y-value. Param `animated` (`true` by default) defines whether the list should do an animation while scrolling.
+
+#### `viewabilityConfig`
+See `ViewabilityHelper.js` for flow type and further documentation.
+- **Type**: ViewabilityConfig
+
+#### `viewabilityConfigCallbackPairs`
+List of `ViewabilityConfig`/`onViewableItemsChanged` pairs. A specific `onViewableItemsChanged` will be called when its corresponding `ViewabilityConfig`'s conditions are met. See `ViewabilityHelper.js` for flow type and further documentation.
+- **Type**: array of ViewabilityConfigCallbackPair
+
+#### `updateCellsBatchingPeriod`
+Amount of time between low-priority item render batches, e.g., for rendering items quite a ways off screen. Similar fill rate/responsiveness tradeoff as `maxToRenderPerBatch`.
+- **Type**: number
+
+#### `windowSize`
+Determines the maximum number of items rendered outside of the visible area, in units of visible lengths. For example, if your list fills the screen, then `windowSize={21}` (the default) will render the visible screen area plus up to 10 screens above and below the viewport. Reducing this number will decrease memory consumption and may improve performance but increase the chance that fast scrolling reveals momentary blank areas of unrendered content.
+- **Type**: number

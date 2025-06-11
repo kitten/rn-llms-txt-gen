@@ -1,0 +1,16 @@
+# Justify Content
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| `justify-start`         | ✅ Full Support |
+| `justify-end`           | ✅ Full Support |
+| `justify-center`        | ✅ Full Support |
+| `justify-between`       | ✅ Full Support |
+| `justify-around`        | ✅ Full Support |
+| `justify-evenly`        | ✅ Full Support |

@@ -1,0 +1,81 @@
+# Dark Mode Implementation with Nativewind
+
+Nativewind offers two main strategies for integrating dark mode into your application:
+
+1. **System Preference (Automatic)**
+2. **Manual Selection (User Toggle)**
+
+Both methods utilize the `colorScheme` from Nativewind, which provides a consistent API to interact with React Native's appearance settings. The underlying mechanism involves using the `Appearance` API on native platforms and `prefers-color-scheme` for web environments.
+
+- To **retrieve** the current system preference, use the `colorScheme` value obtained from `useColorScheme`.
+- To **set** the color scheme manually (e.g., via a user toggle), employ the `colorScheme.set()` function.
+
+Both functionalities are accessible through Nativewind's imports.
+
+## 1. System Preference (Automatic)
+
+By default, Nativewind aligns with the device's system appearance settings (light, dark, or automatic). This approach is generally recommended as it ensures a consistent user experience for those who have configured their devices to a specific mode.
+
+To access the current system preference, utilize the `colorScheme` value from the `useColorScheme` hook:
+
+**Expo Note:** In Expo applications, adherence to the system appearance requires setting `userInterfaceStyle` to `automatic` in your `app.json`. Refer to the Expo color scheme guide for additional information.
+
+**Example (Expo Snack):** A comprehensive example is available in the Expo Docs. This setup will automatically adjust when there are changes in the system's appearance settings.
+
+## 2. Manual Selection (User Toggle)
+
+For applications that allow users to choose between light, dark, or system mode manually, use the `colorScheme.set()` function. This feature is particularly beneficial for apps with a theme toggle option within their user interface.
+
+**Example:** A complete implementation can be found at nativewind/theme-toggle on GitHub.
+
+### Basic Toggle Example
+
+```typescript
+import { useState } from "react";
+import { SafeAreaView, Text, Pressable } from "react-native";
+import { colorScheme } from "nativewind";
+import { StatusBar } from 'expo-status-bar';
+
+import './global.css';
+
+export default function App() {
+  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
+
+  const toggleTheme = () => {
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+    setCurrentTheme(newTheme);
+    colorScheme.set(newTheme);
+  };
+
+  return (
+    <SafeAreaView
+      className={`flex-1 ${currentTheme === 'dark' ? 'bg-gray-900' : 'bg-white'} justify-center items-center`}
+    >
+      <StatusBar style={currentTheme === 'dark' ? 'light' : 'dark'} />
+      <Pressable onPress={toggleTheme} className="mt-4">
+        <Text 
+          className={currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'}
+          style={{ fontSize: 16, fontWeight: 'bold' }}
+        >
+          {currentTheme === 'dark' ? 'Dark' : 'Light'}
+        </Text>
+      </Pressable>
+    </SafeAreaView>
+  );
+}
+```
+
+Persisting the user's choice can be achieved using a storage solution like React Native Async Storage.
+
+## Best Practices
+
+- **Utilize `colorScheme` from `useColorScheme`** to determine the current color scheme based on system preference.
+- **Employ `colorScheme.set()`** for enabling users to manually select their preferred color scheme.
+- For most applications, adhering to system preferences is advisable.
+- If a manual toggle is provided, always include an option to revert to "System" mode.
+
+## References
+
+- Expo Color Schemes Guide
+- Nativewind useColorScheme API
+- Theme Toggle Example (GitHub)

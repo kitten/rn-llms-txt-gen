@@ -1,0 +1,54 @@
+# Run On JS
+
+The `runOnJS` function allows you to asynchronously execute functions that are not workletized on the UI thread. This is particularly useful for most external libraries, as their functions typically lack the `"worklet"` directive.
+
+`runOnJS` is commonly used to update React state either after an animation completes or conditionally within a gesture interaction.
+
+## Reference
+
+```typescript
+import { runOnJS } from 'react-native-reanimated';
+
+function App() {
+  // Executing on the UI thread
+  runOnJS(navigation.goBack)();
+}
+```
+
+### Arguments
+
+#### `fn`
+
+A reference to a function you wish to execute on the JavaScript thread from the UI thread. Any arguments for your function must be passed to the function returned by `runOnJS`, e.g., `runOnJS(setValue)(10);`.
+
+### Returns
+
+`runOnJS` returns a function that accepts arguments for the original function provided as its first argument. This returned function can be safely executed on the UI thread.
+
+**Note:** Ensure you call the function returned from `runOnJS`.
+
+## Example
+
+## Remarks
+
+- Functions passed to `runOnJS` must be defined within the JavaScript thread scope, such as in a component body or global scope. The following code will not work because `myFunction` is defined inside the `withTiming` callback, which runs on the UI thread:
+
+  ```typescript
+  withTiming(0, {}, () => {
+    // myFunction is defined on the UI thread 🚨
+    const myFunction = () => {
+      // ...
+    };
+    runOnJS(myFunction)(); // 💥
+  });
+  ```
+
+- A common mistake is to execute a function inside `runOnJS` like this: ~~`runOnJS(setValue(10))()`~~. The correct usage would be `runOnJS(setValue)(10)`.
+
+- It's safe to run functions via `runOnJS` on the JavaScript thread, as it has no adverse effects.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

@@ -1,0 +1,12 @@
+# Font Style
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `italic`           | ✅ Full Support |
+| `not-italic`       | ✅ Full Support |

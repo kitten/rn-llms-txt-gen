@@ -1,0 +1,17 @@
+# Background Image
+
+The following table outlines various classes used for background images, along with their support status:
+
+| Class                     | Support     |
+| ------------------------- | ----------- |
+| `bg-none`                 | 🌐 Web only |
+| `bg-gradient-to-t`        | 🌐 Web only |
+| `bg-gradient-to-tr`       | 🌐 Web only |
+| `bg-gradient-to-r`        | 🌐 Web only |
+| `bg-gradient-to-br`       | 🌐 Web only |
+| `bg-gradient-to-b`        | 🌐 Web only |
+| `bg-gradient-to-bl`       | 🌐 Web only |
+| `bg-gradient-to-l`        | 🌐 Web only |
+| `bg-gradient-to-tl`       | 🌐 Web only |
+
+These classes are specifically designed for use in web development to apply background styles.

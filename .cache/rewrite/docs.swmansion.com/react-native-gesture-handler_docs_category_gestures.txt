@@ -1,0 +1,75 @@
+# Gestures (Version: 2.x)
+
+## GestureDetector
+
+The `GestureDetector` serves as the core component within RNGH2, tasked with creating and updating native gesture handlers based on the configuration of provided gestures. A key enhancement over previous versions is its ability to recognize multiple gestures simultaneously through gesture composition. It's important to note that `GestureDetector` does not support integration with the Animated API or Reanimated 1.
+
+## Gesture
+
+A `Gesture` object facilitates the creation and combination of various gestures, enabling more complex interactions.
+
+## Pan Gesture
+
+```typescript
+<InteractiveExample />
+```
+
+## Tap Gesture
+
+```typescript
+<InteractiveExample />
+```
+
+## Long Press Gesture
+
+```typescript
+<InteractiveExample />
+```
+
+## Rotation Gesture
+
+```typescript
+<InteractiveExample />
+```
+
+## Pinch Gesture
+
+```typescript
+<InteractiveExample />
+```
+
+## Fling Gesture
+
+```typescript
+<InteractiveExample />
+```
+
+## Hover Gesture
+
+```typescript
+<InteractiveExample />
+```
+
+## Force Touch Gesture
+
+This continuous gesture detects the force of a touch, allowing for pressure tracking on certain iOS devices.
+
+## Native Gesture
+
+A `Native Gesture` enables other touch handling components to function within RNGH's gesture system. This integration facilitates seamless interactions between gestures and native components, enabling them to establish relationships with other gestures.
+
+## Manual Gesture
+
+A `Manual Gesture` lacks specific activation criteria or event data. Its state must be managed manually using a state manager. Unlike other gestures, it does not fail when all pointers are removed from the screen.
+
+## Composed Gestures
+
+Composed gestures (Race, Simultaneous, Exclusive) offer an easy method for establishing relationships between gestures. For more information, refer to Gesture Composition.
+
+## Touch Events
+
+Attributes of touch events include various properties that define their behavior and characteristics.
+
+## Gesture State Manager
+
+The `GestureStateManager` allows manual control over gesture states. Note that react-native-reanimated is required for its use, as it enables synchronous execution of methods within worklets.

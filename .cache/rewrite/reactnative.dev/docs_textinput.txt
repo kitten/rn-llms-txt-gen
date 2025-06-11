@@ -1,0 +1,75 @@
+Here is a structured overview of the properties, methods, and known issues related to the `TextInput` component in React Native:
+
+### Properties
+
+#### General Properties
+
+- **editable**: If `false`, prevents user input. Default: `true`.
+- **maxLength**: Limits text length. Default: No limit.
+- **multiline**: Enables multiple lines. Default: `false`.
+- **numberOfLines**: Sets line count for multiline inputs. Default: 1.
+- **onChangeText**: Callback on text change.
+- **onSubmitEditing**: Callback when submit button is pressed.
+- **placeholder**: Placeholder text when empty.
+- **value**: Controlled component value.
+
+#### Platform-Specific Properties
+
+##### Android
+
+- **disableFullscreenUI**: Hides fullscreen keyboard UI. Default: `false`.
+- **enablesReturnKeyAutomatically**: Enables return key based on content. Default: `true`.
+- **keyboardAppearance**: Sets keyboard appearance (`light` or `dark`). Default: `default`.
+- **maxLength**: Limits text length.
+- **numberOfLines**: Sets line count for multiline inputs.
+- **returnKeyType**: Defines return key label. Options include `done`, `go`, `next`, etc.
+- **scrollEnabled**: Enables scrolling in multiline mode. Default: `true`.
+- **selectTextOnFocus**: Selects all text on focus. Default: `false`.
+- **showSoftInputOnFocus**: Shows keyboard on focus. Default: `true`.
+
+##### iOS
+
+- **autoCapitalize**: Capitalization style (`none`, `sentences`, etc.). Default: `sentences`.
+- **autoCorrect**: Enables autocorrection. Default: `true`.
+- **keyboardType**: Sets keyboard type (`default`, `email-address`, etc.).
+- **returnKeyType**: Defines return key label.
+- **spellCheck**: Enables spell check. Default: Inherits from `autoCorrect`.
+
+#### Common Properties
+
+- **allowFontScaling**: Scales font size with user settings. Default: `true`.
+- **blurOnSubmit**: Blurs on submit. Default: `false`.
+- **caretHidden**: Hides caret in multiline mode. Default: `false`.
+- **caretColor**: Sets caret color.
+- **clearButtonMode**: Controls clear button visibility (`never`, `while-editing`, etc.). Default: `never`.
+- **contextMenuHidden**: Hides context menu. Default: `false`.
+- **disableFullscreenUI**: Hides fullscreen keyboard UI. Default: `false`.
+- **enablesReturnKeyAutomatically**: Enables return key based on content. Default: `true`.
+- **focusable**: Controls focusability. Default: `true`.
+- **maxLength**: Limits text length.
+- **multiline**: Enables multiple lines. Default: `false`.
+- **numberOfLines**: Sets line count for multiline inputs. Default: 1.
+- **onContentSizeChange**: Callback on content size change.
+- **onChangeText**: Callback on text change.
+- **onSubmitEditing**: Callback when submit button is pressed.
+- **placeholder**: Placeholder text when empty.
+- **returnKeyType**: Defines return key label.
+- **secureTextEntry**: Obscures text for sensitive input. Default: `false`.
+- **selection**: Sets text selection range.
+- **selectionColor**: Sets highlight, handle, and cursor color.
+- **style**: Applies styles to the text input.
+
+### Methods
+
+- **focus()**: Requests focus on the native input.
+- **blur()**: Removes focus from the native input.
+- **clear()**: Clears all text from the `TextInput`.
+- **isFocused()**: Returns `true` if the input is focused; otherwise, `false`.
+
+### Known Issues
+
+- **react-native#19096**: Doesn't support Android's `onKeyPreIme`.
+- **react-native#19366**: `.focus()` doesn't bring up the keyboard after closing it via back button on Android.
+- **react-native#26799**: `secureTextEntry` doesn't work with `keyboardType="email-address"` or `keyboardType="phone-pad"` on Android.
+
+This overview provides a comprehensive guide to using and understanding the `TextInput` component in React Native, including its properties, methods, and known issues.

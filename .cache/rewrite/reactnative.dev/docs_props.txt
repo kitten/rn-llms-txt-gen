@@ -1,0 +1,44 @@
+# Props in React Native
+
+In React Native, most components are customizable through parameters known as `props`, short for properties. These allow developers to tailor component behavior and appearance.
+
+## Example: The Image Component
+
+Consider the basic `Image` component. It uses a prop named `source` to determine which image is displayed:
+
+```typescript
+<Image source={pic} />
+```
+
+Here, `{pic}` embeds the JavaScript variable `pic` into JSX. Any valid JavaScript expression can be placed within braces in JSX.
+
+## Custom Components with Props
+
+Custom components can also utilize `props`, enabling a single component to serve multiple purposes across an application by varying its properties. This is achieved by referencing `props` within the component's `render` function. Here’s how it works:
+
+### Example: Greeting Component
+
+Using `name` as a prop allows customization of the `Greeting` component, making it reusable for different greetings.
+
+```typescript
+function Greeting(props) {
+  return <Text>Hello, {props.name}!</Text>;
+}
+
+// Usage in JSX
+<Greeting name="Alice" />
+```
+
+This example demonstrates how components can be used similarly to Core Components. The ability to create and use custom components is a powerful feature of React.
+
+## View Component
+
+The `View` component acts as a container for other components, aiding in style and layout management:
+
+```typescript
+<View>
+  <Greeting name="Bob" />
+</View>
+```
+
+By leveraging `props` along with basic components like `Text`, `Image`, and `View`, developers can construct a variety of static screens. To create dynamic applications that change over time, understanding State is essential.

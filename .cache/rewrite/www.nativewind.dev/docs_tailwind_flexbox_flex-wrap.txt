@@ -1,0 +1,13 @@
+# Flex Wrap
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                     | Support        |
+| ------------------------- | -------------- |
+| `flex-wrap`               | ✅ Full Support |
+| `flex-wrap-reverse`       | ✅ Full Support |
+| `flex-nowrap`             | ✅ Full Support |

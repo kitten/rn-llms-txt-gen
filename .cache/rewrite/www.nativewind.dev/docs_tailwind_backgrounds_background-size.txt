@@ -1,0 +1,11 @@
+# Background Size
+
+The following table outlines the support for various background size classes:
+
+| Class              | Support     |
+| ------------------ | ----------- |
+| `bg-auto`          | 🌐 Web only |
+| `bg-cover`         | 🌐 Web only |
+| `bg-contain`       | 🌐 Web only |
+
+These classes are used to control the sizing of background images in web development.

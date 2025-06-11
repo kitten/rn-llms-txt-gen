@@ -1,0 +1,49 @@
+# scrollTo Function in React Native Reanimated
+
+The `scrollTo` function allows you to synchronously scroll a component to a specified X or Y offset.
+
+## Reference
+
+```typescript
+import { scrollTo } from 'react-native-reanimated';
+
+function App() {
+  const animatedRef = useAnimatedRef();
+  const scrollY = useSharedValue(0);
+
+  useDerivedValue(() => {
+    scrollTo(animatedRef, 0, scrollY.value, true);
+  });
+
+  return (
+    <Animated.ScrollView ref={animatedRef}>{/* ... */}</Animated.ScrollView>
+  );
+}
+```
+
+### Arguments
+
+- **`animatedRef`**: An animated reference linked to the ScrollView (or another scrollable) component you wish to scroll. This animated reference must be passed to either an Animated component or a React Native built-in component.
+
+- **`x`**: The pixel value for horizontal scrolling on the X axis.
+
+- **`y`**: The pixel value for vertical scrolling on the Y axis.
+
+- **`animated`**: A boolean indicating if the scroll should be smooth (`true`) or instant (`false`).
+
+### Returns
+
+The `scrollTo` function returns `undefined`.
+
+## Remarks
+
+- The `scrollTo` function must be invoked from the UI thread.
+- It supports `Animated.FlatList`.
+- Typically works with other ScrollView-like and FlatList-like components if they use a `ScrollView` internally and are animated.
+- Scrollable components need to implement the `getScrollableNode` method (and `getNativeScrollRef` for New Architecture) to be compatible with `scrollTo`.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

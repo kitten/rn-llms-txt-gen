@@ -1,0 +1,23 @@
+# Height and Width
+
+A component's height and width determine its size on the screen.
+
+## Fixed Dimensions
+
+To set the dimensions of a component, you can add fixed `width` and `height` properties in the style. In React Native, all dimensions are unitless and represent density-independent pixels (dp).
+
+Using fixed dimensions is typical for components that should maintain a constant size regardless of screen size.
+
+> **Caution:** There isn't a universal conversion from points to physical units of measurement. Consequently, a component with fixed dimensions may not appear the same size across different devices and screens. However, this discrepancy is usually negligible in most scenarios.
+
+## Flex Dimensions
+
+To allow a component's size to adjust dynamically based on available space, use `flex` in its style. Typically, you'll set `flex: 1`, which instructs the component to occupy all available space, distributed evenly among siblings with the same parent. The larger the `flex` value assigned, the more space the component will take relative to its siblings.
+
+> **Info:** A component can only expand to fill available space if its parent has dimensions greater than `0`. If a parent lacks either fixed `width` and `height` or `flex`, it defaults to dimensions of `0`, rendering flex children invisible.
+
+Once you've mastered controlling a component's size, the next step is learning how to position it on the screen.
+
+## Percentage Dimensions
+
+To occupy a specific portion of the screen without using the `flex` layout, you can use **percentage values** in the component's style. Like flex dimensions, percentage dimensions require that the parent has defined dimensions.

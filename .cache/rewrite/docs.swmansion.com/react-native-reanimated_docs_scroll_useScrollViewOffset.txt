@@ -1,0 +1,49 @@
+# useScrollViewOffset Hook
+
+The `useScrollViewOffset` hook enables the creation of animations based on a `ScrollView`'s offset. It automatically determines whether the `ScrollView` is oriented horizontally or vertically.
+
+## Reference
+
+```typescript
+import { useAnimatedRef, useScrollViewOffset } from 'react-native-reanimated';
+
+function App() {
+  const animatedRef = useAnimatedRef();
+  const scrollOffset = useScrollViewOffset(animatedRef);
+  
+  return (
+    <Animated.ScrollView ref={animatedRef}>
+      {/* Content goes here */}
+    </Animated.ScrollView>
+  );
+}
+```
+
+### Arguments
+
+#### `animatedRef`
+
+An animated reference linked to the `ScrollView` component you wish to monitor. This animated reference must be assigned either to an Animated component or a React Native built-in component.
+
+#### `initialRef` (Optional)
+
+A shared value that can optionally be updated with the scroll offset. If not provided, a new shared value will be created internally by default.
+
+### Returns
+
+The hook returns a shared value representing the current offset of the `ScrollView`.
+
+## Example Usage
+
+- The `animatedRef` argument can be dynamically changed, and the hook will continue to provide accurate values based on the connected `ScrollView`. For instance:
+
+  ```typescript
+  useScrollViewOffset(someState ? someScrollRefA : someScrollRefB)
+  ```
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+

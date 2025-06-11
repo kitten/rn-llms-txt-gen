@@ -1,0 +1,52 @@
+# Timers
+
+Timers play a crucial role in applications and React Native implements browser-like timers.
+
+## Overview of Timers
+
+React Native provides several timer functions:
+
+- `setTimeout`, `clearTimeout`
+- `setInterval`, `clearInterval`
+- `setImmediate`, `clearImmediate`
+- `requestAnimationFrame`, `cancelAnimationFrame`
+
+It's important to note that `requestAnimationFrame(fn)` differs from `setTimeout(fn, 0)`. The former executes after all frames have been processed, while the latter runs as soon as possible (potentially over 1000 times per second on an iPhone 5S).
+
+`setImmediate` is executed at the end of the current JavaScript execution block, just before sending a batched response back to native. If `setImmediate` is called within its own callback, it executes immediately without yielding back to native.
+
+The implementation of `Promise` in React Native uses `setImmediate` for asynchronicity.
+
+**Note:** When debugging on Android, if there's a time drift between the debugger and device, animations or event behaviors might not function correctly. To correct this, run `adb shell "date `date +%m%d%H%M%Y.%S%3N`"` on your debugger machine. Root access is required for real devices.
+
+## InteractionManager
+
+Native apps often feel smooth because they avoid expensive operations during interactions and animations. React Native has a limitation of a single JS execution thread, but you can use `InteractionManager` to schedule long-running tasks after interactions or animations have completed.
+
+To schedule tasks post-interaction:
+
+```typescript
+InteractionManager.runAfterInteractions(() => {
+  // ...long-running synchronous task...
+});
+```
+
+### Comparison with Other Scheduling Methods
+
+- **requestAnimationFrame()**: Use for code that animates a view over time.
+- **setImmediate/setTimeout/setInterval()**: Run code later, but may delay animations.
+- **runAfterInteractions()**: Run code later without delaying active animations.
+
+The touch handling system considers one or more active touches as an 'interaction' and delays `runAfterInteractions()` callbacks until all touches have ended or been canceled.
+
+`InteractionManager` also allows applications to register animations by creating an interaction 'handle' at the start of an animation, and clearing it upon completion:
+
+```typescript
+const handle = InteractionManager.createInteractionHandle();
+// run animation... (`runAfterInteractions` tasks are queued)
+// later, on animation completion:
+InteractionManager.clearInteractionHandle(handle);
+// queued tasks run if all handles were cleared
+```
+
+This approach ensures that animations remain smooth while deferring other operations until interactions have concluded.

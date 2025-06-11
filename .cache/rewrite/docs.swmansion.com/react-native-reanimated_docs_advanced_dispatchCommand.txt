@@ -1,0 +1,53 @@
+# dispatchCommand
+
+The `dispatchCommand` function enables the execution of commands directly on a native component from the UI thread.
+
+## Reference
+
+```typescript
+import { dispatchCommand } from 'react-native-reanimated';
+
+function App() {
+  const animatedRef = useAnimatedRef();
+
+  const gesture = Gesture.Tap().onStart(() => {
+    dispatchCommand(animatedRef, 'focus');
+  });
+
+  return (
+    <>
+      <AnimatedTextInput ref={animatedRef} style={styles.input} />
+      <GestureDetector gesture={gesture}>
+        <Button title="Focus" />
+      </GestureDetector>
+    </>
+  );
+}
+```
+
+### Arguments
+
+- **`animatedRef`**: An animated reference linked to the component you wish to update. This reference must be associated with either an Animated component or a React Native built-in component.
+
+- **`commandName`**: The name of the command to execute, such as `'focus'` or `'scrollToEnd'`.
+
+- **`args` (Optional)**: An array of arguments for the command. Defaults to an empty array if not provided.
+
+## Example
+
+```typescript
+const goDown = Gesture.Tap().onStart(() => {
+  dispatchCommand(tosRef, 'scrollToEnd', [true]);
+  dispatchCommand(loginRef, 'focus');
+});
+```
+
+## Remarks
+
+- Commands vary depending on the component. Refer to the relevant React Native documentation for available commands specific to each component.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ❌  |

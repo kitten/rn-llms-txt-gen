@@ -1,0 +1,79 @@
+# React Native Reanimated: List Layout Animations (Version 3.x)
+
+## Overview
+
+The `itemLayoutAnimation` feature in React Native Reanimated allows you to define layout transitions for list items when their layout changes. You can choose from predefined transitions like `LinearTransition`, or create custom ones.
+
+### Example Usage
+
+```typescript
+import Animated, { LinearTransition } from 'react-native-reanimated';
+
+function App() {
+  return (
+    <Animated.FlatList
+      data={data}
+      renderItem={renderItem}
+      itemLayoutAnimation={LinearTransition}
+    />
+  );
+}
+```
+
+## Important Notes
+
+- **Single Column Limitation**: `itemLayoutAnimation` is only applicable to a single-column `Animated.FlatList`. The `numColumns` property must not exceed 1.
+  
+- **Dynamic Transition Changes**: You can dynamically change or disable the `itemLayoutAnimation` by setting it to `undefined`.
+
+```typescript
+import { useState } from 'react';
+import Animated, { LinearTransition, JumpingTransition } from 'react-native-reanimated';
+
+function App() {
+  const [transition, setTransition] = useState(LinearTransition);
+
+  const changeTransition = () => {
+    setTransition(
+      transition === LinearTransition ? JumpingTransition : LinearTransition
+    );
+  };
+
+  const toggleTransition = () => {
+    setTransition(transition ? undefined : LinearTransition);
+  };
+
+  return (
+    <Animated.FlatList
+      data={data}
+      renderItem={renderItem}
+      itemLayoutAnimation={transition}
+    />
+  );
+}
+```
+
+- **Custom Key Extractor**: If list items lack a `key` or `id` property, which are typically used by the FlatList's keyExtractor to generate unique keys for each item, you must provide your own implementation of the `keyExtractor`.
+
+```typescript
+function App() {
+  return (
+    <Animated.FlatList
+      data={data}
+      renderItem={renderItem}
+      itemLayoutAnimation={LinearTransition}
+      keyExtractor={customKeyExtractor}
+    />
+  );
+}
+```
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+- **Example**
+- **Remarks**
+- **Platform compatibility**

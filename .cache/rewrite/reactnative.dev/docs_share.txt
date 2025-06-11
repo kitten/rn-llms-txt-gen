@@ -1,0 +1,47 @@
+# Share
+
+## Example
+
+- TypeScript
+- JavaScript
+
+## Reference
+
+## Methods
+
+```typescript
+static share(content: ShareContent, options?: ShareOptions): Promise<any>;
+```
+
+This method opens a dialog to share text content. 
+
+### iOS Behavior:
+- Returns a `Promise` that resolves with an object containing `action` and `activityType`.
+- If the user dismisses the dialog, the `Promise` is resolved with `action` set to `Share.dismissedAction`, while other keys remain undefined.
+- Note: Some share options may not appear or function on the iOS simulator.
+
+### Android Behavior:
+- Returns a `Promise` that always resolves with `action` being `Share.sharedAction`.
+
+**Properties:**
+
+| Name                | Type   | Description                                                                                                                                                                                    |
+|---------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| contentRequired     | object | - `message`: A message to share<br>- `url`: A URL to share<br>- iOS: `title`: Title of the message<br>- Android: At least one of `url` or `message` is required.                              |
+| options             | object | - Android: `dialogTitle`<br>- iOS: `excludedActivityTypes`, `subject` (a subject for email), `tintColor`, `anchor` (node to anchor the action sheet, used on iPad)                        |
+
+## Properties
+
+### `sharedAction`
+
+```typescript
+static sharedAction: 'sharedAction';
+```
+Indicates that the content was successfully shared.
+
+### `dismissedAction` (iOS)
+
+```typescript
+static dismissedAction: 'dismissedAction';
+```
+Indicates that the dialog has been dismissed.

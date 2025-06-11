@@ -1,0 +1,96 @@
+# Troubleshooting Guide for Nativewind and Tailwind CSS in React Native
+
+## Starting Your Application Without Cache
+
+When troubleshooting, it's essential to start your application without using cached data:
+
+- **Expo**: Use the command `npx expo start --clear`.
+- **React Native CLI**: Use the command `npx react-native start --reset-cache`.
+
+## Ensuring Tailwind CSS Functionality
+
+Before addressing issues with Nativewind, confirm that Tailwind CSS is working correctly. Nativewind relies on the Tailwind CLI to compile styles. If you encounter problems, first resolve any issues with the Tailwind CLI using:
+
+```bash
+npx tailwindcss --input <input.css> --output output.css
+```
+
+Check if the problematic class appears in the `output.css` file.
+
+## Verifying Nativewind Installation
+
+Nativewind offers a utility function called `verifyInstallation()` to confirm proper installation. Import and run this function within a React component, not globally:
+
+```typescript
+import React from 'react';
+import { verifyInstallation } from 'nativewind';
+
+function App() {
+    // Call inside the component scope
+    verifyInstallation();
+
+    return (
+      // Your component JSX here...
+    );
+}
+
+export default App;
+```
+
+## Enabling Debug Mode
+
+Nativewind supports a `DEBUG` environment variable to output debug information during server runtime. Set this variable in your start command:
+
+```bash
+DEBUG=nativewind <start-command>
+```
+
+Note: If using @react-native-community/cli, ensure all terminal sessions have the `DEBUG=nativewind` set.
+
+To capture terminal output for reporting issues on GitHub, redirect it to a file:
+
+```bash
+DEBUG=nativewind script output.log <start-command>
+```
+
+## Common Issues
+
+### Cache Loading Old Data
+
+Always reset your cache before troubleshooting any issue.
+
+### Colors Not Working
+
+React Native styling is more restrictive than web styling. For example, the following code works on the web but not in React Native:
+
+```typescript
+export function App() {
+  return (
+    <View className="text-red-500">
+      <Text>Hello, World!</Text>
+    </View>
+  );
+}
+```
+
+The issue arises because `<View />` does not accept a `color` style. Move the color classes to the `<Text />` element instead.
+
+### Modifiers Not Working
+
+Ensure that the component supports both the style and necessary props (e.g., `hover:text-white`). Check if the component accepts `color` styles and has an `onHover` prop.
+
+### Explicit Styles
+
+React Native can have issues with conditionally applied styles. Declare all styles explicitly to avoid these problems. For instance, provide text colors for both light and dark modes instead of applying them conditionally.
+
+### dp vs px
+
+React Native uses density-independent pixels (dp) as its default unit, while the web uses pixels (px). Nativewind treats these units equivalently but requires a unit for most numeric values, often resulting in `px` being used.
+
+### Flex
+
+React Native's base flex definition differs from the web. Use `flex-1` to align platform-specific behavior.
+
+### Flex Direction
+
+React Native has a different default `flex-direction` than the web. Explicitly set the `flex-direction` to resolve discrepancies.

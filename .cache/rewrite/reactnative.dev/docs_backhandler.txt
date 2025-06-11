@@ -1,0 +1,70 @@
+# BackHandler API Overview
+
+The **BackHandler** API is designed for Android devices to manage hardware button presses related to back navigation. It allows developers to register event listeners and control the application's response to these events.
+
+## Key Features
+
+- **Event Subscription Order**: Subscriptions are processed in reverse order, meaning the last registered listener is invoked first.
+- **Subscription Behavior**:
+  - If a subscription returns `true`, subsequent subscriptions will not be called.
+  - If no subscription returns `true` or if none are registered, the default back button functionality (exiting the app) is triggered.
+
+> **Note for Modal Users**: When an app displays an open `Modal`, `BackHandler` does not trigger any events. Refer to the `Modal` documentation for more details.
+
+## Implementation Pattern
+
+Below is a TypeScript example demonstrating how to use the BackHandler API:
+
+```typescript
+const subscription = BackHandler.addEventListener(
+  'hardwareBackPress',
+  function () {
+    // Example logic: Check if on main screen or navigate back.
+    if (!this.onMainScreen()) {
+      this.goBack();
+      // Returning true prevents further event propagation.
+      return true;
+    }
+    // Returning false allows the event to propagate further.
+    return false;
+  },
+);
+
+// Ensure to remove the listener when it's no longer needed
+subscription.remove();
+```
+
+## Example Scenario
+
+Consider a scenario where you need user confirmation before exiting the app. The `BackHandler.addEventListener` method creates an event listener and returns a `NativeEventSubscription` object, which should be removed using the `remove` method.
+
+## Integration with React Navigation
+
+For those utilizing **React Navigation**, refer to their guide on customizing Android back button behavior for seamless integration.
+
+## Using Hooks
+
+The **React Native Hooks** library offers a convenient `useBackHandler` hook that simplifies setting up event listeners.
+
+---
+
+# Reference Methods
+
+### `addEventListener()`
+
+Registers an event listener for the specified event name and returns a subscription object.
+
+```typescript
+static addEventListener(
+  eventName: BackPressEventName,
+  handler: () => boolean | null | undefined,
+): NativeEventSubscription;
+```
+
+### `exitApp()`
+
+Programmatically exits the application.
+
+```typescript
+static exitApp();
+```

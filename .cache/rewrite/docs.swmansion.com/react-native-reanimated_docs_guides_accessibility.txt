@@ -1,0 +1,116 @@
+# Accessibility
+
+This section discusses how Reanimated enhances accessibility in animations, particularly through its reduced motion functionality. This feature ensures a smoother experience for users with motion sensitivities or those who prefer less movement.
+
+The reduced motion configuration allows you to define how animations should respond to the system's reduced motion setting. For any animation, the value can be set as follows:
+
+- `ReduceMotion.System`: Adjusts the animation based on whether the device's reduced motion accessibility setting is activated. If enabled, the animation is disabled; otherwise, it remains active.
+- `ReduceMotion.Always`: Consistently disables the animation, regardless of the device's accessibility configuration.
+- `ReduceMotion.Never`: Ensures that the animation remains enabled at all times.
+
+By default, all animations are configured with `ReduceMotion.System`.
+
+## Reduced Motion in Animations
+
+```typescript
+import { withDelay, withTiming } from 'react-native-reanimated';
+
+function App() {
+  sv1.value = withTiming(0, { reduceMotion: ReduceMotion.System });
+  sv2.value = withDelay(
+    1000,
+    withTiming(toValue, { duration }),
+    ReduceMotion.System
+  );
+  // ...
+}
+```
+
+When reduced motion is enabled:
+
+- `withSpring` and `withTiming` return the `toValue` immediately.
+- `withDecay` returns the current value immediately, considering the clamp parameter.
+- `withDelay` initiates the next animation immediately.
+- `withRepeat`:
+  - If `numberOfReps` is infinite or even and the animation is reversed, then the repeated animation does not start.
+  - Otherwise, the repeated animation runs once.
+- `withSequence` exclusively starts animations that have reduced motion disabled.
+
+Higher-order animations pass the configuration to their children only if the children haven't been configured by the user. For example:
+
+This animation will instantaneously reach the `toValue`:
+
+```typescript
+import { withDelay, withTiming } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withDelay(
+    1000,
+    withTiming(toValue, { duration }),
+    ReduceMotion.Always
+  );
+  // ...
+}
+```
+
+This animation will execute as usual even if reduced motion is enabled on the device:
+
+```typescript
+import { withDelay, withTiming } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withDelay(
+    1000,
+    withTiming(toValue, { duration }),
+    ReduceMotion.Never
+  );
+  // ...
+}
+```
+
+And here `withTiming` will be executed as usual and without delay:
+
+```typescript
+import { withDelay, withTiming } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withDelay(
+    1000,
+    withTiming(toValue, { duration, reduceMotion: ReduceMotion.Never }),
+    ReduceMotion.Always
+  );
+  // ...
+}
+```
+
+## Reduced Motion in Layout Animations
+
+```typescript
+import { BounceIn } from 'react-native-reanimated';
+
+function App() {
+  const entering = BounceIn.reduceMotion(ReduceMotion.System);
+  // ...
+}
+```
+
+When reduced motion is enabled:
+
+- Entering, keyframe, and layout animations instantaneously reach their endpoints.
+- Exiting animations and shared transitions are omitted.
+
+## `useReducedMotion`
+
+This hook returns a boolean indicating whether the reduced motion setting was enabled when the app started. It can be used in conjunction with other libraries or to conditionally display animations that are less intrusive.
+
+```typescript
+import { BounceIn } from 'react-native-reanimated';
+
+function App() {
+  const reduceMotion = useReducedMotion();
+  const entering = reduceMotion
+    ? FadeIn.reduceMotion(ReduceMotion.Never)
+    : BounceIn;
+  // ...
+}
+```

@@ -1,0 +1,48 @@
+# withClamp
+
+`withClamp` is an animation modifier that restricts the movement of your animation within a specified range. It's typically used in conjunction with `withSpring`.
+
+## Reference
+
+```typescript
+import { withClamp } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withClamp({ min: -1, max: 1 }, withSpring(0));
+  // ...
+}
+```
+
+### Arguments
+
+#### `config`
+
+An object containing the following properties:
+
+| Name | Type   | Description                                      |
+|------|--------|--------------------------------------------------|
+| min  | number | Optional. The lowest value your animation can reach. |
+| max  | number | Optional. The highest value your animation can reach. |
+
+#### `animation`
+
+The spring animation you wish to clamp.
+
+```typescript
+const clampedStyleWithDelay = useAnimatedStyle(() => {
+  return {
+    width: withClamp({ min: 0, max: 100 }, withSpring(randomWidth.value)),
+  };
+});
+```
+
+### Returns
+
+`withClamp` returns an animation object. This can be directly assigned to a shared value or used as a style value in `useAnimatedStyle`.
+
+| Platform | Supported |
+|----------|-----------|
+| Android  | ✅        |
+| iOS      | ✅        |
+| Web      | ✅        |
+

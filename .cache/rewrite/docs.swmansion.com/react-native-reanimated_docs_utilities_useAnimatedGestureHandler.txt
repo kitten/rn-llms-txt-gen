@@ -1,0 +1,62 @@
+# useAnimatedGestureHandler
+
+**Warning:**  
+The `useAnimatedGestureHandler` hook allows for the creation of animations based on gesture handlers. It is essential to provide the object created by this hook to the `onGestureEvent` property of a gesture handler component.
+
+This hook necessitates that `react-native-gesture-handler` be installed and configured within your project.
+
+## Reference
+
+```typescript
+import { useAnimatedGestureHandler } from 'react-native-reanimated';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+
+function App() {
+  const x = useSharedValue(0);
+
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart: (_, ctx) => {
+      ctx.startX = x.value;
+    },
+    onActive: (event, ctx) => {
+      x.value = ctx.startX + event.translationX;
+    },
+  });
+
+  return (
+    <PanGestureHandler onGestureEvent={gestureHandler}>
+      <Animated.View />
+    </PanGestureHandler>
+  );
+}
+```
+
+### Arguments
+
+#### `gestureHandlers`
+
+The primary argument is an object that can include one or more handlers. These handlers are set under the following keys: `onStart`, `onActive`, `onEnd`, `onFail`, `onCancel`, and `onFinish`.
+
+Each handler will be activated based on the current state of the associated gesture handler. For further details, refer to the Gesture Handler documentation. The handler receives:
+
+- `event` \[object] - an event object containing the payload specific to the type of gesture handler (e.g., `PanGestureHandler`, `RotationGestureHandler`).
+
+- `context` \[object] - a JavaScript object for storing state information. This context can be read and modified, persisting between events and across handlers for all selected states.
+
+#### `dependencies` (Optional)
+
+An optional array of dependencies is relevant only when using Reanimated without the Babel plugin on the Web.
+
+### Returns
+
+The `useAnimatedGestureHandler` hook returns a handler object that can be attached to gesture handler components from the `react-native-gesture-handler` library. This object must be passed to the `onGestureEvent` property of a gesture handler component.
+
+## Example
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ⚠️  |
+
+* On the Web, it is necessary to pass the returned handler object to both `onGestureEvent` and `onHandlerStateChange` parameters.

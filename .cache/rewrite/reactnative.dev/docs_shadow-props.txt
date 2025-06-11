@@ -1,0 +1,73 @@
+# Shadow Properties in React Native
+
+* TypeScript
+* JavaScript
+
+## Overview
+
+React Native provides three sets of APIs for implementing shadows:
+
+1. **`boxShadow`:** A View style prop that aligns with the web's spec-compliant shadow implementation.
+2. **`dropShadow`:** Available as a filter function within the `filter` View style prop.
+3. **Native Shadow Props:** These include `shadowColor`, `shadowOffset`, `shadowOpacity`, and `shadowRadius`, which directly correspond to native platform-level APIs.
+
+### Differences Between `dropShadow` and `boxShadow`
+
+- **Location:**
+  - `dropShadow` is part of the `filter` prop, while `boxShadow` stands alone.
+  
+- **Rendering:**
+  - `dropShadow` uses an alpha mask, casting shadows only for pixels with positive alpha values. In contrast, `boxShadow` casts around the element's border box regardless of its contents unless it is inset.
+
+- **Platform Availability:**
+  - `dropShadow` is exclusive to Android; `boxShadow` works on both iOS and Android.
+  
+- **Inset Capability:**
+  - Unlike `boxShadow`, `dropShadow` cannot be inset.
+  
+- **Spread Distance:**
+  - `dropShadow` lacks the `spreadDistance` feature available in `boxShadow`.
+
+While `boxShadow` and `dropShadow` offer more advanced capabilities, native shadow props are recommended for straightforward shadows. Note that only `shadowColor` is supported on both Android and iOS; other shadow properties function solely on iOS.
+
+## Properties
+
+### `boxShadow`
+
+Refer to View Style Props documentation for details.
+
+### `dropShadow` (Android)
+
+Refer to View Style Props documentation for details.
+
+### `shadowColor`
+
+Sets the drop shadow color. This property functions only on Android API 28 and above. For similar effects on lower APIs, use the `elevation` property.
+
+| Type |
+| ---- |
+| color |
+
+### `shadowOffset` (iOS)
+
+Defines the drop shadow offset.
+
+| Type                                     |
+| ---------------------------------------- |
+| object: `{width: number,height: number}` |
+
+### `shadowOpacity` (iOS)
+
+Determines the drop shadow opacity, factoring in the color's alpha component.
+
+| Type   |
+| ------ |
+| number |
+
+### `shadowRadius` (iOS)
+
+Specifies the drop shadow blur radius.
+
+| Type   |
+| ------ |
+| number |

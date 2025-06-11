@@ -1,0 +1,49 @@
+# Migrating Away from RNGHEnabledRootView
+
+## Update `MainActivity.java`
+
+Modify your `MainActivity.java` file (or wherever an instance of `ReactActivityDelegate` is created) to ensure that it no longer overrides the method responsible for creating a `ReactRootView` instance or uses `RNGestureHandlerEnabledRootView`. Additionally, remove the import statement for `RNGestureHandlerEnabledRootView`:
+
+```java
+package com.swmansion.gesturehandler.react.example;
+
+import com.facebook.react.ReactActivity;
+// Remove this line:
+// import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+
+public class MainActivity extends ReactActivity {
+
+  // Remove these lines:
+  /*
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegate(this, getMainComponentName()) {
+      @Override
+      protected ReactRootView createRootView() {
+        return new RNGestureHandlerEnabledRootView(MainActivity.this);
+      }
+    };
+  }
+  */
+}
+```
+
+## Verify App Functionality
+
+Some libraries (such as React Navigation) already utilize `GestureHandlerRootView` to enable gesture interactions. If gestures in your app function correctly after removing `RNGestureHandlerEnabledRootView`, you can skip the next step.
+
+## Update Your JavaScript Code
+
+Replace any usage of `RNGestureHandlerEnabledRootView` with `<GestureHandlerRootView>` or `gestureHandlerRootHOC`. For example:
+
+```jsx
+export default function App() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      {/* content */}
+    </GestureHandlerRootView>
+  );
+}
+```
+
+**Note:** `GestureHandlerRootView` behaves like a standard `View`. To ensure it fills the screen, you must pass `{ flex: 1 }`, similar to how you would with a regular View. By default, it will take on the size of its nested content.

@@ -1,0 +1,70 @@
+# Handler State Overview
+
+Gesture handlers are conceptualized as "state machines," where each instance maintains an assigned state that can change due to new touch events or be altered by the touch system under specific conditions. There are six possible states for a gesture handler:
+
+- **UNDETERMINED**
+- **FAILED**
+- **BEGAN**
+- **CANCELLED**
+- **ACTIVE**
+- **END**
+
+Each of these states is detailed below.
+
+## Accessing State
+
+To monitor changes in a handler's state, use the `onHandlerStateChange` callback along with the destructured `nativeEvent` argument. The `state` attribute within `nativeEvent` can be compared to constants from the `State` object (as demonstrated in the example).
+
+```typescript
+import { State, LongPressGestureHandler } from 'react-native-gesture-handler';
+
+class Demo extends Component {
+  _handleStateChange = ({ nativeEvent }) => {
+    if (nativeEvent.state === State.ACTIVE) {
+      Alert.alert('Longpress');
+    }
+  };
+
+  render() {
+    return (
+      <LongPressGestureHandler onHandlerStateChange={this._handleStateChange}>
+        <Text style={styles.buttonText}>Longpress me</Text>
+      </LongPressGestureHandler>
+    );
+  }
+}
+```
+
+## State Flows
+
+The typical state flow for a gesture handler involves recognizing an initial touch event, acknowledging its conclusion, and resetting to the initial state. This sequence is represented as:
+
+`UNDETERMINED` -> `BEGAN` -----> `ACTIVE` -----> `END` -> `UNDETERMINED`
+
+A different flow occurs when touches lead to recognition failure:
+
+`UNDETERMINED` -> `BEGAN` -----> `FAILED` -> `UNDETERMINED`
+
+If a gesture is recognized but interrupted by the touch system, it results in cancellation:
+
+`UNDETERMINED` -> `BEGAN` -----> `ACTIVE` -----> `CANCELLED` -> `UNDETERMINED`
+
+## States Description
+
+### UNDETERMINED
+The initial state of each handler, returning to this state after gesture recognition is complete.
+
+### FAILED
+Occurs when touches are received but not recognized due to constraints like exceeding a defined `maxDist`. The state resets to `UNDETERMINED` afterward.
+
+### BEGAN
+Indicates the start of touch stream reception without sufficient data for failure or activation.
+
+### CANCELLED
+Triggered by new touches or commands from the touch system, leading to gesture recognition cancellation. The state transitions back to `UNDETERMINED`.
+
+### ACTIVE
+The handler recognizes a gesture and remains in this state until the gesture concludes (e.g., finger lift) or is cancelled. Normally, it progresses to `END`, but if cancelled by the touch system, it becomes `CANCELLED`. Further details on discrete and continuous handlers can provide insights into how long a handler stays `ACTIVE`.
+
+### END
+Signifies the end of a gesture with touches indicating completion. The state transitions to `UNDETERMINED` after resetting.

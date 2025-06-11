@@ -1,0 +1,13 @@
+# Custom Swipeable Component with Scroll Functionality
+
+When developing a custom swipeable component, you may encounter issues where scrolling does not function as expected. To address this, it is recommended to set the `touchAction` property to `"pan-y"` within your gesture detector configuration.
+
+Here's how you can implement this:
+
+```typescript
+<GestureDetector gesture={...} touchAction="pan-y">
+  ...
+</GestureDetector>
+```
+
+By setting `touchAction` to `"pan-y"`, you allow vertical panning, which helps maintain scroll functionality in your custom swipeable component.

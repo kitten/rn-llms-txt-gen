@@ -1,0 +1,13 @@
+# Floats
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| `float-right`       | 🌐 Web only |
+| `float-left`        | 🌐 Web only |
+| `float-none`        | 🌐 Web only |

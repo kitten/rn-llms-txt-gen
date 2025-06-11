@@ -1,0 +1,12 @@
+# Stroke Width
+
+## Usage
+
+React Native lacks built-in SVG components, but you can achieve universal SVG support using third-party libraries like `react-native-svg`. Although these instructions reference `react-native-svg`, the principles are applicable to other similar libraries. To style these components correctly for native platforms, it's necessary to use `cssInterop()`.
+
+## Compatibility
+
+| Class              | Support        |
+| ------------------ | -------------- |
+| `stroke-{n}`       | ✅ Full Support |
+| `stroke-[n]`       | ✅ Full Support |

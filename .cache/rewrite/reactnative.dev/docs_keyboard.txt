@@ -1,0 +1,76 @@
+# Keyboard Module
+
+The `Keyboard` module provides functionality for controlling and responding to keyboard events in your application. It allows you to listen for native keyboard notifications, dismiss the keyboard, and synchronize layout animations with keyboard movements.
+
+## Usage
+
+- **Listening for Events**: Use the `addListener()` method to connect a JavaScript function to specific native keyboard notification events.
+- **Dismissing Keyboard**: The `dismiss()` method can be used to hide the active keyboard and remove focus from input elements.
+- **Synchronizing Layouts**: Utilize `scheduleLayoutAnimation` to align layout changes with keyboard movements, particularly useful for adjusting text inputs or accessory views.
+- **Checking Visibility**: Use `isVisible()` to determine if the keyboard is currently visible.
+- **Retrieving Metrics**: The `metrics()` method provides details about the soft-keyboard's size and position when it is visible.
+
+## Reference
+
+### Methods
+
+#### `addListener()`
+
+```typescript
+static addListener(
+  eventType: KeyboardEventName,
+  listener: KeyboardEventListener
+): EmitterSubscription;
+```
+
+Connects a JavaScript function to a specified native keyboard notification event. Returns the reference to the listener.
+
+**Parameters:**
+
+| Name              | Type     | Description                                                                    |
+| ----------------- | -------- | ------------------------------------------------------------------------------ |
+| `eventType`       | string   | Identifies the event you're listening for. See list below.                     |
+| `listener`        | function | The callback function executed when the event occurs.                          |
+
+**Supported Events:**
+
+- `keyboardWillShow`
+- `keyboardDidShow`
+- `keyboardWillHide`
+- `keyboardDidHide`
+- `keyboardWillChangeFrame`
+- `keyboardDidChangeFrame`
+
+> **Note:** On Android, only `keyboardDidShow` and `keyboardDidHide` events are available. These events will not trigger on Android 10 or below if the activity's `android:windowSoftInputMode` is set to `adjustNothing`.
+
+#### `dismiss()`
+
+```typescript
+static dismiss();
+```
+
+Dismisses the active keyboard and removes focus from input elements.
+
+#### `scheduleLayoutAnimation`
+
+```typescript
+static scheduleLayoutAnimation(event: KeyboardEvent);
+```
+
+Synchronizes layout changes with keyboard movements, useful for adjusting text inputs or other accessory views.
+
+#### `isVisible()`
+
+```typescript
+static isVisible(): boolean;
+```
+
+Returns a boolean indicating whether the keyboard is currently visible.
+
+#### `metrics()`
+
+```typescript
+static metrics(): KeyboardMetrics | undefined;
+```
+
+Provides the dimensions and position of the soft-keyboard if it is visible. Returns `undefined` if the keyboard is not visible.

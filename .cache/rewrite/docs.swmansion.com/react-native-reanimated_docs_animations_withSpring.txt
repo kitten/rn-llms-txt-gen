@@ -1,0 +1,92 @@
+# withSpring
+
+`withSpring` enables the creation of spring-based animations in your application.
+
+## Reference
+
+```typescript
+import { withSpring } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withSpring(0);
+  // ...
+}
+```
+
+### Arguments
+
+#### `toValue`
+
+The target value where the animation will settle. Supported categories include:
+
+- **Numbers**: Can be a number or a string representation of a number.
+  
+- **Suffixed Numbers**: Strings that combine numbers and units (e.g., `"5.5%"`, `"90deg"`) without spaces, using basic English letters for suffixes.
+
+- **Colors**:
+  - Hexadecimal integer: e.g., `0xff1234`
+  - RGB: e.g., `"rgb(100, 50, 0)"`
+  - RGBA: e.g., `"rgba(255, 105, 180, 0.5)"`
+  - RGB Hexadecimal: e.g., `"#53575E"`
+  - HSL: e.g., `"hsl(0, 50%, 50%)"`
+  - Named colors: e.g., `"dodgerblue"`
+
+- **Objects**: Objects with properties that will be animated individually.
+
+- **Array**: Arrays of numbers where each value is animated separately.
+
+- **Transformation Matrix**: An array of exactly 16 numerical values treated as a transformation matrix, decomposed into rotation, scale, and translation for separate animation.
+
+Note: The `toValue` must match the category of the animated shared value (e.g., animating `width` from `100px` to `50%` is not allowed).
+
+#### `config` (Optional)
+
+Configuration options for spring animations:
+
+**Physics-based Spring Configuration:**
+
+| Name               | Type     | Default | Description                                                                 |
+|--------------------|----------|---------|-----------------------------------------------------------------------------|
+| mass (optional)    | `number` | 1       | The weight of the spring. Lower values make the animation faster.           |
+| damping (optional) | `number` | 10      | Controls how quickly a spring slows down; higher values result in quicker rest. |
+
+**Duration-based Spring Configuration:**
+
+| Name               | Type     | Default | Description                                                                 |
+|--------------------|----------|---------|-----------------------------------------------------------------------------|
+| duration (optional)| `number` | 2000    | Length of the animation in milliseconds. Available in Reanimated ≥ 3.2.x.   |
+| dampingRatio (optional) | `number` | 0.5 | Determines how damped the spring is; `1` means critically damped, and values >1 mean overdamped. Available in Reanimated ≥ 3.2.x. |
+
+**Note**: The `mass` and `damping` properties cannot be used simultaneously with `duration` and `dampingRatio`. When both are provided, `duration` and `dampingRatio` take precedence.
+
+**Common Spring Configuration:**
+
+| Name                              | Type     | Default  | Description                                                                 |
+|-----------------------------------|----------|----------|-----------------------------------------------------------------------------|
+| stiffness (optional)              | `number` | 100      | Determines the bounciness of the spring.                                    |
+| velocity (optional)               | `number` | 0        | Initial velocity applied to the spring equation.                            |
+| overshootClamping (optional)      | `boolean`| false    | Prevents the spring from bouncing over the `toValue`.                       |
+| restDisplacementThreshold (optional)| `number` | 0.01   | Displacement below which the spring will settle at `toValue`.               |
+| restSpeedThreshold (optional)     | `number` | 2        | Speed threshold in pixels per second for settling at `toValue`.             |
+| reduceMotion (optional)           | `ReduceMotion` | `ReduceMotion.System` | Determines animation response to reduced motion settings. Available in Reanimated ≥ 3.5.x. |
+| clamp (optional)                  | `[number, number]` | `undefined` | Limits the movement scope; reduces bounciness if exceeded. Available in Reanimated ≥ 3.6.x. |
+
+#### `callback` (Optional)
+
+A function executed upon animation completion. If the animation is canceled, it receives `false`; otherwise, it receives `true`.
+
+### Returns
+
+`withSpring` returns an animation object representing the current state of the animation. This can be directly assigned to a shared value or used in a style object from `useAnimatedStyle`.
+
+## Example
+
+## Remarks
+
+- The callback provided as the third argument is automatically workletized and executed on the UI thread.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

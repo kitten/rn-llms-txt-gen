@@ -1,0 +1,28 @@
+# Stroke
+
+## Usage
+
+React Native lacks built-in SVG components, but you can achieve universal SVG support using third-party libraries like `react-native-svg`. Although these instructions reference `react-native-svg`, the principles are applicable to other similar libraries.
+
+To style these components correctly for native platforms, it's necessary to use `cssInterop()` on them.
+
+## Compatibility
+
+| Class                  | Support        |
+|------------------------|----------------|
+| `stroke-{n}`           | ✅ Full Support |
+| `stroke-[n]`           | ✅ Full Support |
+| `stroke-inherit`       | 🌐 Web only    |
+| `stroke-current`       | 🌐 Web only    |
+
+```typescript
+// Example TypeScript typings for stroke classes
+
+type StrokeClasses = 
+  | `stroke-${number}`
+  | `stroke-[${number}]`
+  | 'stroke-inherit'
+  | 'stroke-current';
+```
+
+This table and code snippet provide an overview of the support level for various stroke-related CSS classes in a React Native environment using SVG libraries.

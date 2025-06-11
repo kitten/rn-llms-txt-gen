@@ -1,0 +1,17 @@
+# Text Decoration Thickness
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| `decoration-auto`            | 🌐 Web only |
+| `decoration-from-font`       | 🌐 Web only |
+| `decoration-0`               | 🌐 Web only |
+| `decoration-1`               | 🌐 Web only |
+| `decoration-2`               | 🌐 Web only |
+| `decoration-4`               | 🌐 Web only |
+| `decoration-8`               | 🌐 Web only |

@@ -1,0 +1,60 @@
+# Style Specificity in Nativewind
+
+Nativewind adopts a specificity model that mirrors CSS rules while accommodating the inline-style nature of React Native and its ecosystem.
+
+## Problem Identification
+
+Consider the following example:
+
+```typescript
+function MyText({ style }) {
+  return <Text {...props} style={[{ color: 'black' }, style]} />;
+}
+
+remapProps(MyText, { className: 'style' });
+
+<MyText style={{ color: 'red' }}>The text will be red on all platforms</MyText>
+<MyText className="text-red-500">What color should I render as?</MyText>
+```
+
+This code snippet highlights inconsistencies across different platforms due to varying style specificity rules. For instance:
+
+```typescript
+// Native platform results in red text
+<Text style={{ color: 'black' }, { color: 'red' }} />
+
+// Web platform results in black text
+<Text className="text-red-500" style={{ color: 'black'}} />
+```
+
+## Specificity Order
+
+Nativewind defines the following specificity order from highest to lowest:
+
+1. Styles marked as important (following CSS specificity rules)
+2. Inline & remapped styles (applied in right-to-left order)
+3. `className` styles (following CSS specificity rules)
+
+## Concept of Remapped Styles
+
+Remapped styles are a unique feature introduced by Nativewind, absent in traditional CSS. These styles translate from a `className` to a prop and are applied inline, preserving the style order for consistency with existing React Native components.
+
+## Addressing Styling Differences
+
+To resolve styling discrepancies across platforms, Nativewind supports the use of the `!important` modifier. This reverts the styles to a specificity-based order, ensuring consistent rendering.
+
+## Examples
+
+### Basic Components
+
+```typescript
+// Basic components example
+<Text className="text-red-500" style={{ color: 'green' }} /> // Results in green text
+<Text className="!text-red-500" style={{ color: 'green' }} /> // Results in red text
+
+// Remapped components (reusing the initial problem example)
+<MyText className="text-red-500" /> // Native: red, Web: black
+<MyText className="!text-red-500" /> // Both platforms: red
+```
+
+This reformatted content maintains the original information while ensuring clarity and consistency in presentation.

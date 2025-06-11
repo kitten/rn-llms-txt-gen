@@ -1,0 +1,11 @@
+# Units
+
+## Polyfilled Units
+
+These units can be utilized within classes or in the `tailwind.config.js` file.
+
+| Unit | Name        | Description                               |
+| ---- | ----------- | ----------------------------------------- |
+| vw   | View Width  | Implemented using `Dimensions.get('window')` |
+| vh   | View Height | Implemented using `Dimensions.get('window')` |
+

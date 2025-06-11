@@ -1,0 +1,71 @@
+# Running on Simulator
+
+## Starting the Simulator
+
+After initializing your React Native project, you can start it using either npm or Yarn within the project directory.
+
+### Commands:
+
+- **npm**
+
+  ```shell
+  npm run ios
+  ```
+
+- **Yarn**
+
+  ```shell
+  yarn ios
+  ```
+
+If everything is configured correctly, your app should appear in the iOS Simulator shortly after running these commands.
+
+## Specifying a Device
+
+To specify which device to use with the simulator, utilize the `--simulator` flag followed by the desired device name as a string. By default, it uses `"iPhone 14"`. For example, to run your app on an iPhone SE (3rd generation), execute:
+
+- **npm**
+
+  ```shell
+  npm run ios -- --simulator="iPhone SE (3rd generation)"
+  ```
+
+- **Yarn**
+
+  ```shell
+  yarn ios --simulator "iPhone SE (3rd generation)"
+  ```
+
+The device names should match those available in Xcode. You can verify the list of devices by running `xcrun simctl list devices` from your console.
+
+### Specifying a Device Version
+
+If multiple iOS versions are installed, specify the version as well. For instance, to run on an iPhone 14 Pro with iOS 16.0, use:
+
+- **npm**
+
+  ```shell
+  npm run ios -- --simulator="iPhone 14 Pro (16.0)"
+  ```
+
+- **Yarn**
+
+  ```shell
+  yarn ios --simulator "iPhone 14 Pro (16.0)"
+  ```
+
+## Specifying a UDID
+
+You can also specify the device using its UDID, which you can find by running `xcrun simctl list devices`. For example, to run your app with a specific UDID:
+
+- **npm**
+
+  ```shell
+  npm run ios -- --udid="AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"
+  ```
+
+- **Yarn**
+
+  ```shell
+  yarn ios --udid "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"
+  ```

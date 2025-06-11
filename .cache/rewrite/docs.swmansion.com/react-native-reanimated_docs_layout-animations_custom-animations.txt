@@ -1,0 +1,155 @@
+# Custom Animations
+
+Custom animations provide full control over entering/exiting animations and layout transitions. However, they can be complex to understand and maintain. It's advisable to start with predefined presets before using custom animations.
+
+## Reference
+
+```typescript
+function CustomAnimation(values: any) {
+  'worklet';
+  const animations = {
+    // Define your animations here
+  };
+  const initialValues = {
+    // Set initial values for animations
+  };
+  const callback = (finished: boolean) => {
+    // Optional callback when the layout animation ends
+  };
+  return {
+    initialValues,
+    animations,
+    callback,
+  };
+}
+```
+
+## Custom Exiting Animation
+
+### Arguments
+
+- `values`: Contains information about where the view was displayed and its dimensions.
+  - `currentOriginX`: X coordinate of the top-left corner in the parent's coordinate system.
+  - `currentOriginY`: Y coordinate of the top-left corner in the parent's coordinate system.
+  - `currentWidth`: View's width.
+  - `currentHeight`: View's height.
+  - `currentBorderRadius`: View's border radius.
+  - `currentGlobalOriginX`: X coordinate of the top-left corner in the global coordinate system.
+  - `currentGlobalOriginY`: Y coordinate of the top-left corner in the global coordinate system.
+
+### Example
+
+```typescript
+const customExiting = (values: any) => {
+  'worklet';
+  const animations = {
+    originX: withTiming(2 * WIDTH, { duration: 3000 }),
+    opacity: withTiming(0, { duration: 2000 }),
+    transform: [{ scale: withTiming(0.2, { duration: 3500 }) }],
+  };
+  const initialValues = {
+    originX: values.currentOriginX,
+    opacity: 1,
+    transform: [{ scale: 1 }],
+  };
+  return {
+    initialValues,
+    animations,
+  };
+};
+```
+
+## Custom Entering Animation
+
+### Arguments
+
+- `values`: Contains information about where the view wants to be displayed and its dimensions.
+  - `targetOriginX`: X coordinate of the top-left corner in the parent's coordinate system.
+  - `targetOriginY`: Y coordinate of the top-left corner in the parent's coordinate system.
+  - `targetWidth`: View's width.
+  - `targetHeight`: View's height.
+  - `targetBorderRadius`: View's border radius.
+  - `targetGlobalOriginX`: X coordinate of the top-left corner in the global coordinate system.
+  - `targetGlobalOriginY`: Y coordinate of the top-left corner in the global coordinate system.
+
+### Example
+
+```typescript
+const customEntering = (targetValues: any) => {
+  'worklet';
+  const animations = {
+    originX: withTiming(targetValues.targetOriginX, { duration: 3000 }),
+    opacity: withTiming(1, { duration: 2000 }),
+    borderRadius: withDelay(1500, withTiming(40, { duration: 3000 })),
+    transform: [
+      { rotate: withTiming('0deg', { duration: 4000 }) },
+      { scale: withTiming(1, { duration: 3500 }) },
+    ],
+  };
+  const initialValues = {
+    originX: -WIDTH,
+    opacity: 0,
+    borderRadius: 10,
+    transform: [{ rotate: '90deg' }, { scale: 0.2 }],
+  };
+  return {
+    initialValues,
+    animations,
+  };
+};
+```
+
+## Custom Layout Transition
+
+### Arguments
+
+- `values`: Contains before and after information about the view's origin and dimensions.
+  - `targetOriginX`: X coordinate of the top-left corner in the parent's coordinate system.
+  - `targetOriginY`: Y coordinate of the top-left corner in the parent's coordinate system.
+  - `targetWidth`: View's width.
+  - `targetHeight`: View's height.
+  - `targetBorderRadius`: View's border radius.
+  - `targetGlobalOriginX`: X coordinate of the top-left corner in the global coordinate system.
+  - `targetGlobalOriginY`: Y coordinate of the top-left corner in the global coordinate system.
+  - `currentOriginX`: X coordinate of the top-left corner in the parent's coordinate system (before).
+  - `currentOriginY`: Y coordinate of the top-left corner in the parent's coordinate system (before).
+  - `currentWidth`: View's width (before).
+  - `currentHeight`: View's height (before).
+  - `currentBorderRadius`: View's border radius (before).
+  - `currentGlobalOriginX`: X coordinate of the top-left corner in the global coordinate system (before).
+  - `currentGlobalOriginY`: Y coordinate of the top-left corner in the global coordinate system (before).
+
+### Example
+
+```typescript
+const customLayoutTransition = (values: any) => {
+  'worklet';
+  return {
+    animations: {
+      originX: withTiming(values.targetOriginX, { duration: 1000 }),
+      originY: withDelay(
+        1000,
+        withTiming(values.targetOriginY, { duration: 1000 })
+      ),
+      width: withSpring(values.targetWidth),
+      height: withSpring(values.targetHeight),
+    },
+    initialValues: {
+      originX: values.currentOriginX,
+      originY: values.currentOriginY,
+      width: values.currentWidth,
+      height: values.currentHeight,
+    },
+  };
+};
+```
+
+## Remarks
+
+- Each Reanimated component has a shared value that keeps the current animations assigned to it. If you start a new animation for a specific property without providing an initial value, the initial value will be taken from the last animation assigned to the component. The exception is the `Entering` animation, as previous animation values are unavailable.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ❌  |

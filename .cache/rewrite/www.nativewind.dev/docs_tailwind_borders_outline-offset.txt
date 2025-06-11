@@ -1,0 +1,15 @@
+# Outline Offset
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                    | Support     |
+|--------------------------|-------------|
+| `outline-offset-0`       | 🌐 Web only |
+| `outline-offset-1`       | 🌐 Web only |
+| `outline-offset-2`       | 🌐 Web only |
+| `outline-offset-4`       | 🌐 Web only |
+| `outline-offset-8`       | 🌐 Web only |

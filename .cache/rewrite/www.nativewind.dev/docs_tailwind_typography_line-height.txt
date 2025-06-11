@@ -1,0 +1,20 @@
+# Line Height
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+React Native does not support relative line height utilities due to its lack of `em` unit support.
+
+| Class                   | Support        |
+| ----------------------- | -------------- |
+| `leading-{n}`           | ✅ Full Support |
+| `leading-[n]`           | ✅ Full Support |
+| `leading-none`          | 🌐 Web only    |
+| `leading-tight`         | 🌐 Web only    |
+| `leading-snug`          | 🌐 Web only    |
+| `leading-normal`        | 🌐 Web only    |
+| `leading-relaxed`       | 🌐 Web only    |
+| `leading-loose`         | 🌐 Web only    |

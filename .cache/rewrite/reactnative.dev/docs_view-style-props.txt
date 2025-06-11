@@ -1,0 +1,219 @@
+# View Style Properties
+
+## Example
+
+## Reference
+
+## Properties
+
+### `backfaceVisibility`
+
+- **Type**: `enum('visible', 'hidden')`
+
+### `backgroundColor`
+
+- **Type**: `color`
+
+### `borderBottomColor`
+
+- **Type**: `color`
+
+### `borderBottomEndRadius`
+
+- **Type**: `number`
+
+### `borderBottomLeftRadius`
+
+- **Type**: `number`
+
+### `borderBottomRightRadius`
+
+- **Type**: `number`
+
+### `borderBottomStartRadius`
+
+- **Type**: `number`
+
+### `borderStartEndRadius`
+
+- **Type**: `number`
+
+### `borderStartStartRadius`
+
+- **Type**: `number`
+
+### `borderEndEndRadius`
+
+- **Type**: `number`
+
+### `borderEndStartRadius`
+
+- **Type**: `number`
+
+### `borderBottomWidth`
+
+- **Type**: `number`
+
+### `borderColor`
+
+- **Type**: `color`
+
+### `borderCurve` (iOS)
+
+On iOS 13+, it is possible to change the corner curve of borders.
+
+- **Type**: `enum('circular', 'continuous')`
+
+### `borderEndColor`
+
+- **Type**: `color`
+
+### `borderLeftColor`
+
+- **Type**: `color`
+
+### `borderLeftWidth`
+
+- **Type**: `number`
+
+### `borderRadius`
+
+If the rounded border is not visible, try applying `overflow: 'hidden'` as well.
+
+- **Type**: `number`
+
+### `borderRightColor`
+
+- **Type**: `color`
+
+### `borderRightWidth`
+
+- **Type**: `number`
+
+### `borderStartColor`
+
+- **Type**: `color`
+
+### `borderStyle`
+
+- **Type**: `enum('solid', 'dotted', 'dashed')`
+
+### `borderTopColor`
+
+- **Type**: `color`
+
+### `borderTopEndRadius`
+
+- **Type**: `number`
+
+### `borderTopLeftRadius`
+
+- **Type**: `number`
+
+### `borderTopRightRadius`
+
+- **Type**: `number`
+
+### `borderTopStartRadius`
+
+- **Type**: `number`
+
+### `borderTopWidth`
+
+- **Type**: `number`
+
+### `borderWidth`
+
+- **Type**: `number`
+
+### `boxShadow`
+
+**Note:**  
+`boxShadow` is only available on the New Architecture. Outset shadows are supported on Android 9+, and inset shadows on Android 10+. This prop adds a shadow effect to an element, allowing control over position, color, size, and blurriness of the shadow. It can be either outside or inside the border box depending on whether it is *inset*. This implementation follows web standards.
+
+Multiple shadows can be combined into a single `boxShadow`.
+
+- **Type**: `array of BoxShadowValue objects | string`
+
+### `cursor` (iOS)
+
+On iOS 17+, setting to `pointer` enables hover effects when using a pointer device or gaze on visionOS.
+
+- **Type**: `enum('auto', 'pointer')`
+
+### `elevation` (Android)
+
+Sets the elevation of a view, adding a drop shadow and affecting z-order for overlapping views. Supported only on Android 5.0+; has no effect on earlier versions.
+
+- **Type**: `number`
+
+### `filter`
+
+**Note:**  
+Adds graphical filters to the `View`, which can include multiple filter functions representing atomic changes. Filters apply to both the `View` and its descendants, implying `overflow: hidden`.
+
+The following filter functions are cross-platform:
+
+- `brightness`: Adjusts brightness (non-negative number or percentage).
+- `opacity`: Changes opacity/alpha (non-negative number or percentage).
+
+**Note:**  
+On iOS, only `brightness` and `opacity` are available due to performance and compliance issues. Android plans to use SwiftUI for potential workarounds.
+
+Android-specific filter functions:
+
+- `blur`: Applies Gaussian blur with a specified radius (DIP value).
+- `contrast`: Adjusts contrast (non-negative number or percentage).
+- `dropShadow`: Adds shadow around alpha mask; requires color, offsets, and optional standard deviation.
+- `grayscale`: Converts to grayscale by amount (non-negative number or percentage).
+- `hueRotate`: Rotates hue on a color wheel (angle with `deg` or `rad` units).
+- **Note:**  
+  `blur` and `dropShadow` are supported only on Android 12+.
+- `invert`: Inverts colors (non-negative number or percentage).
+- `sepia`: Converts to sepia by amount (non-negative number or percentage).
+- `saturate`: Changes saturation (non-negative number or percentage).
+
+- **Type**: `array of objects: {brightness: number|string}, {opacity: number|string}, {blur: number|string}, {contrast: number|string}, {dropShadow: DropShadowValue|string}, {grayscale: number|string}, {hueRotate: number|string}, {invert: number|string}, {sepia: number|string}, {saturate: number|string}` or `string`
+
+### `opacity`
+
+- **Type**: `number`
+
+### `outlineColor`
+
+**Note:**  
+Sets the color of an element's outline. See web documentation for more details.
+
+- **Type**: `color`
+
+### `outlineOffset`
+
+**Note:**  
+Sets space between an outline and element bounds without affecting layout. See web documentation for more details.
+
+- **Type**: `number`
+
+### `outlineStyle`
+
+**Note:**  
+Sets the style of an element's outline. See web documentation for more details.
+
+- **Type**: `enum('solid', 'dotted', 'dashed')`
+
+### `outlineWidth`
+
+**Note:**  
+Defines the width of an outline drawn outside the border, without affecting layout. See web documentation for more details.
+
+- **Type**: `number`
+
+### `pointerEvents`
+
+Controls whether a `View` can be targeted by touch events:
+
+- `'auto'`: The View can be targeted.
+- `'none'`: The View is never targeted.
+- `'box-none'`: Subviews can be targeted, but not the View itself.
+- `'box-only'`: Only the View can be targeted, not its subviews.
+
+- **Type**: `enum('auto', 'box-none', 'box-only', 'none')`

@@ -1,0 +1,69 @@
+# Testing Guide for Code Quality Assurance
+
+As your codebase grows, small errors can lead to significant failures. Bugs negatively impact user experience and business outcomes. To prevent fragile programming, testing is essential before releasing software.
+
+## Why Test?
+
+Humans make mistakes, and testing helps uncover these errors, ensuring that your code functions as intended. Testing also verifies future functionality when new features are added or existing ones refactored. Writing a failing test to expose bugs can be an effective way to fix them. Tests serve as documentation for team members unfamiliar with the codebase, reducing time spent on manual QA.
+
+## Static Analysis
+
+Static analysis tools check your code for errors without executing it. These include:
+
+- **Linters**: Analyze code to catch common errors and enforce style guides.
+- **Type checking**: Ensures that function arguments match expected types.
+
+React Native includes ESLint for linting and TypeScript for type checking by default.
+
+## Writing Testable Code
+
+Testable code is akin to testing individual aircraft parts before assembly. Write modular, small code units rather than a single large file. Separate business logic from UI components to facilitate independent testing of each part.
+
+## Writing Tests
+
+React Native uses Jest as the default testing framework. It includes presets tailored for this environment, allowing you to write various tests without extensive configuration.
+
+### Structuring Tests
+
+Tests should be concise and focused on specific functionalities. Use descriptive test names and assertions to verify expected outcomes. For example:
+
+```javascript
+test('given empty GroceryShoppingList, user can add an item to it', () => {
+  const { getByPlaceholderText, getByText, getAllByText } = render(<GroceryShoppingList />);
+  
+  fireEvent.changeText(getByPlaceholderText('Enter grocery item'), 'banana');
+  fireEvent.press(getByText('Add the item to list'));
+  
+  const bananaElements = getAllByText('banana');
+  expect(bananaElements).toHaveLength(1); // Expect 'banana' to be on the list
+});
+```
+
+### Testing User Interactions
+
+Focus on user interactions rather than internal component states. Use libraries like React Native Testing Library to simulate user actions and verify outcomes.
+
+### Testing Rendered Output
+
+Snapshot testing captures a textual representation of your component's render output. It helps detect unexpected changes but requires careful management to avoid false positives or negatives.
+
+## End-to-End Tests
+
+E2E tests validate app functionality from the user perspective on actual devices or simulators/emulators. They provide high confidence in app performance but are more time-consuming and prone to flakiness compared to other test types.
+
+Focus E2E testing on critical app areas like authentication, core functionalities, and payments. Use faster JS tests for less critical parts.
+
+## Summary
+
+Testing is crucial for maintaining code quality and ensuring reliable software delivery. Various testing methods offer different benefits and trade-offs. Start incorporating tests into your React Native projects to enhance confidence in your app's performance.
+
+### Links
+
+- [React Testing Overview](#)
+- [React Native Testing Library](#)
+- [Jest Docs](#)
+- [Detox](#)
+- [Appium](#)
+- [Maestro](#)
+
+*This guide was authored by Vojtech Novak.*

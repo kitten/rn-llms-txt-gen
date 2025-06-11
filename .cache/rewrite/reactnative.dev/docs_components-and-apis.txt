@@ -1,0 +1,38 @@
+# Core Components and APIs in React Native
+
+React Native offers a variety of built-in core components that can be utilized directly within your application. These components are accessible via the navigation sidebar or the top menu for narrower screens.
+
+## Categories to Explore
+
+- **Basic Components**
+- **User Interface**
+- **List Views**
+- **Android-specific**
+- **iOS-specific**
+- **Others**
+
+Beyond these built-in options, React Native supports a vast community of developers who contribute additional libraries. For specific functionalities not covered by the core components, refer to guides on finding external libraries.
+
+## Basic Components
+
+These foundational elements are commonly used across most applications.
+
+## User Interface
+
+This category includes universal user interface controls that render consistently across different platforms.
+
+## List Views
+
+For optimal performance with long lists of data, consider using list view components. Unlike `ScrollView`, these components only render items currently visible on the screen.
+
+## Android Components and APIs
+
+These components often serve as wrappers for standard Android classes.
+
+## iOS Components and APIs
+
+Similarly, many components in this category wrap commonly used UIKit classes from iOS.
+
+## Others
+
+This section includes additional components that might be beneficial for specific applications. For a comprehensive list of all available components and APIs, refer to the navigation sidebar or top menu on narrow screens.

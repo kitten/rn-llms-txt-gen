@@ -1,0 +1,91 @@
+# ToastAndroid API in React Native
+
+The `ToastAndroid` API in React Native provides access to Android's native toast notifications. It offers methods for displaying short or long messages with optional positioning and offset adjustments.
+
+## Methods
+
+### `show()`
+
+Displays a simple toast message on the screen.
+
+```typescript
+static show(message: string, duration: number): void;
+```
+
+- **message**: The text content of the toast.
+- **duration**: Duration of the toast display. Use either `ToastAndroid.SHORT` or `ToastAndroid.LONG`.
+
+### `showWithGravity()`
+
+Displays a toast with specified gravity (position). This method is applicable only on Android API 29 and below.
+
+```typescript
+static showWithGravity(message: string, duration: number, gravity: number): void;
+```
+
+- **message**: The text content of the toast.
+- **duration**: Duration of the toast display. Use either `ToastAndroid.SHORT` or `ToastAndroid.LONG`.
+- **gravity**: Position on the screen—options are `ToastAndroid.TOP`, `ToastAndroid.BOTTOM`, or `ToastAndroid.CENTER`.
+
+### `showWithGravityAndOffset()`
+
+Displays a toast with specified gravity and offset. This method is applicable only on Android API 29 and below.
+
+```typescript
+static showWithGravityAndOffset(
+  message: string,
+  duration: number,
+  gravity: number,
+  xOffset: number,
+  yOffset: number
+): void;
+```
+
+- **message**: The text content of the toast.
+- **duration**: Duration of the toast display. Use either `ToastAndroid.SHORT` or `ToastAndroid.LONG`.
+- **gravity**: Position on the screen—options are `ToastAndroid.TOP`, `ToastAndroid.BOTTOM`, or `ToastAndroid.CENTER`.
+- **xOffset**, **yOffset**: Offsets in pixels for positioning.
+
+> Note: Starting with Android 11 (API level 30), setting gravity has no effect on text toasts. For similar functionality, consider using snackbar or notification.
+
+## Properties
+
+### `SHORT`
+
+Indicates a short duration for the toast display.
+
+```typescript
+static SHORT: number;
+```
+
+### `LONG`
+
+Indicates a long duration for the toast display.
+
+```typescript
+static LONG: number;
+```
+
+### `TOP`
+
+Specifies the top position on the screen for the toast.
+
+```typescript
+static TOP: number;
+```
+
+### `BOTTOM`
+
+Specifies the bottom position on the screen for the toast.
+
+```typescript
+static BOTTOM: number;
+```
+
+### `CENTER`
+
+Specifies the center position on the screen for the toast.
+
+```typescript
+static CENTER: number;
+```

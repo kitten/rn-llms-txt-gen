@@ -1,0 +1,70 @@
+# TouchableWithoutFeedback
+
+> For more comprehensive and future-proof handling of touch-based input, consider using the Pressable API. Use `TouchableWithoutFeedback` only if there is a compelling reason to do so. All elements that respond to press should provide visual feedback when touched.
+
+`TouchableWithoutFeedback` supports only one child element. If multiple children are needed, wrap them in a `View`. It's important to note that `TouchableWithoutFeedback` works by cloning its child and applying responder props to it. Therefore, any intermediary components must pass these props through to the underlying React Native component.
+
+## Usage Pattern
+
+```typescript
+function MyComponent(props: MyComponentProps) {
+  return (
+    <View {...props} style={{flex: 1, backgroundColor: '#fff'}}>
+      <Text>My Component</Text>
+    </View>
+  );
+}
+
+<TouchableWithoutFeedback onPress={() => alert('Pressed!')}>
+  <MyComponent />
+</TouchableWithoutFeedback>;
+```
+
+## Example
+
+## Reference
+
+## Props
+
+| Prop Name                  | Description                                                                                                                                                                                                                   | Type                |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
+| `accessibilityIgnoresInvertColors` (iOS) | Indicates whether the view should be inverted when color inversion is enabled. A value of `true` prevents inversion even if color inversion is turned on. See the Accessibility guide for more information.              | Boolean             |
+| `accessible`               | When set to `true`, marks the view as an accessibility element. By default, all touchable elements are accessible.                                                                                                            | bool                |
+| `accessibilityLabel`       | Overrides the text read by screen readers when interacting with the element. By default, it is constructed from all child `Text` nodes separated by spaces.                                                                  | string              |
+| `accessibilityLanguage` (iOS) | Specifies the language used by the screen reader for this element, following the BCP 47 specification. See the iOS `accessibilityLanguage` documentation for more information.                                                | string              |
+| `accessibilityHint`        | Provides a hint to help users understand what will happen when they perform an action on the accessibility element if it's not clear from the label.                                                                           | string              |
+| `accessibilityRole`        | Communicates the purpose of a component to assistive technology users. Possible values include `'none'`, `'button'`, `'link'`, `'search'`, `'image'`, `'keyboardkey'`, `'text'`, `'adjustable'`, and more.                    | string              |
+| `accessibilityState`       | Describes the current state of a component to assistive technology users. See the Accessibility guide for more information.                                                                                                   | object: `{disabled, selected, checked, busy, expanded}` |
+| `accessibilityActions`     | Allows assistive technologies to programmatically invoke actions on a component. Each action should include a name and label. See the Accessibility guide for more details.                                                   | array               |
+| `aria-busy`                | Indicates that an element is being modified and assistive technologies may want to wait until changes are complete before notifying the user.                                                                                 | boolean             |
+| `aria-checked`             | Represents the state of a checkable element, which can be either a boolean or `'mixed'`.                                                                                                                                      | boolean, 'mixed'    |
+| `aria-disabled`            | Indicates that an element is perceivable but disabled and not editable or operable.                                                                                                                                           | boolean             |
+| `aria-expanded`            | Shows whether an expandable element is currently expanded or collapsed.                                                                                                                                                       | boolean             |
+| `aria-hidden`              | Specifies if the accessibility elements within this element are hidden, affecting how assistive technologies like VoiceOver interact with sibling views.                                                                     | boolean             |
+| `aria-label`               | Provides a string value that labels an interactive element.                                                                                                                                                                   | string              |
+| `aria-live` (Android)      | Indicates updates to an element and describes the types of updates expected by user agents, assistive technologies, and users. Options include `'assertive'`, `'off'`, and `'polite'`.                                        | enum: `'assertive'`, `'off'`, `'polite'` |
+| `aria-modal` (iOS)         | Boolean indicating whether VoiceOver should ignore sibling elements within views. Takes precedence over the `accessibilityViewIsModal` prop.                                                                                  | boolean             |
+| `aria-selected`            | Indicates if a selectable element is currently selected.                                                                                                                                                                      | boolean             |
+| `onAccessibilityAction`    | Invoked when an accessibility action is performed by the user. The function receives an event containing the name of the action to perform. See the Accessibility guide for more information.                                | function            |
+| `accessibilityValue`       | Represents a component's current value, either as a textual description or range information (min, max, now) for components like sliders and progress bars.                                                                   | object: `{min, max, now, text}` |
+| `aria-valuemax`            | Specifies the maximum value for range-based components, taking precedence over the `max` value in the `accessibilityValue` prop.                                                                                              | number              |
+| `aria-valuemin`            | Specifies the minimum value for range-based components, taking precedence over the `min` value in the `accessibilityValue` prop.                                                                                              | number              |
+| `aria-valuenow`            | Represents the current value for range-based components, taking precedence over the `now` value in the `accessibilityValue` prop.                                                                                            | number              |
+| `aria-valuetext`           | Provides a textual description of the component's value, taking precedence over the `text` value in the `accessibilityValue` prop.                                                                                             | string              |
+| `delayLongPress`           | Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.                                                                                                                                                   | number              |
+| `delayPressIn`             | Duration (in milliseconds) from the start of a touch until `onPressIn` is invoked.                                                                                                                                            | number              |
+| `delayPressOut`            | Duration (in milliseconds) after releasing a touch before `onPressOut` is called.                                                                                                                                             | number              |
+| `disabled`                 | If set to true, disables all interactions for this component.                                                                                                                                                                 | bool                |
+| `hitSlop`                  | Defines how far from the button a touch can start. This value is added to `pressRetentionOffset` when moving off of the button. The touch area does not extend past parent view bounds and sibling views with higher Z-index take precedence if overlapping. | Rect or number      |
+| `id`                       | Used to locate this view from native code, taking precedence over the `nativeID` prop.                                                                                                                                       | string              |
+| `onBlur`                   | Invoked when the item loses focus.                                                                                                                                                                                            | function            |
+| `onFocus`                  | Invoked when the item receives focus.                                                                                                                                                                                         | function            |
+| `onLayout`                 | Called on mount and during layout changes.                                                                                                                                                                                    | `({nativeEvent: LayoutEvent}) => void` |
+| `onLongPress`              | Triggered if the time after `onPressIn` exceeds 370 milliseconds, customizable with `delayLongPress`.                                                                                                                          | function            |
+| `onPress`                  | Called when a touch is released unless cancelled (e.g., by a scroll that steals the responder lock). The first argument is an event in form of PressEvent.                                                                   | function            |
+| `onPressIn`                | Invoked as soon as the touchable element is pressed, even before `onPress`. Useful for tasks like network requests. The first argument is an event in form of PressEvent.                                                    | function            |
+| `onPressOut`               | Called immediately after a touch is released, prior to `onPress`. The first argument is an event in form of PressEvent.                                                                                                       | function            |
+| `pressRetentionOffset`     | Defines how far a touch may move off the button before deactivating it when the scroll view is disabled. Re-activation occurs upon moving back over the button. Pass a constant to reduce memory allocations.               | Rect or number      |
+| `nativeID`                 |                                                                                                                                                                                                                               | string              |
+| `testID`                   | Used to locate this view in end-to-end tests.                                                                                                                                                                                 | string              |
+| `touchSoundDisabled` (Android) | If set to true, prevents the system sound from playing on touch.                                                                                                                                                             | Boolean             |

@@ -1,0 +1,41 @@
+# Canceling Animations with `cancelAnimation`
+
+The `cancelAnimation` function is used to stop an ongoing animation associated with a shared value in React Native Reanimated.
+
+## Reference
+
+```typescript
+import { cancelAnimation } from 'react-native-reanimated';
+
+function App() {
+  const offset = useSharedValue(100);
+
+  const handleCancel = () => {
+    cancelAnimation(offset);
+  };
+}
+```
+
+### Arguments
+
+- **`sharedValue`**: This is the shared value linked to an active animation that you wish to terminate. If no animation is currently running, `cancelAnimation` will have no effect.
+
+### Returns
+
+The function returns `undefined`.
+
+## Example Usage
+
+To cancel an ongoing animation, simply call `cancelAnimation` with the relevant shared value as shown in the reference section above.
+
+## Remarks
+
+- You can restart a canceled animation by reassigning it to the same shared value using functions like `withSpring` or `withTiming`.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+This function is compatible across Android, iOS, and web platforms.

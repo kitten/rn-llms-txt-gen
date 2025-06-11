@@ -1,0 +1,15 @@
+# Outline Style
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support     |
+|------------------------|-------------|
+| `outline-none`         | 🌐 Web only |
+| `outline`              | 🌐 Web only |
+| `outline-dashed`       | 🌐 Web only |
+| `outline-dotted`       | 🌐 Web only |
+| `outline-double`       | 🌐 Web only |

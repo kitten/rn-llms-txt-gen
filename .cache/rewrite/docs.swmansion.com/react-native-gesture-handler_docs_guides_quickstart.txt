@@ -1,0 +1,131 @@
+# Quick Start Guide
+
+RNGH2 simplifies adding gestures to your application. To implement a gesture, wrap the target view with `GestureDetector`, define the desired gesture, and pass it to the detector.
+
+## Example: Dragging a Ball
+
+To illustrate using this API, we'll create an app where you can drag a ball around. This requires integrating `react-native-gesture-handler` for gestures and `react-native-reanimated` for animations.
+
+### Step 1: Define Styles
+
+First, define the necessary styles:
+
+```typescript
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  ball: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    backgroundColor: 'blue',
+    alignSelf: 'center',
+  },
+});
+```
+
+### Step 2: Create the Ball Component
+
+Next, write the `Ball` component:
+
+```typescript
+import { GestureDetector } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
+
+function Ball() {
+  return (
+    <GestureDetector>
+      <Animated.View style={[styles.ball]} />
+    </GestureDetector>
+  );
+}
+```
+
+### Step 3: Define Shared Values and Animated Styles
+
+Define shared values to track the ball's position and create animated styles for positioning:
+
+```typescript
+import {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
+
+function Ball() {
+  const isPressed = useSharedValue(false);
+  const offset = useSharedValue({ x: 0, y: 0 });
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: offset.value.x },
+        { translateY: offset.value.y },
+        { scale: withSpring(isPressed.value ? 1.2 : 1) },
+      ],
+      backgroundColor: isPressed.value ? 'yellow' : 'blue',
+    };
+  });
+
+  // ...
+}
+```
+
+### Step 4: Apply Animated Styles
+
+Add the animated styles to the ball's styles:
+
+```typescript
+// ...
+return (
+  <GestureDetector>
+    <Animated.View style={[styles.ball, animatedStyles]} />
+  </GestureDetector>
+);
+// ...
+```
+
+### Step 5: Define and Assign the Pan Gesture
+
+Finally, define the pan gesture and assign it to the detector:
+
+```typescript
+import { Gesture } from 'react-native-gesture-handler';
+
+function Ball() {
+  const start = useSharedValue({ x: 0, y: 0 });
+  const gesture = Gesture.Pan()
+    .onBegin(() => {
+      isPressed.value = true;
+    })
+    .onUpdate((e) => {
+      offset.value = {
+        x: e.translationX + start.value.x,
+        y: e.translationY + start.value.y,
+      };
+    })
+    .onEnd(() => {
+      start.value = {
+        x: offset.value.x,
+        y: offset.value.y,
+      };
+    })
+    .onFinalize(() => {
+      isPressed.value = false;
+    });
+
+  // ...
+}
+
+// ...
+return (
+  <GestureDetector gesture={gesture}>
+    <Animated.View style={[styles.ball, animatedStyles]} />
+  </GestureDetector>
+);
+// ...
+```
+
+**Note:** The `start` shared value stores the ball's position when grabbed to ensure correct positioning later, as we only have access to translation relative to the gesture's starting point.
+
+Now, add the `Ball` component to a view in your app to see it in action!

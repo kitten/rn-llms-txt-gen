@@ -1,0 +1,16 @@
+# Whitespace
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                           | Support     |
+| ------------------------------- | ----------- |
+| `whitespace-normal`             | 🌐 Web only |
+| `whitespace-nowrap`             | 🌐 Web only |
+| `whitespace-pre`                | 🌐 Web only |
+| `whitespace-pre-line`           | 🌐 Web only |
+| `whitespace-pre-wrap`           | 🌐 Web only |
+| `whitespace-break-spaces`       | 🌐 Web only |

@@ -1,0 +1,19 @@
+# Gap
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+**CAUTION:**  
+The `gap` feature requires React Native version 0.71 or higher.
+
+## Compatibility
+
+| Class             | Support        |
+|-------------------|----------------|
+| `gap-{n}`         | ✅ Full Support |
+| `gap-[n]`         | ✅ Full Support |
+| `gap-x-{n}`       | ✅ Full Support |
+| `gap-x-[n]`       | ✅ Full Support |
+| `gap-y-{n}`       | ✅ Full Support |
+| `gap-y-[n]`       | ✅ Full Support |

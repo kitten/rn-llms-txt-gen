@@ -1,0 +1,46 @@
+# React Native Reanimated: ReducedMotionConfig
+
+**Version:** 3.x
+
+## Overview
+
+The `ReducedMotionConfig` component allows you to modify the behavior of animations based on a device's reduced motion accessibility setting. By default, it disables all animations when this setting is enabled. You can customize this behavior according to your specific needs. For more information about Accessibility and `useReducedMotion`, refer to Reanimated documentation.
+
+> **Caution:** The new configuration will be applied globally across the entire application.
+
+## Reference
+
+```typescript
+import { ReducedMotionConfig, ReduceMotion } from 'react-native-reanimated';
+
+function App() {
+  return (
+    // ...
+    <ReducedMotionConfig mode={ReduceMotion.Never} />
+    // ...
+  );
+}
+```
+
+### Arguments
+
+#### `mode`
+
+This parameter determines how animations should respond to the device's reduced motion accessibility setting:
+
+- **`ReduceMotion.System`:** Adjusts animation behavior based on the device's reduced motion setting. Animations are disabled when this setting is enabled; otherwise, they remain active.
+  
+- **`ReduceMotion.Always`:** Consistently disables animations, regardless of the device's accessibility configuration.
+
+- **`ReduceMotion.Never`:** Ensures that animations remain enabled at all times.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+* Reference
+  * Arguments
+* Example
+* Platform compatibility

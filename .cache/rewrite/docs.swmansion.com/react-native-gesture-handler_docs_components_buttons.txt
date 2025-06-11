@@ -1,0 +1,121 @@
+# Buttons
+
+The Gesture Handler library provides native components that function as buttons, serving as alternatives to `TouchableHighlight` or `TouchableOpacity` from React Native (RN) core. These gesture handler buttons recognize touches natively, ensuring a deterministic recognition process and enabling highly performant ripple effects on Android (`TouchableNativeFeedback` requires touch events to return to JavaScript before updating the ripple effect, causing lag on older devices). Additionally, they offer native and platform-specific interactions for buttons within scrollable containers, slightly delaying interaction to prevent premature highlighting during flinging.
+
+The library currently exposes three components that render native touchable elements:
+
+- `BaseButton`
+- `RectButton`
+- `BorderlessButton`
+
+All buttons are wrapped with `NativeViewGestureHandler`, allowing the application of common gesture handler properties and additional properties specific to `NativeViewGestureHandler`.
+
+**IMPORTANT**: To ensure button accessibility, wrap children in a `View` with `accessible` and `accessibilityRole="button"` props. Example:
+
+```tsx
+// Not accessible:
+const NotAccessibleButton = () => (
+  <RectButton onPress={this._onPress}>
+    <Text>Foo</Text>
+  </RectButton>
+);
+
+// Accessible:
+const AccessibleButton = () => (
+  <RectButton onPress={this._onPress}>
+    <View accessible accessibilityRole="button">
+      <Text>Bar</Text>
+    </View>
+  </RectButton>
+);
+```
+
+This is applicable to both iOS and Android platforms. On iOS, inaccessible buttons cannot be selected; on Android, they cannot be clicked in accessibility mode.
+
+## `BaseButton`
+
+`BaseButton` can serve as a base class for implementing custom interactions when the button is pressed.
+
+### Properties specific to `BaseButton`:
+
+- **onActiveStateChange**: A function triggered when the button transitions between active and inactive states. It receives the active state as a boolean parameter.
+  
+- **onPress**: A function triggered upon pressing the button, similar to `onPress` in `TouchableHighlight`.
+  
+- **onLongPress**: A function triggered if the button is pressed for at least `delayLongPress` milliseconds.
+  
+- **rippleColor** (**Android only**): Defines the color of the native ripple animation used since API level 21.
+  
+- **exclusive**: Determines whether more than one button can be pressed simultaneously. Default is `true`.
+  
+- **delayLongPress**: The delay, in milliseconds, before the `onLongPress` callback is invoked. Default is 600.
+
+## `RectButton`
+
+Use `RectButton` for rectangular elements or content blocks that are pressable, such as table rows or buttons with text and icons. It provides platform-specific interactions: a rectangular ripple on Android, background highlighting on iOS, and similar effects on older Android versions. In addition to `BaseButton` properties, it includes:
+
+### Properties specific to `RectButton`:
+
+- **underlayColor**: The background color dimmed when the button is active.
+  
+- **activeOpacity** (**iOS only**): The opacity applied to the underlay during the active state.
+
+## `BorderlessButton`
+
+Use `BorderlessButton` for simple icon-only or text-only buttons. Interaction varies by platform: a borderless ripple on Android and background dimming on iOS, similar to `TouchableOpacity`. In addition to `BaseButton` properties, it includes:
+
+### Properties specific to `BorderlessButton`:
+
+- **borderless** (**Android only**): Set to `false` if the ripple should be confined within view bounds.
+  
+- **activeOpacity** (**iOS only**): The opacity applied during the active state.
+
+## Design Patterns
+
+These components are not designed to behave identically across platforms but rather to handle similar behaviors on iOS and Android, considering their design concepts. For platform-specific design patterns, refer to official Apple documentation and Material.io guidelines.
+
+The library supports using native components with native feedback in appropriate situations. If a custom design approach is unnecessary, `RectButton` and `BorderlessButton` are sufficient. Otherwise, rely on `BaseButton`, which can be customized for specific needs.
+
+### Common Use Cases
+
+- **Lists and Action Buttons**: Use `RectButton` for list items or action buttons that appear as separate UI blocks. It changes opacity on click and supports a ripple effect on Android. Emphasis is achieved through fill color or transparency, with outlined buttons used for medium emphasis.
+  
+- **Icon or Text Only Buttons**: Use `BorderlessButton` for simple icon-only or text-only buttons. Interaction varies by platform: borderless ripple on Android and dimming on iOS. Suitable for non-crucial actions.
+
+### `PureNativeButton`
+
+For more complex button implementations, use `PureNativeButton` to access the native component. It is generally not recommended but can be useful when wrapping with Animated or Reanimated:
+
+```tsx
+import {
+  createNativeWrapper,
+  PureNativeButton,
+} from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
+
+const { event, Value, createAnimatedComponent } = Animated;
+
+const AnimatedRawButton = createNativeWrapper(
+  createAnimatedComponent(PureNativeButton),
+  {
+    shouldCancelWhenOutside: false,
+    shouldActivateOnStart: false,
+  }
+);
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    const state = new Value();
+    this._onGestureEvent = event([
+      {
+        nativeEvent: { state },
+      },
+    ]);
+  }
+
+  render() {
+    return <AnimatedRawButton onHandlerStateChange={this._onGestureEvent} />;
+  }
+}
+```

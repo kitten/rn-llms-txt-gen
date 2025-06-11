@@ -1,0 +1,138 @@
+# Handling Gestures
+
+This section covers handling gestures using Reanimated in conjunction with React Native Gesture Handler. We'll focus on `Tap` and `Pan` gestures and introduce the `withDecay` animation function.
+
+Ensure you've completed the Gesture Handler installation steps before proceeding.
+
+## Handling Tap Gestures
+
+We begin with tap gestures, which detect brief screen touches. These can be used for custom buttons or pressable elements.
+
+In this example, a circle grows and changes color upon touch.
+
+First, wrap your app in `GestureHandlerRootView` to ensure gesture functionality:
+
+```typescript
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+function App() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      {/* rest of the app */}
+    </GestureHandlerRootView>
+  );
+}
+```
+
+Define tap gestures using `Gesture.Tap()` and chain methods like `onBegin`, `onStart`, `onEnd`, or `onFinalize` to update shared values:
+
+```typescript
+export default function App() {
+  const pressed = useSharedValue<boolean>(false);
+
+  const tap = Gesture.Tap()
+    .onBegin(() => {
+      pressed.value = true;
+    })
+    .onFinalize(() => {
+      pressed.value = false;
+    });
+```
+
+Access shared values safely as gesture callbacks are automatically workletized.
+
+Define animation logic using `withTiming` in `useAnimatedStyle`:
+
+```typescript
+  const animatedStyles = useAnimatedStyle(() => ({
+    backgroundColor: pressed.value ? '#FFE04B' : '#B58DF1',
+    transform: [{ scale: withTiming(pressed.value ? 1.2 : 1) }],
+  }));
+```
+
+Pass the gesture to `GestureDetector` and apply `animatedStyles`:
+
+```typescript
+  return (
+    <GestureHandlerRootView style={styles.container}>
+      <View style={styles.container}>
+        <GestureDetector gesture={tap}>
+          <Animated.View style={[styles.circle, animatedStyles]} />
+        </GestureDetector>
+      </View>
+    </GestureHandlerRootView>
+  );
+}
+```
+
+## Handling Pan Gestures
+
+Enhance the circle by making it draggable and bouncing back to its starting position upon release. Retain color highlight and scale effects.
+
+Switch from `Tap` to `Pan` gesture and add an `onChange` method:
+
+```typescript
+const offset = useSharedValue<number>(0);
+
+const pan = Gesture.Pan()
+  .onBegin(() => {
+    pressed.value = true;
+  })
+  .onChange((event) => {
+    offset.value = event.translationX;
+  })
+  .onFinalize(() => {
+    offset.value = withSpring(0);
+    pressed.value = false;
+```
+
+Use `translationX` from the event data to move the circle. Reset `offset.value` in `onFinalize` using `withSpring`.
+
+Adjust `useAnimatedStyle` for handling offset:
+
+```typescript
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: offset.value },
+      { scale: withTiming(pressed.value ? 1.2 : 1) },
+    ],
+    backgroundColor: pressed.value ? '#FFE04B' : '#b58df1',
+  }));
+```
+
+## Using `withDecay`
+
+`withDecay` retains gesture velocity for decelerating animations.
+
+Pass final velocity in `onFinalize` to `withDecay`:
+
+```typescript
+const pan = Gesture.Pan()
+  .onChange((event) => {
+    offset.value += event.changeX;
+  })
+  .onFinalize((event) => {
+    offset.value = withDecay({
+      velocity: event.velocityX,
+      rubberBandEffect: true,
+      clamp: [
+        -(width.value / 2) + SIZE / 2 + BOUNDARY_OFFSET,
+        width.value / 2 - SIZE / 2 - BOUNDARY_OFFSET,
+```
+
+Ensure the square stays within screen bounds.
+
+Explore `withDecay` API for more configuration options.
+
+## Summary
+
+This section covered gesture handling with Reanimated and Gesture Handler, focusing on `Tap`, `Pan`, and `withDecay`. Key points include:
+
+- Integration of Reanimated with React Native Gesture Handler.
+- Creation of gestures like `Gesture.Pan()` or `Gesture.Tap()`.
+- Accessing shared values in gesture callbacks without extra boilerplate.
+- Using `withDecay` for decelerating animations based on gesture velocity.
+
+## What's Next?
+
+Explore further gestures such as Pinch and Fling by reviewing the React Native Gesture Handler documentation. The next section will delve into a glossary of terms.

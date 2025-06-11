@@ -1,0 +1,43 @@
+# Linking Libraries
+
+Not every application utilizes all native capabilities, and including code for all features would increase binary size. However, we aim to support adding these features when needed.
+
+To address this, many features are exposed as independent static libraries.
+
+For most libraries, linking is quick—typically involving dragging two files, with a third step sometimes necessary.
+
+**Note:** All React Native libraries reside in the `Libraries` folder at the repository's root. Some are pure JavaScript and require only a `require`. Libraries relying on native code need these files added to your app; otherwise, an error occurs when using the library.
+
+## Steps to Link Libraries with Native Code
+
+### Automatic Linking
+
+1. Install a library with native dependencies:
+
+   ```shell
+   npm install <library-with-native-dependencies> --save
+   ```
+
+2. **Important:** Use the `--save` or `--save-dev` flag. React Native links libraries based on `dependencies` and `devDependencies` in your `package.json`.
+
+That's it! The next build will link native code via autolinking.
+
+### Manual Linking
+
+#### Step 1
+
+If the library includes native code, an `.xcodeproj` file should be present. Drag this file into your Xcode project (typically under the `Libraries` group).
+
+#### Step 2
+
+Select your main project file (representing the `.xcodeproj`) and choose `Build Phases`. Drag the static library from the `Products` folder of the imported Library to `Link Binary With Libraries`.
+
+#### Step 3
+
+Not all libraries require this step. Consider:
+
+*Do I need to know the contents of the library at compile time?*
+
+This means, are you using the library on the native side or only in JavaScript? If it's just JavaScript, no further action is needed.
+
+If native usage is required, include the library's headers by going to your project file, selecting `Build Settings`, and searching for `Header Search Paths`. Add the path to your library. (Previously recommended using `recursive` is now discouraged due to potential build failures, especially with CocoaPods.)

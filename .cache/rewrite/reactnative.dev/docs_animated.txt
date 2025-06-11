@@ -1,0 +1,116 @@
+# Animated Library Overview
+
+The `Animated` library is designed for creating fluid, powerful animations that are easy to build and maintain. It emphasizes declarative relationships between inputs and outputs, configurable transforms, and control over animation execution through `start`/`stop` methods.
+
+## Core Workflow
+
+To create an animation:
+
+1. Create an `Animated.Value`.
+2. Connect it to style attributes of an animated component.
+3. Drive updates using animations like `Animated.timing()`.
+
+> **Note:** Avoid modifying the animated value directly. Use the `useRef` Hook for a mutable ref object that persists throughout the component lifecycle.
+
+## Example
+
+Consider a `View` that fades in and out based on the animated value `fadeAnim`.
+
+For more examples, refer to the Animations guide.
+
+## Overview of Value Types
+
+- **`Animated.Value()`**: For single values.
+- **`Animated.ValueXY()`**: For vectors.
+
+A single `Animated.Value` can drive multiple properties and bind to style or other props. It can also be interpolated.
+
+### Configuring Animations
+
+Three types of animations are provided:
+
+- **`Animated.decay()`**: Starts with an initial velocity, gradually slowing to a stop.
+- **`Animated.spring()`**: Implements a basic spring physics model.
+- **`Animated.timing()`**: Animates values over time using easing functions. Defaults to a symmetric easeInOut curve.
+
+### Working with Animations
+
+Animations are controlled by calling `start()`, which accepts a completion callback:
+
+```typescript
+Animated.timing({}).start(({finished}) => {
+  /* completion callback */
+});
+```
+
+### Using the Native Driver
+
+Enable native driver for smoother animations by specifying `useNativeDriver: true` in your animation configuration.
+
+### Animatable Components
+
+Only animatable components can be animated. These components handle binding of animated values and perform targeted native updates:
+
+- `Animated.Image`
+- `Animated.ScrollView`
+- `Animated.Text`
+- `Animated.View`
+- `Animated.FlatList`
+- `Animated.SectionList`
+
+Use `createAnimatedComponent()` to make a component animatable.
+
+### Composing Animations
+
+Animations can be combined using composition functions:
+
+- **`Animated.delay()`**: Starts an animation after a delay.
+- **`Animated.parallel()`**: Runs animations simultaneously.
+- **`Animated.sequence()`**: Executes animations in order.
+- **`Animated.stagger()`**: Starts animations with successive delays.
+
+By default, stopping one animation stops all others in the group.
+
+### Combining Animated Values
+
+Combine animated values using operations like addition, subtraction, multiplication, division, or modulo:
+
+- `Animated.add()`
+- `Animated.subtract()`
+- `Animated.divide()`
+- `Animated.modulo()`
+- `Animated.multiply()`
+
+### Interpolation
+
+The `interpolate()` function maps input ranges to output ranges. More details are available on the separate page.
+
+### Advanced APIs
+
+- **`forkEvent()`**: Adds a listener to an existing animated event.
+- **`unforkEvent()`**: Removes a listener from an animated event.
+
+### Starting and Stopping Animations
+
+- **`start(callback?: (result: {finished: boolean}) => void)`**: Begins the animation, optionally with a completion callback.
+  
+  ```typescript
+  Animated.timing({}).start(({finished}) => {
+    /* completion callback */
+  });
+  ```
+
+- **`stop()`**: Halts any running animation.
+
+### Resetting Animations
+
+- **`reset()`**: Stops and resets the value to its original state.
+
+## Properties
+
+- **`Value`**: Standard class for driving animations.
+- **`ValueXY`**: For 2D animations, like pan gestures.
+- **`Interpolation`**: Type used in flow for interpolation.
+- **`Node`**: Base class for animated values.
+- **`createAnimatedComponent`**: Makes any React component animatable.
+- **`attachNativeEvent`**: Attaches an animated value to a view event. Prefer `Animated.event` with `useNativeDriver: true`.

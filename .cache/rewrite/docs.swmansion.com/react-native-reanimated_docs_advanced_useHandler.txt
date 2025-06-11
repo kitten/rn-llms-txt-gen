@@ -1,0 +1,64 @@
+# useHandler Hook in React Native Reanimated
+
+The `useHandler` hook is a foundational tool within the React Native Reanimated library. It provides a context object and an indicator to determine if worklets require rebuilding. This functionality facilitates the creation of custom event handler hooks, such as `useScrollViewOffset` or `useAnimatedScrollHandler`.
+
+## Reference
+
+```typescript
+import { useEvent, useHandler } from 'react-native-reanimated';
+
+function useAnimatedPagerScrollHandler(handlers: Record<string, (event: any, context: object) => void>, dependencies?: any[]) {
+  const { context, doDependenciesDiffer, useWeb } = useHandler(
+    handlers,
+    dependencies
+  );
+
+  return useEvent(
+    (event: any) => {
+      'worklet';
+      const { onPageScroll } = handlers;
+
+      if (onPageScroll && event.eventName.endsWith('onPageScroll')) {
+        onPageScroll(event, context);
+      }
+    },
+    ['onPageScroll'],
+    doDependenciesDiffer
+  );
+}
+```
+
+### Arguments
+
+#### `handlers`
+
+An object containing keys that correspond to native event names. The values should be individual worklets. Each worklet is triggered when its associated event is dispatched on the connected animated component.
+
+Each event worklet receives:
+
+- `event`: An event object whose payload varies based on the event type.
+- `context`: A plain JavaScript object for storing state, persisting between events. This allows communication among multiple event handlers provided as an object of worklets.
+
+#### `dependencies` (Optional)
+
+An optional array of dependencies. This is relevant when using Reanimated without its Babel plugin in a web environment.
+
+### Returns
+
+The hook returns:
+
+- A context reused by event handlers.
+- An indicator to determine if worklets should be rebuilt.
+- A boolean, `useWeb`, to check for the web environment if different implementations are needed.
+
+## Example
+
+For simpler implementations, consider using `useScrollViewOffset`.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |
+
+This documentation provides a comprehensive overview of how to utilize the `useHandler` hook within React Native Reanimated for creating custom event handlers.

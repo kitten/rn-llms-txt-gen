@@ -1,0 +1,27 @@
+# Animation
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+**CAUTION**
+
+Animation functionality is currently experimental. Your feedback is crucial for enhancing its implementation.
+
+## Compatibility
+
+| Class                  | Support                 |
+|------------------------|-------------------------|
+| `animate-none`         | 🧪 Experimental Support  |
+| `animate-spin`         | 🧪 Experimental Support  |
+| `animate-ping`         | 🧪 Experimental Support  |
+| `animate-bounce`       | 🧪 Experimental Support  |
+| `animate-[n]`          | 🧪 Experimental Support  |
+
+## Contributors
+
+The animation feature in Nativewind is still experimental and basic. We welcome contributors to assist with:
+
+- Animating all mapped properties (currently only supports `style`)
+- Enhancing performance
+- Updating the codebase for compatibility with Reanimated v3 features (presently written using v2 syntax)

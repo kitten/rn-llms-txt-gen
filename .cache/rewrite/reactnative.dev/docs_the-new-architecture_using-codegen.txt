@@ -1,0 +1,230 @@
+# Using Codegen
+
+This guide covers how to:
+
+- Configure **Codegen**.
+- Manually invoke it for each platform.
+
+It also describes the generated code.
+
+## Prerequisites
+
+A React Native app is required to generate code properly, even when invoking **Codegen** manually. The process is integrated with the app build and relies on scripts in the `react-native` NPM package.
+
+To create a project using the React Native CLI:
+
+```bash
+npx @react-native-community/cli@latest init SampleApp --version 0.76.0
+```
+
+**Codegen** generates glue-code for custom modules or components. Refer to guides for Turbo Native Modules and Fabric Native Components for more details on creating them.
+
+## Configuring **Codegen**
+
+Configure **Codegen** in your app by modifying the `package.json` file using a custom field called `codegenConfig`.
+
+```json
+"codegenConfig": {
+  "name": "<SpecName>",
+  "type": "<types>",
+  "jsSrcsDir": "<source_dir>",
+  "android": {
+    "javaPackageName": "<java.package.name>"
+  },
+  "ios": {
+    "modulesConformingToProtocol": {
+      "RCTImageURLLoader": [
+        "<iOS-class-conforming-to-RCTImageURLLoader>"
+      ],
+      "RCTURLRequestHandler": [
+        "<iOS-class-conforming-to-RCTURLRequestHandler>"
+      ],
+      "RCTImageDataDecoder": [
+        "<iOS-class-conforming-to-RCTImageDataDecoder>"
+      ]
+    },
+    "componentProvider": {
+      "<componentName>": "<iOS-class-implementing-the-component>"
+    },
+    "modulesProvider": {
+      "<moduleName>": "<iOS-class-implementing-the-RCTModuleProvider-protocol>"
+    }
+  }
+}
+```
+
+Customize the fields as follows:
+
+- `name`: The name for files containing your specs, typically ending with `Spec`.
+- `type`: Specifies code generation type. Allowed values are `modules`, `components`, `all`.
+  - `modules`: For Turbo Native Modules.
+  - `components`: For Native Fabric Components.
+  - `all`: For both components and modules.
+- `jsSrcsDir`: Root folder for your specs.
+- `android.javaPackageName`: Custom package name for Android code generation.
+
+The `ios` field is optional and allows advanced configurations:
+
+- `modulesConformingToProtocol`: Define iOS native modules conforming to specific protocols, injected into the React Native runtime at app start.
+  - `RCTImageURLLoader`, `RCTURLRequestHandler`, `RCTImageDataDecoder`: List classes implementing these protocols as Native Modules.
+- `componentProvider`: Map JS React components to their native implementations.
+- `modulesProvider`: Map JS Native Modules to their native providers.
+
+**Codegen** searches for JS files following specific conventions among app dependencies:
+
+- Turbo Native Modules: Spec files prefixed with `Native` (e.g., `NativeLocalStorage.ts`).
+- Native Fabric Components: Spec files suffixed with `NativeComponent` (e.g., `WebViewNativeComponent.ts`).
+
+## Running **Codegen**
+
+Assuming you have a Native Turbo Module, Native Fabric Component, or both set up in your project, and valid specification files in the `jsSrcsDir`, follow these steps:
+
+### Android
+
+**Codegen** for Android is integrated with the React Native Gradle Plugin (RNGP). The RNGP task reads configurations from `package.json` and executes **Codegen**. Run this command inside the `android` folder of your project:
+
+```bash
+./gradlew generateCodegenArtifactsFromSchema
+```
+
+This generates code in the corresponding `node_modules/<dependency>/android/build/generated/source/codegen` folder.
+
+#### The Generated Code
+
+After running the gradle task, find the generated code in the `SampleApp/android/app/build` folder. The structure is:
+
+```
+build
+└── generated
+    └── source
+        └── codegen
+            ├── java
+            │   └── com
+            │       ├── facebook
+            │       │   └── react
+            │       │       └── viewmanagers
+            │       │           ├── <nativeComponent>ManagerDelegate.java
+            │       │           └── <nativeComponent>ManagerInterface.java
+            │       └── sampleapp
+            │           └── NativeLocalStorageSpec.java
+            ├── jni
+            │   ├── <codegenConfig.name>-generated.cpp
+            │   ├── <codegenConfig.name>.h
+            │   ├── react
+            │   │   └── renderer
+            │   │       └── components
+            │   │           ├── <codegenConfig.name>
+            │   │           │   ├── ComponentDescriptors.cpp
+            │   │           │   ├── ComponentDescriptors.h
+            │   │           │   ├── EventEmitters.cpp
+            │   │           │   ├── EventEmitters.h
+            │   │           │   ├── Props.cpp
+            │   │           │   ├── Props.h
+            │   │           │   ├── RCTComponentViewHelpers.h
+            │   │           │   ├── ShadowNodes.cpp
+            │   │           │   ├── ShadowNodes.h
+            │   │           │   └── States.cpp
+            │   │           └── schema.json
+            └── schema.json
+```
+
+The generated code is split into:
+
+- `java`: Platform-specific code.
+- `jni`: C++ code for JS and Java interaction.
+
+In the `java` folder, Fabric Native component code resides in `com/facebook/viewmanagers`, including:
+
+- `<nativeComponent>ManagerDelegate.java`: Methods callable by `ViewManager`.
+- `<nativeComponent>ManagerInterface.java`: Interface of the `ViewManager`.
+
+The Turbo Native Module abstract class is in the folder specified by `codegenConfig.android.javaPackageName`.
+
+In the `jni` folder, you find:
+
+- `<codegenConfig.name>.h`: Interface for custom C++ Turbo Native Modules.
+- `<codegenConfig.name>-generated.cpp`: Glue code for custom C++ Turbo Native Modules.
+- `react/renderer/components/<codegenConfig.name>`: Glue-code for your component.
+
+This structure is generated using the value `all` for `codegenConfig.type`. Use `modules` to exclude `react/renderer/components/`, and `components` to exclude other files.
+
+### iOS
+
+**Codegen** for iOS uses Node scripts invoked during the build process, located in `SampleApp/node_modules/react-native/scripts/`.
+
+The main script is `generate-codegen-artifacts.js`. Invoke it from your app's root folder:
+
+```bash
+node node_modules/react-native/scripts/generate-codegen-artifacts.js
+
+Usage: generate-codegen-artifacts.js -p [path to app] -t [target platform] -o [output path]
+
+Options:
+      --help            Show help                                      [boolean]
+      --version         Show version number                            [boolean]
+  -p, --path            Path to the React Native project root.        [required]
+  -t, --targetPlatform  Target platform. Supported values: "android", "ios",
+                        "all".                                        [required]
+  -o, --outputPath      Path where generated artifacts will be output to.
+```
+
+Arguments:
+
+- `--path`: Path to the app's root folder.
+- `--outputPath`: Destination for generated files.
+- `--targetPlatform`: Platform for code generation.
+
+#### The Generated Code
+
+Run this command to generate files in the `ios/build` folder:
+
+```bash
+node node_modules/react-native/scripts/generate-codegen-artifacts.js \
+    --path . \
+    --outputPath ios/ \
+    --targetPlatform ios
+```
+
+Generated files include:
+
+```
+build
+└── generated
+    └── ios
+        ├── <codegenConfig.name>
+        │   ├── <codegenConfig.name>-generated.mm
+        │   └── <codegenConfig.name>.h
+        ├── <codegenConfig.name>JSI-generated.cpp
+        ├── <codegenConfig.name>JSI.h
+        ├── FBReactNativeSpec
+        │   ├── FBReactNativeSpec-generated.mm
+        │   └── FBReactNativeSpec.h
+        ├── FBReactNativeSpecJSI-generated.cpp
+        ├── FBReactNativeSpecJSI.h
+        ├── RCTModulesConformingToProtocolsProvider.h
+        ├── RCTModulesConformingToProtocolsProvider.mm
+        └── react
+            └── renderer
+                └── components
+                    └── <codegenConfig.name>
+                        ├── ComponentDescriptors.cpp
+                        ├── ComponentDescriptors.h
+                        ├── EventEmitters.cpp
+                        ├── EventEmitters.h
+                        ├── Props.cpp
+                        ├── Props.h
+                        ├── RCTComponentViewHelpers.h
+                        ├── ShadowNodes.cpp
+                        ├── ShadowNodes.h
+                        └── States.cpp
+```
+
+Files include:
+
+- `<codegenConfig.name>/<codegenConfig.name>.h`: Interface for custom iOS Turbo Native Modules.
+- `<codegenConfig.name>/<codegenConfig.name>-generated.mm`: Glue code for custom iOS Turbo Native Modules.
+- `<codegenConfig.name>JSI.h`: Interface for custom C++ Turbo Native Modules.
+- `<codegenConfig.name>JSI-generated.cpp`: Glue code for custom C++ Turbo Native Modules.
+- `react/renderer/components/<codegenConfig.name>`: Glue-code for your component.
+
+This structure is generated using the value `all` for `codegenConfig.type`. Use `modules` to exclude `react/renderer/components/`, and `components` to exclude other files.

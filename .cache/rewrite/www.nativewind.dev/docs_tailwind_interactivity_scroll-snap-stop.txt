@@ -1,0 +1,12 @@
+# Scroll Snap Stop
+
+## Usage
+
+For detailed instructions, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support     |
+| ------------------- | ----------- |
+| `snap-normal`       | 🌐 Web only |
+| `snap-always`       | 🌐 Web only |

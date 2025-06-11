@@ -1,0 +1,77 @@
+# Security
+
+Security is often overlooked during app development. While completely impenetrable software remains elusive—similar to how bank vaults can still be breached—the likelihood of a security breach decreases with increased protective measures. Although ordinary locks are vulnerable, they offer more protection than basic alternatives like cabinet hooks.
+
+This guide covers best practices for securing sensitive information, authentication, network security, and tools to enhance app security. It serves as an extensive resource rather than a checklist, offering various options to bolster your app's defenses.
+
+## Storing Sensitive Information
+
+Avoid embedding sensitive API keys directly in your application code, as they can be exposed by inspecting the app bundle. Tools like `react-native-dotenv` and `react-native-config` are useful for managing environment-specific variables such as API endpoints but should not replace server-side environment variables that often contain secrets.
+
+For accessing resources requiring an API key or secret, consider implementing an orchestration layer between your app and the resource. This could involve using serverless functions (e.g., AWS Lambda or Google Cloud Functions) to forward requests with necessary credentials. Unlike client-side code, server-side secrets are not directly accessible by consumers.
+
+**Choose appropriate storage for persisted user data based on its sensitivity.** As apps evolve, saving data locally may be necessary for offline functionality, reducing network requests, or maintaining session tokens without repeated authentication.
+
+> **Persisted vs Unpersisted Data:** Persisted data is stored on the device's disk and remains accessible across app launches, but this increases vulnerability to unauthorized access. Unpersisted data never reaches the disk, eliminating such risks.
+
+### Async Storage
+
+Async Storage is a community-maintained module for React Native that provides an asynchronous, unencrypted key-value store. Each app operates in its own sandbox environment, preventing cross-app data access.
+
+| **Use Async Storage When** | **Avoid Using Async Storage For** |
+| -------------------------- | --------------------------------- |
+| Persisting non-sensitive data across app runs | Token storage                    |
+| Persisting Redux state     | Secrets                          |
+| Persisting GraphQL state   |                                   |
+| Storing global app-wide variables |                             |
+
+#### Developer Notes
+
+* Web: Async Storage is akin to Local Storage in web development.
+
+### Secure Storage
+
+React Native lacks built-in secure data storage, but existing solutions are available for Android and iOS:
+
+- **iOS - Keychain Services:** Ideal for securely storing small amounts of sensitive information like certificates, tokens, and passwords.
+  
+- **Android - Secure Shared Preferences:** While not encrypted by default, Encrypted Shared Preferences provide automatic encryption for keys and values.
+
+- **Android - Keystore:** This system stores cryptographic keys in a secure container to prevent extraction from the device.
+
+To utilize iOS Keychain Services or Android Secure Shared Preferences, you can either develop a custom bridge or use libraries that offer unified APIs. Consider using:
+
+- `expo-secure-store`
+- `react-native-keychain`
+
+> **Caution:** Avoid unintentionally storing or exposing sensitive information, such as saving sensitive form data in Redux state and persisting it with Async Storage, or sending user tokens to monitoring services like Sentry or Crashlytics.
+
+## Authentication and Deep Linking
+
+Mobile apps face a unique vulnerability through deep linking—a method of directing data directly to an app from external sources. A typical deep link format is `app://`, where `app` represents your app scheme. For instance, in an e-commerce app, `app://products/1` could open the product detail page for item 1.
+
+Deep links resemble URLs but lack security measures, as there's no centralized registration system for URL schemes. Malicious apps can hijack deep links by registering the same scheme and accessing the data within them. Avoid sending sensitive information through deep links to mitigate this risk.
+
+On Android, users are prompted with a Disambiguation dialog when multiple apps can handle a link. iOS previously made automatic choices but now uses universal links for secure content access starting from iOS 11.
+
+### OAuth2 and Redirects
+
+OAuth2 is a widely-used authentication protocol known for its security features. It involves third-party authentication, where the user grants permission to an application via a verification code that can be exchanged for a JWT (JSON Web Token).
+
+While redirects are secure on the web due to unique URLs, mobile apps lack this guarantee. To enhance security, PKCE (Proof of Key Code Exchange) is used. PKCE involves generating a `code_verifier` and its SHA 256 hash (`code_challenge`). The client sends both during authentication, ensuring that only the initiating app can exchange the verification code for a JWT.
+
+Consider using `react-native-app-auth`, which supports OAuth2 providers and PKCE if supported by your Identity Provider.
+
+## Network Security
+
+Always use SSL encryption for APIs to protect data in transit. Secure endpoints begin with `https://` instead of `http://`.
+
+### SSL Pinning
+
+SSL pinning enhances security by embedding trusted certificates within the client app, ensuring that only requests signed with these certificates are accepted. This prevents man-in-the-middle attacks where attackers install malicious root CA certificates on a user's device.
+
+> Be aware of certificate expiry when using SSL pinning. Certificates typically expire every 1-2 years and must be updated in both the app and server to maintain functionality.
+
+## Summary
+
+While no security measure is foolproof, proactive efforts can significantly reduce breach risks. Security investments should align with data sensitivity, user base size, and potential damage from unauthorized access. Prioritize protecting information that isn't requested unnecessarily.

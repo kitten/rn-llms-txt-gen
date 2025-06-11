@@ -1,0 +1,116 @@
+# useAnimatedStyle
+
+`useAnimatedStyle` is a hook that allows you to create an animated styles object, similar to `StyleSheet`, which can be dynamically updated using shared values. These styles must be applied to the `style` property of an Animated component and are automatically refreshed when associated shared values or React state change.
+
+Unlike inline styling, `useAnimatedStyle` provides access to values stored in shared values within the defined style object. For animating properties directly on components, consider using `useAnimatedProps`.
+
+## Reference
+
+```typescript
+import { useAnimatedStyle } from 'react-native-reanimated';
+
+function App() {
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: sv.value ? 1 : 0,
+  }));
+
+  return <Animated.View style={[styles.box, animatedStyles]} />;
+}
+```
+
+### Arguments
+
+#### `updater`
+
+A function that returns an object containing the style properties you wish to animate. Any style property available in React Native can be animated.
+
+#### `dependencies` (Optional)
+
+An optional array of dependencies. This is only relevant when using Reanimated without its Babel plugin on the Web.
+
+## Returns
+
+The hook returns an animated style object, which should be assigned to the `style` property of an Animated component you wish to animate. The `updater` callback provides a value resembling a regular style object that can incorporate shared values.
+
+## Example
+
+### Remarks
+
+- Animated styles override React Native's static styles. Values in animated styles take precedence over those from static styles.
+
+```typescript
+function App() {
+  const animatedStyles = useAnimatedStyle(() => ({
+    width: sv.value,
+  }));
+
+  return (
+    <Animated.View
+      style={[
+        animatedStyles, // ⚠️ overrides the static style width
+        { width: 100 },
+      ]}
+    />
+  );
+}
+```
+
+- The order of animated styles in a style array does not affect their application. The most recently updated animated style is applied.
+
+- Removing an animated style from a view does not revert values set by that style. To reset these values, explicitly set them to `undefined` within the animated style.
+
+- Modifying shared values inside the `useAnimatedStyle` callback can lead to undefined behavior and potential infinite loops.
+
+```typescript
+function App() {
+  const sv = useSharedValue(0);
+  const animatedStyles = useAnimatedStyle(() => {
+    sv.value = withTiming(1); // Avoid this!
+    return { opacity: sv.value };
+  });
+}
+```
+
+- Animated styles should only be applied to `Animated` components. Applying them to non-animated components will cause an error.
+
+- Define dynamic styles using `useAnimatedStyle`, while keeping static styles separate via the `StyleSheet` API or inline styles. This minimizes unnecessary style recalculations. Static and dynamic styles can be merged using array syntax:
+
+```typescript
+function App() {
+  const animatedStyles = useAnimatedStyle(() => ({
+    offset: sv.value,
+  }));
+
+  return <Animated.View style={[styles.box, animatedStyles]} />;
+}
+
+const styles = StyleSheet.create({
+  box: {
+    height: 120,
+    width: 120,
+    backgroundColor: '#b58df1',
+  },
+});
+```
+
+- Animated styles can be shared between components to reduce code duplication.
+
+- The callback for `useAnimatedStyle` executes on both the JavaScript and UI threads. To ensure thread-specific behavior, use the `global._WORKLET` variable:
+
+```typescript
+function App() {
+  const animatedStyles = useAnimatedStyle(() => {
+    if (global._WORKLET) {
+      // Code specific to the UI thread
+    } else {
+      // Fallback code for the JS thread
+    }
+  });
+}
+```
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

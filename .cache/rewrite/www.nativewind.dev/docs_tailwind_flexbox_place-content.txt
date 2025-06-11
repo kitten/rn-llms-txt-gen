@@ -1,0 +1,15 @@
+# Place Items
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                        | Support     |
+| ---------------------------- | ----------- |
+| `place-items-start`          | 🌐 Web only |
+| `place-items-end`            | 🌐 Web only |
+| `place-items-center`         | 🌐 Web only |
+| `place-items-baseline`       | 🌐 Web only |
+| `place-items-stretch`        | 🌐 Web only |

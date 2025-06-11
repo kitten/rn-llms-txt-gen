@@ -1,0 +1,12 @@
+# Opacity
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class               | Support        |
+|---------------------|----------------|
+| `opacity-{n}`       | ✅ Full Support |
+| `opacity-[n]`       | ✅ Full Support |

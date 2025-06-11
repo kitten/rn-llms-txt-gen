@@ -1,0 +1,153 @@
+# Installation Guide for react-native-gesture-handler
+
+## Requirements
+
+The `react-native-gesture-handler` library supports the three most recent minor versions of `react-native`. Below is a compatibility table:
+
+| Gesture Handler Version | React Native Version |
+|-------------------------|----------------------|
+| 2.24.0+                 | 0.75.0+              |
+| 2.21.0+                 | 0.74.0+              |
+| 2.18.0+                 | 0.73.0+              |
+| 2.16.0+                 | 0.68.0+              |
+| 2.14.0+                 | 0.67.0+              |
+| 2.10.0+                 | 0.64.0+              |
+| 2.0.0+                  | 0.63.0+              |
+
+To fully leverage touch events, ensure you are using `react-native-reanimated` version 2.3.0 or newer.
+
+### Installation Steps
+
+#### Step 1: Install the Package
+
+Choose one of the following methods to install:
+
+- **EXPO**
+  
+  ```bash
+  npx expo install react-native-gesture-handler
+  ```
+
+- **NPM**
+
+  ```bash
+  npm install react-native-gesture-handler
+  ```
+
+- **YARN**
+
+  ```bash
+  yarn add react-native-gesture-handler
+  ```
+
+#### Step 2: Wrap Your App with `GestureHandlerRootView`
+
+```typescript
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+export default function App() {
+  return (
+    <GestureHandlerRootView>
+      <ActualApp />
+    </GestureHandlerRootView>
+  );
+}
+```
+
+- If no styles are provided, it defaults to `flex: 1`. Ensure custom styles include `flex: 1` to render your app correctly.
+- Place `GestureHandlerRootView` as close to the root of your application as possible. Gestures outside this view won't be recognized.
+
+**Tip:** For component libraries using gesture handlers, wrap the library code with `GestureHandlerRootView`.
+
+#### Step 3: Platform-Specific Setup
+
+##### Expo Development Build
+
+For Expo development builds, update native code in iOS and Android directories:
+
+```bash
+npx expo prebuild
+```
+
+##### Android
+
+No additional steps are required for Android. For gestures within Modals, wrap the content with `GestureHandlerRootView`:
+
+```typescript
+import { Modal } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+export function CustomModal({ children, ...rest }) {
+  return (
+    <Modal {...rest}>
+      <GestureHandlerRootView>
+        {children}
+      </GestureHandlerRootView>
+    </Modal>
+  );
+}
+```
+
+###### Kotlin
+
+To specify a Kotlin version for Gesture Handler on Android, set the `kotlinVersion` in your `android/build.gradle`:
+
+```groovy
+buildscript {
+    ext {
+        kotlinVersion = "1.6.21"
+    }
+}
+```
+
+##### iOS
+
+Before running your app during development, install pods:
+
+```bash
+cd ios && pod install && cd ..
+```
+
+##### Web
+
+No additional configuration is needed for the web. From version 2.10.0, a new implementation is enabled by default. Verify gesture behavior matches native platforms. To revert to the legacy implementation, add this at the start of your `index.js`:
+
+```typescript
+import { enableLegacyWebImplementation } from 'react-native-gesture-handler';
+
+enableLegacyWebImplementation(true);
+```
+
+Adapting to the new implementation is recommended as the legacy version will be deprecated in future releases.
+
+##### With wix/react-native-navigation
+
+When using native navigation libraries like `wix/react-native-navigation`, ensure each screen is wrapped with `GestureHandlerRootView` using `gestureHandlerRootHOC`. This can be done during screen registration:
+
+```typescript
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import { Navigation } from 'react-native-navigation';
+import FirstTabScreen from './FirstTabScreen';
+import SecondTabScreen from './SecondTabScreen';
+import PushedScreen from './PushedScreen';
+
+export function registerScreens() {
+  Navigation.registerComponent(
+    'example.FirstTabScreen',
+    () => gestureHandlerRootHOC(FirstTabScreen),
+    () => FirstTabScreen
+  );
+  Navigation.registerComponent(
+    'example.SecondTabScreen',
+    () => gestureHandlerRootHOC(SecondTabScreen),
+    () => SecondTabScreen
+  );
+  Navigation.registerComponent(
+    'example.PushedScreen',
+    () => gestureHandlerRootHOC(PushedScreen),
+    () => PushedScreen
+  );
+}
+```
+
+Ensure each screen in your app is wrapped with `GestureHandlerRootView` as native navigation libraries map each screen to a separate root view.

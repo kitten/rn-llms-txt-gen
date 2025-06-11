@@ -1,0 +1,12 @@
+# List Style Position
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                | Support        |
+| -------------------- | -------------- |
+| `list-inside`        | ✅ Full Support |
+| `list-outside`       | ✅ Full Support |

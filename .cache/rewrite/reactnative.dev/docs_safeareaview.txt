@@ -1,0 +1,17 @@
+# SafeAreaView Overview
+
+The `SafeAreaView` component ensures that content is displayed within the safe area boundaries of a device. It's specifically designed for iOS devices running version 11 or later.
+
+This component automatically adjusts padding to account for areas not covered by navigation bars, tab bars, toolbars, and other ancestor views. Importantly, it also considers physical screen limitations like rounded corners or camera notches (e.g., the sensor housing area on iPhone 13).
+
+## Usage Example
+
+To implement `SafeAreaView`, wrap your top-level view with it and apply a style of `flex: 1`. Consider using a background color that aligns with your application's design.
+
+## Reference Details
+
+### Props
+
+#### View Props
+
+`SafeAreaView` inherits all View Props. Note that any padding specified in styles applied to a `SafeAreaView` will be ignored, as the component uses its own padding logic. This can lead to different results across platforms. For more details, refer to issue #22211.

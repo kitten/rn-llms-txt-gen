@@ -1,0 +1,25 @@
+# Gradient Color Stops
+
+| Class                    | Support     |
+| ------------------------ | ----------- |
+| `from-inherit`           | 🌐 Web only |
+| `from-current`           | 🌐 Web only |
+| `from-transparent`       | 🌐 Web only |
+| `from-black`             | 🌐 Web only |
+| `from-white`             | 🌐 Web only |
+| `from-{n}`               | 🌐 Web only |
+| `from-[n]`               | 🌐 Web only |
+| `via-inherit`            | 🌐 Web only |
+| `via-current`            | 🌐 Web only |
+| `via-transparent`        | 🌐 Web only |
+| `via-black`              | 🌐 Web only |
+| `via-white`              | 🌐 Web only |
+| `via-{n}`                | 🌐 Web only |
+| `via-[n]`                | 🌐 Web only |
+| `to-inherit`             | 🌐 Web only |
+| `to-current`             | 🌐 Web only |
+| `to-transparent`         | 🌐 Web only |
+| `to-black`               | 🌐 Web only |
+| `to-white`               | 🌐 Web only |
+| `to-{n}`                 | 🌐 Web only |
+| `to-[n]`                 | 🌐 Web only |

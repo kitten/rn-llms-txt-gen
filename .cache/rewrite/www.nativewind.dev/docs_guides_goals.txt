@@ -1,0 +1,48 @@
+# Goals & Non-Goals
+
+Nativewind was developed by a compact team with specific objectives and limitations in mind. These goals closely mirror those of Tailwind CSS, incorporating the best practices for crafting universal applications.
+
+## Goals
+
+### Utility Framework Focus
+
+Tailwind is not intended as an all-encompassing styling solution; it's not suitable for every styling need and doesn't address every scenario. It aims to offer a stable API that caters to most use cases.
+
+### Universal Platform Support
+
+Our aim is to foster universal applications, treating all platforms equally. The library should generate styles in the format best suited for each platform (e.g., `StyleSheet.create` on native platforms, CSS StyleSheet on web).
+
+Components and styles must be transferable across platforms while maintaining their intended functionality.
+
+### Alignment with Tailwind CSS
+
+The design choices and implementation specifics of Tailwind CSS are adopted by this library. Occasionally, this may conflict with typical React Native practices but facilitates better integration with external tools and a universal experience.
+
+Examples include:
+
+- Utilization of the `className` property
+- Use of `className` as a single string without support for arrays
+
+## Non-Goals
+
+### Full Compatibility with All Libraries
+
+A frequent inquiry is: How does this integrate with animation libraries? (e.g., Reanimated 2, Moti)
+
+Response: This is not an objective of the project; any compatibility is coincidental.
+
+Tailwind CSS offers minimal animation support and no compatibility with libraries that don't accept CSS classes.
+
+In a traditional web application using Tailwind CSS + Framer Motion, these systems operate independently without overlap.
+
+When employing Nativewind, it's advisable to adopt this philosophy and adapt to the available tools (whether this library, `StyleSheet.create`, inline styles, etc.).
+
+### Web Polyfill
+
+This library includes some basic shims for web functionality but does not aim for complete compatibility.
+
+These shims are selected based on: ease of implementation, maintenance burden, community benefit, and minimal runtime impact.
+
+Features like property `gap` or `grid` support are better implemented upstream within React Native.
+
+If you wish to see a specific shim added, please open an issue for consideration.

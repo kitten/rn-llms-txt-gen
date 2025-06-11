@@ -1,0 +1,6 @@
+# Responsive Design in Nativewind
+
+**Note:**  
+The default theme of Nativewind is not specifically tailored for native devices. It currently employs breakpoints that are primarily intended for web applications.
+
+Nativewind's approach to responsive design mirrors that of Tailwind CSS. For detailed information, please consult the official Tailwind CSS documentation.

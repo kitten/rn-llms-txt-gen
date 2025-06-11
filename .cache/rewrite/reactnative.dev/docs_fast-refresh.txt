@@ -1,0 +1,49 @@
+# Fast Refresh in React Native
+
+Fast Refresh is a feature in React Native that provides near-instant feedback when changes are made to your React components. By default, this feature is enabled and can be toggled through the "Enable Fast Refresh" option in the React Native Dev Menu. With it activated, most edits should become visible within seconds.
+
+## How It Works
+
+- **React Component Exports**: If you modify a module that exclusively exports React components, Fast Refresh will update only that specific module and re-render your component. This includes changes to styles, rendering logic, event handlers, or effects.
+  
+- **Non-Component Exports**: When editing a module with non-component exports, Fast Refresh triggers a re-run of both the edited module and any other modules importing it. For instance, if `Button.js` and `Modal.js` both import `Theme.js`, changes to `Theme.js` will update both components.
+
+- **Non-React Imports**: If you edit a file imported by non-React tree modules, Fast Refresh defaults to a full reload. This often occurs when a component exports values used by non-React utilities. To maintain Fast Refresh functionality, consider moving such constants to separate files and importing them where needed.
+
+## Error Resilience
+
+Fast Refresh is designed to handle errors gracefully:
+
+- **Syntax Errors**: Fixing syntax errors during a session will remove the redbox error message without requiring an app reload.
+  
+- **Runtime Initialization Errors**: Errors occurring during module initialization (e.g., `Style.create` instead of `StyleSheet.create`) allow the session to continue once corrected, with the redbox disappearing and the module updating.
+
+- **Component Runtime Errors**: Even if a runtime error occurs within your component, Fast Refresh continues after fixing it. React will remount the application using the updated code.
+
+Error boundaries in your app can help manage errors gracefully by retrying rendering on subsequent edits, preventing constant fallback to the root screen. However, they should not be overly granular and must be used intentionally.
+
+## Limitations
+
+While Fast Refresh aims to preserve local React state during edits, there are scenarios where it may reset:
+
+- **Class Components**: State is not preserved for class components; only function components and Hooks maintain state.
+  
+- **Multiple Exports**: Modules with additional exports besides a React component might see their state reset.
+
+- **Higher-Order Component Results**: If a module exports the result of a higher-order component like `createNavigationContainer(MyScreen)` and returns a class, its state will be reset.
+
+As more code transitions to function components and Hooks, state preservation is expected to improve.
+
+## Tips
+
+- Fast Refresh inherently preserves local React state in function components (and Hooks).
+  
+- To force a component remount on every edit—useful for animations that occur on mount—you can add `// @refresh reset` within the file being edited. This directive instructs Fast Refresh to remount components defined in that file with each edit.
+
+## Fast Refresh and Hooks
+
+Fast Refresh attempts to maintain your component's state between edits, particularly for `useState` and `useRef`, as long as their arguments or Hook call order remain unchanged.
+
+Hooks with dependencies (e.g., `useEffect`, `useMemo`, `useCallback`) will always update during Fast Refresh, ignoring dependency lists. For instance, changing `useMemo(() => x * 2, [x])` to `useMemo(() => x * 10, [x])` triggers a re-run even if the dependency `x` hasn't changed. This ensures your edits are reflected on screen.
+
+This behavior can lead to unexpected results, such as an empty-array `useEffect` running once during Fast Refresh. Writing resilient code for occasional `useEffect` re-runs is beneficial and aligns with best practices, facilitating future dependency additions.

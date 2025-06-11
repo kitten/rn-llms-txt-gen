@@ -1,0 +1,12 @@
+# Isolation
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                  | Support     |
+|------------------------|-------------|
+| `isolate`              | 🌐 Web only |
+| `isolation-auto`       | 🌐 Web only |

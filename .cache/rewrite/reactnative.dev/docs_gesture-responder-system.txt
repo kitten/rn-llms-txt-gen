@@ -1,0 +1,63 @@
+# Gesture Responder System
+
+The gesture responder system orchestrates the lifecycle of gestures within your application. A touch can traverse multiple phases as the app discerns the user's intent—whether it involves scrolling, sliding on a widget, or tapping—and this determination may evolve during the touch duration. Additionally, there can be concurrent touches.
+
+This system is essential for enabling components to negotiate touch interactions without requiring knowledge of their parent or child components.
+
+## Best Practices
+
+To enhance your app's usability and user experience, ensure every action possesses these attributes:
+
+- **Feedback/Highlighting**: Clearly indicate what element is responding to the user's touch and what will occur upon gesture release.
+- **Cancelability**: Allow users to abort an ongoing action mid-touch by dragging their finger away.
+
+These features foster a comfortable interaction environment, encouraging experimentation without fear of errors.
+
+## TouchableHighlight and Touchable\*
+
+The responder system can be intricate. To simplify its use, we provide an abstract `Touchable` implementation for elements intended to be "tappable." This leverages the responder system, enabling you to configure tap interactions declaratively. Use `TouchableHighlight` in scenarios where buttons or links are typically employed on web platforms.
+
+## Responder Lifecycle
+
+A view can become a touch responder by implementing appropriate negotiation methods. There are two primary methods for querying if a view wishes to assume this role:
+
+- `View.props.onStartShouldSetResponder: evt => true`: Should the view become the responder at the start of a touch?
+- `View.props.onMoveShouldSetResponder: evt => true`: For every touch move on the View when it is not yet the responder, does it wish to claim touch responsiveness?
+
+If the view returns true and attempts to become the responder, one of these events will occur:
+
+- `View.props.onResponderGrant: evt => {}`: The view now handles touch events. This is an opportunity to provide feedback and highlight interactions.
+- `View.props.onResponderReject: evt => {}`: Another entity currently holds the responder status and will not relinquish it.
+
+If a view is responding, these handlers may be invoked:
+
+- `View.props.onResponderMove: evt => {}`: The user moves their finger.
+- `View.props.onResponderRelease: evt => {}`: This event marks the end of the touch (i.e., "touchUp").
+- `View.props.onResponderTerminationRequest: evt => true`: Another entity seeks to become the responder. Should this view release it? Returning true permits release.
+- `View.props.onResponderTerminate: evt => {}`: The responder status has been transferred from the View, possibly due to other views or system actions (e.g., control center/notification center on iOS).
+
+The event (`evt`) is a synthetic touch event with attributes such as:
+
+- `nativeEvent`
+  - `changedTouches`: Array of all touch events that have changed since the last event.
+  - `identifier`: The ID of the touch.
+  - `locationX`: X position relative to the element.
+  - `locationY`: Y position relative to the element.
+  - `pageX`: X position relative to the root element.
+  - `pageY`: Y position relative to the root element.
+  - `target`: Node ID of the element receiving the touch event.
+  - `timestamp`: Time identifier for the touch, useful for velocity calculations.
+  - `touches`: Array of all current touches on the screen.
+
+### Capture ShouldSet Handlers
+
+`onStartShouldSetResponder` and `onMoveShouldSetResponder` are invoked in a bubbling pattern, starting from the deepest node. This ensures that the deepest component becomes the responder when multiple Views return true for these handlers, which is generally desirable as it maintains control and button usability.
+
+However, if a parent view needs to ensure it becomes the responder, this can be managed using the capture phase. Before the responder system bubbles up from the deepest component, it executes a capture phase, invoking `on*ShouldSetResponderCapture`. Thus, if a parent View intends to prevent a child from becoming the responder at touch start, it should implement an `onStartShouldSetResponderCapture` handler that returns true.
+
+- `View.props.onStartShouldSetResponderCapture: evt => true`
+- `View.props.onMoveShouldSetResponderCapture: evt => true`
+
+### PanResponder
+
+For more advanced gesture interpretation, consider using PanResponder.

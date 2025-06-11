@@ -1,0 +1,112 @@
+# Navigating Between Screens
+
+Mobile applications typically consist of multiple screens, necessitating effective management of screen presentation and transitions. This is often achieved using a navigator component. This guide explores various navigation components available in React Native, with a focus on React Navigation for straightforward stack and tabbed navigation patterns across both Android and iOS platforms.
+
+For projects integrating React Native into existing apps that manage navigation natively or seeking alternatives to React Navigation, consider the `react-native-navigation` library, which offers native navigation solutions for both platforms.
+
+## React Navigation
+
+React Navigation is a community-driven standalone library designed to simplify screen setup in an app with minimal code. 
+
+### Installation and Setup
+
+To begin using React Navigation, install the necessary packages:
+
+```shell
+npm install @react-navigation/native @react-navigation/native-stack
+```
+
+Next, install peer dependencies based on your project type:
+
+- **Expo Managed Project:**
+
+  ```shell
+  npx expo install react-native-screens react-native-safe-area-context
+  ```
+
+- **Bare React Native Project:**
+
+  ```shell
+  npm install react-native-screens react-native-safe-area-context
+  ```
+
+  For iOS, ensure CocoaPods is installed and run:
+
+  ```shell
+  cd ios
+  pod install
+  cd ..
+  ```
+
+> Note: Post-installation warnings related to peer dependencies are common due to version range issues in some packages. These can generally be ignored if the app builds successfully.
+
+Wrap your entire application within a `NavigationContainer`, typically done in your entry file (`index.js` or `App.js`):
+
+```typescript
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      {/* Rest of your app code */}
+    </NavigationContainer>
+  );
+};
+
+export default App;
+```
+
+### Usage
+
+Create an application with a home screen and a profile screen as follows:
+
+```typescript
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+const MyStack = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Welcome' }}
+        />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+```
+
+In this setup, two screens (`Home` and `Profile`) are defined using the `Stack.Screen` component. You can define additional screens as needed.
+
+Options such as screen titles can be set via the `options` prop of `Stack.Screen`.
+
+Each screen requires a `component` prop that is a React component. These components receive a `navigation` prop, which includes methods to navigate between screens. For instance, use `navigation.navigate` to transition to the `Profile` screen:
+
+```typescript
+const HomeScreen = ({ navigation }) => {
+  return (
+    <Button
+      title="Go to Jane's profile"
+      onPress={() =>
+        navigation.navigate('Profile', { name: 'Jane' })
+      }
+    />
+  );
+};
+
+const ProfileScreen = ({ navigation, route }) => {
+  return <Text>This is {route.params.name}'s profile</Text>;
+};
+```
+
+The `native-stack` navigator leverages native APIs (`UINavigationController` on iOS and `Fragment` on Android), ensuring consistent behavior and performance with natively built apps.
+
+React Navigation also offers packages for different navigators, such as tabs and drawers, enabling various navigation patterns in your app. For a comprehensive introduction to React Navigation, refer to the React Navigation Getting Started Guide.

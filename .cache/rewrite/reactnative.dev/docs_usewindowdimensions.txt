@@ -1,0 +1,56 @@
+# useWindowDimensions
+
+```typescript
+import { useWindowDimensions } from 'react-native';
+```
+
+`useWindowDimensions` is a hook that automatically updates its values when there are changes in screen size or font scale. It provides the current window's width and height, which can be accessed as follows:
+
+```typescript
+const { height, width } = useWindowDimensions();
+```
+
+## Example
+
+## Properties
+
+### `fontScale`
+
+```typescript
+useWindowDimensions().fontScale;
+```
+
+This property indicates the current font size scale. Some operating systems allow users to adjust their font sizes for better readability. This value reflects any such adjustments.
+
+***
+
+### `height`
+
+```typescript
+useWindowDimensions().height;
+```
+
+Represents the height in pixels of the window or screen that your application occupies.
+
+***
+
+### `scale`
+
+```typescript
+useWindowDimensions().scale;
+```
+
+This property provides the pixel ratio of the device. Possible values include:
+
+- `1`: One point equals one pixel (commonly PPI/DPI of 96, 76 on some platforms).
+- `2` or `3`: Indicates a Retina or high DPI display.
+
+***
+
+### `width`
+
+```typescript
+useWindowDimensions().width;
+```
+
+Indicates the width in pixels of the window or screen that your application occupies.

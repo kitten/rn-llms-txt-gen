@@ -1,0 +1,23 @@
+# Object Fit
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+## Compatibility
+
+| Class                     | Support     |
+| ------------------------- | ----------- |
+| `object-contain`          | 🌐 Web only |
+| `object-cover`            | 🌐 Web only |
+| `object-fill`             | 🌐 Web only |
+| `object-none`             | 🌐 Web only |
+| `object-scale-down`       | 🌐 Web only |
+
+## Contributors
+
+We welcome contributions in the following areas:
+
+### Add `object-fit`
+
+The `object-fit` property was introduced in React Native version 0.71.

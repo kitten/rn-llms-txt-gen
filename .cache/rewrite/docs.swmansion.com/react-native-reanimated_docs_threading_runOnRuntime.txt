@@ -1,0 +1,52 @@
+# runOnRuntime
+
+The `runOnRuntime` function allows you to execute workletized functions asynchronously on a separate worklet runtime, which operates on a different thread.
+
+## Reference
+
+```typescript
+import { createWorkletRuntime, runOnRuntime } from 'react-native-reanimated';
+
+const workletRuntime = createWorkletRuntime('background');
+
+function App() {
+  // Example usage in an event handler or effect
+  runOnRuntime(workletRuntime, (greeting) => {
+    console.log(`${greeting} from a separate thread`);
+  })('Howdy');
+
+  // ...
+}
+```
+
+### Arguments
+
+#### workletRuntime
+
+A reference to the worklet runtime created using `createWorkletRuntime`.
+
+#### fn
+
+A function intended for execution on the UI thread from the JavaScript thread. The arguments for this function must be passed to the function returned by `runOnUI`, e.g., `runOnUI(myWorklet)(10)`.
+
+### Returns
+
+`runOnRuntime` returns a function that accepts arguments for the function provided as its first argument.
+
+**Note:** Ensure you call the function returned from `runOnRuntime`.
+
+## Remarks
+
+- A common mistake is to execute a function inside of `runOnRuntime` incorrectly, such as: ~~`runOnRuntime(myWorklet(10))()`~~. The correct usage is `runOnRuntime(myWorklet)(10)`.
+
+- The callback passed as an argument will not be automatically workletized. You must manually add the `'worklet';` directive to enable execution on the UI thread.
+
+- `runOnRuntime` can be called on any runtime, including the RN runtime, UI runtime, and other worklet runtimes.
+
+- The function provided to `runOnRuntime` is added to an execution queue on a separate thread and executed asynchronously on the specified worklet runtime. Functions are executed in the order they were queued.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ❌  |

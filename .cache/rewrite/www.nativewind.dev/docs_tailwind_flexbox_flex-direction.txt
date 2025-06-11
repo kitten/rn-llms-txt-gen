@@ -1,0 +1,28 @@
+# Flex Direction
+
+## Usage
+
+For detailed information, please consult the Tailwind CSS documentation.
+
+:::tip React Native uses a different default flex direction compared to web. It is advisable to explicitly set the Flex Direction on your components. :::
+
+## Compatibility
+
+| Class                    | Support        |
+| ------------------------ | -------------- |
+| `flex-row`               | ✅ Full Support |
+| `flex-row-reverse`       | ✅ Full Support |
+| `flex-col`               | ✅ Full Support |
+| `flex-col-reverse`       | ✅ Full Support |
+
+```typescript
+// Example TypeScript typings for flex direction classes
+
+type FlexDirectionClass = 
+  'flex-row' | 
+  'flex-row-reverse' | 
+  'flex-col' | 
+  'flex-col-reverse';
+```
+
+This section provides guidance on using flex direction in your projects, emphasizing the importance of setting it explicitly in React Native due to its different default behavior compared to web environments. The compatibility table confirms full support for all specified classes.

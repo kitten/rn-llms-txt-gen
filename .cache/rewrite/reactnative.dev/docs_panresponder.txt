@@ -1,0 +1,100 @@
+# PanResponder
+
+The `PanResponder` component in React Native helps manage touch gestures by consolidating multiple touches into a single gesture. It ensures that single-touch gestures remain unaffected by additional touches and can recognize basic multi-touch gestures.
+
+By default, `PanResponder` uses an `InteractionManager` to prevent long-running JavaScript events from interrupting active gestures. It provides a consistent interface for responder handlers within the gesture responder system. Each handler receives a new `gestureState` object along with the native event:
+
+```typescript
+onPanResponderMove: (event, gestureState) => {}
+```
+
+A native event is a synthetic touch event of type `PressEvent`.
+
+The `gestureState` object includes:
+
+- `stateID`: ID of the gesture state, which persists as long as there's at least one touch on screen.
+- `moveX`: Latest X coordinate of the recently moved touch.
+- `moveY`: Latest Y coordinate of the recently moved touch.
+- `x0`: Initial X coordinate when the responder was granted.
+- `y0`: Initial Y coordinate when the responder was granted.
+- `dx`: Accumulated distance in the X direction since the gesture started.
+- `dy`: Accumulated distance in the Y direction since the gesture started.
+- `vx`: Current velocity of the gesture in the X direction.
+- `vy`: Current velocity of the gesture in the Y direction.
+- `numberActiveTouches`: Number of touches currently on screen.
+
+## Usage Pattern
+
+```typescript
+const ExampleComponent = () => {
+  const panResponder = React.useRef(
+    PanResponder.create({
+      // Ask to be the responder:
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+
+      onPanResponderGrant: (evt, gestureState) => {
+        // The gesture has started. Show visual feedback to the user.
+        // gestureState.dx and gestureState.dy will be set to zero now
+      },
+      onPanResponderMove: (evt, gestureState) => {
+        // Use gestureState.moveX and gestureState.moveY for recent move distance
+        // Use gestureState.dx and gestureState.dy for accumulated gesture distance
+      },
+      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderRelease: (evt, gestureState) => {
+        // The user has released all touches while this view is the responder.
+        // This typically means a gesture has succeeded
+      },
+      onPanResponderTerminate: (evt, gestureState) => {
+        // Another component has become the responder; cancel this gesture
+      },
+      onShouldBlockNativeResponder: (evt, gestureState) => true,
+    })
+  ).current;
+
+  return <View {...panResponder.panHandlers} />;
+};
+```
+
+## Example
+
+`PanResponder` can be used with the `Animated` API to create complex gestures in the UI. For instance, an animated `View` component can be dragged freely across the screen.
+
+Try the PanResponder example in RNTester.
+
+## Reference
+
+### Methods
+
+#### `create()`
+
+```typescript
+static create(config: PanResponderCallbacks): PanResponderInstance;
+```
+
+**Parameters:**
+
+| Name           | Type   | Description |
+| -------------- | ------ | ----------- |
+| configRequired | object | Refer below |
+
+The `config` object provides enhanced versions of all responder callbacks, including the `PanResponder` gesture state. Replace `onResponder*` with `onPanResponder*`. For example:
+
+- `onMoveShouldSetPanResponder: (e, gestureState) => {...}`
+- `onMoveShouldSetPanResponderCapture: (e, gestureState) => {...}`
+- `onStartShouldSetPanResponder: (e, gestureState) => {...}`
+- `onStartShouldSetPanResponderCapture: (e, gestureState) => {...}`
+- `onPanResponderReject: (e, gestureState) => {...}`
+- `onPanResponderGrant: (e, gestureState) => {...}`
+- `onPanResponderStart: (e, gestureState) => {...}`
+- `onPanResponderEnd: (e, gestureState) => {...}`
+- `onPanResponderRelease: (e, gestureState) => {...}`
+- `onPanResponderMove: (e, gestureState) => {...}`
+- `onPanResponderTerminate: (e, gestureState) => {...}`
+- `onPanResponderTerminationRequest: (e, gestureState) => {...}`
+- `onShouldBlockNativeResponder: (e, gestureState) => {...}`
+
+For events with capture equivalents, the gesture state is updated once in the capture phase and can be used in the bubble phase. Be cautious with `onStartShould*` callbacks; they only reflect updated `gestureState` for start/end events that bubble/capture to the Node. Once a node becomes the responder, every start/end event updates the `gestureState`. Note that `numberActiveTouches` may not always be accurate unless you are the responder.

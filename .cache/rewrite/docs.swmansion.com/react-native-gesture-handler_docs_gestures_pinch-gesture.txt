@@ -1,0 +1,110 @@
+# Pinch Gesture
+
+A continuous gesture that recognizes pinch gestures, allowing for tracking the distance between two fingers to scale or zoom content. The gesture activates when fingers are placed on the screen and change their position. A callback can be used for continuous tracking of the pinch gesture, providing information about velocity, anchor (focal) point, and scale.
+
+The distance between the fingers is reported as a scale factor. At the beginning of the gesture, the scale factor is 1.0. As the distance between two fingers increases, the scale factor increases proportionally; it decreases as the distance reduces. Pinch gestures are commonly used to change the size of objects or content onscreen, such as adjusting the zoom level of map views.
+
+## Example
+
+```typescript
+import { StyleSheet } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+
+export default function App() {
+  const scale = useSharedValue(1);
+  const savedScale = useSharedValue(1);
+
+  const pinchGesture = Gesture.Pinch()
+    .onUpdate((e) => {
+      scale.value = savedScale.value * e.scale;
+    })
+    .onEnd(() => {
+      savedScale.value = scale.value;
+    });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <GestureDetector gesture={pinchGesture}>
+      <Animated.View style={[styles.box, animatedStyle]} />
+    </GestureDetector>
+  );
+}
+
+const styles = StyleSheet.create({
+  box: {
+    height: 120,
+    width: 120,
+    backgroundColor: '#b58df1',
+    borderRadius: 20,
+    marginBottom: 30,
+  },
+});
+```
+
+## Configuration
+
+### Properties Common to All Gestures:
+
+| Property | Description |
+|----------|-------------|
+| `enabled(value: boolean)` | Indicates whether the handler should analyze touch events. Default is `true`. If set to `false`, the handler's state will never become `ACTIVE`. |
+| `shouldCancelWhenOutside(value: boolean)` | When `true`, cancels or fails recognition if a finger leaves the view area. Defaults vary by gesture type; most are `false` except for `LongPressGesture` and `TapGesture`, which default to `true`. |
+| `hitSlop(settings)` | Controls the activation area of the gesture within the connected view. Negative numbers reduce bounds evenly, while objects can specify reductions per side or edge. Positive values on Android expand beyond view bounds but not past parent view bounds. Use React Native's View hitSlop for cross-platform support. |
+| `withRef(ref)` | Sets a ref to the gesture object for interoperability with older APIs. |
+| `withTestId(testID)` | Assigns a `testID` property for querying in tests. |
+| `cancelsTouchesInView(value)` (**iOS only**) | When `true`, cancels touches for native UI components when active. Default is `true`. |
+| `runOnJS(value: boolean)` | Determines if callbacks run on the JS thread (`true`) or UI thread (`false`). Defaults to `false` with `react-native-reanimated`. |
+| `simultaneousWithExternalGesture(otherGesture1, otherGesture2, ...)` | Marks gestures for simultaneous recognition without composing them. Requires additional detectors for recognition. |
+| `requireExternalGestureToFail(otherGesture1, otherGesture2, ...)` | Adds a relation requiring another gesture to fail before activation. Does not compose gestures; requires additional detectors. |
+| `blocksExternalGesture(otherGesture1, otherGesture2, ...)` | Makes other gestures wait until this one fails or doesn't start. Marks relations without composing gestures; requires additional detectors. |
+| `activeCursor(value)` (**Web only**) | Specifies the cursor when the gesture activates. Supports CSS cursor values (e.g., `"grab"`, `"zoom-in"`). Default is `"auto"`. |
+
+### Properties Common to All Continuous Gestures:
+
+- **`manualActivation(value: boolean)`**: When `true`, prevents automatic activation even if criteria are met, allowing manual state manipulation.
+
+## Callbacks
+
+### Callbacks Common to All Gestures:
+
+| Callback | Description |
+|----------|-------------|
+| `onBegin(callback)` | Called when the gesture handler starts receiving touches but is not yet active. |
+| `onStart(callback)` | Called when the gesture is recognized and transitions to an active state. |
+| `onEnd(callback)` | Called when a recognized gesture finishes, provided it was previously active. |
+| `onFinalize(callback)` | Called when handling finalizes—either recognition completes or fails. |
+| `onTouchesDown(callback)` | Triggered every time a finger is placed on the screen. |
+| `onTouchesMove(callback)` | Triggered every time a finger moves on the screen. |
+| `onTouchesUp(callback)` | Triggered every time a finger is lifted from the screen. |
+| `onTouchesCancelled(callback)` | Triggered when a finger stops being tracked, such as when a gesture finishes. |
+
+### Callbacks Common to All Continuous Gestures:
+
+- **`onUpdate(callback)`**: Called with each update while the gesture is active.
+- **`onChange(callback)`**: Called with updates during activity, providing change information relative to the last event.
+
+## Event Data
+
+### Attributes Specific to `PinchGesture`:
+
+| Attribute | Description |
+|-----------|-------------|
+| `scale` | Scale factor relative to touch points in screen coordinates. |
+| `velocity` | Velocity of the gesture at the current moment, expressed as scale factor per second. |
+| `focalX` | X-axis position of the center anchor point of the gesture in points. |
+| `focalY` | Y-axis position of the center anchor point of the gesture in points. |
+
+### Attributes Common to All Gestures:
+
+| Attribute | Description |
+|-----------|-------------|
+| `state` | Current state of the handler, expressed as a constant from the `State` object. |
+| `numberOfPointers` | Number of pointers (fingers) currently on the screen. |
+| `pointerType` | Type of pointer device in use, represented by the `PointerType` enum: `TOUCH`, `STYLUS`, `MOUSE`, `KEY`, or `OTHER`. |

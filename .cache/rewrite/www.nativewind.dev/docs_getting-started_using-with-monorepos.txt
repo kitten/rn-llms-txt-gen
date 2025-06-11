@@ -1,0 +1,35 @@
+# Using Nativewind with Monorepos
+
+Learn how to integrate Nativewind into monorepo environments such as those managed by Nx.
+
+Nativewind can be seamlessly integrated into an Nx Monorepo that is already set up with Expo and the corresponding plugin `@nx/expo`.
+
+## Setting Up NX Monorepo
+
+When incorporating Nativewind into an Nx monorepo, specific configurations are necessary to ensure smooth integration. The primary challenge lies in configuring the Metro bundler to work effectively alongside both Nx and Nativewind.
+
+### Prerequisites
+
+Begin by setting up your Expo project within Nx according to the standard Expo setup guide. You can skip the initial `metro.config.js` configuration as it will be addressed here.
+
+### Modifying metro.config.js
+
+To integrate the Nativewind plugin into your `metro.config.js`, use a promise chain as demonstrated below:
+
+```typescript
+const { withNativeWind } = require("nativewind/metro");
+
+// ... existing Nx configuration
+
+module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
+  // ... existing Nx config
+}).then((config) => withNativeWind(config, { input: "./global.css" }));
+```
+
+## Additional Resources
+
+For more complex monorepo setups or specific issues, consider consulting:
+
+- NX documentation for React Native
+- NX documentation for Expo
+- Expo documentation for monorepos

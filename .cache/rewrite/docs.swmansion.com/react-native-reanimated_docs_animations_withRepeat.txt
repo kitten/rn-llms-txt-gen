@@ -1,0 +1,54 @@
+# withRepeat
+
+`withRepeat` is an animation modifier that allows you to repeat a specified animation a certain number of times or indefinitely.
+
+## Reference
+
+```typescript
+import { withRepeat } from 'react-native-reanimated';
+
+function App() {
+  sv.value = withRepeat(withSpring(0), 5);
+  // ...
+}
+```
+
+### Arguments
+
+#### `animation`
+
+The animation object you wish to repeat.
+
+#### `numberOfReps` (Optional)
+
+Specifies how many times the animation should be repeated. The default is `2`.
+
+A non-positive value, such as `0` or `-1`, will cause the animation to repeat indefinitely until it is canceled or removed. For instance, if the component unmounts or `cancelAnimation` is invoked.
+
+#### `reverse` (Optional)
+
+Determines whether the animation should alternate directions with each repetition. The default setting is `false`.
+
+This feature only supports direct animation functions like `withSpring` and does not work with other animation modifiers such as `withSequence`.
+
+#### `callback` (Optional)
+
+A function that executes upon the completion of the animation. If the animation is canceled, the callback receives `false`; otherwise, it receives `true`.
+
+#### `reduceMotion` (Optional)
+
+Controls how the animation responds to the device's reduced motion accessibility setting.
+
+### Returns
+
+The `withRepeat` function returns an animation object representing the current state of the animation. This can be directly assigned to a shared value or used as a style object returned from `useAnimatedStyle`.
+
+## Remarks
+
+* The callback provided in the fourth argument is automatically workletized and executed on the UI thread.
+
+## Platform Compatibility
+
+| Android | iOS | Web |
+|---------|-----|-----|
+| ✅      | ✅  | ✅  |

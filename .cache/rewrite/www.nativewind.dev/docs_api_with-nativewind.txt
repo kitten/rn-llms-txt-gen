@@ -1,0 +1,29 @@
+# withNativeWind
+
+`withNativeWind` is a higher-order component designed to update your Metro configuration for NativeWind support.
+
+The essential option required is `input`, which specifies the relative path to your `.css` file.
+
+```typescript
+import { withNativeWind } from "native-wind/metro";
+
+module.exports = withNativeWind(config, {
+  input: "<relative path to your .css file>",
+});
+```
+
+## Options
+
+| Option               | Description                                                                                   | Default Value                                      |
+|----------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------|
+| `output`             | The relative path for the output file. Defaults to `<projectRoot>/node_modules/.cache/nativewind/`. | `<projectRoot>/node_modules/.cache/nativewind/`     |
+| `projectRoot`        | Absolute path to your project root, used only to set `output`.                                | N/A                                                |
+| `inlineRem`          | Numeric value for inlining the value of `rem` units on native. Set to `false` to disable this behavior. Defaults to `14`. | `14`                                               |
+| `configPath`         | Relative path to your `tailwind.config` file. Recommended to use `@config` instead.            | `tailwind.config`                                  |
+| `hotServerOptions`   | Options for the hot server, with a default configuration of `{ port: 8089 }`.                 | `{ port: 8089 }`                                   |
+
+### Experimental Options
+
+These options are available under the `experiments` key.
+
+- **`inlineAnimations`**: Utilizes `react-native-reanimated`'s inline shared values instead of hooks, enhancing performance but may cause issues with fast-refresh.

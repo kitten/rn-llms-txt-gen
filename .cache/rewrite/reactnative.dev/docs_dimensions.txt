@@ -1,0 +1,92 @@
+# Dimensions in React Native
+
+`useWindowDimensions` is the recommended API for React components, as it updates automatically with changes to the window's dimensions. This aligns well with the React paradigm.
+
+```typescript
+import { Dimensions } from 'react-native';
+```
+
+To obtain the application window's width and height, use:
+
+```typescript
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+```
+
+> Note: While dimensions are available immediately, they can change due to factors like device rotation or foldable devices. Therefore, rendering logic or styles dependent on these values should call this function on every render instead of caching the value (e.g., using inline styles rather than setting a value in a `StyleSheet`).
+
+For targeting foldable devices or those that can alter screen size or app window size, use the event listener provided by the Dimensions module as demonstrated below.
+
+## Example
+
+## Reference
+
+## Methods
+
+### `addEventListener()`
+
+```typescript
+static addEventListener(
+  type: 'change',
+  handler: ({
+    window,
+    screen,
+  }: DimensionsValue) => void,
+): EmitterSubscription;
+```
+
+Add an event handler. Supported events:
+
+- `change`: Triggers when a property within the `Dimensions` object changes. The argument to the event handler is of type `DimensionsValue`.
+
+***
+
+### `get()`
+
+```typescript
+static get(dim: 'window' | 'screen'): ScaledSize;
+```
+
+Initial dimensions are set before `runApplication` is called, making them available before any other requires are executed, though they may be updated later.
+
+Example usage:
+
+```typescript
+const { height, width } = Dimensions.get('window');
+```
+
+**Parameters:**
+
+| Name        | Type   | Description                                                                       |
+| ----------- | ------ | --------------------------------------------------------------------------------- |
+| dimRequired | string | The name of the dimension as defined when calling `set`. Returns value for the dimension. |
+
+> Note: On Android, the `window` dimension excludes the size used by the status bar (if not translucent) and bottom navigation bar.
+
+***
+
+## Type Definitions
+
+### DimensionsValue
+
+**Properties:**
+
+| Name   | Type       | Description                             |
+| ------ | ---------- | --------------------------------------- |
+| window | ScaledSize | Size of the visible Application window. |
+| screen | ScaledSize | Size of the device's screen.            |
+
+### ScaledSize
+
+| Type   |
+| ------ |
+| object |
+
+**Properties:**
+
+| Name      | Type   |
+| --------- | ------ |
+| width     | number |
+| height    | number |
+| scale     | number |
+| fontScale | number |

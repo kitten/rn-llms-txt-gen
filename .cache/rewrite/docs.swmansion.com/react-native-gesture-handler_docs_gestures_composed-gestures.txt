@@ -1,0 +1,25 @@
+# Composed Gestures
+
+Composed gestures such as `Race`, `Simultaneous`, and `Exclusive` offer a straightforward method for establishing relationships between different gestures. For further information, refer to the section on Gesture Composition.
+
+## Reference Example
+
+```typescript
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+
+function App() {
+  const panGesture = Gesture.Pan();
+  const longPressGesture = Gesture.LongPress();
+
+  // Compose gestures using Race
+  const composedGesture = Gesture.Race(panGesture, longPressGesture);
+
+  return (
+    <GestureDetector gesture={composedGesture}>
+      <Animated.View />
+    </GestureDetector>
+  );
+}
+```
+
+This example demonstrates how to use the `Race` method to compose two gestures: a pan gesture and a long press gesture. The composed gesture is then used within a `GestureDetector` component, which wraps an `Animated.View`.
