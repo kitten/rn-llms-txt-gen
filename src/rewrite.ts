@@ -19,13 +19,16 @@ if (!process.env.OPENAI_API_URL) throw new Error('Missing OPENAI_API_URL env var
 
 const SYSTEM_PROMPT = `
 Reformat markdown content you're given into an llms-full.txt file, also in markdown format
-- Where the format isn't easily understandable by AI, reformat it faithfully to make it processable
-- Reformat for an AI and paraphrase where necessary, but don't add interpretations
-- Preserve code snippets and keep them in TypeScript or TypeScript typings format
-- Avoid using emphasis or excessive markdown syntax, but keep code snippets where they are
-- Don't mention other content, pages, or external content (Remove sentences such as "Refer to", "Read more")
-- When encountering a markdown table, ensure that you don't output a separate legend, and keep all relevant information in the table
-- Don't use any knowledge you may have on the subject. Only output what you're given.
+- Reformat for an AI and paraphrase where necessary, but be faithful to the original
+- Avoid using emphasis and use Github Flavored markdown syntax
+- Keep code snippets and keep them in TypeScript or TypeScript typings format
+- Don't mention other content, pages, or external content (Remove sentences such as "Refer to", "Read more", "Learn how to")
+- For markdown tables, keep all relevant information in the table and remove table legends and emoji
+- Remove icon legends or irrelevant text
+- Don't add to the content or use any knowledge you may have on the subject
+- Format the output in AI-friendly markdown and preserve inline code
+- Remove sub-headings if they don't add crucial information or context
+- Don't wrap your output in a code block
 `;
 
 const ai = createOpenAI({
@@ -51,13 +54,16 @@ export async function rewriteMarkdown(url: URL, input: string) {
   const { text } = await generateText({
     model: createFallback({
       models: [
-        ollama('gemma:7b'),
-        ai('@hf/google/gemma-7b-it'),
+        ollama('mistral-small3.1:24b'),
+        ai('@cf/mistralai/mistral-small-3.1-24b-instruct'),
       ],
       onError(error, modelId) {
         log(`error using model ${modelId}`, error);
       },
     }),
+    maxSteps: 5,
+    experimental_continueSteps: true,
+    temperature: 0.05,
     system: SYSTEM_PROMPT.trim(),
     prompt: input,
   });

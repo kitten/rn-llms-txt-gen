@@ -76,6 +76,10 @@ class Root {
     }
   }
 
+  get origin() {
+    return this.#origin;
+  }
+
   getPage(url: URL) {
     let page = this.#pages.get(url.toString());
     if (!page) {
@@ -143,16 +147,16 @@ class Page {
   }
 }
 
-async function crawlPages(page: Page, visited = new Set<Page>([page])): Promise<Page[]> {
+async function crawlPages(page: Page, visited = new Set<Page>([page]), depth = 1): Promise<Page[]> {
   const links = await page.getLinks();
   if (links) {
-    log(`crawling (${links.length} links)`, page.url.pathname);
+    log(`crawling (${links.length} links, depth = ${depth})`, page.url.pathname);
     for (const link of links) {
       if (visited.has(link)) {
         continue;
       } else {
         visited.add(page);
-        await crawlPages(link, visited);
+        await crawlPages(link, visited, depth + 1);
       }
     }
   }
@@ -183,7 +187,7 @@ export async function crawl(opts: CrawlOptions): Promise<Page[]> {
     }
   }
   const kruskal = new KruskalMST(graph);
-  const output = new Set<Page>();
+  const output = new Set<Page>([root.origin]);
   for (const edge of kruskal.mst) {
     const page = pages[edge.from()];
     if (page) output.add(page);
