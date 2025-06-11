@@ -1,0 +1,7 @@
+{
+  "extends": "@tsconfig/bun",
+  "compilerOptions": {
+    "lib": ["DOM"]
+  },
+  "include": ["**/*.ts"]
+}

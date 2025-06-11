@@ -1,0 +1,33 @@
+{
+  "name": "llms-txt-gen",
+  "private": true,
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "start": "DEBUG=* bun src/index.ts"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "@tsconfig/bun": "^1.0.8",
+    "debug": "^4.4.1",
+    "happy-dom": "^18.0.1",
+    "hast-util-sanitize": "^5.0.2",
+    "js-graph-algorithms": "^1.0.18",
+    "mdast": "^3.0.0",
+    "prettier": "^3.5.3",
+    "rehype-parse": "^9.0.1",
+    "rehype-remark": "^10.0.1",
+    "rehype-sanitize": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-normalize-headings": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-squeeze-paragraphs": "^6.0.0",
+    "remark-stringify": "^11.0.0",
+    "remark-unlink": "^5.0.0",
+    "typescript": "^5.8.3",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
+    "urlpattern-polyfill": "^10.1.0"
+  }
+}
