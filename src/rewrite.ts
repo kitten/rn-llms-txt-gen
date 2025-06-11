@@ -1,6 +1,6 @@
 import { debug } from 'debug';
 import { createFallback } from 'ai-fallback';
-import { generateText } from 'ai';
+import { streamText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createOllama } from 'ollama-ai-provider';
 import * as fs from 'node:fs/promises';
@@ -51,7 +51,7 @@ export async function rewriteMarkdown(url: URL, input: string) {
     }
   } catch {}
   log('prompting to rewrite', url.pathname);
-  const { text } = await generateText({
+  const { textStream } = streamText({
     model: createFallback({
       models: [
         ollama('mistral-small3.1:24b'),
@@ -67,6 +67,10 @@ export async function rewriteMarkdown(url: URL, input: string) {
     system: SYSTEM_PROMPT.trim(),
     prompt: input,
   });
+  const output = [];
+  for await (const chunk of textStream)
+    output.push(chunk);
+  const text = output.join('');
   await fs.writeFile(cacheFile, text, 'utf-8');
   return text;
 }
