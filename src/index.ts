@@ -19,9 +19,11 @@ async function generate(site: Site) {
   log('crawl', site.name);
   const pages = await crawl(site);
   const contents: string[] = [];
-  for (const page of pages) {
+  for (let idx = 0; idx < pages.length; idx++) {
+    const page = pages[idx]!;
     const content = await page.getContent();
     if (content) contents.push(content);
+    log(`completed page ${idx + 1} of ${pages.length}`);
   }
   const output = await concatMarkdown(contents);
   const formatted = await formatMarkdown(output);

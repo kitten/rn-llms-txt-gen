@@ -18,7 +18,7 @@ export async function sanitizeHtml(html: string): Promise<string> {
     .use(rehypeParse)
     .use(rehypeSanitize, {
       tagNames: [
-        ...defaultSanitizeSchema.tagNames!,
+        ...defaultSanitizeSchema.tagNames!.filter((tag) => tag !== 'details'),
         'content-region',
         'footer',
         'header',
@@ -27,7 +27,7 @@ export async function sanitizeHtml(html: string): Promise<string> {
         'section',
         'nav',
       ],
-      strip: ['script', 'style'],
+      strip: ['script', 'style', 'details'],
     })
     .use(rehypeStringify)
     .process(html)

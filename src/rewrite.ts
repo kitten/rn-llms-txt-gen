@@ -2,7 +2,6 @@ import { debug } from 'debug';
 import { createFallback } from 'ai-fallback';
 import { streamText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
-import { createOllama } from 'ollama-ai-provider';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
@@ -14,21 +13,17 @@ const cacheDir = path.join(process.cwd(), '.cache/rewrite');
 await fs.mkdir(cacheDir, { recursive: true });
 const getCacheFile = makeCacheFileHelper(cacheDir, '.txt');
 
-if (!process.env.OPENAI_API_KEY) throw new Error('Missing OPENAI_API_KEY env var');
-if (!process.env.OPENAI_API_URL) throw new Error('Missing OPENAI_API_URL env var');
-
 const SYSTEM_PROMPT = `
 Reformat markdown content you're given into an llms-full.txt file, also in markdown format
 - Reformat for an AI and paraphrase where necessary, but be faithful to the original
-- Avoid using emphasis and use Github Flavored markdown syntax
 - Keep code snippets and keep them in TypeScript or TypeScript typings format
-- Don't mention other content, pages, or external content (Remove sentences such as "Refer to", "Read more", "Learn how to")
-- For markdown tables, keep all relevant information in the table and remove table legends and emoji
-- Remove icon legends or irrelevant text
-- Don't add to the content or use any knowledge you may have on the subject
-- Format the output in AI-friendly markdown and preserve inline code
-- Remove sub-headings if they don't add crucial information or context
-- Don't wrap your output in a code block
+- For markdown tables, keep all relevant information in the table
+- Don't mention other content, pages, or external content
+- Don't write your own content
+- Don't add or use any knowledge you may have on the subject
+- Don't add your own interpretation or notes and only reinterpret the input content
+- Don't wrap the output in a markdown code block
+Only return the reformatted markdown content and stop when you've processed all input markdown content
 `;
 
 const ai = createOpenAI({
@@ -36,8 +31,8 @@ const ai = createOpenAI({
   baseURL: process.env.OPENAI_API_URL,
 });
 
-const ollama = createOllama({
-  baseURL: 'http://localhost:11434/api',
+const ollama = createOpenAI({
+  baseURL: 'http://localhost:11434/v1',
 });
 
 export async function rewriteMarkdown(url: URL, input: string) {
@@ -52,22 +47,34 @@ export async function rewriteMarkdown(url: URL, input: string) {
   } catch {}
   log('prompting to rewrite', url.pathname);
   const { textStream } = streamText({
+    temperature: 0.05,
+    maxSteps: 5,
+    experimental_continueSteps: true,
     model: createFallback({
       models: [
-        ollama('mistral-small3.1:24b'),
+        ollama('phi4:14b'),
         ai('@cf/mistralai/mistral-small-3.1-24b-instruct'),
       ],
       onError(error, modelId) {
         log(`error using model ${modelId}`, error);
       },
     }),
-    maxSteps: 5,
-    experimental_continueSteps: true,
-    temperature: 0.05,
-    system: SYSTEM_PROMPT.trim(),
-    prompt: input,
+    onStepFinish({ finishReason, text }) {
+      if (finishReason !== 'stop')
+        log(`inference step (length: ${text.length})`, finishReason); 
+    },
+    messages: [
+      {
+        role: 'system',
+        content: SYSTEM_PROMPT.trim(),
+      },
+      {
+        role: 'user',
+        content: input,
+      },
+    ],
   });
-  const output = [];
+  const output: string[] = [];
   for await (const chunk of textStream)
     output.push(chunk);
   const text = output.join('');
