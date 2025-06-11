@@ -48,8 +48,6 @@ export async function htmlToMarkdown(content: {
         } else if (node.type === 'link' || node.type === 'linkReference') {
           if (node.children.length === 0)
             parent.children.splice(index, 1);
-          if (parent.children.length === 1)
-            parent.children.length = 0;
         } else if (node.type === 'html') {
           parent.children.splice(index, 1);
         } else if (node.type === 'heading') {

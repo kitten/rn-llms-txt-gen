@@ -12,8 +12,8 @@ interface Site extends CrawlOptions {
   name: string;
 }
 
-const output = path.join(process.cwd(), 'out');
-await fs.mkdir(output, { recursive: true });
+const outputPath = path.join(process.cwd(), 'out');
+await fs.mkdir(outputPath, { recursive: true });
 
 async function generate(site: Site) {
   log('crawl', site.name);
@@ -25,7 +25,7 @@ async function generate(site: Site) {
   }
   const output = await concatMarkdown(contents);
   const formatted = await formatMarkdown(output);
-  const file = path.join(output, `llms-full-${site.name}.txt`);
+  const file = path.join(outputPath, `llms-full-${site.name}.txt`);
   await fs.writeFile(file, formatted, 'utf-8');
 }
 
