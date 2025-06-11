@@ -70,6 +70,9 @@ let sites: Site[] = [
     exclude: [
       '/docs/(0\\..*)',
       '/docs/next/(.*)',
+      '/docs/legacy/(.*)',
+      '/docs/the-new-architecture/advanced-topics-components',
+      '/docs/the-new-architecture/advanced-topics-modules',
     ],
   },
 ];

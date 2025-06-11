@@ -116,13 +116,23 @@ export async function htmlToMarkdown(content: {
   }
   const md = await unified()
     .use(rehypeParse, { fragment: true })
-    .use(remarkGfm)
+    .use(rehypeSanitize, {
+      strip: ['script', 'style', 'nav'],
+    })
+    .use(remarkGfm, {
+      tablePipeAlign: false,
+      tableCellPadding: false,
+    })
     .use(rehypeRemark, { document: false })
     .use(remarkDisqualify)
     .use(remarkUnlink)
     .use(remarkNormalizeHeadings)
     .use(remarkSqueezeParagraphs)
-    .use(remarkStringify)
+    .use(remarkStringify, {
+      incrementListMarker: false,
+      ruleSpaces: false,
+      tightDefinitions: true,
+    })
     .process(content.html);
   return md.toString().replace(/[\u200B-\u200D\uFEFF]/g, '');
 }
@@ -132,10 +142,17 @@ export async function concatMarkdown(
 ): Promise<string> {
   const md = await unified()
     .use(remarkParse, { fragment: true })
-    .use(remarkGfm)
+    .use(remarkGfm, {
+      tablePipeAlign: false,
+      tableCellPadding: false,
+    })
     .use(remarkNormalizeHeadings)
     .use(remarkSqueezeParagraphs)
-    .use(remarkStringify)
+    .use(remarkStringify, {
+      incrementListMarker: false,
+      ruleSpaces: false,
+      tightDefinitions: true,
+    })
     .process(
       (await Promise.all(contents)).join('\n\n')
     );
