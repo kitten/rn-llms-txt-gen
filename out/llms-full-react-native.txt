@@ -81,8 +81,6 @@ The cancel event can be handled by providing an `onDismiss` callback property in
 
 #### `alert()`
 
-tsx
-
 ```
 static alert (
   title: string,
@@ -104,8 +102,6 @@ static alert (
 ---
 
 #### `prompt()`iOS
-
-tsx
 
 ```
 static prompt: (
@@ -352,8 +348,6 @@ You can handle these events with `Linking.getInitialURL()` - it returns a Promis
 
 #### `addEventListener()`
 
-tsx
-
 ```
 static addEventListener(
   type: 'url',
@@ -366,8 +360,6 @@ Add a handler to Linking changes by listening to the `url` event type and provid
 ---
 
 #### `canOpenURL()`
-
-tsx
 
 ```
 static canOpenURL(url: string): Promise<boolean>;
@@ -412,8 +404,6 @@ The `Promise` will reject on Android if it was impossible to check if the URL ca
 
 #### `getInitialURL()`
 
-tsx
-
 ```
 static getInitialURL(): Promise<string | null>;
 ```
@@ -428,8 +418,6 @@ If the app launch was triggered by an app link, it will give the link url, other
 
 #### `openSettings()`
 
-tsx
-
 ```
 static openSettings(): Promise<void>;
 ```
@@ -439,8 +427,6 @@ Open the Settings app and displays the app’s custom settings, if it has any.
 ---
 
 #### `openURL()`
-
-tsx
 
 ```
 static openURL(url: string): Promise<any>;
@@ -467,8 +453,6 @@ The method returns a `Promise` object. If the user confirms the open dialog or t
 ---
 
 #### `sendIntent()`Android
-
-tsx
 
 ```
 static sendIntent(
@@ -498,8 +482,6 @@ Displays native to iOS Action Sheet component.
 
 #### `showActionSheetWithOptions()`
 
-tsx
-
 ```
 static showActionSheetWithOptions: (
   options: ActionSheetIOSOptions,
@@ -524,8 +506,6 @@ The 'callback' function takes one parameter, the zero-based index of the selecte
 
 Minimal example:
 
-tsx
-
 ```
 ActionSheetIOS.showActionSheetWithOptions(
   {
@@ -545,8 +525,6 @@ ActionSheetIOS.showActionSheetWithOptions(
 
 #### `dismissActionSheet()`
 
-tsx
-
 ```
 static dismissActionSheet();
 ```
@@ -556,8 +534,6 @@ Dismisses the most upper iOS action sheet presented, if no action sheet is prese
 ---
 
 #### `showShareActionSheetWithOptions()`
-
-tsx
 
 ```
 static showShareActionSheetWithOptions: (
@@ -788,8 +764,6 @@ You can use the library created with `create-react-native-library` also in this 
 2. For iOS only, navigate in the `App/ios` folder and run `bundle exec pod install` to install your dependencies.
 3. Update the `App.tsx` code to import the code in your library. For example:
 
-tsx
-
 ```
 import NativeSampleModule from '../Library/src/index';
 ```
@@ -872,8 +846,6 @@ Headless JS is a way to run tasks in JavaScript while your app is in the backgro
 
 A task is an async function that you register on `AppRegistry`, similar to registering React applications:
 
-tsx
-
 ```
 import {AppRegistry} from 'react-native';
 AppRegistry.registerHeadlessTask('SomeTaskName', () =>
@@ -882,8 +854,6 @@ AppRegistry.registerHeadlessTask('SomeTaskName', () =>
 ```
 
 Then, in `SomeTaskName.js`:
-
-tsx
 
 ```
 module.exports = async taskData => {
@@ -1036,8 +1006,6 @@ return HeadlessJsTaskConfig("SomeTaskName", Arguments.fromBundle(extras), 5000, 
 A retry attempt will only be made when a specific `Error` is thrown. Inside a headless JS task, you can import the error and throw it when a retry attempt is required.
 
 Example:
-
-tsx
 
 ```
 import {HeadlessJsTaskError} from 'HeadlessJsTask';
@@ -1509,8 +1477,6 @@ class MainActivity : ReactActivity() {
     }
 }
 ```
-
-tsx
 
 ```
 import React from 'react';
@@ -2185,8 +2151,6 @@ RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                           initialProperties:props];
 ```
 
-tsx
-
 ```
 import React from 'react';
 import {View, Image} from 'react-native';
@@ -2479,8 +2443,6 @@ A `gestureState` object has the following:
 
 ### Usage Pattern
 
-tsx
-
 ```
 const ExampleComponent = () => {
   const panResponder = React.useRef(
@@ -2538,8 +2500,6 @@ Try the PanResponder example in RNTester.
 ### Methods
 
 #### `create()`
-
-tsx
 
 ```
 static create(config: PanResponderCallbacks): PanResponderInstance;
@@ -2880,8 +2840,6 @@ override fun getName() = "CalendarModule"
 
 The native module can then be accessed in JS like this:
 
-tsx
-
 ```
 const {CalendarModule} = ReactNative.NativeModules;
 ```
@@ -3073,8 +3031,6 @@ At this point, you have set up the basic scaffolding for your native module in A
 
 Find a place in your application where you would like to add a call to the native module’s `createCalendarEvent()` method. Below is an example of a component, `NewModuleButton` you can add in your app. You can invoke the native module inside `NewModuleButton`'s `onPress()` function.
 
-tsx
-
 ```
 import React from 'react';
 import {NativeModules, Button} from 'react-native';
@@ -3098,23 +3054,17 @@ export default NewModuleButton;
 
 In order to access your native module from JavaScript you need to first import `NativeModules` from React Native:
 
-tsx
-
 ```
 import {NativeModules} from 'react-native';
 ```
 
 You can then access the `CalendarModule` native module off of `NativeModules`.
 
-tsx
-
 ```
 const {CalendarModule} = NativeModules;
 ```
 
 Now that you have the CalendarModule native module available, you can invoke your native method `createCalendarEvent()`. Below it is added to the `onPress()` method in `NewModuleButton`:
-
-tsx
 
 ```
 const onPress = () => {
@@ -3159,8 +3109,6 @@ Importing your native module by pulling it off of `NativeModules` like above is 
 
 To save consumers of your native module from needing to do that each time they want to access your native module, you can create a JavaScript wrapper for the module. Create a new JavaScript file named `CalendarModule.js` with the following content:
 
-tsx
-
 ```
 /**
 * This exposes the native CalendarModule module as a JS module. This has a
@@ -3175,8 +3123,6 @@ export default CalendarModule;
 ```
 
 This JavaScript file also becomes a good location for you to add any JavaScript side functionality. For example, if you use a type system like TypeScript you can add type annotations for your native module here. While React Native does not yet support Native to JS type safety, all your JS code will be type safe. Doing so will also make it easier for you to switch to type-safe native modules down the line. Below is an example of adding type safety to the CalendarModule:
-
-tsx
 
 ```
 /**
@@ -3195,8 +3141,6 @@ export default CalendarModule as CalendarInterface;
 ```
 
 In your other JavaScript files you can access the native module and invoke its method like this:
-
-tsx
 
 ```
 import CalendarModule from './CalendarModule';
@@ -3284,8 +3228,6 @@ override fun getConstants(): MutableMap<String, Any> =
 
 The constant can then be accessed by invoking `getConstants` on the native module in JS:
 
-tsx
-
 ```
 const {DEFAULT_EVENT_NAME} = CalendarModule.getConstants();
 console.log(DEFAULT_EVENT_NAME);
@@ -3349,8 +3291,6 @@ kotlin
 
 This method could then be accessed in JavaScript using:
 
-tsx
-
 ```
 const onPress = () => {
   CalendarModule.createCalendarEvent(
@@ -3391,8 +3331,6 @@ kotlin
 ```
 
 In JavaScript, you can then check the first argument to see if an error was passed through:
-
-tsx
 
 ```
 const onPress = () => {
@@ -3435,8 +3373,6 @@ kotlin
 ```
 
 Then in JavaScript you can add a separate callback for error and success responses:
-
-tsx
 
 ```
 const onPress = () => {
@@ -3497,8 +3433,6 @@ fun createCalendarEvent(name: String, location: String, promise: Promise) {
 > Similar to callbacks, a native module method can either reject or resolve a promise (but not both) and can do so at most once. This means that you can either call a success callback or a failure callback, but not both, and each callback can only be invoked at most one time. A native module can, however, store the callback and invoke it later.
 
 The JavaScript counterpart of this method returns a Promise. This means you can use the `await` keyword within an async function to call it and wait for its result:
-
-tsx
 
 ```
 const onSubmit = async () => {
@@ -3644,8 +3578,6 @@ sendEvent(reactContext, "EventReminder", params)
 ```
 
 JavaScript modules can then register to receive events by `addListener` on the NativeEventEmitter class.
-
-tsx
 
 ```
 import {NativeEventEmitter, NativeModules} from 'react-native';
@@ -4002,8 +3934,6 @@ RCT_EXPORT_MODULE(CalendarModuleFoo);
 
 The native module can then be accessed in JS like this:
 
-tsx
-
 ```
 const {CalendarModuleFoo} = ReactNative.NativeModules;
 ```
@@ -4020,8 +3950,6 @@ RCT_EXPORT_MODULE();
 ```
 
 The native module can then be accessed in JS like this:
-
-tsx
 
 ```
 const {CalendarModule} = ReactNative.NativeModules;
@@ -4076,8 +4004,6 @@ At this point you have set up the basic scaffolding for your native module in iO
 
 Find a place in your application where you would like to add a call to the native module’s `createCalendarEvent()` method. Below is an example of a component, `NewModuleButton` you can add in your app. You can invoke the native module inside `NewModuleButton`'s `onPress()` function.
 
-tsx
-
 ```
 import React from 'react';
 import {Button} from 'react-native';
@@ -4101,23 +4027,17 @@ export default NewModuleButton;
 
 In order to access your native module from JavaScript you need to first import `NativeModules` from React Native:
 
-tsx
-
 ```
 import {NativeModules} from 'react-native';
 ```
 
 You can then access the `CalendarModule` native module off of `NativeModules`.
 
-tsx
-
 ```
 const {CalendarModule} = NativeModules;
 ```
 
 Now that you have the CalendarModule native module available, you can invoke your native method `createCalendarEvent()`. Below it is added to the `onPress()` method in `NewModuleButton`:
-
-tsx
 
 ```
 const onPress = () => {
@@ -4162,8 +4082,6 @@ Importing your native module by pulling it off of `NativeModules` like above is 
 
 To save consumers of your native module from needing to do that each time they want to access your native module, you can create a JavaScript wrapper for the module. Create a new JavaScript file named NativeCalendarModule.js with the following content:
 
-tsx
-
 ```
 /**
 * This exposes the native CalendarModule module as a JS module. This has a
@@ -4178,8 +4096,6 @@ export default CalendarModule;
 ```
 
 This JavaScript file also becomes a good location for you to add any JavaScript side functionality. For example, if you use a type system like TypeScript you can add type annotations for your native module here. While React Native does not yet support Native to JS type safety, with these type annotations, all your JS code will be type safe. These annotations will also make it easier for you to switch to type-safe native modules down the line. Below is an example of adding type safety to the Calendar Module:
-
-tsx
 
 ```
 /**
@@ -4198,8 +4114,6 @@ export default CalendarModule as CalendarInterface;
 ```
 
 In your other JavaScript files you can access the native module and invoke its method like this:
-
-tsx
 
 ```
 import NativeCalendarModule from './NativeCalendarModule';
@@ -4248,8 +4162,6 @@ objectivec
 
 The constant can then be accessed by invoking `getConstants()` on the native module in JS like so:
 
-tsx
-
 ```
 const {DEFAULT_EVENT_NAME} = CalendarModule.getConstants();
 console.log(DEFAULT_EVENT_NAME);
@@ -4293,8 +4205,6 @@ RCT_EXPORT_METHOD(createCalendarEvent:(NSString *)title location:(NSString *)loc
 
 This method could then be accessed in JavaScript using the following:
 
-tsx
-
 ```
 const onSubmit = () => {
   CalendarModule.createCalendarEvent(
@@ -4322,8 +4232,6 @@ RCT_EXPORT_METHOD(createCalendarEventCallback:(NSString *)title location:(NSStri
 ```
 
 In JavaScript, you can then check the first argument to see if an error was passed through:
-
-tsx
 
 ```
 const onPress = () => {
@@ -4362,8 +4270,6 @@ RCT_EXPORT_METHOD(createCalendarEventCallback:(NSString *)title
 ```
 
 Then in JavaScript you can add a separate callback for error and success responses:
-
-tsx
 
 ```
 const onPress = () => {
@@ -4406,8 +4312,6 @@ RCT_EXPORT_METHOD(createCalendarEvent:(NSString *)title
 ```
 
 The JavaScript counterpart of this method returns a Promise. This means you can use the `await` keyword within an async function to call it and wait for its result:
-
-tsx
 
 ```
 const onSubmit = async () => {
@@ -4795,8 +4699,6 @@ AppRegistry.registerComponent('HelloWorld', () => App);
 #### Create a `App.tsx` file
 
 Let's create an `App.tsx` file. This is a TypeScript file that can have JSX expressions. It contains the root React Native component that we will integrate into our Android application (link):
-
-tsx
 
 ```
 import React from 'react';
@@ -5267,8 +5169,6 @@ AppRegistry.registerComponent('HelloWorld', () => App);
 #### Create a `App.tsx` file
 
 Let's create an `App.tsx` file. This is a TypeScript file that can have JSX expressions. It contains the root React Native component that we will integrate into our iOS application (link):
-
-tsx
 
 ```
 import React from 'react';
@@ -6264,8 +6164,6 @@ export default function MyApp() {
 
 A React Native view can have more than one child view in the view tree eg.
 
-tsx
-
 ```
 <View>
   <MyNativeView />
@@ -6277,8 +6175,6 @@ tsx
 In this example, the class `MyNativeView` is a wrapper for a `NativeComponent` and exposes methods, which will be called on the iOS platform. `MyNativeView` is defined in `MyNativeView.ios.js` and contains proxy methods of `NativeComponent`.
 
 When the user interacts with the component, like clicking the button, the `backgroundColor` of `MyNativeView` changes. In this case `UIManager` would not know which `MyNativeView` should be handled and which one should change `backgroundColor`. Below you will find a solution to this problem:
-
-tsx
 
 ```
 <View>
@@ -6603,8 +6499,6 @@ Before you use it, try to solve your problem with `setState` and `shouldComponen
 
 TouchableOpacity uses `setNativeProps` internally to update the opacity of its child component:
 
-tsx
-
 ```
 const viewRef = useRef<View>();
 const setOpacityTo = useCallback(value => {
@@ -6617,8 +6511,6 @@ const setOpacityTo = useCallback(value => {
 
 This allows us to write the following code and know that the child will have its opacity updated in response to taps, without the child having any knowledge of that fact or requiring any changes to its implementation:
 
-tsx
-
 ```
 <TouchableOpacity onPress={handlePress}>
   <View>
@@ -6628,8 +6520,6 @@ tsx
 ```
 
 Let's imagine that `setNativeProps` was not available. One way that we might implement it with that constraint is to store the opacity value in the state, then update that value whenever `onPress` is fired:
-
-tsx
 
 ```
 const [buttonOpacity, setButtonOpacity] = useState(1);
@@ -6986,8 +6876,6 @@ Defines a string value that labels an interactive element.
 #### `aria-labelledby`Android
 
 Identifies the element that labels the element it is applied to. The value of `aria-labelledby` should match the `nativeID` of the related element:
-
-tsx
 
 ```
 <View>
@@ -7663,8 +7551,6 @@ A basic button component that should render nicely on any platform. Supports a m
 
 If this button doesn't look right for your app, you can build your own button using Pressable. For inspiration, look at the source code for the Button component.
 
-tsx
-
 ```
 <Button
   onPress={onPressLearnMore}
@@ -7883,8 +7769,6 @@ In most cases, you will be using `timing()`. By default, it uses a symmetric eas
 
 Animations are started by calling `start()` on your animation. `start()` takes a completion callback that will be called when the animation is done. If the animation finished running normally, the completion callback will be invoked with `{finished: true}`. If the animation is done because `stop()` was called on it before it could finish (e.g. because it was interrupted by a gesture or another animation), then it will receive `{finished: false}`.
 
-tsx
-
 ```
 Animated.timing({}).start(({finished}) => {
   /* completion callback */
@@ -7951,8 +7835,6 @@ Gestures, like panning or scrolling, and other events can map directly to animat
 
 For example, when working with horizontal scrolling gestures, you would do the following in order to map `event.nativeEvent.contentOffset.x` to `scrollX` (an `Animated.Value`):
 
-tsx
-
 ```
  onScroll={Animated.event(
    // scrollX = e.nativeEvent.contentOffset.x
@@ -7975,8 +7857,6 @@ When the given value is a ValueXY instead of a Value, each config option may be 
 
 #### `decay()`
 
-tsx
-
 ```
 static decay(value, config): CompositeAnimation;
 ```
@@ -7993,8 +7873,6 @@ Config is an object that may have the following options:
 ---
 
 #### `timing()`
-
-tsx
 
 ```
 static timing(value, config): CompositeAnimation;
@@ -8013,8 +7891,6 @@ Config is an object that may have the following options:
 ---
 
 #### `spring()`
-
-tsx
 
 ```
 static spring(value, config): CompositeAnimation;
@@ -8053,8 +7929,6 @@ Other configuration options are as follows:
 
 #### `add()`
 
-tsx
-
 ```
 static add(a: Animated, b: Animated): AnimatedAddition;
 ```
@@ -8064,8 +7938,6 @@ Creates a new Animated value composed from two Animated values added together.
 ---
 
 #### `subtract()`
-
-tsx
 
 ```
 static subtract(a: Animated, b: Animated): AnimatedSubtraction;
@@ -8077,8 +7949,6 @@ Creates a new Animated value composed by subtracting the second Animated value f
 
 #### `divide()`
 
-tsx
-
 ```
 static divide(a: Animated, b: Animated): AnimatedDivision;
 ```
@@ -8088,8 +7958,6 @@ Creates a new Animated value composed by dividing the first Animated value by th
 ---
 
 #### `multiply()`
-
-tsx
 
 ```
 static multiply(a: Animated, b: Animated): AnimatedMultiplication;
@@ -8101,8 +7969,6 @@ Creates a new Animated value composed from two Animated values multiplied togeth
 
 #### `modulo()`
 
-tsx
-
 ```
 static modulo(a: Animated, modulus: number): AnimatedModulo;
 ```
@@ -8112,8 +7978,6 @@ Creates a new Animated value that is the (non-negative) modulo of the provided A
 ---
 
 #### `diffClamp()`
-
-tsx
 
 ```
 static diffClamp(a: Animated, min: number, max: number): AnimatedDiffClamp;
@@ -8127,8 +7991,6 @@ This is useful with scroll events, for example, to show the navbar when scrollin
 
 #### `delay()`
 
-tsx
-
 ```
 static delay(time: number): CompositeAnimation;
 ```
@@ -8139,8 +8001,6 @@ Starts an animation after the given delay.
 
 #### `sequence()`
 
-tsx
-
 ```
 static sequence(animations: CompositeAnimation[]): CompositeAnimation;
 ```
@@ -8150,8 +8010,6 @@ Starts an array of animations in order, waiting for each to complete before star
 ---
 
 #### `parallel()`
-
-tsx
 
 ```
 static parallel(
@@ -8166,8 +8024,6 @@ Starts an array of animations all at the same time. By default, if one of the an
 
 #### `stagger()`
 
-tsx
-
 ```
 static stagger(
   time: number,
@@ -8180,8 +8036,6 @@ Array of animations may run in parallel (overlap), but are started in sequence w
 ---
 
 #### `loop()`
-
-tsx
 
 ```
 static loop(
@@ -8200,8 +8054,6 @@ Config is an object that may have the following options:
 
 #### `event()`
 
-tsx
-
 ```
 static event(
   argMapping: Mapping[],
@@ -8210,8 +8062,6 @@ static event(
 ```
 
 Takes an array of mappings and extracts values from each arg accordingly, then calls `setValue` on the mapped outputs. e.g.
-
-tsx
 
 ```
 onScroll={Animated.event(
@@ -8264,8 +8114,6 @@ static unforkEvent(event: AnimatedEvent, listener: Function);
 
 #### `start()`
 
-tsx
-
 ```
 static start(callback?: (result: {finished: boolean}) => void);
 ```
@@ -8280,8 +8128,6 @@ Animations are started by calling start() on your animation. start() takes a com
 
 Start example with callback:
 
-tsx
-
 ```
 Animated.timing({}).start(({finished}) => {
   /* completion callback */
@@ -8292,8 +8138,6 @@ Animated.timing({}).start(({finished}) => {
 
 #### `stop()`
 
-tsx
-
 ```
 static stop();
 ```
@@ -8303,8 +8147,6 @@ Stops any running animation.
 ---
 
 #### `reset()`
-
-tsx
 
 ```
 static reset();
@@ -9119,8 +8961,6 @@ Width of the image component.
 
 #### `abortPrefetch()`Android
 
-tsx
-
 ```
 static abortPrefetch(requestId: number);
 ```
@@ -9136,8 +8976,6 @@ Abort prefetch request.
 ---
 
 #### `getSize()`
-
-tsx
 
 ```
 static getSize(uri: string): Promise<{width: number, height: number}>;
@@ -9156,8 +8994,6 @@ In order to retrieve the image dimensions, the image may first need to be loaded
 ---
 
 #### `getSizeWithHeaders()`
-
-tsx
 
 ```
 static getSizeWithHeaders(
@@ -9181,8 +9017,6 @@ In order to retrieve the image dimensions, the image may first need to be loaded
 
 #### `prefetch()`
 
-tsx
-
 ```
 await Image.prefetch(url);
 ```
@@ -9199,8 +9033,6 @@ Prefetches a remote image for later use by downloading it to the disk cache. Ret
 ---
 
 #### `queryCache()`
-
-tsx
 
 ```
 static queryCache(
@@ -9219,8 +9051,6 @@ Perform cache interrogation. Returns a promise which resolves to a mapping from 
 ---
 
 #### `resolveAssetSource()`
-
-tsx
 
 ```
 static resolveAssetSource(source: ImageSourcePropType): {
@@ -9839,8 +9669,6 @@ These sort of errors are usually related to caching, it's recommended to install
 ## Pressable
 
 Pressable is a Core Component wrapper that can detect various stages of press interactions on any of its defined children.
-
-tsx
 
 ```
 <Pressable onPress={onPressFunction}>
@@ -10848,8 +10676,6 @@ The current scale of the scroll view content.
 
 #### `flashScrollIndicators()`
 
-tsx
-
 ```
 flashScrollIndicators();
 ```
@@ -10859,8 +10685,6 @@ Displays the scroll indicators momentarily.
 ---
 
 #### `scrollTo()`
-
-tsx
 
 ```
 scrollTo(
@@ -10881,8 +10705,6 @@ Scrolls to a given x, y offset, either immediately, with a smooth animation.
 ---
 
 #### `scrollToEnd()`
-
-tsx
 
 ```
 scrollToEnd(options?: {animated?: boolean});
@@ -11237,8 +11059,6 @@ If the status bar is translucent. When translucent is set to `true`, the app wil
 
 #### `popStackEntry()`
 
-tsx
-
 ```
 static popStackEntry(entry: StatusBarProps);
 ```
@@ -11255,8 +11075,6 @@ Get and remove the last StatusBar entry from the stack.
 
 #### `pushStackEntry()`
 
-tsx
-
 ```
 static pushStackEntry(props: StatusBarProps): StatusBarProps;
 ```
@@ -11272,8 +11090,6 @@ Push a StatusBar entry onto the stack. The return value should be passed to `pop
 ---
 
 #### `replaceStackEntry()`
-
-tsx
 
 ```
 static replaceStackEntry(
@@ -11294,8 +11110,6 @@ Replace an existing StatusBar stack entry with new props.
 ---
 
 #### `setBackgroundColor()`Android
-
-tsx
 
 ```
 static setBackgroundColor(color: ColorValue, animated?: boolean);
@@ -11318,8 +11132,6 @@ Due to edge-to-edge enforcement introduced in Android 15, setting background col
 
 #### `setBarStyle()`
 
-tsx
-
 ```
 static setBarStyle(style: StatusBarStyle, animated?: boolean);
 ```
@@ -11336,8 +11148,6 @@ Set the status bar style.
 ---
 
 #### `setHidden()`
-
-tsx
 
 ```
 static setHidden(hidden: boolean, animation?: StatusBarAnimation);
@@ -11356,8 +11166,6 @@ Show or hide the status bar.
 
 #### `setNetworkActivityIndicatorVisible()`iOS
 
-tsx
-
 ```
 static setNetworkActivityIndicatorVisible(visible: boolean);
 ```
@@ -11373,8 +11181,6 @@ Control the visibility of the network activity indicator.
 ---
 
 #### `setTranslucent()`Android
-
-tsx
 
 ```
 static setTranslucent(translucent: boolean);
@@ -11538,8 +11344,6 @@ Behind the scenes, React Native converts this to a flat `NSAttributedString` or 
 
 The `<Text>` element is unique relative to layout: everything inside is no longer using the Flexbox layout but using text layout. This means that elements inside of a `<Text>` are no longer rectangles, but wrap when they see the end of the line.
 
-tsx
-
 ```
 <Text>
   <Text>First part and </Text>
@@ -11586,8 +11390,6 @@ All elements in the document will inherit this font unless they or one of their 
 
 In React Native, we are more strict about it: **you must wrap all the text nodes inside of a `<Text>` component**. You cannot have a text node directly under a `<View>`.
 
-tsx
-
 ```
 // BAD: will raise exception, can't have a text node as child of a <View>
 <View>
@@ -11604,8 +11406,6 @@ tsx
 
 You also lose the ability to set up a default font for an entire subtree. Meanwhile, `fontFamily` only accepts a single font name, which is different from `font-family` in CSS. The recommended way to use consistent fonts and sizes across your application is to create a component `MyAppText` that includes them and use this component across your app. You can also use this component to make more specific components like `MyAppHeaderText` for other kinds of text.
 
-tsx
-
 ```
 <View>
   <MyAppText>
@@ -11616,8 +11416,6 @@ tsx
 ```
 
 Assuming that `MyAppText` is a component that only renders out its children into a `Text` component with styling, then `MyAppHeaderText` can be defined as follows:
-
-tsx
 
 ```
 const MyAppHeaderText = ({children}) => {
@@ -11632,8 +11430,6 @@ const MyAppHeaderText = ({children}) => {
 Composing `MyAppText` in this way ensures that we get the styles from a top-level component, but leaves us the ability to add/override them in specific use cases.
 
 React Native still has the concept of style inheritance, but limited to text subtrees. In this case, the second part will be both bold and red.
-
-tsx
 
 ```
 <Text style={{fontWeight: 'bold'}}>
@@ -13209,8 +13005,6 @@ If `true`, the keyboard shortcuts (undo/redo and copy buttons) are disabled. The
 
 #### `.focus()`
 
-tsx
-
 ```
 focus();
 ```
@@ -13219,8 +13013,6 @@ Makes the native input request focus.
 
 #### `.blur()`
 
-tsx
-
 ```
 blur();
 ```
@@ -13228,8 +13020,6 @@ blur();
 Makes the native input lose focus.
 
 #### `clear()`
-
-tsx
 
 ```
 clear();
@@ -13240,8 +13030,6 @@ Removes all text from the `TextInput`.
 ---
 
 #### `isFocused()`
-
-tsx
 
 ```
 isFocused(): boolean;
@@ -13260,8 +13048,6 @@ Returns `true` if the input is currently focused; `false` otherwise.
 ### Static Image Resources
 
 React Native provides a unified way of managing images and other media assets in your Android and iOS apps. To add a static image to your app, place it somewhere in your source code tree and reference it like this:
-
-tsx
 
 ```
 <Image source={require('./my-icon.png')} />
@@ -13282,8 +13068,6 @@ You can use the `@2x` and `@3x` suffixes to provide images for different screen 
 
 ...and `button.js` code contains:
 
-tsx
-
 ```
 <Image source={require('./img/check.png')} />
 ```
@@ -13303,8 +13087,6 @@ Here are some benefits that you get:
 7. Images can be distributed via npm packages.
 
 In order for this to work, the image name in `require` has to be known statically.
-
-tsx
 
 ```
 // GOOD
@@ -13339,8 +13121,6 @@ If you are building a hybrid app (some UIs in React Native, some UIs in platform
 
 For images included via Xcode asset catalogs or in the Android drawable folder, use the image name without the extension:
 
-tsx
-
 ```
 <Image
   source={{uri: 'app_icon'}}
@@ -13349,8 +13129,6 @@ tsx
 ```
 
 For images in the Android assets folder, use the `asset:/` scheme:
-
-tsx
 
 ```
 <Image
@@ -13365,8 +13143,6 @@ These approaches provide no safety checks. It's up to you to guarantee that thos
 
 Many of the images you will display in your app will not be available at compile time, or you will want to load some dynamically to keep the binary size down. Unlike with static resources, _you will need to manually specify the dimensions of your image_. It's highly recommended that you use https as well in order to satisfy App Transport Security requirements on iOS.
 
-tsx
-
 ```
 // GOOD
 <Image source={{uri: 'https://reactjs.org/logo-og.png'}}
@@ -13379,8 +13155,6 @@ tsx
 #### Network Requests for Images
 
 If you would like to set such things as the HTTP-Verb, Headers or a Body along with the image request, you may do this by defining these properties on the source object:
-
-tsx
 
 ```
 <Image
@@ -13403,8 +13177,6 @@ Sometimes, you might be getting encoded image data from a REST API call. You can
 info
 
 This is recommended for very small and dynamic images only, like icons in a list from a DB.
-
-tsx
 
 ```
 // include at least width and height!
@@ -13429,8 +13201,6 @@ In some cases you might only want to display an image if it is already in the lo
 - `force-cache`: The existing cached data will be used to satisfy the request, regardless of its age or expiration date. If there is no existing data in the cache corresponding the request, the data is loaded from the originating source.
 - `only-if-cached`: The existing cache data will be used to satisfy a request, regardless of its age or expiration date. If there is no existing data in the cache corresponding to a URL load request, no attempt is made to load the data from the originating source, and the load is considered to have failed.
 
-tsx
-
 ```
 <Image
   source={{
@@ -13451,8 +13221,6 @@ Android supports loading drawable resources via the `xml` file type. This means 
 
 For static drawables that live alongside your JS code, use the `require` or `import` syntax (both work the same):
 
-tsx
-
 ```
 <Image
   source={require('./img/my_icon.xml')}
@@ -13461,8 +13229,6 @@ tsx
 ```
 
 For drawables included in the Android drawable folder (i.e. `res/drawable`), use the resource name without the extension:
-
-tsx
 
 ```
 <Image
@@ -13493,8 +13259,6 @@ _In React Native_ this behavior is intentionally not implemented. It is more wor
 
 For example, the result of `require('./my-icon.png')` might be:
 
-tsx
-
 ```
 {"__packager_asset":true,"uri":"my-icon.png","width":591,"height":573}
 ```
@@ -13502,8 +13266,6 @@ tsx
 ### Source as an object
 
 In React Native, one interesting decision is that the `src` attribute is named `source` and doesn't take a string but an object with a `uri` attribute.
-
-tsx
 
 ```
 <Image source={{uri: 'something.jpg'}} />
@@ -13518,8 +13280,6 @@ On the user side, this lets you annotate the object with useful attributes such 
 A common feature request from developers familiar with the web is `background-image`. To handle this use case, you can use the `<ImageBackground>` component, which has the same props as `<Image>`, and add whatever children to it you would like to layer on top of it.
 
 You might not want to use `<ImageBackground>` in some cases, since the implementation is basic. Refer to `<ImageBackground>`'s documentation for more insight, and create your own custom component when needed.
-
-tsx
 
 ```
 return (
@@ -13572,8 +13332,6 @@ A wrapper for making views respond properly to touches. On press down, the opaci
 The underlay comes from wrapping the child in a new View, which can affect layout, and sometimes cause unwanted visual artifacts if not used correctly, for example if the backgroundColor of the wrapped view isn't explicitly set to an opaque color.
 
 TouchableHighlight must have one child (not zero or more than one). If you wish to have several child components, wrap them in a View.
-
-tsx
 
 ```
 function MyComponent(props: MyComponentProps) {
@@ -13828,8 +13586,6 @@ Users interact with mobile apps mainly through touch. They can use a combination
 
 Button provides a basic button component that is rendered nicely on all platforms. The minimal example to display a button looks like this:
 
-tsx
-
 ```
 <Button
   onPress={() => {
@@ -13878,8 +13634,6 @@ Do not use unless you have a very good reason. All elements that respond to pres
 `TouchableWithoutFeedback` supports only one child. If you wish to have several child components, wrap them in a View. Importantly, `TouchableWithoutFeedback` works by cloning its child and applying responder props to it. It is therefore required that any intermediary components pass through those props to the underlying React Native component.
 
 ### Usage Pattern
-
-tsx
 
 ```
 function MyComponent(props: MyComponentProps) {
@@ -14401,8 +14155,6 @@ You might get warnings related to peer dependencies after installation. They are
 
 Now, you need to wrap the whole app in `NavigationContainer`. Usually you'd do this in your entry file, such as `index.js` or `App.js`:
 
-tsx
-
 ```
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -14423,8 +14175,6 @@ Now you are ready to build and run your app on the device/simulator.
 #### Usage
 
 Now you can create an app with a home screen and a profile screen:
-
-tsx
 
 ```
 import * as React from 'react';
@@ -14454,8 +14204,6 @@ In this example, there are 2 screens (`Home` and `Profile`) defined using the `S
 You can set options such as the screen title for each screen in the `options` prop of `Stack.Screen`.
 
 Each screen takes a `component` prop that is a React component. Those components receive a prop called `navigation` which has various methods to link to other screens. For example, you can use `navigation.navigate` to go to the `Profile` screen:
-
-tsx
 
 ```
 const HomeScreen = ({navigation}) => {
@@ -14549,8 +14297,6 @@ By default, `timing` will use an easeInOut curve that conveys gradual accelerati
 
 For example, if we want to create a 2-second long animation of an object that slightly backs up before moving to its final position:
 
-tsx
-
 ```
 Animated.timing(this.state.xPosition, {
   toValue: 100,
@@ -14567,8 +14313,6 @@ Take a look at the Configuring animations section of the `Animated` API referenc
 Animations can be combined and played in sequence or in parallel. Sequential animations can play immediately after the previous animation has finished, or they can start after a specified delay. The `Animated` API provides several methods, such as `sequence()` and `delay()`, each of which take an array of animations to execute and automatically calls `start()`/`stop()` as needed.
 
 For example, the following animation coasts to a stop, then it springs back while twirling in parallel:
-
-tsx
 
 ```
 Animated.sequence([
@@ -14604,8 +14348,6 @@ You can combine two animated values via addition, multiplication, division, or m
 
 There are some cases where an animated value needs to invert another animated value for calculation. An example is inverting a scale (2x There are some cases where an animated value needs to invert another animated value for calculation. An example is inverting a scale (2x --> 0.5x):
 
-tsx
-
 ```
 const a = new Animated.Value(1);
 const b = Animated.divide(1, a);
@@ -14622,8 +14364,6 @@ Each property can be run through an interpolation first. An interpolation maps i
 
 A basic mapping to convert a 0-1 range to a 0-100 range would be:
 
-tsx
-
 ```
 value.interpolate({
   inputRange: [0, 1],
@@ -14632,8 +14372,6 @@ value.interpolate({
 ```
 
 For example, you may want to think about your `Animated.Value` as going from 0 to 1, but animate the position from 150px to 0px and the opacity from 0 to 1. This can be done by modifying `style` from the example above like so:
-
-tsx
 
 ```
   style={{
@@ -14648,8 +14386,6 @@ tsx
 ```
 
 `interpolate()` supports multiple range segments as well, which is handy for defining dead zones and other handy tricks. For example, to get a negation relationship at -300 that goes to 0 at -100, then back up to 1 at 0, and then back down to zero at 100 followed by a dead-zone that remains at 0 for everything beyond that, you could do:
-
-tsx
 
 ```
 value.interpolate({
@@ -14677,8 +14413,6 @@ Input | Output
 
 `interpolate()` also supports mapping to strings, allowing you to animate colors as well as values with units. For example, if you wanted to animate a rotation you could do:
 
-tsx
-
 ```
 value.interpolate({
   inputRange: [0, 360],
@@ -14691,8 +14425,6 @@ value.interpolate({
 #### Tracking dynamic values
 
 Animated values can also track other values by setting the `toValue` of an animation to another animated value instead of a plain number. For example, a "Chat Heads" animation like the one used by Messenger on Android could be implemented with a `spring()` pinned on another animated value, or with `timing()` and a `duration` of 0 for rigid tracking. They can also be composed with interpolations:
-
-tsx
 
 ```
 Animated.spring(follower, {toValue: leader}).start();
@@ -14713,8 +14445,6 @@ Gestures, like panning or scrolling, and other events can map directly to animat
 
 For example, when working with horizontal scrolling gestures, you would do the following in order to map `event.nativeEvent.contentOffset.x` to `scrollX` (an `Animated.Value`):
 
-tsx
-
 ```
  onScroll={Animated.event(
    // scrollX = e.nativeEvent.contentOffset.x
@@ -14732,8 +14462,6 @@ The following example implements a horizontal scrolling carousel where the scrol
 ##### ScrollView with Animated Event Example
 
 When using `PanResponder`, you could use the following code to extract the x and y positions from `gestureState.dx` and `gestureState.dy`. We use a `null` in the first position of the array, as we are only interested in the second argument passed to the `PanResponder` handler, which is the `gestureState`.
-
-tsx
 
 ```
 onPanResponderMove={Animated.event(
@@ -14761,8 +14489,6 @@ The `Animated` API is designed to be serializable. By using the native driver, w
 
 Using the native driver for normal animations can be accomplished by setting `useNativeDriver: true` in animation config when starting it. Animations without a `useNativeDriver` property will default to false for legacy reasons, but emit a warning (and typechecking error in TypeScript).
 
-tsx
-
 ```
 Animated.timing(this.state.animatedValue, {
   toValue: 1,
@@ -14774,8 +14500,6 @@ Animated.timing(this.state.animatedValue, {
 Animated values are only compatible with one driver so if you use native driver when starting an animation on a value, make sure every animation on that value also uses the native driver.
 
 The native driver also works with `Animated.event`. This is especially useful for animations that follow the scroll position as without the native driver, the animation will always run a frame behind the gesture due to the async nature of React Native.
-
-tsx
 
 ```
 <Animated.ScrollView // <-- Use the Animated ScrollView wrapper
@@ -14805,8 +14529,6 @@ When an animation is running, it can prevent `VirtualizedList` components from r
 
 While using transform styles such as `rotateY`, `rotateX`, and others ensure the transform style `perspective` is in place. At this time some animations may not render on Android without it. Example below.
 
-tsx
-
 ```
 <Animated.View
   style={{
@@ -14833,8 +14555,6 @@ The RNTester app has various examples of `Animated` in use:
 Note that although `LayoutAnimation` is very powerful and can be quite useful, it provides much less control than `Animated` and other animation libraries, so you may need to use another approach if you can't get `LayoutAnimation` to do what you want.
 
 Note that in order to get this to work on **Android** you need to set the following flags via `UIManager`:
-
-tsx
 
 ```
 UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -14945,8 +14665,6 @@ Inherits View Props.
 #### `drawerBackgroundColor`
 
 Specifies the background color of the drawer. The default value is `white`. If you want to set the opacity of the drawer, use rgba. Example:
-
-tsx
 
 ```
 return (
@@ -15073,8 +14791,6 @@ Make the drawer take the entire screen and draw the background of the status bar
 
 #### `closeDrawer()`
 
-tsx
-
 ```
 closeDrawer();
 ```
@@ -15084,8 +14800,6 @@ Closes the drawer.
 ---
 
 #### `openDrawer()`
-
-tsx
 
 ```
 openDrawer();
@@ -15201,8 +14915,6 @@ TV next focus up (see documentation for the View component).
 
 #### `SelectableBackground()`
 
-tsx
-
 ```
 static SelectableBackground(
   rippleRadius: number | null,
@@ -15215,8 +14927,6 @@ Creates an object that represents android theme's default background for selecta
 
 #### `SelectableBackgroundBorderless()`
 
-tsx
-
 ```
 static SelectableBackgroundBorderless(
   rippleRadius: number | null,
@@ -15228,8 +14938,6 @@ Creates an object that represent android theme's default background for borderle
 ---
 
 #### `Ripple()`
-
-tsx
 
 ```
 static Ripple(
@@ -15252,8 +14960,6 @@ Creates an object that represents ripple drawable with specified color (as a str
 ---
 
 #### `canUseNativeForeground()`
-
-tsx
 
 ```
 static canUseNativeForeground(): boolean;
@@ -15577,15 +15283,11 @@ React Native provides the Fetch API for your networking needs. Fetch will seem f
 
 In order to fetch content from an arbitrary URL, you can pass the URL to fetch:
 
-tsx
-
 ```
 fetch('https://mywebsite.com/mydata.json');
 ```
 
 Fetch also takes an optional second argument that allows you to customize the HTTP request. You may want to specify additional headers, or make a POST request:
-
-tsx
 
 ```
 fetch('https://mywebsite.com/endpoint/', {
@@ -15609,8 +15311,6 @@ The above examples show how you can make a request. In many cases, you will want
 
 Networking is an inherently asynchronous operation. Fetch method will return a Promise that makes it straightforward to write code that works in an asynchronous manner:
 
-tsx
-
 ```
 const getMoviesFromApi = () => {
   return fetch('https://reactnative.dev/movies.json')
@@ -15625,8 +15325,6 @@ const getMoviesFromApi = () => {
 ```
 
 You can also use the `async` / `await` syntax in a React Native app:
-
-tsx
 
 ```
 const getMoviesFromApiAsync = async () => {
@@ -15655,8 +15353,6 @@ Don't forget to catch any errors that may be thrown by `fetch`, otherwise they w
 
 The XMLHttpRequest API is built into React Native. This means that you can use third party libraries such as frisbee or axios that depend on it, or you can use the XMLHttpRequest API directly if you prefer.
 
-tsx
-
 ```
 const request = new XMLHttpRequest();
 request.onreadystatechange = e => {
@@ -15680,8 +15376,6 @@ request.send();
 ### WebSocket Support
 
 React Native also supports WebSockets, a protocol which provides full-duplex communication channels over a single TCP connection.
-
-tsx
 
 ```
 const ws = new WebSocket('ws://host.com/path');
@@ -16853,8 +16547,6 @@ When `true`, indicates that the view is an accessibility element. When a view is
 
 On Android, `accessible={true}` property for a react-native View will be translated into native `focusable={true}`.
 
-tsx
-
 ```
 <View accessible={true}>
   <Text>text one</Text>
@@ -16869,8 +16561,6 @@ In the above example, accessibility focus is only available on the parent view w
 When a view is marked as accessible, it is a good practice to set an `accessibilityLabel` on the view, so that people who use VoiceOver or TalkBack know what element they have selected. A screen reader will verbalize this string when the associated element is selected.
 
 To use, set the `accessibilityLabel` property to a custom string on your View, Text, or Touchable:
-
-tsx
 
 ```
 <TouchableOpacity
@@ -16889,8 +16579,6 @@ In the above example, the `accessibilityLabel` on the TouchableOpacity element w
 
 A reference to another element nativeID used to build complex forms. The value of `accessibilityLabelledBy` should match the `nativeID` of the related element:
 
-tsx
-
 ```
 <View>
   <Text nativeID="formLabel">Label for Input Field</Text>
@@ -16908,8 +16596,6 @@ In the above example, the screen reader announces `Input, Edit Box for Label for
 An accessibility hint can be used to provide additional context to the user on the result of the action when it is not clear from the accessibility label alone.
 
 Provide the `accessibilityHint` property a custom string on your View, Text, or Touchable:
-
-tsx
 
 ```
 <TouchableOpacity
@@ -16935,8 +16621,6 @@ In the above example, TalkBack will read the hint after the label. At this time,
 
 By using the `accessibilityLanguage` property, the screen reader will understand which language to use while reading the element's **label**, **value**, and **hint**. The provided string value must follow the BCP 47 specification.
 
-tsx
-
 ```
 <View
   accessible={true}
@@ -16957,8 +16641,6 @@ When components dynamically change, we want TalkBack to alert the end user. This
 - **none** Accessibility services should not announce changes to this view.
 - **polite** Accessibility services should announce changes to this view.
 - **assertive** Accessibility services should interrupt ongoing speech to immediately announce changes to this view.
-
-tsx
 
 ```
 <TouchableWithoutFeedback onPress={addOne}>
@@ -17020,8 +16702,6 @@ Available in iOS 13.0 and later.
 A string that will be used as the title of the large content viewer when it is shown.
 
 Requires `accessibilityShowsLargeContentViewer` to be set to `true`.
-
-tsx
 
 ```
 <View
@@ -17142,8 +16822,6 @@ Defines a string value that labels an interactive element.
 
 Identifies the element that labels the element it is applied to. The value of `aria-labelledby` should match the `nativeID` of the related element:
 
-tsx
-
 ```
 <View>
   <Text nativeID="formLabel">Label for Input Field</Text>
@@ -17188,8 +16866,6 @@ Indicates whether a selectable element is currently selected or not.
 #### `importantForAccessibility`Android
 
 In the case of two overlapping UI components with the same parent, default accessibility focus can have unpredictable behavior. The `importantForAccessibility` property will resolve this by controlling if a view fires accessibility events and if it is reported to accessibility services. It can be set to `auto`, `yes`, `no` and `no-hide-descendants` (the last value will force accessibility services to ignore the component and all of its children).
-
-tsx
 
 ```
 <View style={styles.container}>
@@ -17284,8 +16960,6 @@ The `label` field is optional for standard actions and is often unused by assist
 
 To handle action requests, a component must implement an `onAccessibilityAction` function. The only argument to this function is an event containing the name of the action to perform. The below example from RNTester shows how to create a component that defines and handles several custom actions.
 
-tsx
-
 ```
 <View
   accessible={true}
@@ -17317,8 +16991,6 @@ The `AccessibilityInfo` API allows you to determine whether or not a screen read
 ### Sending Accessibility EventsAndroid
 
 Sometimes it is useful to trigger an accessibility event on a UI component (i.e. when a custom view appears on a screen or set accessibility focus to a view). Native UIManager module exposes a method ‘sendAccessibilityEvent’ for this purpose. It takes two arguments: a view tag and a type of event. The supported event types are `typeWindowStateChanged`, `typeViewFocused`, and `typeViewClicked`.
-
-tsx
 
 ```
 import {Platform, UIManager, findNodeHandle} from 'react-native';
@@ -17928,16 +17600,12 @@ The rest of this introduction to React uses cats in its examples: friendly, appr
 
 Here is how you do it: To define your `Cat` component, first use JavaScript’s `import` to import React and React Native’s `Text` Core Component:
 
-tsx
-
 ```
 import React from 'react';
 import {Text} from 'react-native';
 ```
 
 Your component starts as a function:
-
-tsx
 
 ```
 const Cat = () => {};
@@ -17947,8 +17615,6 @@ You can think of components as blueprints. Whatever a function component returns
 
 Here the `Cat` component will render a `<Text>` element:
 
-tsx
-
 ```
 const Cat = () => {
   return <Text>Hello, I am your cat!</Text>;
@@ -17956,8 +17622,6 @@ const Cat = () => {
 ```
 
 You can export your function component with JavaScript’s `export default` for use throughout your app like so:
-
-tsx
 
 ```
 const Cat = () => {
@@ -18035,15 +17699,11 @@ You can add state to a component by calling React’s `useState` Hook. A Hook is
 
 First, you will want to import `useState` from React like so:
 
-tsx
-
 ```
 import React, {useState} from 'react';
 ```
 
 Then you declare the component’s state by calling `useState` inside its function. In this example, `useState` creates an `isHungry` state variable:
-
-tsx
 
 ```
 const Cat = (props: CatProps) => {
@@ -18063,8 +17723,6 @@ It doesn’t matter what names you use. But it can be handy to think of the patt
 
 Next you add the `Button` Core Component and give it an `onPress` prop:
 
-tsx
-
 ```
 <Button
   onPress={() => {
@@ -18075,8 +17733,6 @@ tsx
 ```
 
 Now, when someone presses the button, `onPress` will fire, calling the `setIsHungry(false)`. This sets the state variable `isHungry` to `false`. When `isHungry` is false, the `Button`’s `disabled` prop is set to `true` and its `title` also changes:
-
-tsx
 
 ```
 <Button
@@ -18089,8 +17745,6 @@ tsx
 > You might’ve noticed that although `isHungry` is a const, it is seemingly reassignable! What is happening is when a state-setting function like `setIsHungry` is called, its component will re-render. In this case the `Cat` function will run again—and this time, `useState` will give us the next value of `isHungry`.
 
 Finally, put your cats inside a `Cafe` component:
-
-tsx
 
 ```
 const Cafe = () => {
@@ -18342,8 +17996,6 @@ Certain components may have properties that work on one platform only. All of th
 
 React Native provides a module that detects the platform in which the app is running. You can use the detection logic to implement platform-specific code. Use this option when only small parts of a component are platform-specific.
 
-tsx
-
 ```
 import {Platform, StyleSheet} from 'react-native';
 
@@ -18355,8 +18007,6 @@ const styles = StyleSheet.create({
 `Platform.OS` will be `ios` when running on iOS and `android` when running on Android.
 
 There is also a `Platform.select` method available that, given an object where keys can be one of `'ios' | 'android' | 'native' | 'default'`, returns the most fitting value for the platform you are currently running on. That is, if you're running on a phone, `ios` and `android` keys will take preference. If those are not specified, `native` key will be used and then the `default` key.
-
-tsx
 
 ```
 import {Platform, StyleSheet} from 'react-native';
@@ -18384,8 +18034,6 @@ This will result in a container having `flex: 1` on all platforms, a red backgro
 
 Since it accepts `any` value, you can also use it to return platform-specific components, like below:
 
-tsx
-
 ```
 const Component = Platform.select({
   ios: () => require('ComponentIOS'),
@@ -18394,8 +18042,6 @@ const Component = Platform.select({
 
 <Component />;
 ```
-
-tsx
 
 ```
 const Component = Platform.select({
@@ -18410,8 +18056,6 @@ const Component = Platform.select({
 
 On Android, the `Platform` module can also be used to detect the version of the Android Platform in which the app is running:
 
-tsx
-
 ```
 import {Platform} from 'react-native';
 
@@ -18425,8 +18069,6 @@ if (Platform.Version === 25) {
 #### Detecting the iOS versioniOS
 
 On iOS, the `Version` is a result of `-[UIDevice systemVersion]`, which is a string with the current version of the operating system. An example of the system version is "10.3". For example, to detect the major version number on iOS:
-
-tsx
 
 ```
 import {Platform} from 'react-native';
@@ -18452,8 +18094,6 @@ BigButton.android.js
 
 You can then import the component as follows:
 
-tsx
-
 ```
 import BigButton from './BigButton';
 ```
@@ -18474,8 +18114,6 @@ Container.native.js # picked up by the React Native bundler for both Android and
 ```
 
 You can still import it without the `.native` extension, as follows:
-
-tsx
 
 ```
 import Container from './Container';
@@ -18668,8 +18306,6 @@ There are several libraries that can help you testing these:
 
 Aside from rendering some UI, your components handle events like `onChangeText` for `TextInput` or `onPress` for `Button`. They may also contain other functions and event callbacks. Consider the following example:
 
-tsx
-
 ```
 function GroceryShoppingList() {
   const [groceryItem, setGroceryItem] = useState('');
@@ -18716,8 +18352,6 @@ Avoid testing implementation details like props or state—while such tests work
 
 Component testing libraries such as React Native Testing Library facilitate writing user-centric tests by careful choice of provided APIs. The following example uses `fireEvent` methods `changeText` and `press` that simulate a user interacting with the component and a query function `getAllByText` that finds matching `Text` nodes in the rendered output.
 
-tsx
-
 ```
 test('given empty GroceryShoppingList, user can add an item to it', () => {
   const {getByPlaceholderText, getByText, getAllByText} = render(
@@ -18742,8 +18376,6 @@ This example is not testing how some state changes when you call a function. It 
 Snapshot testing is an advanced kind of testing enabled by Jest. It is a very powerful and low-level tool, so extra attention is advised when using it.
 
 A "component snapshot" is a JSX-like string created by a custom React serializer built into Jest. This serializer lets Jest translate React component trees to string that's human-readable. Put another way: a component snapshot is a textual representation of your component’s render output _generated_ during a test run. It may look like this:
-
-tsx
 
 ```
 <Text
@@ -18892,8 +18524,6 @@ On iOS, each time you adjust the width or height of an Image component it is re-
 
 Sometimes, if we do an action in the same frame that we are adjusting the opacity or highlight of a component that is responding to a touch, we won't see that effect until after the `onPress` function has returned. If `onPress` does a `setState` that results in a lot of work and a few frames dropped, this may occur. A solution to this is to wrap any action inside of your `onPress` handler in `requestAnimationFrame`:
 
-tsx
-
 ```
 handleOnPress() {
   requestAnimationFrame(() => {
@@ -18922,8 +18552,6 @@ The event subscriptions are called in reverse order (i.e. the last registered su
 > **Warning for modal users:** If your app shows an opened `Modal`, `BackHandler` will not publish any events (see `Modal` docs).
 
 ### Pattern
-
-tsx
 
 ```
 const subscription = BackHandler.addEventListener(
@@ -18978,8 +18606,6 @@ React Native Hooks has a nice `useBackHandler` hook which will simplify the proc
 
 #### `addEventListener()`
 
-tsx
-
 ```
 static addEventListener(
   eventName: BackPressEventName,
@@ -18990,8 +18616,6 @@ static addEventListener(
 ---
 
 #### `exitApp()`
-
-tsx
 
 ```
 static exitApp();
@@ -19241,8 +18865,6 @@ The heavier your components are, the slower they render. Avoid heavy images (use
 
 `React.memo()` creates a memoized component that will be re-rendered only when the props passed to the component change. We can use this function to optimize the components in the FlatList.
 
-tsx
-
 ```
 import React, {memo} from 'react';
 import {View, Text} from 'react-native';
@@ -19284,8 +18906,6 @@ You can also use a `key` prop in your item component.
 For functional components, move the `renderItem` function outside of the returned JSX. Also, ensure that it is wrapped in a `useCallback` hook to prevent it from being recreated each render.
 
 For class components, move the `renderItem` function outside of the render function, so it won't recreate itself each time the render function is called.
-
-tsx
 
 ```
 const renderItem = useCallback(({item}) => (
@@ -19390,8 +19010,6 @@ export default function Optimize() {
 ### Advanced: Automatically inline `require` calls
 
 If you use the React Native CLI to build your app, `require` calls (but not `import`s) will automatically be inlined for you, both in your code and inside any third-party packages (`node_modules`) you use.
-
-tsx
 
 ```
 import {useCallback, useState} from 'react';
@@ -19830,8 +19448,6 @@ One reason why well-built native apps feel so smooth is by avoiding expensive op
 
 Applications can schedule tasks to run after interactions with the following:
 
-tsx
-
 ```
 InteractionManager.runAfterInteractions(() => {
   // ...long-running synchronous task...
@@ -19847,8 +19463,6 @@ Compare this to other scheduling alternatives:
 The touch handling system considers one or more active touches to be an 'interaction' and will delay `runAfterInteractions()` callbacks until all touches have ended or been cancelled.
 
 InteractionManager also allows applications to register animations by creating an interaction 'handle' on animation start, and clearing it upon completion:
-
-tsx
 
 ```
 const handle = InteractionManager.createInteractionHandle();
@@ -22572,8 +22186,6 @@ if (Platform.OS === 'android') {
 
 #### `configureNext()`
 
-tsx
-
 ```
 static configureNext(
   config: LayoutAnimationConfig,
@@ -22611,8 +22223,6 @@ The config that's passed to `create`, `update`, or `delete` has the following ke
 ---
 
 #### `create()`
-
-tsx
 
 ```
 static create(duration, type, creationProp)
@@ -22759,8 +22369,6 @@ Available as constants under `PermissionsAndroid.RESULTS`:
 
 #### `check()`
 
-tsx
-
 ```
 static check(permission: Permission): Promise<boolean>;
 ```
@@ -22776,8 +22384,6 @@ Returns a promise resolving to a boolean value as to whether the specified permi
 ---
 
 #### `request()`
-
-tsx
 
 ```
 static request(
@@ -22810,8 +22416,6 @@ If `rationale` is provided, this function checks with the OS whether it is neces
 ---
 
 #### `requestMultiple()`
-
-tsx
 
 ```
 static requestMultiple(
@@ -22848,8 +22452,6 @@ The `showWithGravityAndOffset(message, duration, gravity, xOffset, yOffset)` met
 
 #### `show()`
 
-tsx
-
 ```
 static show(message: string, duration: number);
 ```
@@ -22860,8 +22462,6 @@ static show(message: string, duration: number);
 
 This property will only work on Android API 29 and below. For similar functionality on higher Android APIs, consider using snackbar or notification.
 
-tsx
-
 ```
 static showWithGravity(message: string, duration: number, gravity: number);
 ```
@@ -22871,8 +22471,6 @@ static showWithGravity(message: string, duration: number, gravity: number);
 #### `showWithGravityAndOffset()`
 
 This property will only work on Android API 29 and below. For similar functionality on higher Android APIs, consider using snackbar or notification.
-
-tsx
 
 ```
 static showWithGravityAndOffset(
@@ -22890,8 +22488,6 @@ static showWithGravityAndOffset(
 
 Indicates the duration on the screen.
 
-tsx
-
 ```
 static SHORT: number;
 ```
@@ -22901,8 +22497,6 @@ static SHORT: number;
 #### `LONG`
 
 Indicates the duration on the screen.
-
-tsx
 
 ```
 static LONG: number;
@@ -22914,8 +22508,6 @@ static LONG: number;
 
 Indicates the position on the screen.
 
-tsx
-
 ```
 static TOP: number;
 ```
@@ -22925,8 +22517,6 @@ static TOP: number;
 #### `BOTTOM`
 
 Indicates the position on the screen.
-
-tsx
 
 ```
 static BOTTOM: number;
@@ -22938,15 +22528,11 @@ static BOTTOM: number;
 
 Indicates the position on the screen.
 
-tsx
-
 ```
 static CENTER: number;
 ```
 
 ## Appearance
-
-tsx
 
 ```
 import {Appearance} from 'react-native';
@@ -22970,8 +22556,6 @@ The `Appearance` module exposes information about the user's appearance preferen
 
 You can use the `Appearance` module to determine if the user prefers a dark color scheme:
 
-tsx
-
 ```
 const colorScheme = Appearance.getColorScheme();
 if (colorScheme === 'dark') {
@@ -22988,8 +22572,6 @@ Although the color scheme is available immediately, this may change (e.g. schedu
 ### Methods
 
 #### `getColorScheme()`
-
-tsx
 
 ```
 static getColorScheme(): 'light' | 'dark' | null;
@@ -23011,8 +22593,6 @@ See also: `useColorScheme` hook.
 
 #### `setColorScheme()`
 
-tsx
-
 ```
 static setColorScheme('light' | 'dark' | null): void;
 ```
@@ -23030,8 +22610,6 @@ Supported color schemes:
 ---
 
 #### `addChangeListener()`
-
-tsx
 
 ```
 static addChangeListener(
@@ -23095,8 +22673,6 @@ If you are using the managed Expo workflow there is only ever one entry componen
 
 `AppRegistry` is the JS entry point to running all React Native apps. App root components should register themselves with `AppRegistry.registerComponent`, then the native system can load the bundle for the app and then actually run the app when it's ready by invoking `AppRegistry.runApplication`.
 
-tsx
-
 ```
 import {Text, AppRegistry} from 'react-native';
 
@@ -23121,8 +22697,6 @@ To "stop" an application when a view should be destroyed, call `AppRegistry.unmo
 
 #### `getAppKeys()`
 
-tsx
-
 ```
 static getAppKeys(): string[];
 ```
@@ -23133,8 +22707,6 @@ Returns an array of strings.
 
 #### `getRegistry()`
 
-tsx
-
 ```
 static getRegistry(): {sections: string[]; runnables: Runnable[]};
 ```
@@ -23144,8 +22716,6 @@ Returns a Registry object.
 ---
 
 #### `getRunnable()`
-
-tsx
 
 ```
 static getRunnable(appKey: string): : Runnable | undefined;
@@ -23163,8 +22733,6 @@ Returns a Runnable object.
 
 #### `getSectionKeys()`
 
-tsx
-
 ```
 static getSectionKeys(): string[];
 ```
@@ -23175,8 +22743,6 @@ Returns an array of strings.
 
 #### `getSections()`
 
-tsx
-
 ```
 static getSections(): Record<string, Runnable>;
 ```
@@ -23186,8 +22752,6 @@ Returns a Runnables object.
 ---
 
 #### `registerCancellableHeadlessTask()`
-
-tsx
 
 ```
 static registerCancellableHeadlessTask(
@@ -23211,8 +22775,6 @@ Register a headless task which can be cancelled. A headless task is a bit of cod
 
 #### `registerComponent()`
 
-tsx
-
 ```
 static registerComponent(
   appKey: string,
@@ -23233,8 +22795,6 @@ static registerComponent(
 
 #### `registerConfig()`
 
-tsx
-
 ```
 static registerConfig(config: AppConfig[]);
 ```
@@ -23248,8 +22808,6 @@ static registerConfig(config: AppConfig[]);
 ---
 
 #### `registerHeadlessTask()`
-
-tsx
 
 ```
 static registerHeadlessTask(
@@ -23273,8 +22831,6 @@ This is a way to run tasks in JavaScript while your app is in the background. It
 
 #### `registerRunnable()`
 
-tsx
-
 ```
 static registerRunnable(appKey: string, func: Runnable): string;
 ```
@@ -23289,8 +22845,6 @@ static registerRunnable(appKey: string, func: Runnable): string;
 ---
 
 #### `registerSection()`
-
-tsx
 
 ```
 static registerSection(
@@ -23310,8 +22864,6 @@ static registerSection(
 
 #### `runApplication()`
 
-tsx
-
 ```
 static runApplication(appKey: string, appParameters: any): void;
 ```
@@ -23328,8 +22880,6 @@ Loads the JavaScript bundle and runs the app.
 ---
 
 #### `setComponentProviderInstrumentationHook()`
-
-tsx
 
 ```
 static setComponentProviderInstrumentationHook(
@@ -23356,8 +22906,6 @@ The function must also return a React Component.
 
 #### `setWrapperComponentProvider()`
 
-tsx
-
 ```
 static setWrapperComponentProvider(
   provider: WrapperComponentProvider,
@@ -23373,8 +22921,6 @@ static setWrapperComponentProvider(
 ---
 
 #### `startHeadlessTask()`
-
-tsx
 
 ```
 static startHeadlessTask(
@@ -23397,8 +22943,6 @@ Only called from native code. Starts a headless task.
 ---
 
 #### `unmountApplicationComponentAtRootTag()`
-
-tsx
 
 ```
 static unmountApplicationComponentAtRootTag(rootTag: number);
@@ -23507,8 +23051,6 @@ A valid `TaskProvider` is a function that returns a `Task`.
 
 You should get a higher resolution image if you are on a high pixel density device. A good rule of thumb is to multiply the size of the image you display by the pixel ratio.
 
-tsx
-
 ```
 const image = getImage({
   width: PixelRatio.getPixelSizeForLayoutSize(200),
@@ -23536,8 +23078,6 @@ In React Native, everything in JavaScript and within the layout engine works wit
 ### Methods
 
 #### `get()`
-
-tsx
 
 ```
 static get(): number;
@@ -23574,8 +23114,6 @@ Returns the device pixel density. Some examples:
 
 #### `getFontScale()`
 
-tsx
-
 ```
 static getFontScale(): number;
 ```
@@ -23591,8 +23129,6 @@ If a font scale is not set, this returns the device pixel ratio.
 
 #### `getPixelSizeForLayoutSize()`
 
-tsx
-
 ```
 static getPixelSizeForLayoutSize(layoutSize: number): number;
 ```
@@ -23604,8 +23140,6 @@ Guaranteed to return an integer number.
 ---
 
 #### `roundToNearestPixel()`
-
-tsx
 
 ```
 static roundToNearestPixel(layoutSize: number): number;
@@ -23666,8 +23200,6 @@ Inherits VirtualizedList Props.
 
 #### Require&#x64;**`renderItem`**&#x200B;
 
-tsx
-
 ```
 renderItem({
   item: ItemT,
@@ -23704,8 +23236,6 @@ Provides additional metadata like `index` if you need it, as well as a more gene
     - `newProps` (Object)
 
 Example usage:
-
-tsx
 
 ```
 <FlatList
@@ -23826,15 +23356,11 @@ A marker property for telling the list to re-render (since it implements `PureCo
 
 #### `getItemLayout`
 
-tsx
-
 ```
 (data, index) => {length: number, offset: number, index: number}
 ```
 
 `getItemLayout` is an optional optimization that allows skipping the measurement of dynamic content if you know the size (height or width) of items ahead of time. `getItemLayout` is efficient if you have fixed size items, for example:
-
-tsx
 
 ```
   getItemLayout={(data, index) => (
@@ -23892,8 +23418,6 @@ Reverses the direction of scroll. Uses scale transforms of `-1`.
 
 #### `keyExtractor`
 
-tsx
-
 ```
 (item: ItemT, index: number) => string;
 ```
@@ -23917,8 +23441,6 @@ Multiple columns can only be rendered with `horizontal={false}` and will zig-zag
 ---
 
 #### `onRefresh`
-
-tsx
 
 ```
 () => void;
@@ -23997,8 +23519,6 @@ At least one of the `viewAreaCoveragePercentThreshold` or `itemVisiblePercentThr
   Error: Changing viewabilityConfig on the fly is not supported
 ```
 
-tsx
-
 ```
 constructor (props) {
   super(props)
@@ -24009,8 +23529,6 @@ constructor (props) {
   }
 }
 ```
-
-tsx
 
 ```
 <FlatList
@@ -24048,8 +23566,6 @@ List of `ViewabilityConfig`/`onViewableItemsChanged` pairs. A specific `onViewab
 
 #### `flashScrollIndicators()`
 
-tsx
-
 ```
 flashScrollIndicators();
 ```
@@ -24059,8 +23575,6 @@ Displays the scroll indicators momentarily.
 ---
 
 #### `getNativeScrollRef()`
-
-tsx
 
 ```
 getNativeScrollRef(): React.ElementRef<typeof ScrollViewComponent>;
@@ -24072,8 +23586,6 @@ Provides a reference to the underlying scroll component
 
 #### `getScrollResponder()`
 
-tsx
-
 ```
 getScrollResponder(): ScrollResponderMixin;
 ```
@@ -24084,8 +23596,6 @@ Provides a handle to the underlying scroll responder.
 
 #### `getScrollableNode()`
 
-tsx
-
 ```
 getScrollableNode(): any;
 ```
@@ -24093,8 +23603,6 @@ getScrollableNode(): any;
 Provides a handle to the underlying scroll node.
 
 #### `scrollToEnd()`
-
-tsx
 
 ```
 scrollToEnd(params?: {animated?: boolean});
@@ -24115,8 +23623,6 @@ Valid `params` keys are:
 ---
 
 #### `scrollToIndex()`
-
-tsx
 
 ```
 scrollToIndex: (params: {
@@ -24148,8 +23654,6 @@ Valid `params` keys are:
 
 #### `scrollToItem()`
 
-tsx
-
 ```
 scrollToItem(params: {
   animated?: ?boolean,
@@ -24177,8 +23681,6 @@ Valid `params` keys are:
 ---
 
 #### `scrollToOffset()`
-
-tsx
 
 ```
 scrollToOffset(params: {
@@ -24214,8 +23716,6 @@ Sometimes it's useful to know whether or not the device has a screen reader that
 
 #### `addEventListener()`
 
-tsx
-
 ```
 static addEventListener(
   eventName: AccessibilityChangeEventName | AccessibilityAnnouncementEventName,
@@ -24238,8 +23738,6 @@ Add an event handler. Supported events:
 
 #### `announceForAccessibility()`
 
-tsx
-
 ```
 static announceForAccessibility(announcement: string);
 ```
@@ -24249,8 +23747,6 @@ Post a string to be announced by the screen reader.
 ---
 
 #### `announceForAccessibilityWithOptions()`
-
-tsx
 
 ```
 static announceForAccessibilityWithOptions(
@@ -24272,8 +23768,6 @@ Post a string to be announced by the screen reader with modification options. By
 
 #### `getRecommendedTimeoutMillis()`Android
 
-tsx
-
 ```
 static getRecommendedTimeoutMillis(originalTimeout: number): Promise<number>;
 ```
@@ -24290,8 +23784,6 @@ Gets the timeout in millisecond that the user needs. This value is set in "Time 
 
 #### `isAccessibilityServiceEnabled()`Android
 
-tsx
-
 ```
 static isAccessibilityServiceEnabled(): Promise<boolean>;
 ```
@@ -24304,8 +23796,6 @@ Check whether any accessibility service is enabled. This includes TalkBack but a
 
 #### `isBoldTextEnabled()`iOS
 
-tsx
-
 ```
 static isBoldTextEnabled(): Promise<boolean>:
 ```
@@ -24315,8 +23805,6 @@ Query whether a bold text is currently enabled. Returns a promise which resolves
 ---
 
 #### `isGrayscaleEnabled()`iOS
-
-tsx
 
 ```
 static isGrayscaleEnabled(): Promise<boolean>;
@@ -24328,8 +23816,6 @@ Query whether grayscale is currently enabled. Returns a promise which resolves t
 
 #### `isInvertColorsEnabled()`iOS
 
-tsx
-
 ```
 static isInvertColorsEnabled(): Promise<boolean>;
 ```
@@ -24339,8 +23825,6 @@ Query whether invert colors is currently enabled. Returns a promise which resolv
 ---
 
 #### `isReduceMotionEnabled()`
-
-tsx
 
 ```
 static isReduceMotionEnabled(): Promise<boolean>;
@@ -24352,8 +23836,6 @@ Query whether reduce motion is currently enabled. Returns a promise which resolv
 
 #### `isReduceTransparencyEnabled()`iOS
 
-tsx
-
 ```
 static isReduceTransparencyEnabled(): Promise<boolean>;
 ```
@@ -24363,8 +23845,6 @@ Query whether reduce transparency is currently enabled. Returns a promise which 
 ---
 
 #### `isScreenReaderEnabled()`
-
-tsx
 
 ```
 static isScreenReaderEnabled(): Promise<boolean>;
@@ -24376,8 +23856,6 @@ Query whether a screen reader is currently enabled. Returns a promise which reso
 
 #### `prefersCrossFadeTransitions()`iOS
 
-tsx
-
 ```
 static prefersCrossFadeTransitions(): Promise<boolean>;
 ```
@@ -24387,8 +23865,6 @@ Query whether reduce motion and prefer cross-fade transitions settings are curre
 ---
 
 #### `setAccessibilityFocus()`
-
-tsx
 
 ```
 static setAccessibilityFocus(reactTag: number);
@@ -24452,8 +23928,6 @@ Received when the user is not actively interacting with the app. Useful in situa
 
 #### `addEventListener()`
 
-tsx
-
 ```
 static addEventListener(
   type: AppStateEvent,
@@ -24466,8 +23940,6 @@ Sets up a function that will be called whenever the specified event type on AppS
 ### Properties
 
 #### `currentState`
-
-tsx
 
 ```
 static currentState: AppStateStatus;
@@ -24484,8 +23956,6 @@ static currentState: AppStateStatus;
 ### Properties
 
 #### `constants`
-
-tsx
 
 ```
 static constants: PlatformConstants;
@@ -24517,8 +23987,6 @@ Returns an object which contains all available common and specific constants rel
 
 #### `isPad`iOS
 
-tsx
-
 ```
 static isPad: boolean;
 ```
@@ -24532,8 +24000,6 @@ Returns a boolean which defines if device is an iPad.
 ---
 
 #### `isTV`
-
-tsx
 
 ```
 static isTV: boolean;
@@ -24549,8 +24015,6 @@ Returns a boolean which defines if device is a TV.
 
 #### `isVision`
 
-tsx
-
 ```
 static isVision: boolean;
 ```
@@ -24564,8 +24028,6 @@ Returns a boolean which defines if device is an Apple Vision. _If you are using 
 ---
 
 #### `isTesting`
-
-tsx
 
 ```
 static isTesting: boolean;
@@ -24581,8 +24043,6 @@ Returns a boolean which defines if application is running in Developer Mode with
 
 #### `OS`
 
-tsx
-
 ```
 static OS: 'android' | 'ios';
 ```
@@ -24597,8 +24057,6 @@ Returns string value representing the current OS.
 
 #### `Version`
 
-tsx
-
 ```
 static Version: 'number' | 'string';
 ```
@@ -24612,8 +24070,6 @@ Returns the version of the OS.
 ### Methods
 
 #### `select()`
-
-tsx
 
 ```
 static select(config: Record<string, T>): T;
@@ -24637,8 +24093,6 @@ The `config` parameter is an object with the following keys:
 - `default` (any)
 
 **Example usage:**
-
-tsx
 
 ```
 import {Platform, StyleSheet} from 'react-native';
@@ -24666,8 +24120,6 @@ This will result in a container having `flex: 1` on all platforms, a green backg
 
 Since the value of the corresponding platform key can be of type `any`, `select` method can also be used to return platform-specific components, like below:
 
-tsx
-
 ```
 const Component = Platform.select({
   ios: () => require('ComponentIOS'),
@@ -24676,8 +24128,6 @@ const Component = Platform.select({
 
 <Component />;
 ```
-
-tsx
 
 ```
 const Component = Platform.select({
@@ -25148,8 +24598,6 @@ Makes section headers stick to the top of the screen until the next one pushes i
 
 #### `flashScrollIndicators()`iOS
 
-tsx
-
 ```
 flashScrollIndicators();
 ```
@@ -25160,8 +24608,6 @@ Displays the scroll indicators momentarily.
 
 #### `recordInteraction()`
 
-tsx
-
 ```
 recordInteraction();
 ```
@@ -25171,8 +24617,6 @@ Tells the list an interaction has occurred, which should trigger viewability cal
 ---
 
 #### `scrollToLocation()`
-
-tsx
 
 ```
 scrollToLocation(params: SectionListScrollParams);
@@ -25363,8 +24807,6 @@ The `DevSettings` module exposes methods for customizing settings for developers
 
 #### `addMenuItem()`
 
-tsx
-
 ```
 static addMenuItem(title: string, handler: () => any);
 ```
@@ -25380,8 +24822,6 @@ Add a custom menu item to the Dev Menu.
 
 **Example:**
 
-tsx
-
 ```
 DevSettings.addMenuItem('Show Secret Dev Screen', () => {
   Alert.alert('Showing secret dev screen!');
@@ -25392,8 +24832,6 @@ DevSettings.addMenuItem('Show Secret Dev Screen', () => {
 
 #### `reload()`
 
-tsx
-
 ```
 static reload(reason?: string): void;
 ```
@@ -25401,8 +24839,6 @@ static reload(reason?: string): void;
 Reload the application. Can be invoked directly or on user interaction.
 
 **Example:**
-
-tsx
 
 ```
 <Button title="Reload" onPress={() => DevSettings.reload()} />
@@ -25421,8 +24857,6 @@ tsx
 ### Reference
 
 ### Methods
-
-tsx
 
 ```
 static share(content: ShareContent, options?: ShareOptions);
@@ -25447,8 +24881,6 @@ In Android, returns a Promise which will always be resolved with action being `S
 
 #### `sharedAction`
 
-tsx
-
 ```
 static sharedAction: 'sharedAction';
 ```
@@ -25458,8 +24890,6 @@ The content was successfully shared.
 ---
 
 #### `dismissedAction`iOS
-
-tsx
 
 ```
 static dismissedAction: 'dismissedAction';
@@ -25511,8 +24941,6 @@ Opaque data type passed to `getItem` and `getItemCount` to retrieve items.
 
 #### Require&#x64;**`getItem`**&#x200B;
 
-tsx
-
 ```
 (data: any, index: number) => any;
 ```
@@ -25527,8 +24955,6 @@ A generic accessor for extracting an item from any sort of data blob.
 
 #### Require&#x64;**`getItemCount`**&#x200B;
 
-tsx
-
 ```
 (data: any) => number;
 ```
@@ -25542,8 +24968,6 @@ Determines how many items are in the data blob.
 ---
 
 #### Require&#x64;**`renderItem`**&#x200B;
-
-tsx
 
 ```
 (info: any) => ?React.Element<any>
@@ -25669,8 +25093,6 @@ A marker property for telling the list to re-render (since it implements `PureCo
 
 #### `getItemLayout`
 
-tsx
-
 ```
 (
   data: any,
@@ -25726,8 +25148,6 @@ Reverses the direction of scroll. Uses scale transforms of `-1`.
 
 #### `keyExtractor`
 
-tsx
-
 ```
 (item: any, index: number) => string;
 ```
@@ -25772,8 +25192,6 @@ How far from the end (in units of visible length of the list) the trailing edge 
 
 #### `onRefresh`
 
-tsx
-
 ```
 () => void;
 ```
@@ -25787,8 +25205,6 @@ If provided, a standard `RefreshControl` will be added for "Pull to Refresh" fun
 ---
 
 #### `onScrollToIndexFailed`
-
-tsx
 
 ```
 (info: {
@@ -25888,8 +25304,6 @@ This may improve scroll performance for large lists.
 
 #### `renderScrollComponent`
 
-tsx
-
 ```
 (props: object) => element;
 ```
@@ -25944,8 +25358,6 @@ Determines the maximum number of items rendered outside of the visible area, in 
 
 #### `flashScrollIndicators()`
 
-tsx
-
 ```
 flashScrollIndicators();
 ```
@@ -25954,8 +25366,6 @@ flashScrollIndicators();
 
 #### `getScrollableNode()`
 
-tsx
-
 ```
 getScrollableNode(): any;
 ```
@@ -25963,8 +25373,6 @@ getScrollableNode(): any;
 ---
 
 #### `getScrollRef()`
-
-tsx
 
 ```
 getScrollRef():
@@ -25977,8 +25385,6 @@ getScrollRef():
 
 #### `getScrollResponder()`
 
-tsx
-
 ```
 getScrollResponder () => ScrollResponderMixin | null;
 ```
@@ -25988,8 +25394,6 @@ Provides a handle to the underlying scroll responder. Note that `this._scrollRef
 ---
 
 #### `scrollToEnd()`
-
-tsx
 
 ```
 scrollToEnd(params?: {animated?: boolean});
@@ -26011,8 +25415,6 @@ Valid `params` keys are:
 
 #### `scrollToIndex()`
 
-tsx
-
 ```
 scrollToIndex(params: {
   index: number;
@@ -26033,8 +25435,6 @@ Valid `params` consist of:
 
 #### `scrollToItem()`
 
-tsx
-
 ```
 scrollToItem(params: {
   item: ItemT;
@@ -26054,8 +25454,6 @@ Valid `params` consist of:
 ---
 
 #### `scrollToOffset()`
-
-tsx
 
 ```
 scrollToOffset(params: {
@@ -26088,8 +25486,6 @@ Code quality tips:
 
 #### `compose()`
 
-tsx
-
 ```
 static compose(style1: Object, style2: Object): Object | Object[];
 ```
@@ -26100,8 +25496,6 @@ Combines two styles such that `style2` will override any styles in `style1`. If 
 
 #### `create()`
 
-tsx
-
 ```
 static create(styles: Object extends Record<string, ViewStyle | ImageStyle | TextStyle>): Object;
 ```
@@ -26111,8 +25505,6 @@ An identity function for creating styles. The main practical benefit of creating
 ---
 
 #### `flatten()`
-
-tsx
 
 ```
 static flatten(style: Array<Object extends Record<string, ViewStyle | ImageStyle | TextStyle>>): Object;
@@ -26125,8 +25517,6 @@ Flattens an array of style objects, into one aggregated style object.
 #### `setStyleAttributePreprocessor()`
 
 > **WARNING: EXPERIMENTAL.** Breaking changes will probably happen a lot and will not be reliably announced. The whole thing might be deleted, who knows? Use at your own risk.
-
-tsx
 
 ```
 static setStyleAttributePreprocessor(
@@ -26175,8 +25565,6 @@ Typically initialized with `useAnimatedValue(0);` or `new Animated.Value(0);` in
 
 #### `setValue()`
 
-tsx
-
 ```
 setValue(value: number);
 ```
@@ -26192,8 +25580,6 @@ Directly set the value. This will stop any animations running on the value and u
 ---
 
 #### `setOffset()`
-
-tsx
 
 ```
 setOffset(offset: number);
@@ -26211,8 +25597,6 @@ Sets an offset that is applied on top of whatever value is set, whether via `set
 
 #### `flattenOffset()`
 
-tsx
-
 ```
 flattenOffset();
 ```
@@ -26223,8 +25607,6 @@ Merges the offset value into the base value and resets the offset to zero. The f
 
 #### `extractOffset()`
 
-tsx
-
 ```
 extractOffset();
 ```
@@ -26234,8 +25616,6 @@ Sets the offset value to the base value, and resets the base value to zero. The 
 ---
 
 #### `addListener()`
-
-tsx
 
 ```
 addListener(callback: (state: {value: number}) => void): string;
@@ -26255,8 +25635,6 @@ Returns a string that serves as an identifier for the listener.
 
 #### `removeListener()`
 
-tsx
-
 ```
 removeListener(id: string);
 ```
@@ -26273,8 +25651,6 @@ Unregister a listener. The `id` param shall match the identifier previously retu
 
 #### `removeAllListeners()`
 
-tsx
-
 ```
 removeAllListeners();
 ```
@@ -26284,8 +25660,6 @@ Remove all registered listeners.
 ---
 
 #### `stopAnimation()`
-
-tsx
 
 ```
 stopAnimation(callback?: (value: number) => void);
@@ -26303,8 +25677,6 @@ Stops any running animation or tracking. `callback` is invoked with the final va
 
 #### `resetAnimation()`
 
-tsx
-
 ```
 resetAnimation(callback?: (value: number) => void);
 ```
@@ -26320,8 +25692,6 @@ Stops any animation and resets the value to its original.
 ---
 
 #### `interpolate()`
-
-tsx
 
 ```
 interpolate(config: InterpolationConfigType);
@@ -26350,8 +25720,6 @@ The `config` object is composed of the following keys:
 
 #### `animate()`
 
-tsx
-
 ```
 animate(animation, callback);
 ```
@@ -26369,15 +25737,11 @@ Typically only used internally, but could be used by a custom Animation class.
 
 > `useWindowDimensions` is the preferred API for React components. Unlike `Dimensions`, it updates as the window's dimensions update. This works nicely with the React paradigm.
 
-tsx
-
 ```
 import {Dimensions} from 'react-native';
 ```
 
 You can get the application window's width and height using the following code:
-
-tsx
 
 ```
 const windowWidth = Dimensions.get('window').width;
@@ -26396,8 +25760,6 @@ If you are targeting foldable devices or devices which can change the screen siz
 
 #### `addEventListener()`
 
-tsx
-
 ```
 static addEventListener(
   type: 'change',
@@ -26415,8 +25777,6 @@ Add an event handler. Supported events:
 ---
 
 #### `get()`
-
-tsx
 
 ```
 static get(dim: 'window' | 'screen'): ScaledSize;
@@ -26478,8 +25838,6 @@ Example: `const {height, width} = Dimensions.get('window');`
 
 #### `isEnabled()`
 
-tsx
-
 ```
 static isEnabled(): boolean;
 ```
@@ -26487,8 +25845,6 @@ static isEnabled(): boolean;
 ---
 
 #### `beginEvent()`
-
-tsx
 
 ```
 static beginEvent(eventName: string | (() => string), args?: EventArgs);
@@ -26500,8 +25856,6 @@ beginEvent/endEvent for starting and then ending a profile within the same call 
 
 #### `endEvent()`
 
-tsx
-
 ```
 static endEvent(args?: EventArgs);
 ```
@@ -26509,8 +25863,6 @@ static endEvent(args?: EventArgs);
 ---
 
 #### `beginAsyncEvent()`
-
-tsx
 
 ```
 static beginAsyncEvent(
@@ -26525,8 +25877,6 @@ beginAsyncEvent/endAsyncEvent for starting and then ending a profile where the e
 
 #### `endAsyncEvent()`
 
-tsx
-
 ```
 static endAsyncEvent(
   eventName: EventName,
@@ -26538,8 +25888,6 @@ static endAsyncEvent(
 ---
 
 #### `counterEvent()`
-
-tsx
 
 ```
 static counterEvent(eventName: string | (() => string), value: number);
@@ -26623,8 +25971,6 @@ The following helpers are used to modify other easing functions.
 
 #### `step0()`
 
-tsx
-
 ```
 static step0(n: number);
 ```
@@ -26634,8 +25980,6 @@ A stepping function, returns 1 for any positive value of `n`.
 ---
 
 #### `step1()`
-
-tsx
 
 ```
 static step1(n: number);
@@ -26647,8 +25991,6 @@ A stepping function, returns 1 if `n` is greater than or equal to 1.
 
 #### `linear()`
 
-tsx
-
 ```
 static linear(t: number);
 ```
@@ -26658,8 +26000,6 @@ A linear function, `f(t) = t`. Position correlates to elapsed time one to one.
 ---
 
 #### `ease()`
-
-tsx
 
 ```
 static ease(t: number);
@@ -26671,8 +26011,6 @@ A basic inertial interaction, similar to an object slowly accelerating to speed.
 
 #### `quad()`
 
-tsx
-
 ```
 static quad(t: number);
 ```
@@ -26683,8 +26021,6 @@ A quadratic function, `f(t) = t * t`. Position equals the square of elapsed time
 
 #### `cubic()`
 
-tsx
-
 ```
 static cubic(t: number);
 ```
@@ -26694,8 +26030,6 @@ A cubic function, `f(t) = t * t * t`. Position equals the cube of elapsed time.
 ---
 
 #### `poly()`
-
-tsx
 
 ```
 static poly(n: number);
@@ -26709,8 +26043,6 @@ n = 4: <https://easings.net/#easeInQuart> n = 5: <https://easings.net/#easeInQui
 
 #### `sin()`
 
-tsx
-
 ```
 static sin(t: number);
 ```
@@ -26720,8 +26052,6 @@ A sinusoidal function.
 ---
 
 #### `circle()`
-
-tsx
 
 ```
 static circle(t: number);
@@ -26733,8 +26063,6 @@ A circular function.
 
 #### `exp()`
 
-tsx
-
 ```
 static exp(t: number);
 ```
@@ -26744,8 +26072,6 @@ An exponential function.
 ---
 
 #### `elastic()`
-
-tsx
 
 ```
 static elastic(bounciness: number);
@@ -26759,8 +26085,6 @@ Default bounciness is 1, which overshoots a little bit once. 0 bounciness doesn'
 
 #### `back()`
 
-tsx
-
 ```
 static back(s)
 ```
@@ -26771,8 +26095,6 @@ Use with `Animated.parallel()` to create a basic effect where the object animate
 
 #### `bounce()`
 
-tsx
-
 ```
 static bounce(t: number);
 ```
@@ -26782,8 +26104,6 @@ Provides a basic bouncing effect.
 ---
 
 #### `bezier()`
-
-tsx
 
 ```
 static bezier(x1: number, y1: number, x2: number, y2: number);
@@ -26797,8 +26117,6 @@ A useful tool to visualize cubic bezier curves can be found at <https://cubic-be
 
 #### `in()`
 
-tsx
-
 ```
 static in(easing: number);
 ```
@@ -26809,8 +26127,6 @@ Runs an easing function forwards.
 
 #### `out()`
 
-tsx
-
 ```
 static out(easing: number);
 ```
@@ -26820,8 +26136,6 @@ Runs an easing function backwards.
 ---
 
 #### `inOut()`
-
-tsx
 
 ```
 static inOut(easing: number);
@@ -26866,8 +26180,6 @@ Vibrates the device.
 
 #### `cancel()`
 
-tsx
-
 ```
 static cancel();
 ```
@@ -26877,8 +26189,6 @@ Call this to stop vibrating after having invoked `vibrate()` with repetition ena
 ---
 
 #### `vibrate()`
-
-tsx
 
 ```
 static vibrate(
@@ -26916,8 +26226,6 @@ The `vibrate()` method can take a `pattern` argument with an array of numbers th
 
 #### `setValue()`
 
-tsx
-
 ```
 setValue(value: {x: number; y: number});
 ```
@@ -26933,8 +26241,6 @@ Directly set the value. This will stop any animations running on the value and u
 ---
 
 #### `setOffset()`
-
-tsx
 
 ```
 setOffset(offset: {x: number; y: number});
@@ -26952,8 +26258,6 @@ Sets an offset that is applied on top of whatever value is set, whether via `set
 
 #### `flattenOffset()`
 
-tsx
-
 ```
 flattenOffset();
 ```
@@ -26964,8 +26268,6 @@ Merges the offset value into the base value and resets the offset to zero. The f
 
 #### `extractOffset()`
 
-tsx
-
 ```
 extractOffset();
 ```
@@ -26975,8 +26277,6 @@ Sets the offset value to the base value, and resets the base value to zero. The 
 ---
 
 #### `addListener()`
-
-tsx
 
 ```
 addListener(callback: (value: {x: number; y: number}) => void);
@@ -26996,8 +26296,6 @@ Returns a string that serves as an identifier for the listener.
 
 #### `removeListener()`
 
-tsx
-
 ```
 removeListener(id: string);
 ```
@@ -27014,8 +26312,6 @@ Unregister a listener. The `id` param shall match the identifier previously retu
 
 #### `removeAllListeners()`
 
-tsx
-
 ```
 removeAllListeners();
 ```
@@ -27025,8 +26321,6 @@ Remove all registered listeners.
 ---
 
 #### `stopAnimation()`
-
-tsx
 
 ```
 stopAnimation(callback?: (value: {x: number; y: number}) => void);
@@ -27044,8 +26338,6 @@ Stops any running animation or tracking. `callback` is invoked with the final va
 
 #### `resetAnimation()`
 
-tsx
-
 ```
 resetAnimation(callback?: (value: {x: number; y: number}) => void);
 ```
@@ -27062,15 +26354,11 @@ Stops any animation and resets the value to its original.
 
 #### `getLayout()`
 
-tsx
-
 ```
 getLayout(): {left: Animated.Value, top: Animated.Value};
 ```
 
 Converts `{x, y}` into `{left, top}` for use in style, e.g.
-
-tsx
 
 ```
 style={this.state.anim.getLayout()}
@@ -27079,8 +26367,6 @@ style={this.state.anim.getLayout()}
 ---
 
 #### `getTranslateTransform()`
-
-tsx
 
 ```
 getTranslateTransform(): [
@@ -27091,8 +26377,6 @@ getTranslateTransform(): [
 
 Converts `{x, y}` into a useable translation transform, e.g.
 
-tsx
-
 ```
 style={{
   transform: this.state.anim.getTranslateTransform()
@@ -27102,8 +26386,6 @@ style={{
 On this page
 
 ## useColorScheme
-
-tsx
 
 ```
 import {useColorScheme} from 'react-native';
@@ -27127,15 +26409,11 @@ On this page
 
 ## useWindowDimensions
 
-tsx
-
 ```
 import {useWindowDimensions} from 'react-native';
 ```
 
 `useWindowDimensions` automatically updates all of its values when screen size or font scale changes. You can get your application window's width and height like so:
-
-tsx
 
 ```
 const {height, width} = useWindowDimensions();
@@ -27147,8 +26425,6 @@ const {height, width} = useWindowDimensions();
 
 #### `fontScale`
 
-tsx
-
 ```
 useWindowDimensions().fontScale;
 ```
@@ -27159,8 +26435,6 @@ The scale of the font currently used. Some operating systems allow users to scal
 
 #### `height`
 
-tsx
-
 ```
 useWindowDimensions().height;
 ```
@@ -27170,8 +26444,6 @@ The height in pixels of the window or screen your app occupies.
 ---
 
 #### `scale`
-
-tsx
 
 ```
 useWindowDimensions().scale;
@@ -27185,8 +26457,6 @@ The pixel ratio of the device your app is running on. The values can be:
 ---
 
 #### `width`
-
-tsx
 
 ```
 useWindowDimensions().width;
@@ -27209,8 +26479,6 @@ The Keyboard module allows you to listen for native events and react to them, as
 ### Methods
 
 #### `addListener()`
-
-tsx
 
 ```
 static addListener: (
@@ -27247,8 +26515,6 @@ This can be any of the following:
 
 #### `dismiss()`
 
-tsx
-
 ```
 static dismiss();
 ```
@@ -27258,8 +26524,6 @@ Dismisses the active keyboard and removes focus.
 ---
 
 #### `scheduleLayoutAnimation`
-
-tsx
 
 ```
 static scheduleLayoutAnimation(event: KeyboardEvent);
@@ -27271,8 +26535,6 @@ Useful for syncing TextInput (or other keyboard accessory view) size of position
 
 #### `isVisible()`
 
-tsx
-
 ```
 static isVisible(): boolean;
 ```
@@ -27282,8 +26544,6 @@ Whether the keyboard is last known to be visible.
 ---
 
 #### `metrics()`
-
-tsx
 
 ```
 static metrics(): KeyboardMetrics | undefined;

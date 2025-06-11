@@ -160,8 +160,6 @@ Only relevant when using Reanimated without the Babel plugin on the Web.
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - Animated styles take precedence over React Native's static styles. All values specified in animated styles override values from static styles.
@@ -320,8 +318,6 @@ The hook returns a handler object that can be hooked into a scrollable container
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - The returned handler may be passed to multiple components. In such situation, the handler will invoke for the given events each time any of the components dispatches them.
@@ -407,8 +403,6 @@ Value indicating whether handler should be rebuilt.
 The hook returns event handler that will be invoked when native event is dispatched. That handler may be connected to multiple components and will be invoked for each one's specific events.
 
 ### Example
-
-Loading...
 
 This example can be more easily implemented using `useScrollViewOffset`.
 
@@ -500,8 +494,6 @@ Only relevant when using Reanimated without the Babel plugin on the Web.
 The hook returns a context that will be reused by event handlers and value that indicates whether worklets should be rebuilt. If different implementation is needed for web, `useWeb` boolean is returned to check for web environment
 
 ### Example
-
-Loading...
 
 This example can be more easily implemented using `useScrollViewOffset`.
 
@@ -608,8 +600,6 @@ keyframe
 - If you want to animate transform style, make sure that all properties in the transformation array are in the same order in all keyframes.
 
 ### Example
-
-Loading...
 
 ### Platform compatibility
 
@@ -1157,8 +1147,6 @@ The hook returns a handler object that can be hooked into a scrollable container
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - The returned handler may be passed to multiple components. In such situation, the handler will invoke for the given events each time any of the components dispatches them.
@@ -1228,8 +1216,6 @@ Whether the scroll should be smooth (`true`) or instant (`false`).
 `scrollTo` returns `undefined`.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -1319,8 +1305,6 @@ Object which contains relative coordinates
 
 #### Example
 
-Loading...
-
 ### Platform compatibility
 
 | Android | iOS | Web |
@@ -1409,8 +1393,6 @@ Only relevant when using Reanimated without the Babel plugin on the Web.
 
 ### Example
 
-Loading...
-
 ### Platform compatibility
 
 | Android | iOS | Web |
@@ -1465,8 +1447,6 @@ An optional shared value to be updated with the scroll offset. If not provided a
 `useScrollViewOffset` returns a shared value which holds the current offset of the `ScrollView`.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -1579,8 +1559,6 @@ Expand the full code
 
 And that's it! Pretty straightforward, isn't it? Let's see it in its full glory in an interactive example:
 
-Loading...
-
 You can make use of composing gestures to more complex behaviors. But what if we'd like to create something a bit more interesting?
 
 ### Handling pan gestures
@@ -1626,8 +1604,6 @@ Expand the full code
 
 You can play around with the example below and see how the circle changes and reacts to the gesture:
 
-Loading...
-
 ### Using `withDecay`
 
 Remember when some time ago we said that we'll come back to `withDecay`? Now this is the time!
@@ -1657,8 +1633,6 @@ The rest of the code is just to make sure the square stays inside the screen.
 
 Play around and see how the square decelerates when let go with some speed!
 
-Loading...
-
 Make sure to check the full `withDecay` API reference to get to know the rest of the configuration options.
 
 ### Summary
@@ -1679,8 +1653,6 @@ In the next section, Let's explore a glossary of terms together!
 ## withRepeat
 
 `withRepeat` is an animation modifier that lets you repeat an animation given number of times or run it indefinitely.
-
-Loading...
 
 ### Reference
 
@@ -1739,15 +1711,11 @@ A function called on animation complete. In case the animation is cancelled, the
 
 A parameter that determines how the animation responds to the device's reduced motion accessibility setting.
 
-Loading...
-
 #### Returns
 
 `withRepeat` returns an animation object which holds the current state of the animation. It can be either assigned directly to a shared value or can be used as a value for a style object returned from useAnimatedStyle.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -1822,8 +1790,6 @@ An animated ref connected to the component you'd want to get the measurements fr
 or returns `null` when the measurement couldn't be performed.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -1958,8 +1924,6 @@ Only relevant when using Reanimated without the Babel plugin on the Web.
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - Ensure you do not mutate the same shared value in the `result` function that you've used in the `prepare` function, as this will lead to an infinite loop.
@@ -1995,8 +1959,6 @@ On this page
 ## withSequence
 
 `withSequence` is an animation modifier that lets you run animations in a sequence.
-
-Loading...
 
 ### Reference
 
@@ -2041,8 +2003,6 @@ Any number of animation objects to be run in a sequence.
 `withSequence` returns an animation object which holds the current state of the animation. It can be either assigned directly to a shared value or can be used as a value for a style object returned from useAnimatedStyle.
 
 ### Example
-
-Loading...
 
 ### Platform compatibility
 
@@ -2137,8 +2097,6 @@ On this page
 
 `useFrameCallback` lets you run a function on every frame update.
 
-Loading...
-
 ### Reference
 
 ```
@@ -2203,8 +2161,6 @@ Whether the callback should start automatically. Defaults to `true`.
 - `callbackId` a number indicating a unique identifier of the frame callback
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -2475,8 +2431,6 @@ A parameter that determines how the animation responds to the device's reduced m
 
 ### Example
 
-Loading...
-
 ### Platform compatibility
 
 | Android | iOS | Web |
@@ -2637,8 +2591,6 @@ Hook `useAnimatedKeyboard` returns an object containing these fields:
 | state | `SharedValue<KeyboardState>` | A shared value containing current state of the keyboard. Possible states: `{ CLOSED, OPEN, CLOSING, OPENING }` |
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -2826,8 +2778,6 @@ Expand the full code
 
 `withClamp` is an animation modifier that lets you limit the scope of movement of your animation to make it stay within some predefined range. Use it with withSpring animation.
 
-Loading...
-
 ### Reference
 
 ```
@@ -2908,8 +2858,6 @@ const clampedStyleWithDelay = useAnimatedStyle(() => {
 For a full, in depth documentation follow the Sensors guide on Android Developers and the Device motion in the Apple Developer documentation.
 
 The playground below mimics the behaviour and returned values of selected sensors:
-
-Loading...
 
 ### Reference
 
@@ -3172,8 +3120,6 @@ An object with properties you want to update. These could be both style props (e
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - You should always reach for `useAnimatedStyle` and `useAnimatedProps` first when animating styles or properties.
@@ -3299,8 +3245,6 @@ function App() {
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - Changing the reduced motion system setting doesn't cause your components to rerender.
@@ -3370,8 +3314,6 @@ The value you want to be initially stored in the mutable. It can be any JavaScri
 You can access data stored in the mutable with either its `value` property or `get` and `set` methods.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -3533,8 +3475,6 @@ export default function App() {
 
 You can see it in action in the example below:
 
-Loading...
-
 ### Animating props
 
 Most of the values that developers animate (`width`, `color`, `transform` etc.) are modified by passing them as an object to the `style` property of an element. But that's not always the case.
@@ -3612,8 +3552,6 @@ export default function App() {
 In a function which `useAnimatedProps` takes as an argument, we return an object with all the props we'd like to animate. Then we can pass the value which `useAnimatedProps` returns to the `animatedProps` prop of an Animated component.
 
 Check out the full example below:
-
-Loading...
 
 ### Summary
 
@@ -3758,8 +3696,6 @@ A parameter that determines how animations should behave in response to the devi
 - `ReduceMotion.Never` - This option ensures that the animation remains enabled at all times.
 
 ### Example
-
-Loading...
 
 ### Platform compatibility
 
@@ -4222,8 +4158,6 @@ function App() {
 Entering/Exiting animations let you animate elements when they are added to or removed from the view hierarchy.
 
 Reanimated comes with a bunch of predefined animations you can customize. For more advanced use-cases, you can use Keyframes or create your own custom entering/exiting animations.
-
-Loading...
 
 info
 
@@ -5595,8 +5529,6 @@ function App() {
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - Don't read or modify the value of a shared value during a component's render. Access to `value` property or calling `get`/`set` methods is a side-effect. Triggering side-effects during render violates the Rules of React. All reads from and writes to a shared value should happen in relevant callbacks which aren't executed during render, i.e. in `useAnimatedStyle` or `useEffect` hooks.
@@ -5923,8 +5855,6 @@ See you on GitHub! 🎉
 ## Layout transitions
 
 Layout transitions allows you to replace layout changes with smooth transitions. Each layout change may include changes of size and position and both of them can be animated.
-
-Loading...
 
 ### Predefined Transitions
 
@@ -7157,8 +7087,6 @@ function App() {
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - You can share animated props between components to avoid code duplication.
@@ -7686,8 +7614,6 @@ function App() {
 
 `withTiming` lets you create an animation based on duration and easing.
 
-Loading...
-
 ### Reference
 
 ```
@@ -7754,8 +7680,6 @@ Please mind, that `toValue` and the animated shared value have to share the same
 
 The timing animation configuration.
 
-Loading...
-
 Available properties:
 
 | Name | Type | Default | Description |
@@ -7769,8 +7693,6 @@ Available properties:
 The `easing` parameter lets you fine-tune the animation over the specified time duration. For example, you can make the animation begin with fast acceleration and then slow down towards the end, or start slowly, then pick up speed before slowing down again towards the end.
 
 It will all start to make sense when you compare a `linear` easing side by side with the default `Easing.inOut(Easing.quad)` easing.
-
-Loading...
 
 Reanimated provides a selection of ready-to-use easing functions in the `Easing` module. You can find a visualization of some common easing functions at <http://easings.net/>.
 
@@ -7814,8 +7736,6 @@ A function called upon animation completion. If the animation is cancelled, the 
 `withTiming` returns an animation object which holds the current state of the animation. It can be either assigned directly to a shared value or can be used as a value for a style object returned from useAnimatedStyle.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -8031,8 +7951,6 @@ An optional shared value to be updated with the scroll offset. If not provided a
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - The `animatedRef` argument can be changed at will and the hook will correctly return values based on the ScrollView component it is connected to, for example:
@@ -8074,8 +7992,6 @@ The `easing` parameter lets you fine-tune the animation over the specified time.
 
 It all will start to make sense when you compare side by side a `linear` easing with the default easing.
 
-Loading...
-
 Reanimated comes with a handful of predefined easing functions. You can play around with them in the interactive playground below or check the full `withTiming` API reference.
 
 `withTiming` interactive playground
@@ -8097,8 +8013,6 @@ withSpring(sv.value, {
 ```
 
 The mass of a spring influences how hard is it to make an object move and to bring it to a stop. Mass adds a feeling of _inertia_ to the object you're trying to move. You can see in the playground that the spring with greater mass moves more "sluggish" compared to the default configuration.
-
-Loading...
 
 Stiffness affects how bouncy the spring is. As an example, think about the difference between a steel spring (with very high stiffness) and a spring made out of soft plastic (with low stiffness).
 
@@ -8123,8 +8037,6 @@ In the upcoming section, you'll discover how to use animation modifiers such as 
 ## withSpring
 
 `withSpring` lets you create spring-based animations.
-
-Loading...
 
 ### Reference
 
@@ -8198,8 +8110,6 @@ Please mind, that `toValue` and the animated shared value have to share the same
 
 The spring animation configuration.
 
-Loading...
-
 Available for physics-based spring:
 
 | Name | Type | Default | Description |
@@ -8241,8 +8151,6 @@ A function called upon animation completion. If the animation is cancelled, the 
 `withSpring` returns an animation object which holds the current state of the animation. It can be either assigned directly to a shared value or can be used as a value for a style object returned from useAnimatedStyle.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -8421,8 +8329,6 @@ export default function App() {
 
 You can see it in action in the example below:
 
-Loading...
-
 ### Animating props
 
 Most of the values that developers animate (`width`, `color`, `transform` etc.) are modified by passing them as an object to the `style` property of an element. But that's not always the case.
@@ -8500,8 +8406,6 @@ export default function App() {
 In a function which `useAnimatedProps` takes as an argument, we return an object with all the props we'd like to animate. Then we can pass the value which `useAnimatedProps` returns to the `animatedProps` prop of an Animated component.
 
 Check out the full example below:
-
-Loading...
 
 ### Summary
 
@@ -8581,8 +8485,6 @@ Only relevant when using Reanimated without the Babel plugin on the Web.
 
 ### Example
 
-Loading...
-
 ### Remarks
 
 - The callback passed to the first argument is automatically workletized and ran on the UI thread.
@@ -8635,8 +8537,6 @@ info
 Don't forget to call the function returned from `runOnJS`.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -8710,8 +8610,6 @@ info
 Don't forget to call the function returned from `runOnUI`.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -8867,8 +8765,6 @@ export default function App() {
 
 And voilà, we've made our first animation using Reanimated! You can see how it works in its full glory in a preview below:
 
-Loading...
-
 ### Summary
 
 In this section, we gained a firm grasp on the Reanimated fundamentals. We learned about `Animated` components, shared values and how to use them to create a simple animation. To sum up:
@@ -8885,8 +8781,6 @@ In the next section, we will learn more about how to animate styles and props us
 ## withDecay
 
 `withDecay` lets you create animations that mimic objects in motion with friction. The animation will start with the provided velocity and slow down over time according to the given deceleration rate until it stops.
-
-Loading...
 
 ### Reference
 
@@ -8932,8 +8826,6 @@ enum ReduceMotion {
 
 The decay animation configuration.
 
-Loading...
-
 Available properties:
 
 | Name | Type | Default | Description |
@@ -8955,8 +8847,6 @@ A function called on animation complete. In case the animation is cancelled, the
 `withDecay` returns an animation object which holds the current state of the animation. It can be either assigned directly to a shared value or can be used as a value for a style object returned from useAnimatedStyle.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -9018,8 +8908,6 @@ The component you want to make animatable. Function components have to be wrappe
 `createAnimatedComponent` returns a component that Reanimated is capable of animating.
 
 ### Example
-
-Loading...
 
 ### Platform compatibility
 
@@ -9132,8 +9020,6 @@ The shared value of a running animation that you want to cancel. If no animation
 `cancelAnimation` returns `undefined`.
 
 ### Example
-
-Loading...
 
 ### Remarks
 
@@ -9262,8 +9148,6 @@ export default function App() {
 }
 ```
 
-Loading...
-
 ### Repeating an animation
 
 To implement our desired shake animation we can use `withRepeat` modifier. This modifier lets you repeat a provided animation.
@@ -9310,8 +9194,6 @@ export default function App() {
 
 When we run this code we can see that the box jiggles left to right between the set offset and a starting position. After the animation finishes the box doesn't come back to its initial place. It's not really how we imagined a shake animation but we'll get there in a second!
 
-Loading...
-
 ### Running animations in a sequence
 
 One way to improve our animation is to start it with a left offset and reset it back to starting position after the animation ends. That's a perfect use case for the `withSequence` modifier.
@@ -9347,8 +9229,6 @@ Expand the full code
     );
   };
 ```
-
-Loading...
 
 ### Starting the animation with delay
 
@@ -9389,8 +9269,6 @@ Expand the full code
   };
 ```
 
-Loading...
-
 ### Summary
 
 In this section, we learned how to create complex animations by using animation modifiers. To sum up:
@@ -9409,8 +9287,6 @@ In the next section, we're going to learn about handling `Tap` and `Pan` gesture
 ## interpolate
 
 `interpolate` lets you map a value from one range to another using linear interpolation.
-
-Loading...
 
 ### Reference
 
@@ -9502,8 +9378,6 @@ const opacity = interpolate(
 
 ### Example
 
-Loading...
-
 ### Platform compatibility
 
 | Android | iOS | Web |
@@ -9553,8 +9427,6 @@ A number which will be returned when provided `value` is higher than `max`.
 `clamp` returns a number between `min` and `max` bounds.
 
 ### Example
-
-Loading...
 
 ### Platform compatibility
 
@@ -9644,8 +9516,6 @@ Color interpolation options. Allowed parameters:
 `interpolateColor` returns the color after interpolation from within the output range in `rgba(r, g, b, a)` format.
 
 ### Example
-
-Loading...
 
 ### Remarks
 

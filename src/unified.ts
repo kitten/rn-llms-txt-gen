@@ -52,6 +52,34 @@ export async function htmlToMarkdown(content: {
             parent.children.length = 0;
         } else if (node.type === 'html') {
           parent.children.splice(index, 1);
+        } else if (node.type === 'heading') {
+          const child = node.children[0];
+          if (node.children.length === 0)
+            parent.children.splice(index, 1);
+          if (node.children.length > 1 || !child || child.type !== 'text')
+            return;
+          switch (child.value.trim()) {
+            case 'Example':
+            case 'Remarks':
+            case 'Note':
+            case '':
+              parent.children.splice(index, 1);
+              break;
+            default:
+              return;
+          }
+        } else if (node.type === 'text') {
+          if (!parent || parent.type !== 'paragraph' || parent.children.length > 1)
+            return;
+          switch (node.value.trim()) {
+            case 'Loading...':
+            case 'Caution':
+            case 'tsx':
+              parent.children.splice(index, 1);
+              break;
+            default:
+              return;
+          }
         }
       });
     };
