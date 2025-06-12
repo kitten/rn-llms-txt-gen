@@ -1,4 +1,4 @@
-import type { List, ListItem, Root } from 'mdast';
+import type { List, ListItem, PhrasingContent, Root } from 'mdast';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 import { defaultSchema as defaultSanitizeSchema } from 'hast-util-sanitize';
@@ -12,6 +12,7 @@ import remarkNormalizeHeadings from 'remark-normalize-headings';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs';
+import remarkTitle from 'remark-title';
 
 export async function sanitizeHtml(html: string): Promise<string> {
   const vfile = await unified()
@@ -156,5 +157,69 @@ export async function concatMarkdown(
     .process(
       (await Promise.all(contents)).join('\n\n')
     );
+  return md.toString();
+}
+
+function extractTitle(markdown: string): string | null {
+  let depth: number | null = null;
+  let title: string | null = null;
+  const toString = (nodes: PhrasingContent[]): string =>
+    nodes.map((node) => {
+      switch (node.type) {
+        case 'break':
+          return '\n';
+        case 'delete':
+        case 'emphasis':
+        case 'link':
+        case 'strong':
+          return toString(node.children);
+        case 'inlineCode':
+          return `\`${node.value}\``;
+        case 'text':
+          return node.value;
+        case 'footnoteReference':
+        case 'html':
+        case 'image':
+        case 'imageReference':
+        case 'linkReference':
+        default:
+          return '';
+      }
+    }).join('');
+  const tree = unified()
+    .use(remarkParse, { fragment: true })
+    .use(remarkGfm, {
+      tablePipeAlign: false,
+      tableCellPadding: false,
+    })
+    .parse(markdown);
+  visit(tree, function (node) {
+    if (node.type !== 'heading')
+      return;
+    if (!depth || node.depth < depth)
+      title = toString(node.children);
+  });
+  return title;
+}
+
+export async function transferTitle(from: string, to: string): Promise<string> {
+  const title = extractTitle(from);
+  if (!title) return to;
+  const md = await unified()
+    .use(remarkParse, { fragment: true })
+    .use(remarkGfm, {
+      tablePipeAlign: false,
+      tableCellPadding: false,
+    })
+    .use(remarkTitle, {
+      title,
+    })
+    .use(remarkStringify, {
+      bullet: '-',
+      incrementListMarker: false,
+      ruleSpaces: false,
+      tightDefinitions: true,
+    })
+    .process(to);
   return md.toString();
 }

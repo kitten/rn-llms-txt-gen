@@ -5,7 +5,7 @@ import { URLPattern } from 'urlpattern-polyfill/urlpattern';
 import { WeightedDiGraph, KruskalMST, Edge } from 'js-graph-algorithms';
 import { extractContent, extractLinks, parseBody } from "./dom";
 import { fetchHtml } from "./fetch";
-import { htmlToMarkdown, sanitizeHtml } from "./unified";
+import { htmlToMarkdown, sanitizeHtml, transferTitle } from "./unified";
 import { rewriteMarkdown } from './rewrite';
 import { makeCacheFileHelper } from './path';
 
@@ -143,7 +143,7 @@ class Page {
     const markdown = await extractContentToMarkdown(this.url, html);
     if (!markdown) return (this.#content = null);
     const rewritten = await rewriteMarkdown(this.url, markdown);
-    return (this.#content = rewritten);
+    return (this.#content = await transferTitle(markdown, rewritten));
   }
 }
 
