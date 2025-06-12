@@ -627,7 +627,7 @@ For detailed instructions, please consult the Tailwind CSS documentation.
 
 ***
 
-## Accessing and Managing Device Color Scheme
+## useColorScheme()
 
 The `useColorScheme()` function provides a way to access and manage the device's current color scheme.
 
@@ -809,14 +809,14 @@ The following table outlines various CSS classes related to background clipping,
 
 These classes are used to define how the background of an element is clipped, with support limited to web browsers.
 
-## Responsive Design in Nativewind
+## Responsive Design
 
 **Note:**\
 The default theme of Nativewind is not specifically tailored for native devices. It currently employs breakpoints that are primarily intended for web applications.
 
 Nativewind's approach to responsive design mirrors that of Tailwind CSS. For detailed information, please consult the official Tailwind CSS documentation.
 
-## remapProps Utility in Nativewind
+## remapProps
 
 Nativewind offers a utility called `remapProps` to streamline the integration of third-party components that have multiple "style" props. This tool allows developers to map Tailwind CSS class names to these style props, enhancing ease of use and consistency.
 
@@ -4263,13 +4263,9 @@ Below is an example demonstrating how to use a custom component with `cssInterop
 
 This configuration allows you to specify additional class attributes that Tailwind CSS will recognize and apply.
 
-```markdown
-## Content Rules in Nativewind
+## Content
 
 Nativewind adheres to the same content configuration guidelines as Tailwind CSS. For detailed information and solutions to potential issues, consult the official Tailwind CSS documentation.
-```
-
-This reformatted markdown maintains the original message while ensuring clarity and conciseness for an AI context.
 
 ## Overflow
 
@@ -4705,7 +4701,7 @@ module.exports = {
 }
 ```
 
-## Usage
+## Top / Right / Bottom / Left
 
 For detailed information, please consult the Tailwind CSS documentation.
 

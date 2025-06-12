@@ -22,7 +22,7 @@ For more details, refer to the latest article on Gesture Handler features and ch
 
 Software Mansion is a team of React Native Core Contributors and experts specializing in resolving various React Native challenges. Whether you need assistance with gestures, animations, or general development, we are here to help.
 
-## Installation Guide for react-native-gesture-handler
+## Installation
 
 ### Requirements
 
@@ -176,7 +176,7 @@ export function registerScreens() {
 
 Ensure each screen in your app is wrapped with `GestureHandlerRootView` as native navigation libraries map each screen to a separate root view.
 
-## Rotation Gesture
+## Rotation gesture
 
 A continuous gesture capable of recognizing and tracking rotation movements. Activation occurs when fingers are placed on the screen and move in a specific manner.
 
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
 
 - **`pointerType`**: Type of pointer device, represented by the `PointerType` enum (`TOUCH`, `STYLUS`, `MOUSE`, `KEY`, `OTHER`).
 
-## Pinch Gesture
+## Pinch gesture
 
 A continuous gesture that recognizes pinch gestures, allowing for tracking the distance between two fingers to scale or zoom content. The gesture activates when fingers are placed on the screen and change their position. A callback can be used for continuous tracking of the pinch gesture, providing information about velocity, anchor (focal) point, and scale.
 
@@ -629,7 +629,7 @@ export default class App extends React.Component {
 }
 ```
 
-## Pan Gesture
+## Pan gesture
 
 A pan gesture recognizes and tracks a continuous dragging motion. It activates when a finger touches the screen and moves beyond an initial distance.
 
@@ -879,7 +879,7 @@ export default class App extends React.Component {
 }
 ```
 
-## Gesture States and Events
+## Gesture states & events
 
 Each gesture can be conceptualized as a "state machine." At any given moment, each handler instance is assigned a state that may change due to new touch events or specific conditions imposed by the touch system.
 
@@ -959,7 +959,7 @@ RNGH2 defines three types of events: `StateChangeEvent`, `GestureEvent`, and `Po
 - **`onPointerCancelled`**
   - Called when no further pointer information is available due to gesture completion or interruption. May involve multiple pointers due to event batching.
 
-## Handler State Overview
+## Handler State
 
 Gesture handlers are conceptualized as "state machines," where each instance maintains an assigned state that can change due to new touch events or be altered by the touch system under specific conditions. There are six possible states for a gesture handler:
 
@@ -1036,59 +1036,57 @@ The handler recognizes a gesture and remains in this state until the gesture con
 
 Signifies the end of a gesture with touches indicating completion. The state transitions to `UNDETERMINED` after resetting.
 
-```markdown
-# Legacy Gesture Handlers
+## Legacy Gesture Handlers
 
-## Overview
+### Overview
 
 The legacy gesture handler API is scheduled for removal in upcoming versions of Gesture Handler. Users are encouraged to transition to the new gestures API. For detailed migration instructions, refer to the provided upgrading guide.
 
-## Cross-Handler Interactions
+### Cross-Handler Interactions
 
 The previous cross-handler interaction capabilities will be deprecated in future releases. Transitioning to the updated gestures API is recommended. Consult the upgrading guide for further details.
 
-## Common Handler Properties
+### Common Handler Properties
 
 Properties common across handlers in the old API are slated for removal. Users should adopt the new gestures API and refer to the upgrading guide for assistance.
 
-## Specific Gesture Handlers
+### Specific Gesture Handlers
 
-### Pan
+#### Pan
 
 The pan gesture handler from the legacy API will be deprecated. Transitioning to the gestures API is advised. See the upgrading guide for more information.
 
-### Tap
+#### Tap
 
 The tap gesture handler in the old API will no longer be supported. Users should migrate to the new gestures API. Refer to the upgrading guide for guidance.
 
-### Long Press
+#### Long Press
 
 Long press functionality from the legacy API will be removed. Transitioning to the gestures API is recommended. Consult the upgrading guide for more details.
 
-### Rotation
+#### Rotation
 
 The rotation gesture handler in the old API will be deprecated. Migrating to the gestures API is advised. See the upgrading guide for further information.
 
-### Fling
+#### Fling
 
 Fling gesture handling from the legacy API will be removed. Users should transition to the new gestures API. Refer to the upgrading guide for assistance.
 
-### Pinch
+#### Pinch
 
 The pinch gesture handler in the old API will no longer be supported. Transitioning to the gestures API is recommended. Consult the upgrading guide for more details.
 
-### Force Touch
+#### Force Touch
 
 Force touch functionality from the legacy API will be deprecated. Migrating to the gestures API is advised. See the upgrading guide for further information.
 
-## NativeView
+### NativeView
 
 The `NativeView` component in the old API will be removed. Users should adopt the new gestures API and refer to the upgrading guide for assistance.
 
-## createNativeWrapper()
+### createNativeWrapper()
 
 The `createNativeWrapper()` function from the legacy API will no longer be supported. Transitioning to the gestures API is recommended. Consult the upgrading guide for more details.
-```
 
 ## Testing with Jest
 
@@ -1343,7 +1341,7 @@ Here's how you can implement this:
 
 By setting `touchAction` to `"pan-y"`, you allow vertical panning, which helps maintain scroll functionality in your custom swipeable component.
 
-## Cross Handler Interactions
+## Cross handler interactions
 
 **Warning:** The old API will be removed in future versions of Gesture Handler. Please migrate to the gestures API instead. Refer to our upgrading guide for more information.
 
@@ -1429,7 +1427,7 @@ const PressBox = () => (
 );
 ```
 
-## Fling Gesture
+## Fling gesture
 
 A discrete gesture activated by sufficiently long and fast movement. The gesture becomes ACTIVE when the movement meets these criteria, transitioning to END upon finger release. If the finger lifts before activation, recognition fails.
 
@@ -1537,7 +1535,7 @@ const styles = StyleSheet.create({
 |`numberOfPointers`|Number of pointers currently on the screen.|
 |`pointerType`|Type of pointer device, using `PointerType`: `TOUCH`, `STYLUS`, `MOUSE`, `KEY`, `OTHER`.|
 
-## Common Handler Properties
+## Common handler properties
 
 **Warning:** The old API will be removed in future versions of Gesture Handler. Please migrate to the gestures API instead. Refer to our upgrading guide for more information.
 
@@ -1617,7 +1615,7 @@ This section describes attributes of the event object provided to `onGestureEven
 
 - **Description:** Represents the number of pointers (fingers) currently on the screen.
 
-## Hover Gesture
+## Hover gesture
 
 A continuous gesture designed to recognize hovering actions over a view. This can be triggered by moving a mouse or stylus above the view.
 
@@ -2042,7 +2040,7 @@ const LongPressButton = () => (
 
 This example sets up a button that triggers an alert when held down for more than 800 milliseconds.
 
-## Custom Swipeable Components in ScrollView (Web)
+## Custom swipeable components inside ScrollView (web)
 
 When developing custom swipeable components within a `ScrollView` on the web, you might opt for more control over their behavior by creating your own version instead of using pre-built solutions like ReanimatedSwipeable. However, one common issue encountered is that scrolling functionality may not work as expected after implementing a custom swipeable component.
 
@@ -2067,7 +2065,7 @@ export default CustomSwipeableComponent;
 
 By setting `touchAction` to `"pan-y"`, you allow the browser to handle vertical panning, which can resolve issues with scrolling when using custom swipeable components inside a `ScrollView`.
 
-## Migrating Away from RNGHEnabledRootView
+## Migrating off RNGHEnabledRootView
 
 ### Update `MainActivity.java`
 
@@ -2117,7 +2115,7 @@ export default function App() {
 
 **Note:** `GestureHandlerRootView` behaves like a standard `View`. To ensure it fills the screen, you must pass `{ flex: 1 }`, similar to how you would with a regular View. By default, it will take on the size of its nested content.
 
-## Rotation Gesture Handler
+## RotationGestureHandler
 
 > **Warning:**\
 > The old API will be deprecated in future versions of Gesture Handler. It is recommended to migrate to the gestures API. Refer to our upgrading guide for more details.
@@ -2259,7 +2257,7 @@ const LongPressButton = () => (
 
 This example shows a button that triggers an alert when flinged to the right or left.
 
-## Quick Start Guide
+## Quick start
 
 RNGH2 simplifies adding gestures to your application. To implement a gesture, wrap the target view with `GestureDetector`, define the desired gesture, and pass it to the detector.
 
@@ -2391,7 +2389,7 @@ return (
 
 Now, add the `Ball` component to a view in your app to see it in action!
 
-## Native Gesture
+## Native gesture
 
 A gesture that integrates with other touch handling components within RNGH's gesture system. This integration facilitates interactions between gestures and native components, allowing them to establish relationships with other gestures.
 
@@ -2731,7 +2729,7 @@ Refer to the base handler class for common event attributes.
 
 **Note**: For a detailed example, refer to the Gesture Handler Example App.
 
-## Manual Gesture
+## Manual gesture
 
 A manual gesture lacks specific activation criteria and event data. Its state must be managed manually using a state manager, ensuring it doesn't fail when all pointers are lifted from the screen.
 
@@ -2873,7 +2871,7 @@ Specifies the pointer device type, represented by the `PointerType` enum with fi
 - `KEY`: Keyboard
 - `OTHER`: Unknown device type
 
-## Migrating from `RNGestureHandlerEnabledRootView` (Android Only)
+## Make sure to migrate off the \`RNGestureHandlerEnabledRootView\` (Android only)
 
 The `RNGestureHandlerEnabledRootView`, required in Gesture Handler 1 for overriding `createRootView`, was deprecated in version 2.0 and removed by version 2.4 due to its association with difficult-to-debug crashes. If you're still using it, refer to the guide on migrating off RNGHEnabledRootView.
 
@@ -2986,7 +2984,7 @@ Use `Gesture.Simultaneous` for simultaneous recognition and `Gesture.Exclusive` 
 
 For relations between gestures on the same view, use the Gesture Composition API. For different views or old gesture handlers, replace `simultaneousHandlers` with `simultaneousWithExternalGesture`, and `waitFor` with `requireExternalGestureToFail`. Use `.withRef(refObject)` to pass a ref object to an old handler.
 
-## Composed Gestures
+## Composed gestures
 
 Composed gestures such as `Race`, `Simultaneous`, and `Exclusive` offer a straightforward method for establishing relationships between different gestures. For further information, refer to the section on Gesture Composition.
 
@@ -3012,7 +3010,7 @@ function App() {
 
 This example demonstrates how to use the `Race` method to compose two gestures: a pan gesture and a long press gesture. The composed gesture is then used within a `GestureDetector` component, which wraps an `Animated.View`.
 
-## Common Handler Properties
+## Common handler properties
 
 **Warning:** The old API will be removed in future versions of Gesture Handler. Please migrate to the gestures API instead. Refer to our upgrading guide for more information.
 
@@ -3168,7 +3166,7 @@ Attributes of touch events include various properties that define their behavior
 
 The `GestureStateManager` allows manual control over gesture states. Note that react-native-reanimated is required for its use, as it enables synchronous execution of methods within worklets.
 
-## Touch Events
+## Touch events
 
 ### Touch Event Attributes
 
@@ -3194,7 +3192,7 @@ The `GestureStateManager` allows manual control over gesture states. Note that r
 
 - **absoluteY**: The Y coordinate of the current position of the touch relative to the window, expressed in point units. Recommended for use when the original view can be transformed due to a gesture.
 
-## Gesture State Manager
+## Gesture state manager
 
 The `GestureStateManager` provides manual control over gesture states, requiring `react-native-reanimated` for synchronous execution of methods within worklets.
 
@@ -3220,7 +3218,7 @@ The `GestureStateManager` provides manual control over gesture states, requiring
 - **Purpose**: Transition the gesture to the `FAILED` state.
 - **Effectiveness**: Ineffective if the handler has already finished.
 
-## Touch Events
+## Touch events
 
 ### Touch Event Attributes
 
@@ -3246,7 +3244,7 @@ The `GestureStateManager` provides manual control over gesture states, requiring
 
 - **absoluteY**: The Y coordinate of the current position of the touch relative to the window, expressed in point units. Recommended for use when the original view can be transformed due to a gesture.
 
-## Gesture State Manager
+## Gesture state manager
 
 The `GestureStateManager` provides manual control over gesture states, requiring `react-native-reanimated` for synchronous execution of methods within worklets.
 
@@ -3600,7 +3598,7 @@ class Drawerable extends Component {
 }
 ```
 
-## Gesture Composition & Interactions
+## Gesture composition & interactions
 
 In RNGH2, composing gestures has been simplified compared to previous versions. There is no longer a need to create a reference for each gesture that depends on another one. Instead, you can utilize the Race, Simultaneous, and Exclusive methods provided by the Gesture object.
 
@@ -3614,7 +3612,7 @@ In RNGH2, composing gestures has been simplified compared to previous versions. 
 
 These methods facilitate more intuitive and flexible gesture interactions within your application.
 
-## Manual Gestures
+## Manual gestures
 
 RNGH2 introduces manual gestures and touch events, allowing for custom gesture tracking. This guide demonstrates creating a simple gesture that tracks all pointers on the screen.
 
@@ -3787,7 +3785,7 @@ const gesture = Gesture.Manual()
 
 Manual gestures offer powerful customization, enabling complex interactions. Additionally, existing gestures can be modified with `manualActivation` to control activation behavior, such as implementing drag after a long press by setting `manualActivation` on a `PanGesture`.
 
-## Pressable Component
+## Pressable
 
 ### Overview
 
@@ -3870,7 +3868,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-## Gesture Composition & Interactions
+## Gesture composition & interactions
 
 Composing gestures in RNGH2 is straightforward. You don't need to create a ref for each gesture that depends on another one. Instead, use `Race`, `Simultaneous`, and `Exclusive` methods provided by the `Gesture` object.
 
@@ -4428,7 +4426,7 @@ We are proud of the community built around this package and appreciate all forms
 
 We are grateful for our sponsors who enable the development of this library and contribute to enhancing the React Native ecosystem. Special thanks to all our supporters!
 
-## Troubleshooting Guide
+## Troubleshooting
 
 ### Seeking Help with Issues
 
@@ -4510,7 +4508,7 @@ const gesture = Gesture.Tap().onBegin(callback)
 
 This ensures proper workletization for asynchronous operations within gestures.
 
-## Tap Gesture
+## Tap gesture
 
 A tap gesture recognizes one or multiple taps. It detects brief touches on the screen by fingers, which must remain relatively stationary from their initial positions. You can configure tap gestures to recognize single, double, or triple taps based on specific requirements such as `minPointers`, `numberOfTaps`, `maxDist`, `maxDuration`, and `maxDelayMs`.
 
@@ -4811,7 +4809,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-## Swipeable Component
+## Swipeable
 
 **Caution:** This component facilitates the implementation of swipeable rows or similar interactions. It renders its children within a panable container, allowing for horizontal swiping left and right. Depending on whether the user swipes left or right, one of two "action" containers can be displayed, rendered by `renderLeftActions` or `renderRightActions` props.
 
@@ -4988,13 +4986,11 @@ import {
 
 For a comparison of both touchable implementations, refer to our touchables example.
 
-```markdown
-# Handler State
+## Handler State
 
 Gesture handlers are conceptualized as "state machines" according to the description provided in "About Gesture Handlers". This means they operate through a series of states, transitioning between them based on specific inputs or events.
-```
 
-## How It Works
+## How does it work?
 
 ### Units
 

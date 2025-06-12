@@ -44,7 +44,7 @@ Menu paths are presented in bold and utilize carets for navigating submenus. Exa
 
 With an understanding of how to navigate these guides, it's time to explore the foundation of React Native: Native Components.
 
-## Animated Library Overview
+## Animated
 
 The `Animated` library is designed for creating fluid, powerful animations that are easy to build and maintain. It emphasizes declarative relationships between inputs and outputs, configurable transforms, and control over animation execution through `start`/`stop` methods.
 
@@ -922,7 +922,7 @@ Specifies the size of the indicator.
 - `hidesWhenStopped` (iOS)
 - `size`
 
-## Button Component
+## Button
 
 The Button component is designed to render consistently across different platforms, offering a basic level of customization. If the default appearance does not meet your needs, consider creating a custom button using Pressable. For guidance, refer to the source code of the Button component.
 
@@ -970,6 +970,8 @@ The Button component is designed to render consistently across different platfor
 ||- false|||
 
 This table summarizes the properties available for the Button component, detailing their purpose and default values where applicable.
+
+## Image
 
 To integrate image handling capabilities in your React Native application, you can utilize the `<Image />` component along with various methods and properties provided for efficient image management. Below is an overview of how to use these features effectively:
 
@@ -1175,7 +1177,7 @@ The `config` object provides enhanced versions of all responder callbacks, inclu
 
 For events with capture equivalents, the gesture state is updated once in the capture phase and can be used in the bubble phase. Be cautious with `onStartShould*` callbacks; they only reflect updated `gestureState` for start/end events that bubble/capture to the Node. Once a node becomes the responder, every start/end event updates the `gestureState`. Note that `numberActiveTouches` may not always be accurate unless you are the responder.
 
-## Installing Dependencies
+## Installing dependencies
 
 To develop a React Native app, ensure you have Node, Watchman, the React Native CLI, a JDK, and Android Studio installed. While any editor can be used for development, Android Studio is necessary for setting up the Android build environment.
 
@@ -1324,7 +1326,7 @@ You've successfully set up your iOS development environment for React Native.
 - For integrating React Native into an existing app, refer to the Integration guide.
 - To learn more about React Native, explore the Introduction to React Native.
 
-## ImageBackground Component Overview
+## ImageBackground
 
 The `<ImageBackground>` component is designed for developers who are accustomed to using `background-image` in web development. It functions similarly to the `<Image>` component, allowing you to layer additional content on top of an image.
 
@@ -1419,7 +1421,7 @@ Represents the distance between the top of the user's screen and the React Nativ
 |-|-|
 |number|`0`|
 
-## Modal Component
+## Modal
 
 The Modal component provides a straightforward method to display content above an enclosing view.
 
@@ -1579,6 +1581,8 @@ Controls whether the modal is visible or not.
 |Type|Default|
 |-|-|
 |bool|`true`|
+
+## Key Concepts
 
 To integrate React Native into an existing iOS application, follow these steps carefully. This guide assumes you have a basic understanding of both iOS development using Xcode and JavaScript/React Native.
 
@@ -1860,7 +1864,7 @@ Configuration object for the `android_ripple` property.
 |radius|number|No|Sets the radius of the ripple effect.|
 |foreground|boolean|No|If true, adds the ripple effect to the view's foreground instead of the background. Useful when child views have their own backgrounds or images are displayed, preventing the ripple from being obscured.|
 
-## RefreshControl Component
+## RefreshControl
 
 The `RefreshControl` component is designed to be used within a ScrollView or ListView, providing pull-to-refresh functionality. When the scroll position (`scrollY`) reaches zero and the user swipes down, an `onRefresh` event is triggered.
 
@@ -2107,6 +2111,8 @@ Support for TV devices, specifically Apple TV and Android TV, was integrated int
 
 > **Deprecated Notice:** The support for TV devices has been transitioned to a separate repository named "React Native for TV." For detailed guidance on projects targeting Apple TV or Android TV, please refer to the *README* file within that repository.
 
+## ScrollView
+
 The provided documentation outlines various properties and methods associated with a ScrollView component, likely from a mobile development framework such as React Native. Below is a summary of the key features:
 
 #### Properties
@@ -2214,7 +2220,7 @@ Your `package.json` must include an entry like this:
 
 Here, `"providesModuleNodeModules"` is a list of modules added to the Haste module search path, and `"platforms"` specifies valid platform suffixes.
 
-## StatusBar Component
+## StatusBar
 
 The `StatusBar` component manages the app's status bar, which is typically located at the top of the screen. It displays information such as time, network status, battery level, and other status icons.
 
@@ -2384,7 +2390,7 @@ Enum representing the status bar style type.
 |`'light-content'`|string|White texts and icons.|
 |`'dark-content'`|string|Dark texts and icons (requires API>=23 on Android).|
 
-## Enabling USB Debugging on Android Devices
+## 1. Enable Debugging over USB
 
 Most Android devices restrict app installations to those downloaded from Google Play by default. To install apps during development, enable USB Debugging on your device.
 
@@ -2515,7 +2521,7 @@ Run `adb devices` to confirm your device is connected.
 
 This guide covers enabling USB debugging, setting up an Android device for React Native development, connecting to the development server via USB or Wi-Fi, and preparing your app for production release. Follow these steps to streamline your development workflow.
 
-## Switch Component
+## Switch
 
 The `Switch` component renders a boolean input and functions as a controlled component. It necessitates an `onValueChange` callback to update its `value` prop, ensuring that user interactions are accurately reflected in the UI. Without updating the `value` prop, the component will persistently display the initially supplied value.
 
@@ -2570,7 +2576,7 @@ The `Switch` inherits all View Props.
 - **Description**: Determines the state of the switch. If set to `true`, the switch is on; otherwise, it's off. The default value is `false`.
 - **Type**: `bool`
 
-## Fast Refresh in React Native
+## Fast Refresh
 
 Fast Refresh is a feature in React Native that provides near-instant feedback when changes are made to your React components. By default, this feature is enabled and can be toggled through the "Enable Fast Refresh" option in the React Native Dev Menu. With it activated, most edits should become visible within seconds.
 
@@ -2620,7 +2626,7 @@ Hooks with dependencies (e.g., `useEffect`, `useMemo`, `useCallback`) will alway
 
 This behavior can lead to unexpected results, such as an empty-array `useEffect` running once during Fast Refresh. Writing resilient code for occasional `useEffect` re-runs is beneficial and aligns with best practices, facilitating future dependency additions.
 
-## Metro Configuration in React Native
+## Metro
 
 React Native utilizes Metro to compile JavaScript code and manage assets. Below are guidelines for configuring Metro within your project.
 
@@ -2712,7 +2718,7 @@ const config = {
 - Visit the [Metro website](https://metrobundler.dev/docs/configuration) for more information.
 - Watch the "Metro & React Native DevX" talk at App.js 2023 for insights into Metro's role in React Native development.
 
-## Using Libraries in React Native
+## Using Libraries
 
 React Native offers built-in Core Components and APIs, but you can also leverage a vast community of developers to find additional libraries that extend your app's functionality.
 
@@ -2821,6 +2827,8 @@ For example:
 npm install @react-native-community/netinfo@^2.0.0
 ```
 
+## Text
+
 Here's a structured overview and explanation of the `Text` component in React Native, focusing on its properties and usage:
 
 #### Overview
@@ -2894,6 +2902,8 @@ export default MyComponent
 #### Conclusion
 
 The `Text` component in React Native is highly customizable, supporting various styling and accessibility options. Understanding its properties allows developers to create rich, interactive text elements tailored to specific application needs.
+
+## TextInput
 
 Here is a structured overview of the properties, methods, and known issues related to the `TextInput` component in React Native:
 
@@ -2971,7 +2981,7 @@ Here is a structured overview of the properties, methods, and known issues relat
 
 This overview provides a comprehensive guide to using and understanding the `TextInput` component in React Native, including its properties, methods, and known issues.
 
-## TouchableHighlight Component
+## TouchableHighlight
 
 > For a more robust and future-proof approach to handling touch-based input, consider using the Pressable API.
 
@@ -3041,7 +3051,7 @@ function MyComponent(props: MyComponentProps) {
 - **testOnly\_pressed**: Useful for snapshot tests.
   - Type: bool
 
-## TouchableOpacity Component
+## TouchableOpacity
 
 > For a more comprehensive and future-proof approach to handling touch-based input, consider using the Pressable API.
 
@@ -3106,7 +3116,7 @@ This behavior is achieved by enclosing the children in an `Animated.View`, which
 - **Platform**: Android
 - Description: Identifies the next focusable view when navigating up using a TV remote, as detailed in the View component documentation.
 
-## Upgrading React Native Versions
+## Upgrading to new versions
 
 Upgrading to newer versions of React Native provides access to additional APIs, views, developer tools, and other enhancements. Although the process requires some effort, we aim to make it as straightforward as possible.
 
@@ -3223,7 +3233,7 @@ function MyComponent(props: MyComponentProps) {
 |`testID`|Used to locate this view in end-to-end tests.|string|
 |`touchSoundDisabled` (Android)|If set to true, prevents the system sound from playing on touch.|Boolean|
 
-## Text
+## View
 
 #### Accessibility Properties
 
@@ -3317,7 +3327,7 @@ function MyComponent(props: MyComponentProps) {
 
 This documentation provides comprehensive details on how to configure various aspects of a `View`, focusing on accessibility, layout, interaction, and identification.
 
-## Style in React Native
+## Style
 
 In React Native, styling your application is done using JavaScript. Core components accept a `style` prop, which typically mirrors CSS conventions but uses camel casing for property names (e.g., `backgroundColor` instead of `background-color`).
 
@@ -3379,7 +3389,7 @@ Once you've mastered controlling a component's size, the next step is learning h
 
 To occupy a specific portion of the screen without using the `flex` layout, you can use **percentage values** in the component's style. Like flex dimensions, percentage dimensions require that the parent has defined dimensions.
 
-## DrawerLayoutAndroid Component
+## DrawerLayoutAndroid
 
 The `DrawerLayoutAndroid` is a React component specifically designed for Android platforms. It encapsulates the platform's native `DrawerLayout`. This layout typically serves as a navigation drawer, which can be rendered using the `renderNavigationView` prop. The main content of your application resides within its direct children.
 
@@ -3516,7 +3526,7 @@ openDrawer()
 
 Opens the navigation drawer.
 
-## Flexbox Layout in React Native
+## Layout with Flexbox
 
 Flexbox provides a consistent way to design layouts across different screen sizes. In React Native, it shares similarities with CSS on the web but has specific differences such as default values for properties like `flexDirection`, `alignContent`, and `flexShrink`.
 
@@ -3956,7 +3966,7 @@ A unique identifier used to associate this `InputAccessoryView` with specific Te
 - **react-native#18997**: Does not support multiline `TextInput`.
 - **react-native#20157**: Incompatible with a bottom tab bar.
 
-## SafeAreaView Overview
+## SafeAreaView
 
 The `SafeAreaView` component ensures that content is displayed within the safe area boundaries of a device. It's specifically designed for iOS devices running version 11 or later.
 
@@ -3974,7 +3984,7 @@ To implement `SafeAreaView`, wrap your top-level view with it and apply a style 
 
 `SafeAreaView` inherits all View Props. Note that any padding specified in styles applied to a `SafeAreaView` will be ignored, as the component uses its own padding logic. This can lead to different results across platforms. For more details, refer to issue #22211.
 
-## Image Style Properties
+## Image Style Props
 
 ### Examples
 
@@ -4137,7 +4147,7 @@ Alters the color of all non-transparent pixels to the specified `tintColor`.
 |-|
 |color|
 
-## Shadow Properties in React Native
+## Shadow Props
 
 - TypeScript
 - JavaScript
@@ -4215,7 +4225,7 @@ Specifies the drop shadow blur radius.
 |-|
 |number|
 
-## Text Style Properties
+## Text Style Props
 
 ### Example
 
@@ -4389,7 +4399,7 @@ Allows text selection and native copy-paste functionality, taking precedence ove
   - `'all'`
 - **Default**: `none`
 
-## View Style Properties
+## View Style Props
 
 ### Example
 
@@ -4685,7 +4695,7 @@ Indicates whether the shadow is inset or not. Inset shadows appear inside the el
 
 - `boxShadow`
 
-## Handling Touches in React Native
+## Handling Touches
 
 Users primarily interact with mobile applications through touch gestures such as tapping buttons, scrolling lists, or zooming maps. React Native offers components to manage common gestures and a comprehensive gesture responder system for advanced recognition. The `Button` component is particularly useful for basic interactions.
 
@@ -5229,7 +5239,7 @@ The `native-stack` navigator leverages native APIs (`UINavigationController` on 
 
 React Navigation also offers packages for different navigators, such as tabs and drawers, enabling various navigation patterns in your app. For a comprehensive introduction to React Navigation, refer to the React Navigation Getting Started Guide.
 
-## Troubleshooting Guide for React Native Setup
+## Troubleshooting
 
 This guide addresses common issues encountered during the setup of React Native. If you face an issue not listed here, consider searching for it on GitHub.
 
@@ -5673,7 +5683,7 @@ const Cafe = () => {
 
 Having covered React and React Native’s Core Components, let's explore handling `<TextInput>` further.
 
-## Core Components and APIs in React Native
+## Core Components and APIs
 
 React Native offers a variety of built-in core components that can be utilized directly within your application. These components are accessible via the navigation sidebar or the top menu for narrower screens.
 
@@ -5898,7 +5908,7 @@ const MyScrollView = () => {
 export default MyScrollView;
 ```
 
-## Using List Views in React Native
+## Using List Views
 
 React Native offers several components designed for presenting lists of data efficiently. The primary choices are `FlatList` and `SectionList`.
 
@@ -6084,6 +6094,8 @@ import Container from "./Container"
 ```
 
 **Pro tip:** Configure your Web bundler to ignore `.native.js` extensions to avoid including unused code in production, reducing bundle size.
+
+## Accessibility
 
 #### Overview of Accessibility Features in React Native
 
@@ -6466,7 +6478,7 @@ Safari can be used to debug the iOS version of your app when using JavaScriptCor
 - Safari Developer Tools (Direct JSC Debugging)
 - Remote JavaScript Debugging (Removed)
 
-## Testing Guide for Code Quality Assurance
+## Testing
 
 As your codebase grows, small errors can lead to significant failures. Bugs negatively impact user experience and business outcomes. To prevent fragile programming, testing is essential before releasing software.
 
@@ -7002,7 +7014,7 @@ An object for optional alert configurations.
 |userInterfaceStyleiOS|string|Interface style for the alert, set to `light` or `dark`, otherwise defaults to system style.|
 |onDismissAndroid|function|Callback fired when the alert is dismissed.|
 
-## Optimizing JavaScript Loading
+## Optimizing JavaScript loading
 
 Parsing and executing JavaScript code requires both memory and time. As applications grow, it becomes beneficial to delay loading code until it's needed for the first time. React Native includes standard optimizations by default, but additional techniques can further enhance app efficiency. For very large apps, advanced automatic optimizations are available, though they come with tradeoffs.
 
@@ -7944,7 +7956,7 @@ Files include:
 
 This structure is generated using the value `all` for `codegenConfig.type`. Use `modules` to exclude `react/renderer/components/`, and `components` to exclude other files.
 
-## Codegen CLI Overview
+## The Codegen CLI
 
 The **Codegen** CLI simplifies running tasks by eliminating the need to remember complex commands or manually execute scripts. It facilitates executing `@react-native/codegen` for React Native projects with ease.
 
@@ -8013,7 +8025,7 @@ To incorporate generated code into your library:
 
 By following these steps, you can streamline your development process and ensure that your library remains compatible with various React Native versions.
 
-## Introduction
+## Native Platform
 
 ### Overview
 
@@ -8047,7 +8059,7 @@ This guide covers how to integrate native platform features into your React Nati
 **Previous:** The Codegen CLI\
 **Next:** Android and iOS
 
-## BackHandler API Overview
+## BackHandler
 
 The **BackHandler** API is designed for Android devices to manage hardware button presses related to back navigation. It allows developers to register event listeners and control the application's response to these events.
 
@@ -8117,6 +8129,8 @@ Programmatically exits the application.
 ```typescript
 static exitApp();
 ```
+
+## Native Modules
 
 To implement a cross-platform `localStorage` solution using React Native's TurboModule system, you need to set up both Android and iOS platforms. Below is a step-by-step guide based on the provided instructions:
 
@@ -8347,6 +8361,8 @@ Update `package.json` to link the JS interface with the native implementation.
   ```
 
 This setup provides a consistent `localStorage` API across both platforms using React Native's TurboModule system.
+
+## Cross-Platform Native Modules (C++)
 
 Creating a cross-platform native module using C++ is an efficient way to share platform-agnostic code between Android and iOS. This guide walks through the process of creating a pure C++ Turbo Native Module, which allows you to write your logic once and reuse it across platforms.
 
@@ -8670,6 +8686,8 @@ export default App
 #### Conclusion
 
 You've successfully created a C++ Turbo Native Module that works on both Android and iOS. This setup allows you to write platform-agnostic code in C++, reducing redundancy and improving maintainability across platforms.
+
+## Native Components
 
 To create a native web view component in React Native, you need to implement platform-specific code for both Android and iOS. Below is a step-by-step guide on how to achieve this:
 
@@ -9123,7 +9141,7 @@ yarn add <package.name>
 
 Congratulations! You've published your first React Native library.
 
-## ToastAndroid API in React Native
+## ToastAndroid
 
 The `ToastAndroid` API in React Native provides access to Android's native toast notifications. It offers methods for displaying short or long messages with optional positioning and offset adjustments.
 
@@ -9423,7 +9441,7 @@ This means, are you using the library on the native side or only in JavaScript? 
 
 If native usage is required, include the library's headers by going to your project file, selecting `Build Settings`, and searching for `Header Search Paths`. Add the path to your library. (Previously recommended using `recursive` is now discouraged due to potential build failures, especially with CocoaPods.)
 
-## Running on Simulator
+## Running On Simulator
 
 ### Starting the Simulator
 
@@ -9751,7 +9769,7 @@ Invokes `configureNext()` with the `Presets.spring`.
 
 **Example:**
 
-## Appearance Module
+## Appearance
 
 The `Appearance` module provides information about the user's appearance preferences, such as their preferred color scheme (light or dark).
 
@@ -10643,7 +10661,7 @@ Sets accessibility focus on a React component by calling `UIManager.sendAccessib
 
 > **Note**: Ensure any `View` intended to receive accessibility focus has `accessible={true}`.
 
-## AppState Overview
+## AppState
 
 The `AppState` module provides information about whether an application is in the foreground or background and notifies you of any state changes. It's particularly useful for determining how to handle push notifications based on the app's current state.
 
@@ -11672,7 +11690,7 @@ Defined as the width of a thin line on the platform, this property is useful for
 
 A line with `hairlineWidth` might not be visible if your simulator is downscaled.
 
-## Dimensions in React Native
+## Dimensions
 
 `useWindowDimensions` is the recommended API for React components, as it updates automatically with changes to the window's dimensions. This aligns well with the React paradigm.
 
@@ -11765,7 +11783,7 @@ const { height, width } = Dimensions.get("window")
 |scale|number|
 |fontScale|number|
 
-## Props in React Native
+## Props
 
 In React Native, most components are customizable through parameters known as `props`, short for properties. These allow developers to tailor component behavior and appearance.
 
@@ -12010,7 +12028,7 @@ static counterEvent(eventName: string | (() => string), value: number);
 
 Register the value to the profile name on the systrace timeline.
 
-## Easing Module
+## Easing
 
 The `Easing` module provides a collection of common easing functions used to create physically believable motion in animations, particularly with `Animated.timing()`.
 
@@ -12497,7 +12515,7 @@ useWindowDimensions().width
 
 Indicates the width in pixels of the window or screen that your application occupies.
 
-## Keyboard Module
+## Keyboard
 
 The `Keyboard` module provides functionality for controlling and responding to keyboard events in your application. It allows you to listen for native keyboard notifications, dismiss the keyboard, and synchronize layout animations with keyboard movements.
 
