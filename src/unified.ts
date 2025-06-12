@@ -1,4 +1,4 @@
-import type { List, ListItem, PhrasingContent, Root } from 'mdast';
+import type { Heading, List, ListItem, PhrasingContent, Root } from 'mdast';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 import { defaultSchema as defaultSanitizeSchema } from 'hast-util-sanitize';
@@ -12,7 +12,30 @@ import remarkNormalizeHeadings from 'remark-normalize-headings';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs';
-import remarkTitle from 'remark-title';
+
+const toString = (nodes: PhrasingContent[]): string =>
+  nodes.map((node) => {
+    switch (node.type) {
+      case 'break':
+        return '\n';
+      case 'delete':
+      case 'emphasis':
+      case 'link':
+      case 'strong':
+        return toString(node.children);
+      case 'inlineCode':
+        return `\`${node.value}\``;
+      case 'text':
+        return node.value;
+      case 'footnoteReference':
+      case 'html':
+      case 'image':
+      case 'imageReference':
+      case 'linkReference':
+      default:
+        return '';
+    }
+  }).join('');
 
 export async function sanitizeHtml(html: string): Promise<string> {
   const vfile = await unified()
@@ -161,31 +184,6 @@ export async function concatMarkdown(
 }
 
 function extractTitle(markdown: string): string | null {
-  let depth: number | null = null;
-  let title: string | null = null;
-  const toString = (nodes: PhrasingContent[]): string =>
-    nodes.map((node) => {
-      switch (node.type) {
-        case 'break':
-          return '\n';
-        case 'delete':
-        case 'emphasis':
-        case 'link':
-        case 'strong':
-          return toString(node.children);
-        case 'inlineCode':
-          return `\`${node.value}\``;
-        case 'text':
-          return node.value;
-        case 'footnoteReference':
-        case 'html':
-        case 'image':
-        case 'imageReference':
-        case 'linkReference':
-        default:
-          return '';
-      }
-    }).join('');
   const tree = unified()
     .use(remarkParse, { fragment: true })
     .use(remarkGfm, {
@@ -193,13 +191,31 @@ function extractTitle(markdown: string): string | null {
       tableCellPadding: false,
     })
     .parse(markdown);
-  visit(tree, function (node) {
-    if (node.type !== 'heading')
-      return;
-    if (!depth || node.depth < depth)
-      title = toString(node.children);
-  });
-  return title;
+  const node = tree.children[0];
+  if (node && node.type === 'heading' && node.depth === 1) {
+    return toString(node.children);
+  } else {
+    return null;
+  }
+}
+
+function remarkTitle(opts: { title: string }) {
+  return function checkTitleTransformer(root: Root) {
+    const node = root.children[0]!;
+    const replacement: Heading = {
+      type: 'heading',
+      depth: 1,
+      children: [
+        { type: 'text', value: opts.title }
+      ]
+    };
+    if (node && node.type === 'heading') {
+      node.depth = 1;
+      node.children = replacement.children;
+    } else {
+      root.children?.unshift(replacement);
+    }
+  }
 }
 
 export async function transferTitle(from: string, to: string): Promise<string> {
@@ -211,9 +227,7 @@ export async function transferTitle(from: string, to: string): Promise<string> {
       tablePipeAlign: false,
       tableCellPadding: false,
     })
-    .use(remarkTitle, {
-      title,
-    })
+    .use(remarkTitle, { title })
     .use(remarkStringify, {
       bullet: '-',
       incrementListMarker: false,
