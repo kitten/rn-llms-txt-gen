@@ -7,7 +7,7 @@ import * as path from 'node:path';
 
 import { makeCacheFileHelper } from './path';
 
-const log = debug('llms-txt-gen.rewrite');
+const log = debug('llms-txt-gen:rewrite');
 
 const cacheDir = path.join(process.cwd(), '.cache/rewrite');
 await fs.mkdir(cacheDir, { recursive: true });

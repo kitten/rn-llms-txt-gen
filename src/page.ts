@@ -9,7 +9,7 @@ import { htmlToMarkdown, sanitizeHtml, transferTitle } from "./unified";
 import { rewriteMarkdown } from './rewrite';
 import { makeCacheFileHelper } from './path';
 
-const log = debug('llms-txt-gen.graph');
+const log = debug('llms-txt-gen:graph');
 
 export interface CrawlOptions {
   baseURL: URL | string;

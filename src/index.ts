@@ -6,7 +6,7 @@ import { crawl, type CrawlOptions } from './page';
 import { concatMarkdown } from './unified';
 import { formatMarkdown } from './prettier';
 
-const log = debug('llms-txt-gen');
+const log = debug('llms-txt-gen:main');
 
 interface Site extends CrawlOptions {
   name: string;

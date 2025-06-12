@@ -3,7 +3,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { makeCacheFileHelper } from './path';
 
-const log = debug('llms-txt-gen.fetch');
+const log = debug('llms-txt-gen:fetch');
 
 const cacheDir = path.join(process.cwd(), '.cache/fetch');
 await fs.mkdir(cacheDir, { recursive: true });

@@ -2,7 +2,7 @@ import { debug } from 'debug';
 import { Readability } from '@mozilla/readability';
 import { Window } from 'happy-dom';
 
-const log = debug('llms-txt-gen.dom');
+const log = debug('llms-txt-gen:dom');
 
 export function parseBody(url: URL, html: string): Document {
   const window = new Window({ url: `${url}` });
