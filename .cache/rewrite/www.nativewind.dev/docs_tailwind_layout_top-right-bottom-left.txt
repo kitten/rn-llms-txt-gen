@@ -1,4 +1,4 @@
-# Usage
+# Top / Right / Bottom / Left
 
 For detailed information, please consult the Tailwind CSS documentation.
 

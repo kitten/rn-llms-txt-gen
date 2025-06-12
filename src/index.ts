@@ -42,6 +42,7 @@ let sites: Site[] = [
       '/react-native-reanimated/docs/next/(.*)',
       '/react-native-reanimated/docs/2.x/(.*)',
       '/react-native-reanimated/docs/1.x/(.*)',
+      '/react-native-reanimated/docs/category/(.*)',
     ],
   },
   {

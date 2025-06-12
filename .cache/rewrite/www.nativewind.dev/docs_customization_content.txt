@@ -1,7 +1,3 @@
-```markdown
-## Content Rules in Nativewind
+# Content Rules in Nativewind
 
 Nativewind adheres to the same content configuration guidelines as Tailwind CSS. For detailed information and solutions to potential issues, consult the official Tailwind CSS documentation.
-```
-
-This reformatted markdown maintains the original message while ensuring clarity and conciseness for an AI context.

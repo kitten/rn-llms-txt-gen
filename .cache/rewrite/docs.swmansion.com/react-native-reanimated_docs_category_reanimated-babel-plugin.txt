@@ -1,7 +1,0 @@
-```markdown
-## About
-
-### What is Reanimated Babel Plugin?
-
-The Reanimated Babel Plugin is a tool designed to enhance the performance of animations in React Native applications. It works by transforming animation code during the build process, allowing for more efficient execution on mobile devices. By leveraging this plugin, developers can create smooth and responsive animations that run directly on the UI thread, bypassing JavaScript's limitations.
-```

@@ -1,3 +1,5 @@
+# Accessibility
+
 ### Overview of Accessibility Features in React Native
 
 React Native provides several accessibility features that help developers create applications usable by everyone, including people with disabilities. These features are crucial for ensuring inclusivity and compliance with accessibility standards like WCAG (Web Content Accessibility Guidelines).

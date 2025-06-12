@@ -1,3 +1,5 @@
+# TextInput
+
 Here is a structured overview of the properties, methods, and known issues related to the `TextInput` component in React Native:
 
 ### Properties

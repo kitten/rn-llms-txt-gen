@@ -1,3 +1,5 @@
+# Entering/Exiting animations
+
 The provided content outlines a comprehensive guide for using various animations in React Native with the `react-native-reanimated` library. Below is a structured summary of the key points and features:
 
 ### Overview

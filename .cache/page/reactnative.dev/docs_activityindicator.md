@@ -1,5 +1,3 @@
-On this page
-
 # ActivityIndicator
 
 Displays a circular loading indicator.

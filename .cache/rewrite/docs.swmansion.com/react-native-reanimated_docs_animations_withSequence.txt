@@ -1,4 +1,3 @@
-```markdown
 # withSequence
 
 `withSequence` is an animation modifier that allows animations to be executed in a sequential order.
@@ -35,4 +34,3 @@ The `withSequence` function returns an animation object representing the current
 | Android | iOS | Web |
 |---------|-----|-----|
 | ✅      | ✅  | ✅  |
-```

@@ -1,3 +1,5 @@
+# Text
+
 Here's a structured overview and explanation of the `Text` component in React Native, focusing on its properties and usage:
 
 ### Overview

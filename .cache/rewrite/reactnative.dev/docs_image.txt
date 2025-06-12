@@ -1,3 +1,5 @@
+# Image
+
 To integrate image handling capabilities in your React Native application, you can utilize the `<Image />` component along with various methods and properties provided for efficient image management. Below is an overview of how to use these features effectively:
 
 ### Adding Image Support

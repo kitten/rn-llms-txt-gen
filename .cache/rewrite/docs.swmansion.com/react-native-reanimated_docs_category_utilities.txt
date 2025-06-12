@@ -1,9 +1,0 @@
-```markdown
-# `useAnimatedGestureHandler`
-
-**Note:** This API has been deprecated. It no longer receives updates and will be removed in a future major release of Reanimated.
-
-## Overview
-
-The `useAnimatedGestureHandler` function is part of the Reanimated library, which provides tools for creating smooth animations on React Native applications. However, due to its deprecation status, developers are advised to seek alternative solutions or APIs that offer similar functionality but with ongoing support and updates.
-```

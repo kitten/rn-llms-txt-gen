@@ -1,3 +1,5 @@
+# ScrollView
+
 The provided documentation outlines various properties and methods associated with a ScrollView component, likely from a mobile development framework such as React Native. Below is a summary of the key features:
 
 ### Properties

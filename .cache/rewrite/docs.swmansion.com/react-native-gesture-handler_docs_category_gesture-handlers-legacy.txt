@@ -1,4 +1,3 @@
-```markdown
 # Legacy Gesture Handlers
 
 ## Overview
@@ -43,4 +42,3 @@ The `NativeView` component in the old API will be removed. Users should adopt th
 ## createNativeWrapper()
 
 The `createNativeWrapper()` function from the legacy API will no longer be supported. Transitioning to the gestures API is recommended. Consult the upgrading guide for more details.
-```

@@ -1,3 +1,5 @@
+# Key Concepts
+
 To integrate React Native into an existing iOS application, follow these steps carefully. This guide assumes you have a basic understanding of both iOS development using Xcode and JavaScript/React Native.
 
 ### Prerequisites

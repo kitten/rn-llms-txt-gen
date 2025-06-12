@@ -1,6 +1,6 @@
-Top / Right / Bottom / Left
+# Top / Right / Bottom / Left
 
-# Usage
+## Usage
 
 Please refer to the documentation on the Tailwind CSS website
 
