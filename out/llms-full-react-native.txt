@@ -1,4 +1,4 @@
-# Introduction
+# react-native
 
 Welcome to your initial steps into React Native! If you're seeking instructions on getting started, they have been relocated to a dedicated section. Continue reading for an introduction covering documentation, Native Components, React, and more.
 

@@ -1,4 +1,4 @@
-# React NativeGesture Handler
+# react-native-gesture-handler
 
 ### Overview
 

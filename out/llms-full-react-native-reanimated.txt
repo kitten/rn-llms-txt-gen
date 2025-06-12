@@ -1,4 +1,4 @@
-# React NativeReanimated
+# react-native-reanimated
 
 ### Create Smooth Animations with an Excellent Developer Experience
 
