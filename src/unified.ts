@@ -199,7 +199,7 @@ function extractTitle(markdown: string): string | null {
   }
 }
 
-function remarkTitle(opts: { title: string }) {
+export function remarkTitle(opts: { title: string }) {
   return function checkTitleTransformer(root: Root) {
     const node = root.children[0]!;
     const replacement: Heading = {

@@ -26,7 +26,7 @@ async function generate(site: Site) {
     log(`completed page ${idx + 1} of ${pages.length}`);
   }
   const output = await concatMarkdown(contents);
-  const formatted = await formatMarkdown(output);
+  const formatted = await formatMarkdown(site.name, output);
   const file = path.join(outputPath, `llms-full-${site.name}.txt`);
   await fs.writeFile(file, formatted, 'utf-8');
 }

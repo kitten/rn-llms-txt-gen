@@ -4,7 +4,9 @@ import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
 import remarkGfm from 'remark-gfm';
 
-async function reformat(content: string): Promise<string> {
+import { remarkTitle } from './unified';
+
+async function reformat(content: string, title: string): Promise<string> {
   // NOTE: We reformat with remark again to get rid of prettier's
   // table formatting mostly. This doesn't work well as LLM input
   const md = await unified()
@@ -13,6 +15,7 @@ async function reformat(content: string): Promise<string> {
       tablePipeAlign: false,
       tableCellPadding: false,
     })
+    .use(remarkTitle, { title })
     .use(remarkStringify, {
       bullet: '-',
       incrementListMarker: false,
@@ -23,12 +26,15 @@ async function reformat(content: string): Promise<string> {
   return md.toString();
 }
 
-export async function formatMarkdown(input: string) {
-  return reformat(await format(input, {
-    semi: false,
-    singleQuote: false,
-    trailingComma: 'es5',
-    proseWrap: 'never',
-    parser: 'markdown',
-  }));
+export async function formatMarkdown(title: string, input: string) {
+  return reformat(
+    await format(input, {
+      semi: false,
+      singleQuote: false,
+      trailingComma: 'es5',
+      proseWrap: 'never',
+      parser: 'markdown',
+    }),
+    title
+  );
 }
